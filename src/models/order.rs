@@ -36,6 +36,122 @@ pub struct Order {
 }
 
 impl Order {
+    pub fn create(user_id: i32, form: crate::utils::OrderForm) -> i16 {
+        use crate::schema::serve::dsl::serve;
+        use crate::models::{
+            NewTechCategoriesItem,
+            Serve,
+            NewServeItems,
+        };
+
+        let _connection = establish_connection();
+        let _order: Order;
+        if user_id != 0 {
+            if l == 1 {
+                let new_order = NewOrder::create (
+                    form.title.clone(),
+                    "".to_string(),
+                    form.types,
+                    form.object_id,
+                    form.username.clone(),
+                    form.email.clone(),
+                    form.description.clone(),
+                    None,
+                    user_id,
+                );
+
+                _order = diesel::insert_into(schema::orders::table)
+                    .values(&new_order)
+                    .get_result::<Order>(&_connection)
+                    .expect("E.");
+            }
+            else {
+                let new_order = NewOrder::create (
+                    "".to_string(),
+                    form.title.clone(),
+                    form.types,
+                    form.object_id,
+                    form.username.clone(),
+                    form.email.clone(),
+                    None,
+                    form.description,
+                    user_id,
+                );
+                _order = diesel::insert_into(schema::orders::table)
+                    .values(&new_order)
+                    .get_result::<Order>(&_connection)
+                    .expect("E.");
+            }
+
+            for file in form.files.iter() {
+                let new_file = NewOrderFile::create (
+                    _order.id,
+                    file.to_string()
+                );
+                diesel::insert_into(schema::order_files::table)
+                    .values(&new_file)
+                    .execute(&_connection)
+                    .expect("E.");
+            };
+
+            // создаем опции услуги и записываем id опций в вектор.
+            let mut serve_ids = Vec::new();
+            for serve_id in form.serve_list.into_iter() {
+                let new_serve_form = NewServeItems {
+                    serve_id: serve_id,
+                    item_id:  form.object_id,
+                    types:    form.types,
+                };
+                diesel::insert_into(schema::serve_items::table)
+                    .values(&new_serve_form)
+                    .execute(&_connection)
+                    .expect("Error.");
+                serve_ids.push(serve_id);
+            }
+
+            // получаем опции, чтобы создать связи с их тех. категорией.
+            // это надо отрисовки тех категорий услуги, которые активны
+            let _serves = serve
+                .filter(schema::serve::id.eq_any(serve_ids))
+                .load::<Serve>(&_connection)
+                .expect("E");
+
+            let mut tech_cat_ids = Vec::new();
+            let mut order_price = 0;
+            for _serve in _serves.iter() {
+                if !tech_cat_ids.iter().any(|&i| i==_serve.tech_cat_id) {
+                    tech_cat_ids.push(_serve.tech_cat_id);
+                }
+                order_price += _serve.price;
+            }
+
+            for id in tech_cat_ids.iter() {
+                let new_cat = NewTechCategoriesItem {
+                    category_id: *id,
+                    item_id:     form.object_id,
+                    types:       form.types,
+                    is_active:   1,
+                };
+                diesel::insert_into(schema::tech_categories_items::table)
+                    .values(&new_cat)
+                    .execute(&_connection)
+                    .expect("Error.");
+            }
+
+            // фух. Связи созданы все, но надо еще посчитать цену
+            // услуги для калькулятора. Как? А это будет сумма всех
+            // цен выбранных опций.
+            let price_acc = get_price_acc_values(&order_price);
+            diesel::update(&_order)
+                .set((
+                    schema::orders::price.eq(order_price),
+                    schema::orders::price_acc.eq(price_acc),
+                ))
+                .execute(&_connection)
+                .expect("Error.");
+        }
+        return 1;
+    }
     pub fn get(id: i32) -> Order {
         let _connection = establish_connection();
         return orders 

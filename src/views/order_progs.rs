@@ -373,7 +373,7 @@ pub async fn create_order(conn: ConnectionInfo, req: HttpRequest, mut payload: M
         let form = crate::utils::order_form(payload.borrow_mut(), user_id).await;
         Order::create(user_id, form, get_linguage_storage())
     }
-    HttpResponse::Ok()
+    HttpResponse::Ok() 
 }
 
 pub async fn delete_order(req: HttpRequest, _id: web::Path<i32>) -> impl Responder {

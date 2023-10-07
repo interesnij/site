@@ -145,7 +145,7 @@ pub async fn create_history (
 ) -> Result<Json<CookieStat>, Error> {
     let p_id = data.user_id;
     let user = crate::views::get_c_user(conn, p_id, &req).await;
-    return Ok(CookieStat::create(data, user, get_linguage_storage())?);
+    return Ok(Json(CookieStat::create(data, user, get_linguage_storage())?));
 } 
 
 #[derive(Debug, Serialize, Deserialize)]
