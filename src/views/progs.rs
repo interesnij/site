@@ -15,7 +15,6 @@ use crate::models::{
     CookieStat,
 };
 use crate::diesel::{
-    RunQueryDsl,
     ExpressionMethods,
     QueryDsl,
 };

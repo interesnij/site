@@ -393,8 +393,9 @@ pub async fn tag_blogs_page(session: Session, req: HttpRequest, _id: web::Path<S
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
 
-            let (_blogs, next_page_number) = Item::get_blogs_list_for_ids(page, 20, &_tag_items, _request_user.is_superuser());
-            let blog_count = _blogs.len();
+            let data = Item::get_blogs_list_for_ids(page, 20, &_tag_items, _request_user.is_superuser());
+            let (_blogs, blog_count) = data.0;
+            let next_page_number = data.1;
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -450,8 +451,9 @@ pub async fn tag_blogs_page(session: Session, req: HttpRequest, _id: web::Path<S
             }
         }
         else {
-            let (_blogs, next_page_number) = Item::get_blogs_list_for_ids(page, 20, &_tag_items, false);
-            let blog_count = _blogs.len();
+            let data = Item::get_blogs_list_for_ids(page, 20, &_tag_items, false);
+            let (_blogs, blog_count) = data.0;
+            let next_page_number = data.1;
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -543,8 +545,9 @@ pub async fn tag_services_page(session: Session, req: HttpRequest, _id: web::Pat
 
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
-            let (_services, next_page_number) = Item::get_services_list_for_ids(page, 20, &_tag_items, _request_user.is_superuser());
-            let service_count = _services.len();
+            let data = Item::get_services_list_for_ids(page, 20, &_tag_items, _request_user.is_superuser());
+            let (_services, service_count) = data.0;
+            let next_page_number = data.1;
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -600,8 +603,9 @@ pub async fn tag_services_page(session: Session, req: HttpRequest, _id: web::Pat
             }
         }
         else {
-            let (_services, next_page_number) = Item::get_services_list_for_ids(page, 20, &_tag_items, false);
-            let service_count = _services.len();
+            let data = Item::get_services_list_for_ids(page, 20, &_tag_items, false);
+            let (_services, service_count) = data.0;
+            let next_page_number = data.1;
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -694,8 +698,9 @@ pub async fn tag_stores_page(session: Session, req: HttpRequest, _id: web::Path<
 
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
-            let (_stores, next_page_number) = Item::get_stores_list_for_ids(page, 20, &_tag_items, _request_user.is_superuser());
-            let stores_count = _stores.len();
+            let data = Item::get_stores_list_for_ids(page, 20, &_tag_items, _request_user.is_superuser());
+            let (_stores, store_count) = data.0;
+            let next_page_number = data.1;
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -751,8 +756,9 @@ pub async fn tag_stores_page(session: Session, req: HttpRequest, _id: web::Path<
             }
         }
         else {
-            let (_stores, next_page_number) = Item::get_stores_list_for_ids(page, 20, &_tag_items, false);
-            let stores_count = _stores.len();
+            let data = Item::get_stores_list_for_ids(page, 20, &_tag_items, false);
+            let (_stores, store_count) = data.0;
+            let next_page_number = data.1;
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -845,8 +851,9 @@ pub async fn tag_wikis_page(session: Session, req: HttpRequest, _id: web::Path<S
 
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
-            let (_wikis, next_page_number) = Item::get_wikis_list_for_ids(page, 20, &_tag_items, _request_user.is_superuser());
-            let wikis_count = _wikis.len();
+            let data = Item::get_wikis_list_for_ids(page, 20, &_tag_items, _request_user.is_superuser());
+            let (_wikis, wiki_count) = data.0;
+            let next_page_number = data.1;
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -902,8 +909,9 @@ pub async fn tag_wikis_page(session: Session, req: HttpRequest, _id: web::Path<S
             }
         }
         else {
-            let (_wikis, next_page_number) = Item::get_wikis_list_for_ids(page, 20, &_tag_items, false);
-            let wikis_count = _wikis.len();
+            let data = Item::get_wikis_list_for_ids(page, 20, &_tag_items, false);
+            let (_wikis, wiki_count) = data.0;
+            let next_page_number = data.1;
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -996,8 +1004,9 @@ pub async fn tag_works_page(session: Session, req: HttpRequest, _id: web::Path<S
 
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
-            let (_works, next_page_number) = Item::get_works_list_for_ids(page, 20, &_tag_items, _request_user.is_superuser());
-            let works_count = _works.len();
+            let data = Item::get_works_list_for_ids(page, 20, &_tag_items, _request_user.is_superuser());
+            let (_works, work_count) = data.0;
+            let next_page_number = data.1;
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -1054,8 +1063,9 @@ pub async fn tag_works_page(session: Session, req: HttpRequest, _id: web::Path<S
             }
         }
         else {
-            let (_works, next_page_number) = Item::get_works_list_for_ids(page, 20, &_tag_items, false);
-            let works_count = _works.len();
+            let data = Item::get_works_list_for_ids(page, 20, &_tag_items, false);
+            let (_works, work_count) = data.0;
+            let next_page_number = data.1;
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -1146,8 +1156,9 @@ pub async fn tag_helps_page(session: Session, req: HttpRequest, _id: web::Path<S
 
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
-            let (_helps, next_page_number) = Item::get_helps_list_for_ids(page, 20, &_tag_items, _request_user.is_superuser());
-            let helps_count = _helps.len();
+            let data = Item::get_helps_list_for_ids(page, 20, &_tag_items, _request_user.is_superuser());
+            let (_helps, help_count) = data.0;
+            let next_page_number = data.1;
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -1203,8 +1214,9 @@ pub async fn tag_helps_page(session: Session, req: HttpRequest, _id: web::Path<S
             }
         }
         else {
-            let (_helps, next_page_number) = Item::get_helps_list_for_ids(page, 20, &_tag_items, false);
-            let helps_count = _helps.len();
+            let data = Item::get_helps_list_for_ids(page, 20, &_tag_items, false);
+            let (_helps, help_count) = data.0;
+            let next_page_number = data.1;
 
             if is_desctop {
                 #[derive(TemplateOnce)]

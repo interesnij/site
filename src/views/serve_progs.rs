@@ -22,7 +22,6 @@ use crate::models::{
 };
 use actix_session::Session;
 use actix_multipart::{Field, Multipart};
-use futures::StreamExt;
 use serde::{Deserialize, Serialize};
 use std::str;
 use sailfish::TemplateOnce;

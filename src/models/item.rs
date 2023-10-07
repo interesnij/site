@@ -2644,7 +2644,7 @@ impl Item {
         ids:      Vec<i32>,
         is_admin: bool,
         l:        u8
-    ) -> ((Vec<Blog>, i32), i32) {
+    ) -> ((Vec<Blog>, usize), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
         let object_list: (Vec<Blog>, usize);
@@ -2658,7 +2658,7 @@ impl Item {
             have_next = limit + 1;
             object_list = Item::get_blogs_for_ids(limit.into(), 0, ids, is_admin, l);
         }
-        if Item::get_blogs_for_ids(1, have_next.into(), ids, is_admin, l).len() > 0 {
+        if Item::get_blogs_for_ids(1, have_next.into(), ids, is_admin, l).0.len() > 0 {
             next_page_number = page + 1;
         }
         return (object_list, next_page_number);
@@ -2762,7 +2762,7 @@ impl Item {
         ids:      Vec<i32>,
         is_admin: bool,
         l:        u8
-    ) -> ((Vec<Service>, i32), i32) {
+    ) -> ((Vec<Service>, usize), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
         let object_list: (Vec<Service>, usize);
@@ -2776,7 +2776,7 @@ impl Item {
             have_next = limit + 1;
             object_list = Item::get_services_for_ids(limit.into(), 0, ids, is_admin, l);
         }
-        if Item::get_services_for_ids(1, have_next.into(), ids, is_admin, l)[1].len() > 0 {
+        if Item::get_services_for_ids(1, have_next.into(), ids, is_admin, l).0.len() > 0 {
             next_page_number = page + 1;
         }
         return (object_list, next_page_number);
@@ -2876,7 +2876,7 @@ impl Item {
         ids:      Vec<i32>,
         is_admin: bool,
         l:        u8
-    ) -> ((Vec<Store>, i32), i32) {
+    ) -> ((Vec<Store>, usize), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
         let object_list: (Vec<Store>, usize);
@@ -2890,7 +2890,7 @@ impl Item {
             have_next = limit + 1;
             object_list = Item::get_stores_for_ids(limit.into(), 0, ids, is_admin, l);
         }
-        if Item::get_stores_for_ids(1, have_next.into(), ids, is_admin, l).len() > 0 {
+        if Item::get_stores_for_ids(1, have_next.into(), ids, is_admin, l).0.len() > 0 {
             next_page_number = page + 1;
         }
         return (object_list, next_page_number);
@@ -2998,7 +2998,7 @@ impl Item {
         ids:      Vec<i32>,
         is_admin: bool,
         l:        u8
-    ) -> ((Vec<Wiki>, i32), i32) {
+    ) -> ((Vec<Wiki>, usize), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
         let object_list: (Vec<Wiki>, usize);
@@ -3012,7 +3012,7 @@ impl Item {
             have_next = limit + 1;
             object_list = Item::get_wikis_for_ids(limit.into(), 0, ids, is_admin, l);
         }
-        if Item::get_wikis_for_ids(1, have_next.into(), ids, is_admin, l).len() > 0 {
+        if Item::get_wikis_for_ids(1, have_next.into(), ids, is_admin, l).0.len() > 0 {
             next_page_number = page + 1;
         }
         return (object_list, next_page_number);
@@ -3116,7 +3116,7 @@ impl Item {
         ids:      Vec<i32>,
         is_admin: bool,
         l:        u8
-    ) -> ((Vec<Work>, i32), i32) {
+    ) -> ((Vec<Work>, usize), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
         let object_list: (Vec<Work>, usize);
@@ -3130,7 +3130,7 @@ impl Item {
             have_next = limit + 1;
             object_list = Item::get_works_for_ids(limit.into(), 0, ids, is_admin, l);
         }
-        if Item::get_works_for_ids(1, have_next.into(), ids, is_admin, l).len() > 0 {
+        if Item::get_works_for_ids(1, have_next.into(), ids, is_admin, l).0.len() > 0 {
             next_page_number = page + 1;
         }
         return (object_list, next_page_number);
@@ -3230,25 +3230,25 @@ impl Item {
         ids:      Vec<i32>,
         is_admin: bool,
         l:        u8
-    ) -> ((Vec<Help>, i32), i32) {
+    ) -> ((Vec<Help>, usize), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
         let object_list: (Vec<Help>, usize);
 
         if page > 1 {
             let step = (page - 1) * 20;
-            have_next = page * limit + 1;
+            have_next = page * limit + 1; 
             object_list = Item::get_helps_for_ids(limit.into(), step.into(), ids, is_admin, l);
         }
         else {
             have_next = limit + 1;
             object_list = Item::get_helps_for_ids(limit.into(), 0, ids, is_admin, l);
         }
-        if Item::get_helps_for_ids(1, have_next.into(), ids, is_admin, l).len() > 0 {
+        if Item::get_helps_for_ids(1, have_next.into(), ids, is_admin, l).0.len() > 0 {
             next_page_number = page + 1;
         }
         return (object_list, next_page_number);
-    }
+    } 
 
     pub fn get_count_for_ids(ids: &Vec<i32>, is_admin: bool) -> usize {
         if is_admin {
