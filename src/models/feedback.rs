@@ -1,7 +1,6 @@
 use crate::schema::feedbacks;
 use crate::diesel::{
     Insertable,
-    QueryDsl,
     RunQueryDsl,
 };
 use serde::{Serialize, Deserialize};

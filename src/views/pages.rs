@@ -1615,7 +1615,7 @@ pub async fn image_page(_id: web::Path<i32>) -> actix_web::Result<HttpResponse> 
         next:           Option<File>,
         template_types: u8,
         linguage:       u8,
-    }
+    } 
     let body = Template {
         object:         _file,
         item:           _item,
