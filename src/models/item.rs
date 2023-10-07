@@ -1466,9 +1466,7 @@ impl Item {
     pub fn create(user_id: i32, form: crate::utils::ItemForms) -> i16 {
         use crate::models::{
             NewTechCategoriesItem,
-            Serve,
             NewServeItems,
-            NewCategory,
             NewTagItems,
         }; 
 
@@ -1698,9 +1696,7 @@ impl Item {
         };
         use crate::models::{
             NewTechCategoriesItem,
-            Serve,
             NewServeItems,
-            NewCategory,
             NewTagItems,
         };
 
@@ -4061,7 +4057,6 @@ impl Item {
     }
     pub fn delete(user: User, item_id: i32) -> i16 {
         use crate::schema::{
-            items::dsl::items,
             tags_items::dsl::tags_items,
             category::dsl::category,
             files::dsl::files,
@@ -4086,7 +4081,7 @@ impl Item {
             .expect("E");
 
         for f in _src_list.iter() {
-            std::fs::remove_file(f);
+            let _f = std::fs::remove_file(f);
         }
 
         diesel::delete (

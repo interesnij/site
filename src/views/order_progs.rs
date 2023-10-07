@@ -18,9 +18,7 @@ use crate::utils::{
 };
 use crate::models::{
     Order,
-    NewOrder,
     OrderFile,
-    NewOrderFile,
 };
 use actix_session::Session;
 use actix_multipart::Multipart;

@@ -27,7 +27,6 @@ use crate::schema;
 use crate::models::{
     Tag, StatPage,
     SmallTag,
-    TagItems,
 };
 use sailfish::TemplateOnce;
 

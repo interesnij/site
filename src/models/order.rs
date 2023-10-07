@@ -40,7 +40,6 @@ impl Order {
         use crate::schema::serve::dsl::serve;
         use crate::models::{
             NewTechCategoriesItem,
-            Serve,
             NewServeItems,
         };
 
@@ -420,10 +419,8 @@ impl OrderFile {
         return 0;
     }
     pub fn create(user_id: i32, form: crate::utils::OrderForms, l: u8) -> i16 {
-        use crate::schema::serve::dsl::serve;
         use crate::models::{
             NewTechCategoriesItem,
-            Serve,
             NewServeItems,
         };
 

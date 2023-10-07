@@ -480,10 +480,6 @@ impl Serve {
         if l > 2 {
             return 0;
         }
-        use crate::schema::{
-            serve::dsl::serve,
-            serve_categories::dsl::serve_categories,
-        };
         let _connection = establish_connection();
         let l = get_linguage_storage();
         let _serve = Serve::get(serve_id);

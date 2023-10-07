@@ -50,13 +50,6 @@ pub fn set_current_user(session: &Session, user: &SessionUser) -> () {
     // но двоичный код был бы предпочтительнее в производственных вариантах использования.
     session.insert("user", serde_json::to_string(user).unwrap()).unwrap();
 }
-
-pub fn check_auth(session: &Session) -> bool {
-    match session.get::<String>("id").unwrap() {
-        Some(_) => true,
-        None => false,
-    }
-} 
  
 pub fn get_current_user(session: &Session) -> Result<SessionUser, AuthError> {
     let msg = "Не удалось извлечь пользователя из сеанса";
