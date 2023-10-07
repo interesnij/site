@@ -144,9 +144,6 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
     }
     else {
         use crate::models::{Item, Blog, Service, Store, Wiki, Work};
-
-        let _connection = establish_connection();
-
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
             let is_admin = _request_user.is_superuser();
@@ -368,7 +365,6 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
         use crate::models::{Item, Blog};
 
         let page = crate::utils::get_page(&req);
-        let _connection = establish_connection();
 
         let _q_standalone = "%".to_owned() + &_q + "%";
 
@@ -531,7 +527,6 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
         use crate::models::{Item, Service};
 
         let page = crate::utils::get_page(&req);
-        let _connection = establish_connection();
         let _q_standalone = "%".to_owned() + &_q + "%";
 
         let mut next_page_number = 0;
@@ -696,7 +691,6 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
 
         let page = get_page(&req);
 
-        let _connection = establish_connection();
         let _q_standalone = "%".to_owned() + &_q + "%";
 
         let mut next_page_number = 0;
@@ -862,7 +856,6 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
         use crate::models::{Item, Wiki};
 
         let page = get_page(&req);
-        let _connection = establish_connection();
         let _q_standalone = "%".to_owned() + &_q + "%";
 
         let mut next_page_number = 0;
@@ -1026,7 +1019,6 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
         use crate::models::{Item, Work};
 
         let page = get_page(&req);
-        let _connection = establish_connection();
         let _q_standalone = "%".to_owned() + &_q + "%";
 
         let mut next_page_number = 0;
@@ -1191,7 +1183,6 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
         use crate::models::{Item, Help};
 
         let page = get_page(&req);
-        let _connection = establish_connection();
         let _q_standalone = "%".to_owned() + &_q + "%";
 
         let mut next_page_number = 0;

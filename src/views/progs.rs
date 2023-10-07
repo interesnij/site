@@ -14,9 +14,15 @@ use crate::models::{
     Item,
     CookieStat,
 };
+use crate::diesel::{
+    RunQueryDsl,
+    ExpressionMethods,
+    QueryDsl,
+};
 use serde::{Deserialize, Serialize};
 
 use crate::utils::{
+    establish_connection,
     is_signed_in,
     get_request_user_data,
     HistoryData,
@@ -74,9 +80,55 @@ pub async fn create_c_user(conn: ConnectionInfo, req: &HttpRequest) -> CookieUse
         ipaddr = val.ip().to_string();
     }
     else {
-        ipaddr = Strong::new();
+        ipaddr = String::new();
     };
-    return CookieUser::create(device, ipaddr).await;
+    #[derive(Deserialize)] 
+        pub struct UserLoc {
+            pub city:    CityLoc,
+            pub region:  RegionLoc,
+            pub country: CountryLoc,
+        }
+        #[derive(Deserialize)]
+        pub struct CityLoc {
+            pub name_ru: String,
+            pub name_en: String,
+        }
+        #[derive(Deserialize)]
+        pub struct RegionLoc {
+            pub name_ru: String,
+            pub name_en: String,
+        }
+        #[derive(Deserialize)]
+        pub struct CountryLoc {
+            pub name_ru: String,
+            pub name_en: String,
+        }
+
+        let _connection = establish_connection();
+        let _geo_url = "http://api.sypexgeo.net/J5O6d/json/".to_string() + &ipaddr;
+        let _geo_request = reqwest::get(_geo_url).await.expect("E.");
+        let new_request = _geo_request.text().await.unwrap();
+        //println!("request {:?}", new_request);
+    
+        let location200: UserLoc = serde_json::from_str(&new_request).unwrap();
+        let _user = NewCookieUser { 
+            ip:         ipaddr,
+            device:     device,
+            city_ru:    Some(location200.city.name_ru),
+            city_en:    Some(location200.city.name_en),
+            region_ru:  Some(location200.region.name_ru),
+            region_en:  Some(location200.region.name_en),
+            country_ru: Some(location200.country.name_ru),
+            country_en: Some(location200.country.name_en),
+            height:     0.0,
+            seconds:    0,
+            created:    chrono::Local::now().naive_utc() + chrono::Duration::hours(3),
+        };
+        let _new_user = diesel::insert_into(schema::cookie_users::table)
+            .values(&_user)
+            .get_result::<CookieUser>(&_connection)
+            .expect("Error.");
+    return _new_user;
 }
 
 pub async fn get_c_user(conn: ConnectionInfo, id: i32, req: &HttpRequest) -> CookieUser {

@@ -394,7 +394,7 @@ pub async fn load_form_from_level(session: Session, level: web::Path<i16>) -> ac
         }
         else {
             let (t, l) = get_all_storage();
-            let _tech_categories = TechCategories::get_with_level(*level) 
+            let _tech_categories = TechCategories::get_with_level(*level);
 
             #[derive(TemplateOnce)]
             #[template(path = "desctop/serve/load_serve_form.stpl")]

@@ -840,7 +840,6 @@ pub async fn cookie_users_list_page(session: Session, req: HttpRequest) -> actix
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
-    let _connection = establish_connection();
     if is_ajax == 0 {
         get_first_load_page (
             &session,
@@ -1036,7 +1035,6 @@ pub async fn unical_object_form_page(session: Session, _id: web::Path<i16>) -> a
             Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body("Permission Denied"))
         }
         else {
-            let _connection = establish_connection();
             let types = *_id;
             let mut biznes_mode = false;
             if vec![2,3,5].iter().any(|i| i==&types) {
@@ -1479,7 +1477,7 @@ pub async fn edit_file_page(session: Session, req: HttpRequest, _id: web::Path<i
     use crate::models::File;
 
     let (t, l) = get_all_storage();
-    let _file = File:get(*_id);
+    let _file = File::get(*_id);
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     if is_ajax == 0 {
