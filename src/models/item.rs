@@ -2068,214 +2068,473 @@ impl Item {
         return _tags;
     }
 
-    pub fn get_blogs (
-        limit:    i64,
-        offset:   i64,
-        is_admin: bool
-    ) -> Vec<Blog> {
-        use crate::schema::items::dsl::items;
-
+    pub fn get_count_for_types(types: i16, is_admin: bool) -> usize {
         let _connection = establish_connection();
         if is_admin {
-             return items
-                .filter(schema::items::types.eq(1))
-                .order(schema::items::created.desc())
-                .limit(limit)
-                .offset(offset)
-                .select((
-                    schema::items::id,
-                    schema::items::slug,
-                    schema::items::image.nullable(),
-                    schema::items::is_active,
-                    schema::items::title,
-                    schema::items::created,
-                    schema::items::description.nullable(),
-                ))
-                .load::<Blog>(&_connection)
-                .expect("E.");
-        } else {
-            return items
-                .filter(schema::items::types.eq(1))
-                .filter(schema::items::is_active.eq(true))
-                .order(schema::items::created.desc())
-                .limit(limit)
-                .offset(offset)
-                .select((
-                    schema::items::id,
-                    schema::items::slug,
-                    schema::items::image.nullable(),
-                    schema::items::is_active,
-                    schema::items::title,
-                    schema::items::created,
-                    schema::items::description.nullable(),
-                ))
-                .load::<Blog>(&_connection)
-                .expect("E.");
+            return schema::items::table
+                .filter(schema::items::types.eq(types))
+                .select(schema::items::id) 
+                .load::<i32>(&_connection)
+                .expect("E.")
+                .len();
         }
+        return schema::items::table
+            .filter(schema::items::types.eq(types))
+            .filter(schema::items::is_active.eq(true))
+            .select(schema::items::id) 
+            .load::<i32>(&_connection)
+            .expect("E.")
+            .len();
+    }
+    pub fn get_count_for_types_and_q(q: String, types: i16, is_admin: bool, l: u8) -> usize {
+        let _connection = establish_connection();
+        if is_admin {
+            if l == 1 {
+                return items
+                    .filter(schema::items::title.ilike(&q))
+                    .or_filter(schema::items::description.ilike(&q))
+                    .or_filter(schema::items::content.ilike(&q))
+                    .filter(schema::items::types.eq(types))
+                    .select(schema::items::id)
+                    .load::<i32>(&_connection)
+                    .expect("E.")
+                    .len();
+            }
+            else if l == 2 {
+                return items
+                    .filter(schema::items::title_en.ilike(&q))
+                    .or_filter(schema::items::description_en.ilike(&q))
+                    .or_filter(schema::items::content_en.ilike(&q))
+                    .filter(schema::items::types.eq(types))
+                    .select(schema::items::id)
+                    .load::<i32>(&_connection)
+                    .expect("E.")
+                    .len();
+            }
+        }
+        else {
+            if l == 1 {
+                return items
+                    .filter(schema::items::is_active.eq(true))
+                    .filter(schema::items::title.ilike(&q))
+                    .or_filter(schema::items::description.ilike(&q))
+                    .or_filter(schema::items::content.ilike(&q))
+                    .filter(schema::items::types.eq(types))
+                    .select(schema::items::id)
+                    .load::<i32>(&_connection)
+                    .expect("E.")
+                    .len();
+            }
+            else if l == 2 {
+                return items
+                    .filter(schema::items::is_active.eq(true))
+                    .filter(schema::items::title_en.ilike(&q))
+                    .or_filter(schema::items::description_en.ilike(&q))
+                    .or_filter(schema::items::content_en.ilike(&q))
+                    .filter(schema::items::types.eq(types))
+                    .select(schema::items::id)
+                    .load::<i32>(&_connection)
+                    .expect("E.")
+                    .len();
+            }
+        }
+        return 0;
+    }
+
+    pub fn get_blogs ( 
+        limit:    i64,
+        offset:   i64,
+        is_admin: bool,
+        l:        u8,
+    ) -> (Vec<Blog>, usize) {
+        use crate::schema::items::dsl::items;
+
+        let count = Item::get_count_for_types(1, is_admin);
+        let _connection = establish_connection();
+        if is_admin {
+            if l == 1 {
+                return (items
+                    .filter(schema::items::types.eq(1))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::created,
+                        schema::items::description.nullable(),
+                    ))
+                    .load::<Blog>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::types.eq(1))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::created,
+                        schema::items::description_en.nullable(),
+                    ))
+                    .load::<Blog>(&_connection)
+                    .expect("E."), count);
+            }
+        } else {
+            if l == 1 {
+                return (items
+                    .filter(schema::items::types.eq(1))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::created,
+                        schema::items::description.nullable(),
+                    ))
+                    .load::<Blog>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::types.eq(1))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::created,
+                        schema::items::description_en.nullable(),
+                    ))
+                    .load::<Blog>(&_connection)
+                    .expect("E."), count);
+            }
+        }
+        return (Vec::new(), 0);
     }
     pub fn search_blogs (
         q:        &String,
         limit:    i64,
         offset:   i64,
-        is_admin: bool
-    ) -> Vec<Blog> {
+        is_admin: bool,
+        l:        u8
+    ) -> (Vec<Blog>, usize) {
         use crate::schema::items::dsl::items;
-
+        
+        let count = Item::get_count_for_types_and_q(&q, 1, is_admin, l);
         let _connection = establish_connection();
         if is_admin {
-             return items
-                .filter(schema::items::title.ilike(&q))
-                .or_filter(schema::items::description.ilike(&q))
-                .or_filter(schema::items::content.ilike(&q))
-                .filter(schema::items::types.eq(1))
-                .order(schema::items::created.desc())
-                .limit(limit)
-                .offset(offset)
-                .select((
-                    schema::items::id,
-                    schema::items::slug,
-                    schema::items::image.nullable(),
-                    schema::items::is_active,
-                    schema::items::title,
-                    schema::items::created,
-                    schema::items::description.nullable(),
-                ))
-                .load::<Blog>(&_connection)
-                .expect("E.");
+            if l == 1 {
+                return (items
+                    .filter(schema::items::title.ilike(&q))
+                    .or_filter(schema::items::description.ilike(&q))
+                    .or_filter(schema::items::content.ilike(&q))
+                    .filter(schema::items::types.eq(1))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::created,
+                        schema::items::description.nullable(),
+                    ))
+                    .load::<Blog>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::title_en.ilike(&q))
+                    .or_filter(schema::items::description_en.ilike(&q))
+                    .or_filter(schema::items::content_en.ilike(&q))
+                    .filter(schema::items::types.eq(1))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::created,
+                        schema::items::description_en.nullable(),
+                    ))
+                    .load::<Blog>(&_connection)
+                    .expect("E."), count);
+            }
         } else {
-            return items
-                .filter(schema::items::title.ilike(&q))
-                .or_filter(schema::items::description.ilike(&q))
-                .or_filter(schema::items::content.ilike(&q))
-                .filter(schema::items::types.eq(1))
-                .filter(schema::items::is_active.eq(true))
-                .order(schema::items::created.desc())
-                .limit(limit)
-                .offset(offset)
-                .select((
-                    schema::items::id,
-                    schema::items::slug,
-                    schema::items::image.nullable(),
-                    schema::items::is_active,
-                    schema::items::title,
-                    schema::items::created,
-                    schema::items::description.nullable(),
-                ))
-                .load::<Blog>(&_connection)
-                .expect("E.");
+            if l == 1 {
+                return (items
+                    .filter(schema::items::title.ilike(&q))
+                    .or_filter(schema::items::description.ilike(&q))
+                    .or_filter(schema::items::content.ilike(&q))
+                    .filter(schema::items::types.eq(1))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::created,
+                        schema::items::description.nullable(),
+                    ))
+                    .load::<Blog>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::title_en.ilike(&q))
+                    .or_filter(schema::items::description_en.ilike(&q))
+                    .or_filter(schema::items::content_en.ilike(&q))
+                    .filter(schema::items::types.eq(1))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::created,
+                        schema::items::description_en.nullable(),
+                    ))
+                    .load::<Blog>(&_connection)
+                    .expect("E."), count);
+            }
         }
+        return (Vec::new(), 0);
     }
 
     pub fn get_services (
         limit:    i64,
         offset:   i64,
-        is_admin: bool
-    ) -> Vec<Service> {
+        is_admin: bool,
+        l:        u8
+    ) -> (Vec<Service>, usize) {
         use crate::schema::items::dsl::items;
 
+        let count = Item::get_count_for_types(2, is_admin);
         let _connection = establish_connection();
         if is_admin {
-             return items
-                .filter(schema::items::types.eq(2))
-                .order(schema::items::created.desc())
-                .limit(limit)
-                .offset(offset)
-                .select((
-                    schema::items::id,
-                    schema::items::slug,
-                    schema::items::image.nullable(),
-                    schema::items::is_active,
-                    schema::items::title,
-                    schema::items::description.nullable(),
-                ))
-                .load::<Service>(&_connection)
-                .expect("E.");
+            if l == 1 {
+                return (items
+                    .filter(schema::items::types.eq(2))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::description.nullable(),
+                    ))
+                    .load::<Service>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::types.eq(2))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::description_en.nullable(),
+                    ))
+                    .load::<Service>(&_connection)
+                    .expect("E."), count);
+            }
         } else {
-            return items
-                .filter(schema::items::types.eq(2))
-                .filter(schema::items::is_active.eq(true))
-                .order(schema::items::created.desc())
-                .limit(limit)
-                .offset(offset)
-                .select((
-                    schema::items::id,
-                    schema::items::slug,
-                    schema::items::image.nullable(),
-                    schema::items::is_active,
-                    schema::items::title,
-                    schema::items::description.nullable(),
-                ))
-                
-                .load::<Service>(&_connection)
-                .expect("E.");
+            if l == 1 {
+                return (items
+                    .filter(schema::items::types.eq(2))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::description.nullable(),
+                    ))
+                    .load::<Service>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::types.eq(2))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::description_en.nullable(),
+                    ))
+                    .load::<Service>(&_connection)
+                    .expect("E."), count);
+            }
         }
+        return (Vec::new(), 0);
     }
     pub fn search_services (
         q:        &String,
         limit:    i64,
         offset:   i64,
-        is_admin: bool
-    ) -> Vec<Service> {
+        is_admin: bool,
+        l:        u8
+    ) -> (Vec<Service>, usize) {
         use crate::schema::items::dsl::items;
 
+        let count = Item::get_count_for_types_and_q(&q, 2, is_admin, l);
         let _connection = establish_connection();
         if is_admin {
-             return items
-                .filter(schema::items::title.ilike(&q))
-                .or_filter(schema::items::description.ilike(&q))
-                .or_filter(schema::items::content.ilike(&q))
-                .filter(schema::items::types.eq(2))
-                .order(schema::items::created.desc())
-                .limit(limit)
-                .offset(offset)
-                .select((
-                    schema::items::id,
-                    schema::items::slug,
-                    schema::items::image.nullable(),
-                    schema::items::is_active,
-                    schema::items::title,
-                    schema::items::description.nullable(),
-                ))
-                .load::<Service>(&_connection)
-                .expect("E.");
+            if l == 1 {
+                return (items
+                    .filter(schema::items::title.ilike(&q))
+                    .or_filter(schema::items::description.ilike(&q))
+                    .or_filter(schema::items::content.ilike(&q))
+                    .filter(schema::items::types.eq(2))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::description.nullable(),
+                    ))
+                    .load::<Service>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::title_en.ilike(&q))
+                    .or_filter(schema::items::description_en.ilike(&q))
+                    .or_filter(schema::items::content_en.ilike(&q))
+                    .filter(schema::items::types.eq(2))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::description_en.nullable(),
+                    ))
+                    .load::<Service>(&_connection)
+                    .expect("E."), count);
+            }
         } else {
-            return items
-                .filter(schema::items::title.ilike(&q))
-                .or_filter(schema::items::description.ilike(&q))
-                .or_filter(schema::items::content.ilike(&q))
-                .filter(schema::items::types.eq(2))
-                .filter(schema::items::is_active.eq(true))
-                .order(schema::items::created.desc())
-                .limit(limit)
-                .offset(offset)
-                .select((
-                    schema::items::id,
-                    schema::items::slug,
-                    schema::items::image.nullable(),
-                    schema::items::is_active,
-                    schema::items::title,
-                    schema::items::description.nullable(),
-                ))
-                .load::<Service>(&_connection)
-                .expect("E.");
+            if l == 1 {
+                return (items
+                    .filter(schema::items::title.ilike(&q))
+                    .or_filter(schema::items::description.ilike(&q))
+                    .or_filter(schema::items::content.ilike(&q))
+                    .filter(schema::items::types.eq(2))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::description.nullable(),
+                    ))
+                    .load::<Service>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::title_en.ilike(&q))
+                    .or_filter(schema::items::description_en.ilike(&q))
+                    .or_filter(schema::items::content_en.ilike(&q))
+                    .filter(schema::items::types.eq(2))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::description_en.nullable(),
+                    ))
+                    .load::<Service>(&_connection)
+                    .expect("E."), count);
+            }
         }
+        return (Vec::new(), 0);
     }
 
     pub fn get_stores (
           limit:    i64,
           offset:   i64,
-          is_admin: bool
-      ) -> Vec<Store> {
-          use crate::schema::items::dsl::items;
+          is_admin: bool,
+          l:        u8
+    ) -> (Vec<Store>, usize) {
+        use crate::schema::items::dsl::items;
 
-          let _connection = establish_connection();
-          if is_admin {
-               return items
-                  .filter(schema::items::types.eq(3))
-                  .order(schema::items::created.desc())
-                  .limit(limit)
-                  .offset(offset)
-                  .select((
+        let count = Item::get_count_for_types(3, is_admin);
+        let _connection = establish_connection();
+        if is_admin {
+            if l == 1 {
+                return (items
+                    .filter(schema::items::types.eq(3))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
                         schema::items::id,
                         schema::items::slug,
                         schema::items::image.nullable(),
@@ -2284,361 +2543,723 @@ impl Item {
                         schema::items::description.nullable(),
                         schema::items::price,
                         schema::items::price_acc.nullable(),
-                  ))
-                  .load::<Store>(&_connection)
-                  .expect("E.");
-          } else {
-              return items
-                  .filter(schema::items::types.eq(3))
-                  .filter(schema::items::is_active.eq(true))
-                  .order(schema::items::created.desc())
-                  .limit(limit)
-                  .offset(offset)
-                  .select((
-                      schema::items::id,
-                      schema::items::slug,
-                      schema::items::image.nullable(),
-                      schema::items::is_active,
-                      schema::items::title,
-                      schema::items::description.nullable(),
-                      schema::items::price,
-                      schema::items::price_acc.nullable(),
-                  ))
-                  .load::<Store>(&_connection)
-                  .expect("E.");
-          }
+                    ))
+                    .load::<Store>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::types.eq(3))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::description_en.nullable(),
+                        schema::items::price,
+                        schema::items::price_acc.nullable(),
+                    ))
+                    .load::<Store>(&_connection)
+                    .expect("E."), count);
+            }
+        } else {
+                if l == 1 {
+                    return (items
+                        .filter(schema::items::types.eq(3))
+                        .filter(schema::items::is_active.eq(true))
+                        .order(schema::items::created.desc())
+                        .limit(limit)
+                        .offset(offset)
+                        .select((
+                            schema::items::id,
+                            schema::items::slug,
+                            schema::items::image.nullable(),
+                            schema::items::is_active,
+                            schema::items::title,
+                            schema::items::description.nullable(),
+                            schema::items::price,
+                            schema::items::price_acc.nullable(),
+                        ))
+                        .load::<Store>(&_connection)
+                        .expect("E."), count);
+                }
+                else if l == 2 {
+                    return (items
+                        .filter(schema::items::types.eq(3))
+                        .filter(schema::items::is_active.eq(true))
+                        .order(schema::items::created.desc())
+                        .limit(limit)
+                        .offset(offset)
+                        .select((
+                            schema::items::id,
+                            schema::items::slug,
+                            schema::items::image.nullable(),
+                            schema::items::is_active,
+                            schema::items::title_en,
+                            schema::items::description_en.nullable(),
+                            schema::items::price,
+                            schema::items::price_acc.nullable(),
+                        ))
+                        .load::<Store>(&_connection)
+                        .expect("E."), count);
+                }
+        }
+        return (Vec::new(), 0);
     }
     pub fn search_stores (
           q:        &String,
           limit:    i64,
           offset:   i64,
-          is_admin: bool
-      ) -> Vec<Store> {
-          use crate::schema::items::dsl::items;
+          is_admin: bool,
+          l:        u8
+      ) -> (Vec<Store>, usize) {
+        use crate::schema::items::dsl::items;
 
-          let _connection = establish_connection();
-          if is_admin {
-               return items
-                  .filter(schema::items::title.ilike(&q))
-                  .or_filter(schema::items::description.ilike(&q))
-                  .or_filter(schema::items::content.ilike(&q))
-                  .filter(schema::items::types.eq(3))
-                  .order(schema::items::created.desc())
-                  .limit(limit)
-                  .offset(offset)
-                  .select((
-                      schema::items::id,
-                      schema::items::slug,
-                      schema::items::image.nullable(),
-                      schema::items::is_active,
-                      schema::items::title,
-                      schema::items::description.nullable(),
-                      schema::items::price,
-                      schema::items::price_acc.nullable(),
-                  ))
-                  .load::<Store>(&_connection)
-                  .expect("E.");
-          } else {
-              return items
-                  .filter(schema::items::title.ilike(&q))
-                  .or_filter(schema::items::description.ilike(&q))
-                  .or_filter(schema::items::content.ilike(&q))
-                  .filter(schema::items::types.eq(3))
-                  .filter(schema::items::is_active.eq(true))
-                  .order(schema::items::created.desc())
-                  .limit(limit)
-                  .offset(offset)
-                  .select((
-                      schema::items::id,
-                      schema::items::slug,
-                      schema::items::image.nullable(),
-                      schema::items::is_active,
-                      schema::items::title,
-                      schema::items::description.nullable(),
-                      schema::items::price,
-                      schema::items::price_acc.nullable(),
-                  ))
-                  .load::<Store>(&_connection)
-                  .expect("E.");
-          }
+        let count = Item::get_count_for_types_and_q(&q, 3, is_admin, l);
+        let _connection = establish_connection();
+        if is_admin {
+            if l == 1 {
+                return (items
+                    .filter(schema::items::title.ilike(&q))
+                    .or_filter(schema::items::description.ilike(&q))
+                    .or_filter(schema::items::content.ilike(&q))
+                    .filter(schema::items::types.eq(3))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::description.nullable(),
+                        schema::items::price,
+                        schema::items::price_acc.nullable(),
+                    ))
+                    .load::<Store>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::title_en.ilike(&q))
+                    .or_filter(schema::items::description_en.ilike(&q))
+                    .or_filter(schema::items::content_en.ilike(&q))
+                    .filter(schema::items::types.eq(3))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::description_en.nullable(),
+                        schema::items::price,
+                        schema::items::price_acc.nullable(),
+                    ))
+                    .load::<Store>(&_connection)
+                    .expect("E."), count);
+            }
+        } else {
+            if l == 1 {
+                return (items
+                    .filter(schema::items::title.ilike(&q))
+                    .or_filter(schema::items::description.ilike(&q))
+                    .or_filter(schema::items::content.ilike(&q))
+                    .filter(schema::items::types.eq(3))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::description.nullable(),
+                        schema::items::price,
+                        schema::items::price_acc.nullable(),
+                    ))
+                    .load::<Store>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::title_en.ilike(&q))
+                    .or_filter(schema::items::description_en.ilike(&q))
+                    .or_filter(schema::items::content_en.ilike(&q))
+                    .filter(schema::items::types.eq(3))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::description_en.nullable(),
+                        schema::items::price,
+                        schema::items::price_acc.nullable(),
+                    ))
+                    .load::<Store>(&_connection)
+                    .expect("E."), count);
+            }
+        }
+        return (Vec::new(), 0);
     }
 
     pub fn get_works (
           limit:    i64,
           offset:   i64,
-          is_admin: bool
-      ) -> Vec<Work> {
-          use crate::schema::items::dsl::items;
+          is_admin: bool,
+          l:        u8
+      ) -> (Vec<Work>, usize) {
+        use crate::schema::items::dsl::items;
 
-          let _connection = establish_connection();
-          if is_admin {
-               return items
-                  .filter(schema::items::types.eq(5))
-                  .order(schema::items::created.desc())
-                  .limit(limit)
-                  .offset(offset)
-                  .select((
-                      schema::items::id,
-                      schema::items::slug,
-                      schema::items::image.nullable(),
-                      schema::items::is_active,
-                      schema::items::title,
-                      schema::items::description.nullable(),
-                  ))
-                  .load::<Work>(&_connection)
-                  .expect("E.");
-          } else {
-              return items
-                  .filter(schema::items::types.eq(5))
-                  .filter(schema::items::is_active.eq(true))
-                  .order(schema::items::created.desc())
-                  .limit(limit)
-                  .offset(offset)
-                  .select((
-                      schema::items::id,
-                      schema::items::slug,
-                      schema::items::image.nullable(),
-                      schema::items::is_active,
-                      schema::items::title,
-                      schema::items::description.nullable(),
-                  ))
-                  .load::<Work>(&_connection)
-                  .expect("E.");
+        let count = Item::get_count_for_types(5, is_admin);
+        let _connection = establish_connection();
+        if is_admin {
+            if l == 1 {
+                return (items
+                    .filter(schema::items::types.eq(5))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::description.nullable(),
+                    ))
+                    .load::<Work>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::types.eq(5))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::description_en.nullable(),
+                    ))
+                    .load::<Work>(&_connection)
+                    .expect("E."), count);
+            }
+        } else {
+            if l == 1 {
+                return (items
+                    .filter(schema::items::types.eq(5))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::description.nullable(),
+                    ))
+                    .load::<Work>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::types.eq(5))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::description_en.nullable(),
+                    ))
+                    .load::<Work>(&_connection)
+                    .expect("E."), count);
+            }
         }
+        return (Vec::new(), 0);
     }
     pub fn search_works (
           q:        &String,
           limit:    i64,
           offset:   i64,
-          is_admin: bool
-      ) -> Vec<Work> {
-          use crate::schema::items::dsl::items;
+          is_admin: bool,
+          l:        u8
+      ) -> (Vec<Work>, usize) {
+        use crate::schema::items::dsl::items;
 
-          let _connection = establish_connection();
-          if is_admin {
-               return items
-                  .filter(schema::items::title.ilike(&q))
-                  .or_filter(schema::items::description.ilike(&q))
-                  .or_filter(schema::items::content.ilike(&q))
-                  .filter(schema::items::types.eq(5))
-                  .order(schema::items::created.desc())
-                  .limit(limit)
-                  .offset(offset)
-                  .select((
-                      schema::items::id,
-                      schema::items::slug,
-                      schema::items::image.nullable(),
-                      schema::items::is_active,
-                      schema::items::title,
-                      schema::items::description.nullable(),
-                  ))
-                  .load::<Work>(&_connection)
-                  .expect("E.");
-          } else {
-              return items
-                  .filter(schema::items::title.ilike(&q))
-                  .or_filter(schema::items::description.ilike(&q))
-                  .or_filter(schema::items::content.ilike(&q))
-                  .filter(schema::items::types.eq(5))
-                  .filter(schema::items::is_active.eq(true))
-                  .order(schema::items::created.desc())
-                  .limit(limit)
-                  .offset(offset)
-                  .select((
-                      schema::items::id,
-                      schema::items::slug,
-                      schema::items::image.nullable(),
-                      schema::items::is_active,
-                      schema::items::title,
-                      schema::items::description.nullable(),
-                  ))
-                  .load::<Work>(&_connection)
-                  .expect("E.");
+        let count = Item::get_count_for_types_and_q(&q, 5, is_admin, l);
+        let _connection = establish_connection();
+        if is_admin {
+            if l == 1 {
+                return (items
+                    .filter(schema::items::title.ilike(&q))
+                    .or_filter(schema::items::description.ilike(&q))
+                    .or_filter(schema::items::content.ilike(&q))
+                    .filter(schema::items::types.eq(5))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::description.nullable(),
+                    ))
+                    .load::<Work>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::title_en.ilike(&q))
+                    .or_filter(schema::items::description_en.ilike(&q))
+                    .or_filter(schema::items::content_en.ilike(&q))
+                    .filter(schema::items::types.eq(5))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::description_en.nullable(),
+                    ))
+                    .load::<Work>(&_connection)
+                    .expect("E."), count);
+            }
+        } else {
+            if l == 1 {
+                return (items
+                    .filter(schema::items::title.ilike(&q))
+                    .or_filter(schema::items::description.ilike(&q))
+                    .or_filter(schema::items::content.ilike(&q))
+                    .filter(schema::items::types.eq(5))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::description.nullable(),
+                    ))
+                    .load::<Work>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::title_en.ilike(&q))
+                    .or_filter(schema::items::description_en.ilike(&q))
+                    .or_filter(schema::items::content_en.ilike(&q))
+                    .filter(schema::items::types.eq(5))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::description_en.nullable(),
+                    ))
+                    .load::<Work>(&_connection)
+                    .expect("E."), count); 
+            }
         }
+        return (Vec::new(), 0);
     }
 
     pub fn get_wikis (
           limit:    i64,
           offset:   i64,
-          is_admin: bool
-      ) -> Vec<Wiki> {
-          use crate::schema::items::dsl::items;
+          is_admin: bool,
+          l:        u8
+    ) -> (Vec<Wiki>, usize) {
+        use crate::schema::items::dsl::items;
 
-          let _connection = establish_connection();
-          if is_admin {
-               return items
-                  .filter(schema::items::types.eq(4))
-                  .order(schema::items::created.desc())
-                  .limit(limit)
-                  .offset(offset)
-                  .select((
-                      schema::items::id,
-                      schema::items::slug,
-                      schema::items::image.nullable(),
-                      schema::items::is_active,
-                      schema::items::title,
-                      schema::items::description.nullable(),
-                      schema::items::created,
-                  ))
-                  .load::<Wiki>(&_connection)
-                  .expect("E.");
-          } else {
-              return items
-                  .filter(schema::items::types.eq(4))
-                  .filter(schema::items::is_active.eq(true))
-                  .order(schema::items::created.desc())
-                  .limit(limit)
-                  .offset(offset)
-                  .select((
-                      schema::items::id,
-                      schema::items::slug,
-                      schema::items::image.nullable(),
-                      schema::items::is_active,
-                      schema::items::title,
-                      schema::items::description.nullable(),
-                      schema::items::created
-                  ))
-                  .load::<Wiki>(&_connection)
-                  .expect("E.");
+        let count = Item::get_count_for_types(4, is_admin);
+        let _connection = establish_connection();
+        if is_admin {
+            if l == 1 {
+                return (items
+                    .filter(schema::items::types.eq(4))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::description.nullable(),
+                        schema::items::created,
+                    ))
+                    .load::<Wiki>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::types.eq(4))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::description_en.nullable(),
+                        schema::items::created,
+                    ))
+                    .load::<Wiki>(&_connection)
+                    .expect("E."), count);
+            }
+        } else {
+            if l == 1 {
+                return (items
+                    .filter(schema::items::types.eq(4))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::description.nullable(),
+                        schema::items::created,
+                    ))
+                    .load::<Wiki>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::types.eq(4))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::description_en.nullable(),
+                        schema::items::created,
+                    ))
+                    .load::<Wiki>(&_connection)
+                    .expect("E."), count);
+            }
         }
+        return (Vec::new(), 0);
     }
     pub fn search_wikis (
           q:        &String,
           limit:    i64,
           offset:   i64,
-          is_admin: bool
-      ) -> Vec<Wiki> {
-          use crate::schema::items::dsl::items;
+          is_admin: bool,
+          l:        u8
+    ) -> (Vec<Wiki>, usize) {
+        use crate::schema::items::dsl::items;
 
-          let _connection = establish_connection();
-          if is_admin {
-               return items
-                  .filter(schema::items::title.ilike(&q))
-                  .or_filter(schema::items::description.ilike(&q))
-                  .or_filter(schema::items::content.ilike(&q))
-                  .filter(schema::items::types.eq(4))
-                  .order(schema::items::created.desc())
-                  .limit(limit)
-                  .offset(offset)
-                  .select((
-                      schema::items::id,
-                      schema::items::slug,
-                      schema::items::image.nullable(),
-                      schema::items::is_active,
-                      schema::items::title,
-                      schema::items::description.nullable(),
-                      schema::items::created
-                  ))
-                  .load::<Wiki>(&_connection)
-                  .expect("E.");
-          } else {
-              return items
-                  .filter(schema::items::title.ilike(&q))
-                  .or_filter(schema::items::description.ilike(&q))
-                  .or_filter(schema::items::content.ilike(&q))
-                  .filter(schema::items::types.eq(4))
-                  .filter(schema::items::is_active.eq(true))
-                  .order(schema::items::created.desc())
-                  .limit(limit)
-                  .offset(offset)
-                  .select((
-                      schema::items::id,
-                      schema::items::slug,
-                      schema::items::image.nullable(),
-                      schema::items::is_active,
-                      schema::items::title,
-                      schema::items::description.nullable(),
-                      schema::items::created,
-                  ))
-                  .load::<Wiki>(&_connection)
-                  .expect("E.");
+        let count = Item::get_count_for_types_and_q(&q, 4, is_admin, l);
+        let _connection = establish_connection();
+        if is_admin {
+            if l == 1 {
+                return (items
+                    .filter(schema::items::title.ilike(&q))
+                    .or_filter(schema::items::description.ilike(&q))
+                    .or_filter(schema::items::content.ilike(&q))
+                    .filter(schema::items::types.eq(4))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::description.nullable(),
+                        schema::items::created
+                    ))
+                    .load::<Wiki>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::title_en.ilike(&q))
+                    .or_filter(schema::items::description_en.ilike(&q))
+                    .or_filter(schema::items::content_en.ilike(&q))
+                    .filter(schema::items::types.eq(4))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::description_en.nullable(),
+                        schema::items::created
+                    ))
+                    .load::<Wiki>(&_connection)
+                    .expect("E."), count);
+            }
+        } else {
+            if l == 1 {
+                return (items
+                    .filter(schema::items::title.ilike(&q))
+                    .or_filter(schema::items::description.ilike(&q))
+                    .or_filter(schema::items::content.ilike(&q))
+                    .filter(schema::items::types.eq(4))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::description.nullable(),
+                        schema::items::created,
+                    ))
+                    .load::<Wiki>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::title_en.ilike(&q))
+                    .or_filter(schema::items::description_en.ilike(&q))
+                    .or_filter(schema::items::content_en.ilike(&q))
+                    .filter(schema::items::types.eq(4))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::slug,
+                        schema::items::image.nullable(),
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::description_en.nullable(),
+                        schema::items::created,
+                    ))
+                    .load::<Wiki>(&_connection)
+                    .expect("E."), count);
+            }
         }
+        return (Vec::new(), 0);
     }
+
+
 
     pub fn get_helps (
         limit:    i64,
         offset:   i64,
-        is_admin: bool
-    ) -> Vec<Help> {
+        is_admin: bool,
+        l:        u8
+    ) -> (Vec<Help>, usize) {
         use crate::schema::items::dsl::items;
 
+        let count = Item::get_count_for_types(6, is_admin);
         let _connection = establish_connection();
         if is_admin {
-             return items
-                .filter(schema::items::types.eq(6))
-                .order(schema::items::created.desc())
-                .limit(limit)
-                .offset(offset)
-                .select((
-                    schema::items::id,
-                    schema::items::is_active,
-                    schema::items::title,
-                    schema::items::content,
-                ))
-                .load::<Help>(&_connection)
-                .expect("E.");
+            if l == 1 {
+                return (items
+                    .filter(schema::items::types.eq(6))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::content,
+                    ))
+                    .load::<Help>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::types.eq(6))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::content_en,
+                    ))
+                    .load::<Help>(&_connection)
+                    .expect("E."), count);
+            }
         } else {
-            return items
-                .filter(schema::items::types.eq(6))
-                .filter(schema::items::is_active.eq(true))
-                .order(schema::items::created.desc())
-                .limit(limit)
-                .offset(offset)
-                .select((
-                    schema::items::id,
-                    schema::items::is_active,
-                    schema::items::title,
-                    schema::items::content,
-                ))
-                .load::<Help>(&_connection)
-                .expect("E.");
+            if l == 1 {
+                return (items
+                    .filter(schema::items::types.eq(6))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::content,
+                    ))
+                    .load::<Help>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::types.eq(6))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::content_en,
+                    ))
+                    .load::<Help>(&_connection)
+                    .expect("E."), count);
+            }
         }
+        return (Vec::new(), 0);
     }
 
     pub fn search_helps (
         q:        &String,
         limit:    i64,
         offset:   i64,
-        is_admin: bool
-    ) -> Vec<Help> {
+        is_admin: bool,
+        l:        u8 
+    ) -> (Vec<Help>, usize) {
         use crate::schema::items::dsl::items;
 
+        let count = Item::get_count_for_types_and_q(&q, 6, is_admin, l);
         let _connection = establish_connection();
         if is_admin {
-             return items
-                .filter(schema::items::title.ilike(&q))
-                .or_filter(schema::items::description.ilike(&q))
-                .or_filter(schema::items::content.ilike(&q))
-                .filter(schema::items::types.eq(6))
-                .order(schema::items::created.desc())
-                .limit(limit)
-                .offset(offset)
-                .select((
-                    schema::items::id,
-                    schema::items::is_active,
-                    schema::items::title,
-                    schema::items::content,
-                ))
-                .load::<Help>(&_connection)
-                .expect("E.");
+            if l == 1 {
+                return (items
+                    .filter(schema::items::title.ilike(&q))
+                    .or_filter(schema::items::description.ilike(&q))
+                    .or_filter(schema::items::content.ilike(&q))
+                    .filter(schema::items::types.eq(6))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::content,
+                    ))
+                    .load::<Help>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::title_en.ilike(&q))
+                    .or_filter(schema::items::description_en.ilike(&q))
+                    .or_filter(schema::items::content_en.ilike(&q))
+                    .filter(schema::items::types.eq(6))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::content_en,
+                    ))
+                    .load::<Help>(&_connection)
+                    .expect("E."), count);
+            }
         } else {
-            return items
-                .filter(schema::items::title.ilike(&q))
-                .or_filter(schema::items::description.ilike(&q))
-                .or_filter(schema::items::content.ilike(&q))
-                .filter(schema::items::is_active.eq(true))
-                .order(schema::items::created.desc())
-                .limit(limit)
-                .offset(offset)
-                .select((
-                    schema::items::id,
-                    schema::items::is_active,
-                    schema::items::title,
-                    schema::items::content,
-                ))
-                .load::<Help>(&_connection)
-                .expect("E.");
+            if l == 1 {
+                return (items
+                    .filter(schema::items::title.ilike(&q))
+                    .or_filter(schema::items::description.ilike(&q))
+                    .or_filter(schema::items::content.ilike(&q))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::is_active,
+                        schema::items::title,
+                        schema::items::content,
+                    ))
+                    .load::<Help>(&_connection)
+                    .expect("E."), count);
+            }
+            else if l == 2 {
+                return (items
+                    .filter(schema::items::title_en.ilike(&q))
+                    .or_filter(schema::items::description_en.ilike(&q))
+                    .or_filter(schema::items::content_en.ilike(&q))
+                    .filter(schema::items::is_active.eq(true))
+                    .order(schema::items::created.desc())
+                    .limit(limit)
+                    .offset(offset)
+                    .select((
+                        schema::items::id,
+                        schema::items::is_active,
+                        schema::items::title_en,
+                        schema::items::content_en,
+                    ))
+                    .load::<Help>(&_connection)
+                    .expect("E."), count);
+            }
         }
+        return (Vec::new(), 0);
     }
 
     pub fn get_blogs_list_for_ids (

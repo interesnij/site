@@ -148,17 +148,11 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
             let _request_user = get_request_user_data(&session);
             let is_admin = _request_user.is_superuser();
 
-            let work_list = Item::search_works(&_q_standalone, 3, 0, is_admin);
-            let service_list = Item::search_services(&_q_standalone, 3, 0, is_admin);
-            let wiki_list = Item::search_wikis(&_q_standalone, 3, 0, is_admin);
-            let blog_list = Item::search_blogs(&_q_standalone, 3, 0, is_admin);
-            let store_list = Item::search_stores(&_q_standalone, 3, 0, is_admin);
-
-            let blog_count = blog_list.len();
-            let service_count = service_list.len();
-            let store_count = store_list.len();
-            let wiki_count = wiki_list.len();
-            let work_count = work_list.len();
+            let (work_list, work_count) = Item::search_works(&_q_standalone, 3, 0, is_admin, l);
+            let (service_list, service_count) = Item::search_services(&_q_standalone, 3, 0, is_admin, l);
+            let (wiki_list, wiki_count) = Item::search_wikis(&_q_standalone, 3, 0, is_admin, l);
+            let (blog_list, blog_count) = Item::search_blogs(&_q_standalone, 3, 0, is_admin, l);
+            let (store_list, store_count) = Item::search_stores(&_q_standalone, 3, 0, is_admin, l);
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -246,17 +240,11 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
             }
         }
         else {
-            let work_list = Item::search_works(&_q_standalone, 3, 0, false);
-            let service_list = Item::search_services(&_q_standalone, 3, 0, false);
-            let wiki_list = Item::search_wikis(&_q_standalone, 3, 0, false);
-            let blog_list = Item::search_blogs(&_q_standalone, 3, 0, false);
-            let store_list = Item::search_stores(&_q_standalone, 3, 0, false);
-
-            let blog_count = blog_list.len();
-            let service_count = service_list.len();
-            let store_count = store_list.len();
-            let wiki_count = wiki_list.len();
-            let work_count = work_list.len();
+            let (work_list, work_count) = Item::search_works(&_q_standalone, 3, 0, false, l);
+            let (service_list, service_count) = Item::search_services(&_q_standalone, 3, 0, false, l);
+            let (wiki_list, wiki_count) = Item::search_wikis(&_q_standalone, 3, 0, false, l);
+            let (blog_list, blog_count) = Item::search_blogs(&_q_standalone, 3, 0, false, l);
+            let (store_list, store_count) = Item::search_stores(&_q_standalone, 3, 0, false, l);
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -383,13 +371,11 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
             let is_admin = _request_user.is_superuser();
-            let blog_list = Item::search_blogs(&_q_standalone, 20, offset.into(), is_admin);
+            let (blog_list, blogs_count) = Item::search_blogs(&_q_standalone, 20, offset.into(), is_admin, l);
 
-            if Item::search_blogs(&_q_standalone, 1, next_item.into(), is_admin).len() > 0 {
+            if Item::search_blogs(&_q_standalone, 1, next_item.into(), is_admin).0.len() > 0 {
                 next_page_number = page + 1;
             }
-
-            let blogs_count = blog_list.len();
             if is_desctop {
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/search/blogs.stpl")]
@@ -445,13 +431,12 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
             }
         }
         else {
-            let blog_list = Item::search_blogs(&_q_standalone, 20, offset.into(), false);
+            let (blog_list, blogs_count) = Item::search_blogs(&_q_standalone, 20, offset.into(), false, l);
 
-            if Item::search_blogs(&_q_standalone, 1, next_item.into(), false).len() > 0 {
+            if Item::search_blogs(&_q_standalone, 1, next_item.into(), false, l).0.len() > 0 {
                 next_page_number = page + 1;
             }
 
-            let blogs_count = blog_list.len();
             if is_desctop {
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/search/anon_blogs.stpl")]
@@ -544,13 +529,11 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
             let is_admin = _request_user.is_superuser();
-            let services_list = Item::search_services(&_q_standalone, 20, offset.into(), is_admin);
+            let (services_list, services_count) = Item::search_services(&_q_standalone, 20, offset.into(), is_admin, l);
 
-            if Item::search_services(&_q_standalone, 1, next_item.into(), is_admin).len() > 0 {
+            if Item::search_services(&_q_standalone, 1, next_item.into(), is_admin, l).0.len() > 0 {
                 next_page_number = page + 1;
             }
-            let services_count = services_list.len();
-
             if is_desctop {
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/search/services.stpl")]
@@ -606,12 +589,11 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
             }
         }
         else {
-            let services_list = Item::search_services(&_q_standalone, 20, offset.into(), false);
+            let (services_list, services_count) = Item::search_services(&_q_standalone, 20, offset.into(), false, l);
 
-            if Item::search_services(&_q_standalone, 1, next_item.into(), false).len() > 0 {
+            if Item::search_services(&_q_standalone, 1, next_item.into(), false, l).0.len() > 0 {
                 next_page_number = page + 1;
             }
-            let services_count = services_list.len();
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -708,13 +690,11 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
             let is_admin = _request_user.is_superuser();
-            let store_list = Item::search_stores(&_q_standalone, 20, offset.into(), is_admin);
+            let (stores_list, stores_count) = Item::search_stores(&_q_standalone, 20, offset.into(), is_admin, l);
 
-            if Item::search_stores(&_q_standalone, 1, next_item.into(), is_admin).len() > 0 {
+            if Item::search_stores(&_q_standalone, 1, next_item.into(), is_admin, l).0.len() > 0 {
                 next_page_number = page + 1;
             }
-
-            let stores_count = store_list.len();
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -770,13 +750,11 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
             }
         }
         else {
-            let store_list = Item::search_stores(&_q_standalone, 20, offset.into(), false);
+            let (stores_list, stores_count) = Item::search_stores(&_q_standalone, 20, offset.into(), false, l);
 
-            if Item::search_stores(&_q_standalone, 1, next_item.into(), false).len() > 0 {
+            if Item::search_stores(&_q_standalone, 1, next_item.into(), false, l).0.len() > 0 {
                 next_page_number = page + 1;
             }
-
-            let stores_count = store_list.len();
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -873,13 +851,11 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
             let is_admin = _request_user.is_superuser();
-            let wiki_list = Item::search_wikis(&_q_standalone, 20, offset.into(), is_admin);
+            let (wiki_list, wikis_count) = Item::search_wikis(&_q_standalone, 20, offset.into(), is_admin, l);
 
-            if Item::search_wikis(&_q_standalone, 1, next_item.into(), is_admin).len() > 0 {
+            if Item::search_wikis(&_q_standalone, 1, next_item.into(), is_admin, l).0.len() > 0 {
                 next_page_number = page + 1;
             }
-
-            let wikis_count = wiki_list.len();
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -935,12 +911,11 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
             }
         }
         else {
-            let wiki_list = Item::search_wikis(&_q_standalone, 20, offset.into(), false);
+            let (wiki_list, wikis_count) = Item::search_wikis(&_q_standalone, 20, offset.into(), false, l);
 
-            if Item::search_wikis(&_q_standalone, 1, next_item.into(), false).len() > 0 {
+            if Item::search_wikis(&_q_standalone, 1, next_item.into(), false, l).0.len() > 0 {
                 next_page_number = page + 1;
             }
-            let wikis_count = wiki_list.len();
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -1037,13 +1012,11 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
             let _request_user = get_request_user_data(&session);
 
             let is_admin = _request_user.is_superuser();
-            let work_list = Item::search_works(&_q_standalone, 20, offset.into(), is_admin);
+            let (work_list, works_count) = Item::search_works(&_q_standalone, 20, offset.into(), is_admin, l);
 
-            if Item::search_works(&_q_standalone, 1, next_item.into(), is_admin).len() > 0 {
+            if Item::search_works(&_q_standalone, 1, next_item.into(), is_admin, l).0.len() > 0 {
                 next_page_number = page + 1;
             }
-
-            let works_count = work_list.len();
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -1099,12 +1072,11 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
             }
         }
         else {
-            let work_list = Item::search_works(&_q_standalone, 20, offset.into(), false);
+            let (work_list, works_count) = Item::search_works(&_q_standalone, 20, offset.into(), false, l);
 
-            if Item::search_works(&_q_standalone, 1, next_item.into(), false).len() > 0 {
+            if Item::search_works(&_q_standalone, 1, next_item.into(), false, l).0.len() > 0 {
                 next_page_number = page + 1;
             }
-            let works_count = work_list.len();
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -1200,10 +1172,9 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
             let is_admin = _request_user.is_superuser();
-            let _items = Item::search_helps(&_q_standalone, 20, offset.into(), is_admin);
-            let items_count = _items.len();
+            let (_items, items_count) = Item::search_helps(&_q_standalone, 20, offset.into(), is_admin, l);
 
-            if Item::search_helps(&_q_standalone, 1, next_item.into(), is_admin).len() > 0 {
+            if Item::search_helps(&_q_standalone, 1, next_item.into(), is_admin, l).0.len() > 0 {
                 next_page_number = page + 1;
             }
             if is_desctop {
@@ -1260,9 +1231,8 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
             }
         }
         else {
-            let _items = Item::search_helps(&_q_standalone, 20, offset.into(), false);
-            let items_count = _items.len();
-            if Item::search_helps(&_q_standalone, 1, next_item.into(), false).len() > 0 {
+            let (_items, items_count) = Item::search_helps(&_q_standalone, 20, offset.into(), false, l);
+            if Item::search_helps(&_q_standalone, 1, next_item.into(), false, l).0.len() > 0 {
                 next_page_number = page + 1;
             }
             if is_desctop {
