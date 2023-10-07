@@ -202,11 +202,11 @@ pub async fn index_page (
             let _request_user = get_request_user_data(&session);
             let is_admin = _request_user.is_superuser();
             //User::create_superuser(_request_user.id);
-            let (_last_works, work_count) = Item::get_works(3, 0, is_admin, l); 
-            let (_last_services, work_count) = Item::get_services(3, 0, is_admin, l);
-            let (_last_wikis, work_count) = Item::get_wikis(3, 0, is_admin, l);
-            let (_last_blogs, work_count) = Item::get_blogs(3, 0, is_admin, l);
-            let (_last_stores, work_count) = Item::get_stores(3, 0, is_admin, l);
+            llet (_last_works, work_count) = Item::get_works(3, 0, is_admin, l); 
+            let (_last_services, service_count) = Item::get_services(3, 0, is_admin, l);
+            let (_last_wikis, wiki_count) = Item::get_wikis(3, 0, is_admin, l);
+            let (_last_blogs, blog_count) = Item::get_blogs(3, 0, is_admin, l);
+            let (_last_stores, store_count) = Item::get_stores(3, 0, is_admin, l);
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -283,10 +283,10 @@ pub async fn index_page (
         }
         else {
             let (_last_works, work_count) = Item::get_works(3, 0, false, l); 
-            let (_last_services, work_count) = Item::get_services(3, 0, false, l);
-            let (_last_wikis, work_count) = Item::get_wikis(3, 0, false, l);
-            let (_last_blogs, work_count) = Item::get_blogs(3, 0, false, l);
-            let (_last_stores, work_count) = Item::get_stores(3, 0, false, l);
+            let (_last_services, service_count) = Item::get_services(3, 0, false, l);
+            let (_last_wikis, wiki_count) = Item::get_wikis(3, 0, false, l);
+            let (_last_blogs, blog_count) = Item::get_blogs(3, 0, false, l);
+            let (_last_stores, store_count) = Item::get_stores(3, 0, false, l);
 
             if is_desctop {
                 #[derive(TemplateOnce)]

@@ -373,7 +373,7 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
             let is_admin = _request_user.is_superuser();
             let (blog_list, blogs_count) = Item::search_blogs(&_q_standalone, 20, offset.into(), is_admin, l);
 
-            if Item::search_blogs(&_q_standalone, 1, next_item.into(), is_admin).0.len() > 0 {
+            if Item::search_blogs(&_q_standalone, 1, next_item.into(), is_admin, l).0.len() > 0 {
                 next_page_number = page + 1;
             }
             if is_desctop {
@@ -711,7 +711,7 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                 }
                 let body = Template {
                     request_user:     _request_user,
-                    stores_list:       store_list,
+                    stores_list:       stores_list,
                     stores_count:      stores_count,
                     is_ajax:          is_ajax,
                     q:                _q,
@@ -736,7 +736,7 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                     linguage:         u8,
                 }
                 let body = Template {
-                    stores_list:      store_list,
+                    stores_list:      stores_list,
                     stores_count:     stores_count,
                     is_ajax:          is_ajax,
                     q:                _q,
@@ -770,7 +770,7 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                 }
 
                 let body = Template {
-                    stores_list:      store_list,
+                    stores_list:      stores_list,
                     stores_count:     stores_count,
                     is_ajax:          is_ajax,
                     q:                _q,
@@ -795,7 +795,7 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                     linguage:         u8,
                 }
                 let body = Template {
-                    stores_list:      store_list,
+                    stores_list:      stores_list,
                     stores_count:     stores_count,
                     is_ajax:          is_ajax,
                     q:                _q,
