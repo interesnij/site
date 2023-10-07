@@ -1463,7 +1463,7 @@ impl Item {
         }
         return 1;
     }
-    pub fn create(user_id: i32, form: crate::utils::item_form) -> i16 {
+    pub fn create(user_id: i32, form: crate::utils::ItemForm) -> i16 {
         use crate::models::{
             NewTechCategoriesItem,
             Serve,

@@ -14,6 +14,7 @@ use crate::utils::{
     get_first_load_page,
     get_all_storage,
     establish_connection,
+    get_linguage_storage,
 };
 use crate::models::{
     ServeCategories,

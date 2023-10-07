@@ -16,6 +16,7 @@ use crate::diesel::{
 use serde::{Serialize, Deserialize};
 use crate::utils::{establish_connection, NewUserForm};
 use crate::errors::Error;
+use actix_web::web::Json;
 
 
 #[derive(Debug, Queryable, Serialize, Identifiable)]
@@ -116,6 +117,7 @@ pub struct CookieUser {
 }
 impl CookieUser {
     pub fn get(user_id: i32) -> CookieUser {
+        let _connection = establish_connection();
         return schema::cookie_users::table
             .filter(schema::cookie_users::id.eq(user_id))
             .first::<CookieUser>(&_connection)
@@ -314,7 +316,7 @@ impl CookieStat {
 
         let _connection = establish_connection();
         let is_cookie_stats_exists = schema::cookie_stats::table
-            .filter(schema::cookie_stats::user_id.eq(p_id))
+            .filter(schema::cookie_stats::user_id.eq(user.id))
             .filter(schema::cookie_stats::link.eq(p_link.clone()))
             .select(schema::cookie_stats::id)
             .first::<i32>(&_connection)

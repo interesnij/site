@@ -36,7 +36,7 @@ pub struct Order {
 }
 
 impl Order {
-    pub fn create(user_id: i32, form: crate::utils::OrderForm, l: u8) -> i16 {
+    pub fn create(user_id: i32, form: crate::utils::OrderForms, l: u8) -> i16 {
         use crate::schema::serve::dsl::serve;
         use crate::models::{
             NewTechCategoriesItem,
@@ -141,7 +141,7 @@ impl Order {
             // фух. Связи созданы все, но надо еще посчитать цену
             // услуги для калькулятора. Как? А это будет сумма всех
             // цен выбранных опций.
-            let price_acc = get_price_acc_values(&order_price);
+            let price_acc = crate::utils::get_price_acc_values(&order_price);
             diesel::update(&_order)
                 .set((
                     schema::orders::price.eq(order_price),
@@ -378,8 +378,8 @@ impl OrderFile {
         let _connection = establish_connection();
         return schema::order_files::table
             .filter(schema::order_files::order_id.eq(id))
-            .load::<Order>(&_connection)
-            .expect("E")
+            .load::<OrderFile>(&_connection)
+            .expect("E");
     }
     pub fn delete(user_id: i32, id: i32) -> i16 {
         let _connection = establish_connection();
@@ -419,7 +419,7 @@ impl OrderFile {
         }
         return 0;
     }
-    pub fn create(user_id: i32, form: crate::utils::OrderForm, l: u8) -> i16 {
+    pub fn create(user_id: i32, form: crate::utils::OrderForms, l: u8) -> i16 {
         use crate::schema::serve::dsl::serve;
         use crate::models::{
             NewTechCategoriesItem,
