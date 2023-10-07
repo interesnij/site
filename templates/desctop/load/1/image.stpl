@@ -13,10 +13,10 @@
     </a>
   <% } %>
   </span>
-  <% if object.description.is_some() && l == 1 { %>
+  <% if object.description.is_some() && linguage == 1 { %>
     <p><%= object.description.as_deref().unwrap() %><p>
   <% } %>
-  <% else if object.description_en.is_some() && l == 2 { %>
+  <% else if object.description_en.is_some() && linguage == 2 { %>
     <p><%= object.description_en.as_deref().unwrap() %><p>
   <% } %>
   <div class="card rounded-0 border-0 mb-3">
