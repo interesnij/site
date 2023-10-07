@@ -60,7 +60,6 @@ pub struct CategoriesForm {
 #[derive(Deserialize, Serialize, Debug)]
 pub struct ContentForm {
     pub content:    Option<String>,
-    pub content_en: Option<String>,
 }
 
 pub async fn category_form(payload: &mut Multipart, owner_id: i32) -> CategoriesForm {
@@ -145,8 +144,7 @@ pub async fn category_form(payload: &mut Multipart, owner_id: i32) -> Categories
 
 pub async fn content_form(payload: &mut Multipart) -> ContentForm {
     let mut form: ContentForm = ContentForm {
-        content:    None,
-        content_en: None,
+        content: None,
     };
 
     while let Some(item) = payload.next().await {
@@ -158,9 +156,6 @@ pub async fn content_form(payload: &mut Multipart) -> ContentForm {
                 let data_string = s.to_string();
                 if field.name() == "content" {
                     form.content = Some(data_string)
-                }
-                else if field.name() == "content_en" {
-                    form.content_en = Some(data_string)
                 }
             }
         }
@@ -337,16 +332,14 @@ pub async fn feedback_form(payload: &mut Multipart) -> FeedbackForm {
 
 #[derive(Deserialize, Serialize, Debug)]
 pub struct OrderForms {
-    pub title:          String,
-    pub title_en:       String,
-    pub types:          i16,
-    pub object_id:      i32,
-    pub username:       String,
-    pub description:    Option<String>,
-    pub description_en: Option<String>,
-    pub email:          String,
-    pub files:          Vec<String>,
-    pub serve_list:     Vec<i32>,
+    pub title:       String,
+    pub types:       i16,
+    pub object_id:   i32,
+    pub username:    String,
+    pub description: Option<String>,
+    pub email:       String,
+    pub files:       Vec<String>,
+    pub serve_list:  Vec<i32>,
 }
 
 // форма для заказов
@@ -354,22 +347,20 @@ pub async fn order_form(payload: &mut Multipart, owner_id: i32) -> OrderForms {
     let mut files: Vec<UploadedFiles> = Vec::new();
 
     let mut form: OrderForms = OrderForms {
-        title:          "".to_string(),
-        title_en:       "".to_string(),
-        types:          0,
-        object_id:      0,
-        username:       "".to_string(),
-        description:    None,
-        description_en: None,
-        email:          "".to_string(),
-        files:          Vec::new(),
-        serve_list:     Vec::new(),
+        title:       "".to_string(),
+        types:       0,
+        object_id:   0,
+        username:    "".to_string(),
+        description: None,
+        email:       "".to_string(),
+        files:       Vec::new(),
+        serve_list:  Vec::new(),
     };
 
     while let Some(item) = payload.next().await {
         let mut field: Field = item.expect("split_payload err");
         let name = field.name();
-        let string_list = ["title", "title_en", "description", "description_en", "email", "username"];
+        let string_list = ["title", "description", "email", "username"];
 
         if string_list.contains(&name) {
             while let Some(chunk) = field.next().await {

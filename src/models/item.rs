@@ -1463,7 +1463,7 @@ impl Item {
         }
         return 1;
     }
-    pub fn create(user_id: i32, form: crate::utils::ItemForm) -> i16 {
+    pub fn create(user_id: i32, form: crate::utils::ItemForms) -> i16 {
         use crate::models::{
             NewTechCategoriesItem,
             Serve,
@@ -1615,7 +1615,7 @@ impl Item {
         
         return 1;
     }
-    pub fn update_content_with_id(user: User, item_id: i32, form: crate::utils::content_form) -> i16 {
+    pub fn update_content_with_id(user: User, item_id: i32, form: crate::utils::ContentForm) -> i16 {
         let l = get_linguage_storage();
         let _connection = establish_connection();
         let _item = schema::items::table
@@ -1639,7 +1639,7 @@ impl Item {
         }
         return 0;
     }
-    pub fn update_item_with_id(id: i32, form: crate::utils::ItemForm) -> i16 {
+    pub fn update_item_with_id(id: i32, form: crate::utils::ItemForms) -> i16 {
         let l = get_linguage_storage();
         let _connection = establish_connection();
 
