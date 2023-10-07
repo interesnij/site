@@ -237,7 +237,7 @@ pub async fn create_tech_categories_page(session: Session, req: HttpRequest) -> 
             Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
         }
         else {
-            let _categories = TechCategories::get_all();;
+            let _categories = TechCategories::get_all();
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -777,7 +777,7 @@ pub async fn edit_serve(session: Session, mut payload: Multipart, _id: web::Path
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         let form = crate::utils::serve_split_payload(payload.borrow_mut()).await;
-        Serve::update_serve_with_id(_request_user, *_id, form);
+        Serve::update_serve_with_id(_request_user, *_id, form, get_linguage_storage());
     }
     return HttpResponse::Ok();
 }

@@ -36,7 +36,7 @@ pub struct Order {
 }
 
 impl Order {
-    pub fn create(user_id: i32, form: crate::utils::OrderForm) -> i16 {
+    pub fn create(user_id: i32, form: crate::utils::OrderForm, l: u8) -> i16 {
         use crate::schema::serve::dsl::serve;
         use crate::models::{
             NewTechCategoriesItem,
@@ -154,7 +154,7 @@ impl Order {
     }
     pub fn get(id: i32) -> Order {
         let _connection = establish_connection();
-        return orders 
+        return schema::orders::table
             .filter(schema::orders::id.eq(id))
             .first::<Order>(&_connection)
             .expect("E")
@@ -187,7 +187,7 @@ impl Order {
                 .execute(&_connection)
                 .expect("E");
             diesel::delete(
-                order_files
+                schema::order_files::table
                     .filter(schema::order_files::order_id.eq(id))
                 )
                 .execute(&_connection)
@@ -376,12 +376,13 @@ pub struct OrderFile {
 impl OrderFile { 
     pub fn get_object_files(id: i32) -> Vec<OrderFile> {
         let _connection = establish_connection();
-        return order_files 
+        return schema::order_files::table
             .filter(schema::order_files::order_id.eq(id))
             .load::<Order>(&_connection)
             .expect("E")
     }
     pub fn delete(user_id: i32, id: i32) -> i16 {
+        let _connection = establish_connection();
         let _order = schema::orders::table
             .filter(schema::orders::id.eq(id))
             .first::<Order>(&_connection)
@@ -408,7 +409,7 @@ impl OrderFile {
                 .execute(&_connection)
                 .expect("E");
             diesel::delete(
-                order_files
+                schema::order_files::table
                     .filter(schema::order_files::order_id.eq(id))
                 )
                 .execute(&_connection)
@@ -418,7 +419,7 @@ impl OrderFile {
         }
         return 0;
     }
-    pub fn create(user_id: i32, form: crate::utils::order_form, l: u8) -> i16 {
+    pub fn create(user_id: i32, form: crate::utils::OrderForm, l: u8) -> i16 {
         use crate::schema::serve::dsl::serve;
         use crate::models::{
             NewTechCategoriesItem,

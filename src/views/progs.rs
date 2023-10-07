@@ -17,6 +17,7 @@ use crate::models::{
 use crate::diesel::{
     ExpressionMethods,
     QueryDsl,
+    RunQueryDsl,
 };
 use serde::{Deserialize, Serialize};
 

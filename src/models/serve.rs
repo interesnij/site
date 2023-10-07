@@ -54,6 +54,7 @@ impl TechCategories {
         return 1;
     }
     pub fn get_all() -> Vec<TechCategories> {
+        let _connection = establish_connection();
         return schema::tech_categories::table
             .load::<TechCategories>(&_connection)
             .expect("E");
