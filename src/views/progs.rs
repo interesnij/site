@@ -132,10 +132,7 @@ pub async fn create_c_user(conn: ConnectionInfo, req: &HttpRequest) -> CookieUse
 
 pub async fn get_c_user(conn: ConnectionInfo, id: i32, req: &HttpRequest) -> CookieUser {
     if id > 0 {
-        let _user = CookieUser::get(id);
-        if _user.is_ok() {
-            return _user.expect("E");
-        }
+        return CookieUser::get(id);
     }
     return create_c_user(conn, &req).await;
 }
@@ -255,7 +252,7 @@ pub async fn create_files(session: Session, mut payload: Multipart, id: web::Pat
     if is_signed_in(&session) { 
         let _request_user = get_request_user_data(&session);
         let form = crate::utils::files_form(payload.borrow_mut(), _request_user.id).await;
-        File::create(_request_user, *id, form);
+        crate::models::File::create(_request_user, *id, form);
     }
     HttpResponse::Ok()
 }
@@ -272,7 +269,7 @@ pub async fn edit_file(session: Session, mut payload: Multipart, _id: web::Path<
 pub async fn delete_file(session: Session, _id: web::Path<i32>) -> impl Responder {
     if is_signed_in(&session) { 
         let _request_user = get_request_user_data(&session);
-        File::delete(_request_user, *_id);
+        crate::models::File::delete(_request_user, *_id);
     }
     HttpResponse::Ok()
 }

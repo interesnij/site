@@ -699,7 +699,7 @@ pub async fn tag_stores_page(session: Session, req: HttpRequest, _id: web::Path<
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
             let data = Item::get_stores_list_for_ids(page, 20, _tag_items, _request_user.is_superuser(), l);
-            let (_stores, store_count) = data.0;
+            let (_stores, stores_count) = data.0;
             let next_page_number = data.1;
 
             if is_desctop {
@@ -757,7 +757,7 @@ pub async fn tag_stores_page(session: Session, req: HttpRequest, _id: web::Path<
         }
         else {
             let data = Item::get_stores_list_for_ids(page, 20, _tag_items, false, l);
-            let (_stores, store_count) = data.0;
+            let (_stores, stores_count) = data.0;
             let next_page_number = data.1;
 
             if is_desctop {
@@ -852,7 +852,7 @@ pub async fn tag_wikis_page(session: Session, req: HttpRequest, _id: web::Path<S
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
             let data = Item::get_wikis_list_for_ids(page, 20, _tag_items, _request_user.is_superuser(), l);
-            let (_wikis, wiki_count) = data.0;
+            let (_wikis, wikis_count) = data.0;
             let next_page_number = data.1;
 
             if is_desctop {
@@ -910,7 +910,7 @@ pub async fn tag_wikis_page(session: Session, req: HttpRequest, _id: web::Path<S
         }
         else {
             let data = Item::get_wikis_list_for_ids(page, 20, _tag_items, false, l);
-            let (_wikis, wiki_count) = data.0;
+            let (_wikis, wikis_count) = data.0;
             let next_page_number = data.1;
 
             if is_desctop {
@@ -1005,7 +1005,7 @@ pub async fn tag_works_page(session: Session, req: HttpRequest, _id: web::Path<S
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
             let data = Item::get_works_list_for_ids(page, 20, _tag_items, _request_user.is_superuser(), l);
-            let (_works, work_count) = data.0;
+            let (_works, works_count) = data.0;
             let next_page_number = data.1;
 
             if is_desctop {
@@ -1064,7 +1064,7 @@ pub async fn tag_works_page(session: Session, req: HttpRequest, _id: web::Path<S
         }
         else {
             let data = Item::get_works_list_for_ids(page, 20, _tag_items, false, l);
-            let (_works, work_count) = data.0;
+            let (_works, works_count) = data.0;
             let next_page_number = data.1;
 
             if is_desctop {
@@ -1157,7 +1157,7 @@ pub async fn tag_helps_page(session: Session, req: HttpRequest, _id: web::Path<S
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
             let data = Item::get_helps_list_for_ids(page, 20, _tag_items, _request_user.is_superuser(), l);
-            let (_helps, help_count) = data.0;
+            let (_helps, helps_count) = data.0;
             let next_page_number = data.1;
 
             if is_desctop {
@@ -1215,7 +1215,7 @@ pub async fn tag_helps_page(session: Session, req: HttpRequest, _id: web::Path<S
         }
         else {
             let data = Item::get_helps_list_for_ids(page, 20, _tag_items, false, l);
-            let (_helps, help_count) = data.0;
+            let (_helps, helps_count) = data.0;
             let next_page_number = data.1;
 
             if is_desctop {

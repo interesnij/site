@@ -43,6 +43,43 @@ impl Order {
             .first::<Order>(&_connection)
             .expect("E")
     }
+    pub fn delete(user_id: i32, id: i32) -> i16 {
+        let _order = schema::orders::table
+            .filter(schema::orders::id.eq(id))
+            .first::<Order>(&_connection)
+            .expect("E");
+        
+        if user_id == _order.user_id {
+            use crate::schema::{
+                serve_items::dsl::serve_items,
+                tech_categories_items::dsl::tech_categories_items,
+            };
+        
+            diesel::delete (
+                serve_items
+                    .filter(schema::serve_items::item_id.eq(id))
+                    .filter(schema::serve_items::types.eq(7))
+                )
+                .execute(&_connection)
+                .expect("E");
+            diesel::delete(
+                tech_categories_items
+                    .filter(schema::tech_categories_items::item_id.eq(id))
+                    .filter(schema::tech_categories_items::types.eq(7))
+                )
+                .execute(&_connection)
+                .expect("E");
+            diesel::delete(
+                order_files
+                    .filter(schema::order_files::order_id.eq(id))
+                )
+                .execute(&_connection)
+                .expect("E");
+            diesel::delete(&_order).execute(&_connection).expect("E");
+            return 1;
+        }
+        return 0;
+    }
     pub fn get_orders_list(page: i32, limit: i32) -> (Vec<Order>, i32) {
         let mut next_page_number = 0;
         let have_next: i32;

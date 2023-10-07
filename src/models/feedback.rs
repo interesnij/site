@@ -1,5 +1,13 @@
 use crate::schema::feedbacks;
-use diesel::{Queryable, Insertable};
+use crate::diesel::{
+    Queryable,
+    Insertable,
+    QueryDsl,
+    RunQueryDsl,
+    ExpressionMethods,
+    NullableExpressionMethods,
+    PgTextExpressionMethods,
+};
 use serde::{Serialize, Deserialize};
 use crate::utils::establish_connection;
 use crate::schema;

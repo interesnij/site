@@ -1410,6 +1410,7 @@ pub struct Item {
 
 impl Item {
     pub fn publish(user: User, id: i32) -> i16 {
+        let _connection = establish_connection();
         let _item = Item::get_with_id(id);
         if user.perm < 60 && _item.user_id != user.id {
             return 0;
@@ -1436,6 +1437,7 @@ impl Item {
         return 1;
     }
     pub fn hide(user: User, id: i32) -> i16 {
+        let _connection = establish_connection();
         let _item = Item::get_with_id(id);
         if user.perm < 60 && _item.user_id != user.id {
             return 0;
