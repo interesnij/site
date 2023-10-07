@@ -785,7 +785,7 @@ pub async fn edit_serve(session: Session, mut payload: Multipart, _id: web::Path
 pub async fn delete_serve(session: Session, _id: web::Path<i32>) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
-        Serve::delete(_request_user, *_id)
+        Serve::delete(_request_user, *_id);
     }
     HttpResponse::Ok()
 }
@@ -793,14 +793,14 @@ pub async fn delete_serve(session: Session, _id: web::Path<i32>) -> impl Respond
 pub async fn delete_tech_category(session: Session, _id: web::Path<i32>) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
-        TechCategories::delete(_request_user, *_id)
+        TechCategories::delete(_request_user, *_id);
     }
     HttpResponse::Ok()
 }
 pub async fn delete_serve_category(session: Session, _id: web::Path<i32>) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
-        ServeCategories::delete(_request_user, *_id)
+        ServeCategories::delete(_request_user, *_id);
     }
     HttpResponse::Ok()
 }

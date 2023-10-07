@@ -329,7 +329,7 @@ impl Categories {
     }
     pub fn get_all() -> Vec<Categories> {
         let _connection = establish_connection();
-        return categories
+        return schema::categories::table 
             .load::<Categories>(&_connection)
             .expect("E");
     }
@@ -351,7 +351,7 @@ impl Categories {
     pub fn get_with_id(id: i32) -> Categories {
         let _connection = establish_connection();
         return schema::categories::table 
-            .filter(schema::categories::types.eq(types))
+            .filter(schema::categories::id.eq(id)) 
             .first::<Categories>(&_connection)
             .expect("E.");
     }
@@ -1277,6 +1277,7 @@ impl Categories {
         }
     }
     pub fn get_detail(slug: String, types: i16, l: u8) -> CatDetail {
+        let _connection = establish_connection();
         if l == 1 {
             return schema::categories::table
                 .filter(schema::categories::slug.eq(&slug))
@@ -1636,7 +1637,7 @@ impl Item {
         }
         return 0;
     }
-    pub fn update_item_with_id(id: i32, form: crate::utils::item_form) -> i16 {
+    pub fn update_item_with_id(id: i32, form: crate::utils::ItemForm) -> i16 {
         let l = get_linguage_storage();
         let _connection = establish_connection();
 
@@ -3251,15 +3252,16 @@ impl Item {
     } 
 
     pub fn get_count_for_ids(ids: &Vec<i32>, is_admin: bool) -> usize {
+        let _connection = establish_connection();
         if is_admin {
-            return items
+            return schema::items::table
                 .filter(schema::items::id.eq_any(ids))
                 .select(schema::items::id) 
                 .load::<i32>(&_connection)
                 .expect("E.")
                 .len();
         }
-        return items
+        return schema::items::table
             .filter(schema::items::id.eq_any(ids))
             .filter(schema::items::is_active.eq(true))
             .select(schema::items::id) 

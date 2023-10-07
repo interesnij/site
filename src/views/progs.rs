@@ -145,9 +145,9 @@ pub async fn create_history (
     data: Json<HistoryData>,
     req: HttpRequest,
 ) -> Result<Json<CookieStat>, Error> {
-    let p_id = data.user_id; 
+    let p_id = data.user_id;
     let user = crate::views::get_c_user(conn, p_id, &req).await;
-    return CookieStat::create(data, user, get_linguage_storage());
+    return Ok(CookieStat::create(data, user, get_linguage_storage()));
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -189,7 +189,7 @@ pub async fn create_item(session: Session, mut payload: Multipart) -> impl Respo
         let _request_user = get_request_user_data(&session);
         if _request_user.perm == 60 {
             let form = crate::utils::item_form(payload.borrow_mut(), _request_user.id).await;
-            Item::create(_request_user.id, form)
+            Item::create(_request_user.id, form);
         } 
     };
     HttpResponse::Ok()
@@ -200,7 +200,7 @@ pub async fn edit_item(session: Session, mut payload: Multipart, _id: web::Path<
         let _request_user = get_request_user_data(&session);
         if _request_user.perm == 60 {
             let form = crate::utils::item_form(payload.borrow_mut(), _request_user.id).await;
-            Item::edit(*_id, form)
+            Item::update_item_with_id(*_id, form); 
         }
     };
     HttpResponse::Ok()
@@ -255,7 +255,7 @@ pub async fn create_files(session: Session, mut payload: Multipart, id: web::Pat
     if is_signed_in(&session) { 
         let _request_user = get_request_user_data(&session);
         let form = crate::utils::files_form(payload.borrow_mut(), _request_user.id).await;
-        File::create(_request_user, *id, form)
+        File::create(_request_user, *id, form);
     }
     HttpResponse::Ok()
 }
@@ -280,14 +280,14 @@ pub async fn delete_file(session: Session, _id: web::Path<i32>) -> impl Responde
 pub async fn publish_item(session: Session, _id: web::Path<i32>) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
-        Item::publish(_request_user, *_id)
+        Item::publish(_request_user, *_id);
     }
     HttpResponse::Ok()
 }
 pub async fn hide_item(session: Session, _id: web::Path<i32>) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
-        Item::hide(_request_user, *_id)
+        Item::hide(_request_user, *_id);
     }
     HttpResponse::Ok()
 }

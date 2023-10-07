@@ -1139,7 +1139,7 @@ pub async fn create_category_page(session: Session, req: HttpRequest) -> actix_w
 pub async fn edit_category_page(session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
-    let _cat = Categories::get(*_id);
+    let _cat = Categories::get_with_id(*_id);  
 
     if is_ajax == 0 {
         get_first_load_page (
@@ -1405,7 +1405,7 @@ pub async fn edit_item_page(session: Session, req: HttpRequest, _id: web::Path<i
 
 pub async fn edit_content_item_page(session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     let (t, l) = get_all_storage();
-    let _item = Item::get_with_id(&*_id);
+    let _item = Item::get_with_id(*_id);
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     if is_ajax == 0 {

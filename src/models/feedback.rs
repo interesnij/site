@@ -2,6 +2,7 @@ use crate::schema::feedbacks;
 use diesel::{Queryable, Insertable};
 use serde::{Serialize, Deserialize};
 use crate::utils::establish_connection;
+use crate::schema;
 
 
 #[derive(Debug ,Queryable, Serialize, Identifiable)]
@@ -18,7 +19,7 @@ impl Feedback {
             .load::<Feedback>(&_connection)
             .expect("E");
     }
-    pub fn create(form: crate::utils::feedback_form) -> i16 {
+    pub fn create(form: crate::utils::FeedbackForm) -> i16 {
         let _connection = establish_connection();
         let new_feedback = NewFeedback {
             username: form.username.clone(),

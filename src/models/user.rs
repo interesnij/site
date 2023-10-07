@@ -12,7 +12,6 @@ use crate::diesel::{
     ExpressionMethods,
     RunQueryDsl,
     Connection,
-    ConnectionInfo,
 };
 use serde::{Serialize, Deserialize};
 use crate::utils::{establish_connection, NewUserForm};
