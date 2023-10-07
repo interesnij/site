@@ -1,0 +1,74 @@
+<% if last_stores.len() > 0 { %>
+
+<section class="work-section p-relative section-margin dsn-swiper over-hidden" data-dsn-title="our Portfolio" data-dsn-option='{"slidesPerView":1.5,"spaceBetween":50}'>
+    <div class="container mb-70 d-flex text-center flex-column align-items-center">
+        <p class="sub-heading line-shap line-shap-before mb-15">
+            <span class="line-bg-right">
+                Иногда проще купить готовое
+            </span>
+        </p>
+        <h2 class="section-title  title-cap">
+            <a href="/store_categories/" class="ajax">
+                Наши товары
+            </a>
+        </h2>
+    </div>
+
+    <div class="swiper-container">
+        <div class="swiper-wrapper v-dark-head">
+            <% for object in last_stores.iter() { %>
+            <div class="swiper-slide over-hidden work-item">
+                <div class="box-img p-relative over-hidden before-z-index" data-overlay="5" data-swiper-parallax-scale="0.85">
+                    <img class="cover-bg-img" 
+                         src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
+                         data-dsn-src="<%= object.get_image() %>" 
+                         alt="img">
+                </div>
+                <div class="box-content" data-swiper-parallax-opacity="0">
+                    <div class="metas d-inline-block mb-15">
+                        <% for tag in object.get_tags(linguage).iter() { %>
+                            <a href="/tag/<%= tag.name %>/" class="mb-5 ajax"><%= tag.name %> (<%= tag.count %>)</a>
+                        <% } %>
+                    </div>
+                    <h4 class="sec-title">
+                        <a class="effect-ajax" data-dsn-ajax="work" href="store/all-stores/<%= object.slug %>/">
+                            <% if !object.is_active { %>
+                                <span style="color: red">!</span>
+                            <% } %>
+                            <%= object.title %>
+                        </a>
+                    </h4>
+                </div>
+            </div>
+            <% } %>
+        </div>
+        <div class="dsn-pagination mt-30 dsn-container d-flex justify-content-between">
+            <div class="swiper-next">
+                <div class="next-container">
+                    <div class="container-inner">
+                        <div class="triangle"></div>
+                        <svg class="circle" width="24" height="24" viewBox="0 0 24 24">
+                            <g class="circle-wrap" fill="none" stroke-width="1" stroke-linejoin="round" stroke-miterlimit="10">
+                                <circle cx="12" cy="12" r="10.5"></circle>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-prev">
+                <div class="prev-container">
+                    <div class="container-inner">
+                        <div class="triangle"></div>
+                        <svg class="circle" viewBox="0 0 24 24">
+                            <g class="circle-wrap" fill="none" stroke-width="1" stroke-linejoin="round" stroke-miterlimit="10">
+                                <circle cx="12" cy="12" r="10.5"></circle>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<% } %>

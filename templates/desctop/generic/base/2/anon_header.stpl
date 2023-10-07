@@ -1,0 +1,318 @@
+
+<div class="site-header dsn-container dsn-load-animate">
+    <div class="extend-container d-flex w-100 align-items-baseline justify-content-between align-items-end">
+        <div class="inner-header p-relative">
+            <div class="main-logo">
+                <a href="/" data-dsn="parallax" class="ajax">
+                    <span style="line-height: 15px;">
+                        <span style="letter-spacing: 12px;">
+                            В
+                        </span>
+                        <span style="letter-spacing: 12px;">
+                            Е
+                        </span>
+                        Б
+                    </span>
+                    <span style="padding-right: 2px;">сервисы</span>
+                </a>
+            </div>
+        </div>
+        <div class="menu-icon d-flex align-items-baseline">
+            <div class="text-menu p-relative  font-heading text-transform-upper">
+                <div class="p-absolute text-button">Меню</div>
+                <div class="p-absolute text-open">Открыто</div>
+                <div class="p-absolute text-close">Закрыто</div>
+            </div>
+            <div class="icon-m" data-dsn="parallax" data-dsn-move="10">
+                <span class="menu-icon-line p-relative d-inline-block icon-top"></span>
+                <span class="menu-icon-line p-relative d-inline-block icon-center"></span>
+                <span class="menu-icon-line p-relative d-block icon-bottom"></span>
+            </div>
+        </div>
+        <nav class="accent-menu dsn-container main-navigation p-absolute  w-100  d-flex align-items-baseline ">
+            <div class="menu-cover-title">Меню</div>
+            <ul class="extend-container p-relative d-flex flex-column justify-content-center h-100">
+                <li>
+                    <a class="ajax" href="/">
+                        <span class="dsn-title-menu">Главная</span>
+                        <span class="dsn-meta-menu">01</span>
+                        <span class="dsn-bg-arrow"></span>
+                    </a>
+                </li>
+                <%
+                    use crate::utils::get_categories_2;
+                    let (service_cats, store_cats, blog_cats, wiki_cats, work_cats, help_cats) = get_categories_2(linguage);
+                %> 
+                
+                <li class="dsn-active dsn-drop-down">
+                    <a href="#" class="user-no-selection">
+                        <span class="dsn-title-menu">Услуги</span>
+                        <span class="dsn-meta-menu">02</span>
+                        <span class="dsn-bg-arrow"></span>
+                    </a> 
+                    <ul>
+                        <li class="dsn-back-menu">
+                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-dsn-src="/static/2_images/left-chevron.svg" alt="img">
+                            <span class="dsn-title-menu">Назад</span>
+                        </li> 
+                        <li> 
+                            <a href="/service_categories/" class="ajax">
+                                <span class="dsn-title-menu">Раздел услуг</span>
+                                <span class="dsn-meta-menu">Перейти</span>
+                            </a>
+                        </li>
+                        <% for object in service_cats.iter() { %>
+                            <li>
+                                <a class="ajax" href="/services/<%= object.slug %>/">
+                                    <span class="dsn-title-menu"><%= object.name %></span>
+                                    <span class="dsn-meta-menu"><%= object.count %></span>
+                                </a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </li>
+
+                <li class="dsn-active dsn-drop-down">
+                    <a href="#" class="user-no-selection">
+                        <span class="dsn-title-menu">Работы</span>
+                        <span class="dsn-meta-menu">03</span>
+                        <span class="dsn-bg-arrow"></span>
+                    </a>
+                    <ul>
+                        <li class="dsn-back-menu">
+                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-dsn-src="/static/2_images/left-chevron.svg" alt="img">
+                            <span class="dsn-title-menu">Назад</span>
+                        </li> 
+
+                        <li>
+                            <a href="/work_categories/" class="ajax">
+                                <span class="dsn-title-menu">Раздел работ</span>
+                                <span class="dsn-meta-menu">Перейти</span>
+                            </a>
+                        </li>
+                        <% for object in work_cats.iter() { %>
+                            <li>
+                                <a class="ajax" href="/works/<%= object.slug %>/">
+                                    <span class="dsn-title-menu"><%= object.name %></span>
+                                    <span class="dsn-meta-menu"><%= object.count %></span>
+                                </a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </li>
+
+                <li class="dsn-active dsn-drop-down">
+                    <a href="#" class="user-no-selection">
+                        <span class="dsn-title-menu">Продукция</span>
+                        <span class="dsn-meta-menu">04</span>
+                        <span class="dsn-bg-arrow"></span>
+                    </a>
+                    <ul>
+                        <li class="dsn-back-menu">
+                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-dsn-src="/static/2_images/left-chevron.svg" alt="img">
+                            <span class="dsn-title-menu">Назад</span>
+                        </li> 
+
+                        <li>
+                            <a href="/store_categories/" class="ajax">
+                                <span class="dsn-title-menu">Раздел продукции</span>
+                                <span class="dsn-meta-menu">Перейти</span>
+                            </a>
+                        </li>
+                        <% for object in store_cats.iter() { %>
+                            <li>
+                                <a class="ajax" href="/stores/<%= object.slug %>/">
+                                    <span class="dsn-title-menu"><%= object.name %></span>
+                                    <span class="dsn-meta-menu"><%= object.count %></span>
+                                </a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </li>
+
+                <li class="dsn-active dsn-drop-down">
+                    <a href="#" class="user-no-selection">
+                        <span class="dsn-title-menu">Обучение</span>
+                        <span class="dsn-meta-menu">05</span>
+                        <span class="dsn-bg-arrow"></span>
+                    </a>
+                    <ul>
+                        <li class="dsn-back-menu">
+                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-dsn-src="/static/2_images/left-chevron.svg" alt="img">
+                            <span class="dsn-title-menu">Назад</span>
+                        </li> 
+
+                        <li>
+                            <a href="/wiki_categories/" class="ajax">
+                                <span class="dsn-title-menu">Раздел обучения</span>
+                                <span class="dsn-meta-menu">Перейти</span>
+                            </a>
+                        </li>
+                        <% for object in wiki_cats.iter() { %>
+                            <li>
+                                <a class="ajax" href="/wikis/<%= object.slug %>/">
+                                    <span class="dsn-title-menu"><%= object.name %></span>
+                                    <span class="dsn-meta-menu"><%= object.count %></span>
+                                </a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </li>
+
+                <li class="dsn-active dsn-drop-down">
+                    <a href="#" class="user-no-selection">
+                        <span class="dsn-title-menu">Блог</span>
+                        <span class="dsn-meta-menu">06</span>
+                        <span class="dsn-bg-arrow"></span>
+                    </a>
+                    <ul>
+                        <li class="dsn-back-menu">
+                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-dsn-src="/static/2_images/left-chevron.svg" alt="img">
+                            <span class="dsn-title-menu">Назад</span>
+                        </li> 
+
+                        <li>
+                            <a href="/blog_categories/" class="ajax">
+                                <span class="dsn-title-menu">Раздел блога</span>
+                                <span class="dsn-meta-menu">Перейти</span>
+                            </a>
+                        </li>
+                        <% for object in blog_cats.iter() { %>
+                            <li>
+                                <a class="ajax" href="/blogs/<%= object.slug %>/">
+                                    <span class="dsn-title-menu"><%= object.name %></span>
+                                    <span class="dsn-meta-menu"><%= object.count %></span>
+                                </a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </li>
+
+                <li class="dsn-active dsn-drop-down">
+                    <a href="#" class="user-no-selection">
+                        <span class="dsn-title-menu">Инфо</span>
+                        <span class="dsn-meta-menu">07</span>
+                        <span class="dsn-bg-arrow"></span>
+                    </a>
+                    <ul>
+                        <li class="dsn-back-menu">
+                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-dsn-src="/static/2_images/left-chevron.svg" alt="img">
+                            <span class="dsn-title-menu">Назад</span>
+                        </li> 
+
+                        <li>
+                            <a href="/info/" class="ajax">
+                                <span class="dsn-title-menu">О нас</span>
+                                <span class="dsn-meta-menu">01</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/tags/" class="ajax">
+                                <span class="dsn-title-menu">Теги</span>
+                                <span class="dsn-meta-menu">02</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/search/" class="ajax">
+                                <span class="dsn-title-menu">Поиск</span>
+                                <span class="dsn-meta-menu">03</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/history/" class="ajax">
+                                <span class="dsn-title-menu">История просмотров</span>
+                                <span class="dsn-meta-menu">04</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/user_orders/" class="ajax">
+                                <span class="dsn-title-menu">Ваши заказы</span>
+                                <span class="dsn-meta-menu">05</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/cookie_users_list/" class="ajax">
+                                <span class="dsn-title-menu">Статистика</span>
+                                <span class="dsn-meta-menu">06</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dsn-active dsn-drop-down">
+                    <a href="#" class="user-no-selection">
+                        <span class="dsn-title-menu">Помощь</span>
+                        <span class="dsn-meta-menu">07</span>
+                        <span class="dsn-bg-arrow"></span>
+                    </a>
+                    <ul>
+                        <li class="dsn-back-menu">
+                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-dsn-src="/static/2_images/left-chevron.svg" alt="img">
+                            <span class="dsn-title-menu">Назад</span>
+                        </li> 
+                        <% for object in help_cats.iter() { %>
+                            <li>
+                                <a class="ajax" href="/helps/<%= object.slug %>/">
+                                    <span class="dsn-title-menu"><%= object.name %></span>
+                                    <span class="dsn-meta-menu"><%= object.count %></span>
+                                </a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </li>
+
+            </ul> 
+            <div class="container-content p-absolute h-100 left-60 d-flex flex-column justify-content-center">
+                <div class="nav__info">
+                    <div class="nav-content">
+                        <p class="title-line">
+                            Вебсервисы.рф</p>
+                        <p>
+                            Комплексное, экспертное <br>
+                            создание и развитие веб-ресурсов
+                        </p>
+                    </div>
+                    <div class="nav-content">
+                        <p class="title-line">
+                            Контакты</p>
+                        <p class="links over-hidden">
+                            <a data-hover-text="+7(904)237-36-37" class="link-hover">+7(904)237-36-37</a>
+                        </p>
+                        <p class="links over-hidden">
+                            <a data-hover-text="interesnijsim49293@gmail.com" class="link-hover">interesnijsim49293@gmail.com</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="nav-social nav-content">
+                    <div class="nav-social-inner p-relative">
+                        <p class="title-line">
+                            Мы в соцсетях</p>
+                        <ul>
+                            <li>
+                                <a href="#" target="_blank" rel="nofollow">VK.
+                                    <div class="icon-circle"></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" target="_blank" rel="nofollow">Rutube.
+                                    <div class="icon-circle"></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" target="_blank" rel="nofollow">Github.
+                                    <div class="icon-circle">
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+            
+<main class="main-root">
+    <div id="dsn-scrollbar">
+        <div class="main-content">
+            <div class="wrapper ajax_1">

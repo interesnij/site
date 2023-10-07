@@ -1,0 +1,28 @@
+<div class="col-lg-4 col-md-6 mb-60 mb-xs-40">
+  <div class="post-prev-img">
+    <a class="ajax" href="/store/all-stores/<%= object.slug %>/">
+      <div class="progressive replace" data-href="<%= object.get_image() %>">
+        <img class="preview image_fit_300" src="/static/images/i.webp" alt="img" />
+      </div>
+    </a>
+    <div class="intro-label">
+      <span class="label label-danger bg-red">от <%= object.price %> ₽</span>
+    </div>
+  </div>
+  <div class="post-prev-title font-alt align-center">
+    <a class="ajax" href="/store/all-stores/<%= object.slug %>/">
+      <% if !object.is_active { %>
+        <span style="color: red">🛇</span>
+      <% } %>
+      <%= object.title %>
+    </a>
+  </div>
+  <div class="post-prev-text align-center">
+    <strong>от <%= object.price %> ₽</strong>
+  </div>
+  <div class="post-prev-more align-center">
+    <a href="/store/all-stores/<%= object.slug %>/" class="btn border btn-mod ajax btn-round">
+      Детали
+    </a>
+  </div>
+</div>

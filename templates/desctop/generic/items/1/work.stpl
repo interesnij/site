@@ -1,0 +1,24 @@
+<li class="work-item">
+  <a href="/work/<%= category.slug %>/<%= object.slug %>/" class="ajax mfp-image">
+    <div class="work-img">
+      <div class="progressive replace" data-href="<%= object.get_image() %>">
+        <img class="preview image_fit_300" src="/static/images/i.webp" alt="img" />
+      </div>
+    </div>
+    <div class="work-intro">
+      <h3 class="work-title">
+        <% if !object.is_active { %>
+          <span style="color: red">🛇</span>
+        <% } %>
+        <%= object.title %>
+      </h3>
+      <div class="work-descr">
+        <% if object.description.is_some() { %>
+          <%= object.description.as_deref().unwrap() %>
+        <% } else { %>
+          Без описания
+        <% } %>
+      </div>
+    </div>
+  </a>
+</li>

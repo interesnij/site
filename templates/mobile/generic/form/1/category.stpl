@@ -1,0 +1,96 @@
+<div data-pk="<%= category.id %>" data-sum="<%= category.default_price %>" class="tab_<%= i + 1 %> fade tab-pane <% if i == 0 { %>in active<% } %>">
+  <p data-pk="<%= category.id %>" class="pointer get_serve_category_info">
+    <%= t_category.name %> на <%= category.name %>
+  </p>
+  <table class="table">
+    <tbody>
+      <% for serve in category.get_serves().iter() { %>
+
+        <% if serve.is_parent() { %>
+          <% let first_child = serve.get_first_variable(); %>
+          <% if serve.is_default { %>
+            <tr class="is_default open_child_serves hover pointer" parent-pk="<%= serve.id %>">
+              <% include!("first_child.stpl"); %>
+              <td class="action_text border-top" style="width:30%">
+                <a class="icon_check">✔</a>
+                &nbsp;
+                <a class="icon_parent">▼</a>
+                &nbsp;
+                <a class="icon_default">*</a>
+              </td>
+            </tr>
+
+          <% } else if object_serve_ids.iter().any(|i| i==&first_child.id) { %>
+            <tr class="open_child_serves hover pointer" parent-pk="<%= serve.id %>">
+              <% include!("first_child.stpl"); %>
+              <td class="action_text border-top" style="width:30%">
+                <a class="icon_check">✔</a>
+                &nbsp;
+                <a class="icon_parent">▼</a>
+              </td>
+            </tr>
+
+          <% } else { %>
+            <tr class="open_child_serves no_select_parent pointer" parent-pk="<%= serve.id %>">
+              <td class="border-top" style="width:70%">
+                <a class="get_serve_info pointer" data-pk="<%= object.id %>">
+                  <%= serve.name %> → Не выбрано
+                </a>
+                <br />
+                <span style="font-size:80%">
+                  <span class="price_td"><span class="price">-</span> ₽</span>
+                  &nbsp;&nbsp;
+                  <span class="hours">-</span>
+                </span>
+              </td>
+              <td class="border-top action_text border-top" style="width:30%">
+                <a class="icon_parent">▼</a>
+                &nbsp;
+                <a class="icon_check"></a>
+              </td>
+            </tr>
+          <% } %>
+
+          <% let childs = serve.get_variables_exclude_id(first_child.id); %>
+          <% let childs_count = childs.len(); %>
+
+          <% for (i, child) in childs.iter().enumerate() { %>
+            <tr class="select_child_serve hide pointer" style="font-size: 12px;<% if (i + 1) == childs_count { %>padding-bottom: 30px;<% } %>" serve-pk="<%= serve.id %>">
+              <% include!("child.stpl"); %>
+              <td class="action_text solid_right <% if i == 0 { %>border-top<% } %> <% if (i + 1) == childs_count { %>solid_bottom<% } %>" style="width:30%">
+                <span class="icon_check">+</span>
+              </td>
+            </tr>
+          <% } %>
+          <tr></tr>
+
+        <% } else { %>
+          <% if serve.is_default { %>
+            <tr class="is_default hover">
+              <% include!("serve.stpl"); %>
+              <td class="action_text" style="width:30%">
+                <span class="icon_check">+</span>
+                &nbsp;
+                <span class="icon_default">*</span>
+              </td>
+            </tr>
+          <% } else if object_serve_ids.iter().any(|i| i==&serve.id) { %>
+            <tr class="select_serve hover pointer">
+              <% include!("serve.stpl"); %>
+              <td class="action_text" style="width:30%">
+                <span class="icon_check">&nbsp;✔&nbsp;</span>
+              </td>
+            </tr>
+          <% } else { %>
+            <tr class="select_serve pointer">
+              <% include!("serve.stpl"); %>
+              <td class="action_text border-top" style="width:30%">
+                <span class="icon_check">&nbsp;+&nbsp;</span>
+              </td>
+            </tr>
+          <% } %>
+        <% } %>
+      <% } %>
+    </tbody>
+  </table>
+</div>

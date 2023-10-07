@@ -1,0 +1,11 @@
+<td style="width:55%" class="solid_left <% if i == 0 { %>solid_top<% } %> <% if (i + 1) == childs_count { %>solid_bottom<% } %>">
+  <a class="get_serve_info pointer" data-pk="<%= child.id %>">
+    <%= serve.name %> → <%= child.name %>
+  </a>
+  <br />
+  <span style="font-size:80%">
+    <span class="price_td"><span class="price"><%= child.price %></span> ₽</span>
+    &nbsp;&nbsp;
+    <span class="hours"><%= child.man_hours %> ч.</span>
+  </span>
+</td>

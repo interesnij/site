@@ -1,0 +1,237 @@
+::-moz-selection{ color: #000000 !important; background: rgb(255, 255, 255, 0.6) !important; }
+::-webkit-selection{ color: #000000 !important; background: rgb(255, 255, 255, 0.6) !important; }
+::selection{ color: #000000 !important; background: rgb(255, 255, 255, 0.6) !important; }
+.selected {
+  color: #000000 !important;
+  background: rgb(255, 255, 255, 0.6) !important;
+  padding: 0px 2px;
+}
+
+a:hover {
+    color: rgba(255,255,255, 1) !important;
+}
+.small-section, .mob_menu, .banner_block {
+  background: rgba(51,51,51, 1) !important;
+}
+.solid_left {
+  border-left: 1px solid rgba(255,255,255, 0.8);
+}
+.solid_right {
+  border-right: 1px solid rgba(255,255,255, 0.8);
+}
+.solid_bottom {
+  border-bottom: 1px solid rgba(255,255,255, 0.8);
+}
+.solid_top {
+  border-top: 1px solid rgba(255,255,255, 0.8);
+}
+.blog-post-prev-small{
+    border-top: 1px dotted rgba(255,255,255, 0.8) !important;
+}
+.tpl-minimal-tabs li.active a,
+.tpl-minimal-tabs li.not_active:hover a {
+    border: 1px solid rgb(255, 255, 255, 0.7) !important;
+}
+.mobile_icon span {
+  color: rgb(255, 255, 255, 0.7) !important;
+}
+
+.mob_menu {
+  box-shadow: 0 14px 28px rgb(255 255 255 / 50%), 0 10px 10px rgb(255 255 255 / 25%) !important;
+}
+.js-height-full, .small-section, .mob_menu, .mn-sub {
+  background: #2f4f4f !important;
+}
+.desctop_version .team-item:hover .team-item-image:after {
+  background: #2f4f4f !important;
+}
+.custom_btn {
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(0, 0, 0, 0.7)
+}
+.mobile_nav {
+  background: rgba(0,0,0, 0.7) !important;
+}
+.first_span {
+  background: rgba(0,0,0, 0.7) !important;
+}
+.second_span {
+  background: rgba(0,0,0, 0.7) !important;
+}
+.mobile_icon_active, .mobile_icon_current{
+  background: #2f4f4f  !important;
+}
+.mobile_icon p{
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+.mobile_icon_active p, .mobile_icon_current p{
+  color: #FFFFFF !important;
+}
+/*
+.main_banner {
+  background-image: url('/static/images/dark/background.jpg') !important;
+}
+.service_banner {
+  background-image: url('/static/images/dark/background.jpg') !important;
+}
+.work_banner {
+  background-image: url('/static/images/dark/background.jpg') !important;
+}
+.store_banner {
+  background-image: url('/static/images/dark/background.jpg') !important;
+}
+.blog_banner {
+  background-image: url('/static/images/dark/background.jpg') !important;
+}
+.faq_banner {
+  background-image: url('/static/images/dark/background.jpg') !important;
+}
+*/
+
+.border {
+    border: 1px solid rgba(255,255,255, 0.7) !important;
+}
+.border:hover {
+    border: 1px solid rgba(255,255,255, 0.9) !important;
+}
+.border-top {
+  border-top: 1px solid rgba(255,255,255, 0.7) !important;
+}
+
+.shadow{
+    -webkit-box-shadow: 0px 0px 200px rgba(0, 0, 0, .2) !important;
+    -moz-box-shadow: 0px 0px 200px rgba(0, 0, 0, .2) !important;
+    box-shadow: 0px 0px 200px rgba(0, 0, 0, .2) !important;
+}
+
+body{
+    color: rgba(255,255,255, 0.8) !important;
+    background-color: rgba(0,0,0, 0.8) !important;
+    background: rgba(0,0,0, 0.8) !important;
+    font-family: "Open Sans",arial,sans-serif;
+}
+.window_fullscreen, .card_fullscreen, .hover, pre {
+  color: rgba(255,255,255, 0.8) !important;
+  background-color: #2f4f4f !important
+}
+.font-alt {
+  font-family: Dosis,arial,sans-serif;
+}
+a, ::-webkit-scrollbar {
+    color: rgba(255,255,255, 0.8) !important;
+}
+a.active {
+    color: rgba(255,255,255, 1) !important;
+    font-weight: bold;
+}
+hr{
+    background: rgba(255,255,255, .7) !important;
+    border-top: 1px solid rgba(255,255,255, .7);
+}
+
+.btn-mod:hover,
+.btn-mod:focus,
+a.btn-mod:hover,
+a.btn-mod:focus{
+    color: white !important;
+    background: #2F4F4F !important;
+}
+.btn-mod.btn-border {
+  color: rgba(255,255,255, .7) !important;
+  border: 2px solid rgba(255,255,255, .7) !important;
+}
+
+.form input[type="text"], 
+.form input[type="email"],
+.form input[type="number"],
+.form input[type="password"],
+.form input[type="date"],
+.form .smile_supported,
+.form textarea,
+.form input[type="file"],
+.form select{
+    color: rgba(255,255,255, 0.7) !important;
+    border: 1px solid rgba(255,255,255, 0.7) !important;
+    background: rgba(0,0,0, 0.7) !important
+}
+
+.form input[type="text"]:hover,
+.form input[type="email"]:hover,
+.form input[type="number"]:hover,
+.form input[type="password"]:hover,
+.form input[type="date"]:hover,
+.form textarea:hover,
+.form select:hover{
+    border-color: rgba(255,255,255, .2) !important;
+}
+
+.form input[type="text"]:focus,
+.form input[type="email"]:focus,
+.form input[type="number"]:focus,
+.form input[type="password"]:focus,
+.form input[type="date"]:focus,
+.form textarea:focus,
+.form select:focus{
+    color: #FFFFFF !important;
+    border-color: rgba(255,255,255, .7) !important;
+    -webkit-box-shadow: 0 0 3px rgba(255,255,255, .3) !important;
+    -moz-box-shadow: 0 0 3px rgba(255,255,255, .3) !important;
+    box-shadow: 0 0 3px rgba(255,255,255, .3) !important;
+}
+
+.main-nav{
+    background: #2f4f4f !important;
+    -webkit-box-shadow: 0 1px 0 rgba(,255,255,.05) !important;
+    -moz-box-shadow: 0 1px 0 rgba(255,255,255,.05) !important;
+    box-shadow:  0 1px 0 rgba(255,255,255, .05) !important;
+}
+
+.inner-nav ul li a:hover,
+.inner-nav ul li a.active{
+    color: #FFFFFF !important;
+}
+
+.alt-features-icon{
+    color: #FFFFFF !important;
+}
+
+.count-wrapper{
+    border: 1px solid rgba(255,255,255, .09) !important;
+}
+
+.work-full{
+    background: #000000 !important;
+}
+
+.work-full-detail p{
+    border-top: 1px solid rgba(255,255,255, .05) !important;
+}
+.work-full-detail p:last-child{
+    border-bottom: 1px solid rgba(255,255,255, .05) !important;
+}
+
+.banner-decription{
+    color: rgba(0,0,0, .7) !important;
+}
+
+.contact-item a:hover{
+    color: #FFFFFF !important;
+}
+
+.blog-item-title a{
+    color: #FFFFFF !important;
+}
+
+.blog-item-data a:hover{
+    color: #FFFFFF !important;
+}
+
+.tpl-alt-tabs li.active a,
+.tpl-alt-tabs li.active a:hover,
+.tpl-alt-tabs li.active a:focus{
+    color: #FFFFFF !important;
+    font-weight: bold;
+}
+.tpl-alt-tabs li.active span{
+    color: #FFFFFF !important;
+}

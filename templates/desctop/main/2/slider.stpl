@@ -1,0 +1,81 @@
+<header  
+    page-id="1" 
+    data-title="Главная страница" 
+    data-description="вебсервисы.рф - Комплексное, экспертное создание и развитие веб-ресурсов" 
+    data-uri="/" 
+    data-image="/static/images/dark/store.jpg" 
+    class="doc_title main-slider has-horizontal p-relative w-100 h-100-v dsn-header-animation">
+    <div class="content-slider p-relative w-100 h-100 over-hidden v-dark-head">
+        <div class="bg-container dsn-hero-parallax-img p-relative w-100 h-100">
+            <div class="slide-inner h-100">
+                <div class="swiper-wrapper">
+                    <% for object in last_works.iter() { %>
+                    <div class="slide-item swiper-slide over-hidden">
+                        <div class="image-bg cover-bg w-100 h-100 " data-overlay="6" data-swiper-parallax="50%" data-swiper-parallax-scale="1.1">
+                            <img class="cover-bg-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-dsn-src="<%= object.get_image() %>" alt="img">
+                        </div>
+                        <div class="slide-content p-absolute ">
+                            <div class="content p-relative">
+                                <div class="metas d-inline-block mb-20">
+                                    <% for tag in object.get_tags(linguage).iter() { %>
+                                        <a href="/tag/<%= tag.name %>/" class="mb-5 ajax"><%= tag.name %> (<%= tag.count %>)</a>
+                                    <% } %>
+                                </div>
+                                <div class="d-block"></div>
+                                <h1 class="title user-no-selection d-inline-block ">
+                                    <a href="/work/all-works/<%= object.slug %>/" class="effect-ajax" data-dsn-ajax="slider">
+                                        <% if !object.is_active { %>
+                                            <span style="color: red">!</span>
+                                        <% } %>
+                                        <%= object.title %>
+                                    </a>
+                                </h1>
+                                <hr class="mt-20" />
+
+                                <p class="max-w570 mt-20 description ">
+                                    <% if object.description.is_some() { %>
+                                        <%= object.description.as_deref().unwrap() %>
+                                    <% } else { %>
+                                        Без описания
+                                    <% } %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <div class="dsn-slider-content p-absolute h-100 w-100 ">
+            <div class="dsn-container d-flex align-items-end "></div>
+        </div>
+    </div>
+    <div class="control-nav dsn-load-animate p-absolute w-100 d-flex justify-content-end  dsn-container v-dark-head">
+        <div class="prev-container">
+            <div class="container-inner">
+                <div class="triangle"></div>
+                <svg class="circle" viewBox="0 0 24 24">
+                    <g class="circle-wrap" fill="none" stroke-width="1" stroke-linejoin="round" stroke-miterlimit="10">
+                        <circle cx="12" cy="12" r="10.5"></circle>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="slider-counter d-flex align-items-center">
+            <span class="slider-current-index">01</span>
+            <span class="slider-counter-delimiter"></span>
+            <span class="slider-total-index"><%= last_works.len() %></span>
+        </div>
+        <div class="next-container">
+            <div class="container-inner">
+                <div class="triangle"></div>
+                <svg class="circle" width="24" height="24" viewBox="0 0 24 24">
+                    <g class="circle-wrap" fill="none" stroke-width="1" stroke-linejoin="round" stroke-miterlimit="10">
+                        <circle cx="12" cy="12" r="10.5"></circle>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+</header>

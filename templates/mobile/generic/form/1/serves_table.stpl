@@ -1,0 +1,75 @@
+
+<% for t_category in object.get_open_tech_categories(object.types).iter() { %>
+  <% let s_cats = t_category.get_serve_categories(); %>
+
+<section class="banner_block mb-20 mt-20 border open_cat" style="width:100%;">
+    <h4 class="section-title font-alt">
+        <%= t_category.name %>
+    </h4>
+    <div class="">
+        <div class="align-center">
+            <ul class="nav nav_mobile nav-tabs tpl-minimal-tabs price_mode">
+              <% for (i, cat) in s_cats.iter().enumerate() { %>
+
+                <% if i == 0 { %>
+                  <li data-pk="<%= cat.id %>" data-sum="<%= cat.default_price %>" class="yy s_<%= i + 1 %> active">
+                      <a class="pointer" style="border: none !important"><%= cat.name %></a>
+                  </li>
+                <% } else { %>
+                  <li data-pk="<%= cat.id %>" data-sum="<%= cat.default_price %>" class="yy pointer not_active s_<%= i + 1 %>">
+                    <a class="pointer" style="border: none !important"><%= cat.name %></a>
+                  </li>
+                <% } %>
+
+              <% } %>
+            </ul>
+        </div>
+
+        <div class="tab-content tpl-minimal-tabs-cont section-text">
+          <% for (i, category) in s_cats.iter().enumerate() { %>
+            <% include!("category.stpl"); %>
+          <% } %>
+        </div>
+    </div>
+</section>
+<% } %>
+
+
+<% for t_category in object.get_close_tech_categories(object.types).iter() { %>
+  <% let s_cats = t_category.get_serve_categories(); %>
+
+<section class="banner_block mb-20 mt-20 border" style="width:100%;">
+    <h3 class="pointer section-title font-alt show_tech_category">
+      <span class="cat_description">
+        <%= t_category.name %>
+        <span style="float:right;margin-right: 20px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+        </span>
+      </span>
+      <span class="cat_name hidden">
+        <%= t_category.name %>
+        <span style="float:right;margin-right: 20px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </span>
+      </span>
+    </h3>
+
+    <div class="hidden is_not_main_cat">
+        <div class="align-center">
+            <ul class="nav nav-tabs tpl-minimal-tabs">
+              <% for (i, cat) in s_cats.iter().enumerate() { %>
+                <li data-sum="<%= cat.default_price %>" class="yy pointer s_<%= i + 1 %> <% if i == 0 { %>active<% } %>">
+                    <a class="pointer"><%= cat.name %></a>
+                </li>
+              <% } %>
+            </ul>
+        </div>
+
+        <div class="tab-content tpl-minimal-tabs-cont section-text">
+          <% for (i, category) in s_cats.iter().enumerate() { %>
+            <% include!("category.stpl"); %>
+          <% } %>
+        </div>
+    </div>
+</section>
+<% } %>

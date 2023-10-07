@@ -1,0 +1,23 @@
+
+<section data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= uri %>" data-image="<%= image %>" class="doc_title">
+  <div class="relative container align-left">
+    <div class="hs-line-4 font-alt">
+      <a class="ajax"href="/">Главная</a>
+      &nbsp;/&nbsp;
+      <a>Страница приватная</a>
+    </div>
+  </div>
+</section>
+
+<section class="page-section">
+    <div class="container relative">
+    <div style="margin-top: 40px;">
+      <div class="border align-center" style="padding: 10px 15px;">
+        <span>
+          Это приватная страница. Это либо страница нового, но не проверенного
+          объекта, либо - раздела администратора.
+        </span>
+      </div>
+    </div>
+    </div>
+  </section>

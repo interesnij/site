@@ -1,0 +1,29 @@
+<div class="box-seat box-seat-parallax section-margin">
+    <div class="inner-img h-100-v" data-dsn-grid="move-up" data-overlay="2">
+        <img class="transform-3d has-bigger-scale" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-dsn-src="/static/images/dark/store.jpg" alt="">
+    </div>
+    <div class="pro-text background-section box-padding" data-dsn-grid="move-section" data-dsn-responsive="tablet">
+        <div class="mb-30 d-flex text-left flex-column align-items-start">
+            <p class="sub-heading line-shap line-shap-after mb-15">
+                <span class="line-bg-right">IT-компания</span>
+            </p>
+            <h2 class="section-title">Вебсервисы!</h2>
+        </div>
+        <p class="mb-10">
+            <strong>Компания "Вебсервисы"</strong> была создана с целью предоставления общественности целого мира сложных веб-ресурсов -
+            социальных, корпоратиных, приватных сетей, сложных порталов, узкоспециализированных сайтов и программ.
+            Эта ниша остаётся не заполненной, на наш взгляд. Это при том, что соцсети остаются самыми актуальными и востребованными
+            сайтами во всем мире. Стать "новым Цукербергом" желают многие. Заказать же проект такого масштаба или построить всё самостоятельно -
+            задача очень трудная. Это стоит либо многие миллионы рублей, либо долгих лет самостоятельного обучения навыкам строительства
+            таких громадин.
+        </p>
+        <p>
+        <a href="/about/" class="mt-30 ajax dsn-button image-zoom" data-dsn="parallax">
+            <span class="dsn-border border-color-reverse-color"></span>
+            Узнать больше <span>⟶</span>
+        </a>
+        <p class="sm-p mt-15 theme-color">
+            Что нового: добавили статистику сайта
+        </p>
+    </div>
+</div>

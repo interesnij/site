@@ -1,0 +1,83 @@
+<section class="page-section" id="about">
+    <div class="container relative">
+        <h5 class="section-title font-alt align-left">
+            Привет, начальник!
+        </h5>
+
+        <div class="section-text">
+            <div class="row">
+              <div class="mb-sm-50">
+                <p>
+                  <strong>Давай что-нибудь создадим!</strong>
+                </p>
+              </div>
+              <div class="mb-sm-50">
+                <p>
+                  <ul>
+                  <li>
+                      <a href="/create_work_categories/" class="ajax">+ категория портфолио</a>
+                  </li>
+                  <li>
+                      <a href="/create_blog_categories/" class="ajax">+ категория блога</a>
+                  </li>
+                  <li>
+                      <a href="/create_service_categories/" class="ajax">+ категория услуг</a>
+                  </li>
+                  <li>
+                      <a href="/create_store_categories/" class="ajax">+ категория магазина</a>
+                  </li>
+                  <li>
+                      <a href="/create_wiki_categories/" class="ajax">+ категория обучалки</a>
+                  </li>
+                  <li>
+                      <a href="/create_tech_categories/" class="ajax">+ веб-сервис</a>
+                  </li>
+                  <li>
+                      <a href="/create_serve_categories/" class="ajax">+ технология опций</a>
+                  </li>
+                  <li>
+                      <a href="/helps/create_categories/" class="ajax">+ категория помощи</a>
+                  </li>
+                  <li>
+                      <a href="/create_work/" class="ajax">+ работа</a>
+                  </li>
+                  <li>
+                      <a href="/create_blog/" class="ajax">+ статья</a>
+                  </li>
+                  <li>
+                      <a href="/create_service/" class="ajax">+ услуга</a>
+                  </li>
+                  <li>
+                      <a href="/create_store/" class="ajax">+ товар</a>
+                  </li>
+                  <li>
+                      <a href="/create_wiki/" class="ajax">+ обучалка</a>
+                  </li>
+                  <li>
+                      <a href="/create_tag/" class="ajax">+ тег</a>
+                  </li>
+                  <li>
+                      <a href="/create_serve/" class="ajax">+ опция</a>
+                  </li>
+                  <li>
+                      <a href="/helps/create_item/" class="ajax">+ помощь</a>
+                  </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <a href="/orders/" class="ajax">Заказы</a>
+                    </li>
+                    <li>
+                      <a href="/feedback_list/" class="ajax">Письма</a>
+                    </li>
+                    <li>
+                      <a href="/serve_list/" class="ajax">Опции</a>
+                    </li>
+                  </ul>
+                </p>
+              </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr class="mt-0 mb-0 " />

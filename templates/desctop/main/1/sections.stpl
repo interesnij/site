@@ -1,0 +1,209 @@
+<section class="page-section">
+    <div class="container relative">
+        <h5 class="section-title font-alt">
+            Разделы сайта
+        </h5>
+        <ul class="nav nav-tabs tpl-alt-tabs font-alt pt-30 pt-sm-0 pb-30 pb-sm-0">
+            <li class="yy s_1 active">
+                <a><div class="alt-tabs-icon"><span class="icon-lightbulb"></span></div>Услуги</a>
+            </li>
+            <li class="yy s_2 pointer">
+                <a><div class="alt-tabs-icon"><span class="icon-briefcase"></span></div>Работы</a>
+            </li>
+            <li class="yy s_3 pointer">
+                <a><div class="alt-tabs-icon"><span class="icon-newspaper"></span></div>Блог</a>
+            </li>
+            <li class="yy s_4 pointer">
+                <a><div class="alt-tabs-icon"><span class="icon-book-open"></span></div>Обучалка</a>
+            </li>
+            <li class="yy s_5 pointer">
+                <a><div class="alt-tabs-icon"><span class="icon-documents"></span></div>Страницы</a>
+            </li>
+            <li class="yy s_6 pointer">
+                <a><div class="alt-tabs-icon"><span class="icon-profile-male"></span></div>Профиль</a>
+            </li>
+        </ul>
+
+        <div class="tab-content tpl-tabs-cont">
+            <div class="tab_1 fade tab-pane in active">
+                <div class="section-text">
+                    <div class="row">
+                        <div class="mb-sm-50">
+                          <blockquote style="margin-bottom: 10px">
+                            <a href="/service_categories/" class="ajax" style="text-decoration: underline;"><p>Наши услуги</p></a>
+                          </blockquote>
+                          <p>
+                          <strong>Раздел</strong> посвящён описанию <strong>наших услуг</strong> по разработке веб-ресурсов, принципам сотрудничества,
+                          условиям поддержки Ваших проектов.<br><br>
+                          Вот <strong>ключевые моменты</strong>:
+                          <ul class="my_ul">
+                              <li>
+                                Разрабатываем веб-ресурсы любой мощности
+                                на языках программирования: python, rust, javascript, c++, java и т.д. Умеем аргументировать
+                                технические решения для конкретных задач человеку с любым уровнем понимания темы. Обсуждаем
+                                только порядочные идеи, даём увесистые скидки для проектов социальной значимости. Работаем на опережение
+                                ожиданий заказчика, так как знаем самые лучшие практики программирования и стремимся производить продукты
+                                только высочайшего класса.
+                              </li>
+                              <li>
+                                Умеем делать одностраничники, квизы, портфолио, магазины, корпоративные /
+                                городские / новостные / специализированные порталы,
+                                CRM-системы, мессенджеры, почтовые сервисы, нейросети, мобильные и десктопные приложения,
+                                полномасштабные социальные сети. Словом, можем сделать что угодно.
+                              </li>
+                              <li>
+                                Можем разместить Ваши проекты на своих платформах.
+                                Мы готовы взять на себя все технические вопросы по организации надежного и развивающегося проекта. Обязуемся
+                                постоянно наращивать своё техническое могущество и экспертный потенциал. Можем решить любой вопрос в данной теме.
+                              </li>
+                              <li>
+                                Заказанные у нас проекты получают полную техническую документацию.
+                                 Даже если у Вас есть / появятся программисты с низким опытом или
+                                 компетенцией - они смогут вполне четко разобраться с кодом приложений.
+                              </li>
+                              <li>
+                                <strong style="color: #FF0000">Новое</strong>. Мы добавили
+                                удобный калькулятор заказа доп услуг и опций, с выбором технологии разработки,
+                                 с описанием всех их в раскрывающемся окне. Так Вы сможете самостоятельно рассчитать
+                                 функционал, увидеть ценообразование и скидки, понять необходимое количество человеко-часов
+                                 для выполнения заказа.
+                              </li>
+                          </ul>
+                          </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab_2 fade tab-pane in">
+                <div class="section-text">
+                    <div class="row">
+                      <div class="mb-sm-50">
+                        <blockquote style="margin-bottom: 10px">
+                          <a href="/work_categories/" class="ajax" style="text-decoration: underline;"><p>Портфолио</p></a>
+                        </blockquote>
+                        <p>
+                          В этом разделе мы будем размещать собственные / заказанные / совместные сайты.<br><br>
+                          Вот <strong>важные нюансы</strong>:
+                          <ul class="my_ul">
+                              <li>Показать сможем только те проекты, которые не имеют приватного типа.</li>
+                              <li>Знакомим с ресурсами, находящиеся в разработке (если заказчик не против).</li>
+                              <li>Все показанные ресурсы можно будет заказать, добавляя / удаляя опции, которые Вам нужны / не нужны, в удобном и
+                              полноценном калькуляторе.</li>
+                          </ul>
+                        </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab_3 fade tab-pane in">
+                <div class="section-text">
+                    <div class="row">
+                      <div class="mb-sm-50">
+                        <blockquote style="margin-bottom: 10px">
+                          <a href="/blog_categories/" class="ajax" style="text-decoration: underline;"><p>Блог</p></a>
+                        </blockquote>
+                        <p>
+                          Любой уважающей себя и свой престиж фирме следует давать сведения о разных сторонах своего существования.<br><br>
+                          <strong>Что</strong> же <strong>войдёт в блог</strong>:
+                          <ul class="my_ul">
+                              <li>Разработка собственных проектов.</li>
+                              <li>Важные и интересные моменты жизни компании.</li>
+                              <li>Наблюдения в сфере профессиональной деятельности.</li>
+                              <li>Полезные идеи для всех интересующихся темой больших проектов.</li>
+                          </ul>
+                        </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab_4 fade tab-pane in">
+                <div class="section-text">
+                    <div class="row">
+                      <div class="mb-sm-50">
+                        <blockquote style="margin-bottom: 10px">
+                          <a href="/wiki_categories/" class="ajax" style="text-decoration: underline;"><p>Обучалка</p></a>
+                        </blockquote>
+                        <p>
+                          Далеко не все могут позволить себе заказать соцсеть у профессионалов. Нельзя лишать людей шансов
+                          на исполнение такой мечты. Поэтому мы будем размещать статьи с бесплатным материалом.<br><br>
+                          <strong>О чём будут статьи</strong>:
+                          <ul class="my_ul">
+                              <li>Разработка веб-сайтов от простого к сложному</li>
+                              <li>Создание приложений для смартфонов.</li>
+                              <li>Опыты по тренировке нейронных сетей от python до c++</li>
+                              <li>Смежные технологии. Кэширование, вебсокеты, безопасность, масштабирование,
+                              базы данных, вариативность применения инструментов, практики чистого кода и много, много всего.</li>
+                          </ul>
+                        </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab_5 fade tab-pane in">
+                <div class="section-text">
+                    <div class="row">
+                      <div class="mb-sm-50">
+                        <blockquote style="margin-bottom: 10px">
+                          <p style="text-decoration: underline;">Страницы</p>
+                        </blockquote>
+                        <p>
+                          <strong>Сайт имеет много отдельных страниц</strong>:
+                          <ul class="my_ul">
+                              <li>
+                                <a href="/info/" class="ajax" style="text-decoration: underline;">О нас</a>.
+                                Кто мы, чего хотим, как развиваемся, к чему идём. Форма связи,
+                                сведения о этом сайте. Предоставление помощи по разным вопросам.
+                              </li>
+                              <li>
+                                <a href="/tags/" class="ajax" style="text-decoration: underline;">Теги</a>.
+                                По ключевым словам можно будет видеть весь материал со всех разделов сайта.
+                              </li>
+                              <li>
+                                <a href="/search/" class="ajax" style="text-decoration: underline;">Поиск</a>.
+                                 Быстрый лифт к нужному контенту.
+                               </li>
+                              <li>
+                                <a>Дизайн</a>.
+                                Мы любим давать пользователям инструменты для кастомизации станиц для их удобства.
+                               Пока реализованы режимы "День", "Ночь", "Желтый оригинальный", "Винтажный", "Черное дерево".
+                             </li>
+                          </ul>
+                        </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab_6 fade tab-pane in">
+                <div class="section-text">
+                    <div class="row">
+                      <div class="mb-sm-50">
+                        <blockquote style="margin-bottom: 10px">
+                          <a href="/history/" class="ajax" style="text-decoration: underline;"><p>Профиль</p></a>
+                        </blockquote>
+                        <p>
+                          Это <strong>ваш раздел</strong>. Когда Вы переходите на этот сайт,
+                          мы автоматически создаем его, исходя из добавления в Ваш браузер файлов
+                          cookie. Это нужно для добавления новых возможностей для вас, а также
+                          для организации нашей собственной статистики посещений пользователей.
+                          <strong>Раздел содержит</strong>:
+                          <ul class="my_ul">
+                              <li>Страницу сведений о Вас - Страна, регион, город. Ваш ip адрес, оборудование.
+                               Количество секунд взаимодействия с сайтом, метров, которые Вы прокрутили на страницах сайта.</li>
+                              <li>Историю Ваших просмотров. Вы быстро сможете вернуться к любой странице, которую посещали. 
+                              Каждая запись истории показывает количество намотанных метров страницы и затраченных секунд.</li>
+                              <li>Список заказов, если Вы их делали.</li>
+                          </ul>
+                        </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr class="mt-0 mb-0 " />

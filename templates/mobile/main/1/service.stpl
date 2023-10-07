@@ -1,0 +1,19 @@
+<% if last_services.len() > 0 { %>
+
+<section class="page-section">
+    <div class="container relative">
+        <h5 class="section-title font-alt align-left">
+            Услуги
+            <a href="/service_categories/" class="right section-more ajax">
+              ещё
+            </a>
+        </h5>
+        <div class="row multi-columns-row">
+          <% for object in last_services.iter() { %>
+            <% include!("../../generic/items/1/default_service.stpl"); %>
+          <% } %>
+        </div>
+    </div>
+</section>
+<hr class="mt-0 mb-0 " />
+<% } %>
