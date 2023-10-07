@@ -2647,7 +2647,7 @@ impl Item {
     ) -> ((Vec<Blog>, i32), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
-        let object_list: Vec<Blog>;
+        let object_list: (Vec<Blog>, usize);
 
         if page > 1 {
             let step = (page - 1) * 20;
@@ -2753,6 +2753,7 @@ impl Item {
                     .expect("E."), count);
             }
         }
+        return (Vec::new(), 0);
     }
 
     pub fn get_services_list_for_ids (
@@ -2764,7 +2765,7 @@ impl Item {
     ) -> ((Vec<Service>, i32), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
-        let object_list: Vec<Service>;
+        let object_list: (Vec<Service>, usize);
 
         if page > 1 {
             let step = (page - 1) * 20;
@@ -2775,7 +2776,7 @@ impl Item {
             have_next = limit + 1;
             object_list = Item::get_services_for_ids(limit.into(), 0, ids, is_admin, l);
         }
-        if Item::get_services_for_ids(1, have_next.into(), ids, is_admin, l).len() > 0 {
+        if Item::get_services_for_ids(1, have_next.into(), ids, is_admin, l)[1].len() > 0 {
             next_page_number = page + 1;
         }
         return (object_list, next_page_number);
@@ -2866,6 +2867,7 @@ impl Item {
                     .expect("E."), count);
             }
         }
+        return (Vec::new(), 0);
     }
 
     pub fn get_stores_list_for_ids (
@@ -2877,7 +2879,7 @@ impl Item {
     ) -> ((Vec<Store>, i32), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
-        let object_list: Vec<Store>;
+        let object_list: (Vec<Store>, usize);
 
         if page > 1 {
             let step = (page - 1) * 20;
@@ -2987,6 +2989,7 @@ impl Item {
                     .expect("E."), count);
             }
         }
+        return (Vec::new(), 0);
     }
 
     pub fn get_wikis_list_for_ids (
@@ -2998,7 +3001,7 @@ impl Item {
     ) -> ((Vec<Wiki>, i32), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
-        let object_list: Vec<Wiki>;
+        let object_list: (Vec<Wiki>, usize);
 
         if page > 1 {
             let step = (page - 1) * 20;
@@ -3104,6 +3107,7 @@ impl Item {
                     .expect("E."), count);
             }
         }
+        return (Vec::new(), 0);
     }
 
     pub fn get_works_list_for_ids (
@@ -3115,7 +3119,7 @@ impl Item {
     ) -> ((Vec<Work>, i32), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
-        let object_list: Vec<Work>;
+        let object_list: (Vec<Work>, usize);
 
         if page > 1 {
             let step = (page - 1) * 20;
@@ -3217,6 +3221,7 @@ impl Item {
                     .expect("E."), count);
             }
         }
+        return (Vec::new(), 0);
     }
 
     pub fn get_helps_list_for_ids (
@@ -3228,7 +3233,7 @@ impl Item {
     ) -> ((Vec<Help>, i32), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
-        let object_list: Vec<Help>;
+        let object_list: (Vec<Help>, usize);
 
         if page > 1 {
             let step = (page - 1) * 20;
@@ -3340,6 +3345,7 @@ impl Item {
                     .expect("E."), count);
             }
         }
+        return (Vec::new(), 0);
     }
 
     pub fn get_serves_ids(&self) -> Vec<i32> {

@@ -260,7 +260,9 @@ impl OrderFile {
                 .execute(&_connection)
                 .expect("E");
             diesel::delete(&_order).execute(&_connection).expect("E");
+            return 1;
         }
+        return 0;
     }
     pub fn create(user_id: i32, form: crate::utils::order_form, l: u8) -> i16 {
         use crate::schema::serve::dsl::serve;
@@ -376,6 +378,8 @@ impl OrderFile {
             ))
             .execute(&_connection)
             .expect("Error.");
+
+        return 1;
     }
 }
 
