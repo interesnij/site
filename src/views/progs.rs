@@ -111,7 +111,7 @@ pub async fn create_c_user(conn: ConnectionInfo, req: &HttpRequest) -> CookieUse
         //println!("request {:?}", new_request);
     
         let location200: UserLoc = serde_json::from_str(&new_request).unwrap();
-        let _user = NewCookieUser { 
+        let _user = crate::models::NewCookieUser { 
             ip:         ipaddr,
             device:     device,
             city_ru:    Some(location200.city.name_ru),
@@ -126,14 +126,14 @@ pub async fn create_c_user(conn: ConnectionInfo, req: &HttpRequest) -> CookieUse
         };
         let _new_user = diesel::insert_into(schema::cookie_users::table)
             .values(&_user)
-            .get_result::<CookieUser>(&_connection)
+            .get_result::<crate::models::CookieUser>(&_connection)
             .expect("Error.");
     return _new_user;
 }
 
 pub async fn get_c_user(conn: ConnectionInfo, id: i32, req: &HttpRequest) -> CookieUser {
     if id > 0 {
-        return CookieUser::get(id);
+        return crate::models::CookieUser::get(id);
     }
     return create_c_user(conn, &req).await;
 }
@@ -145,7 +145,7 @@ pub async fn create_history (
 ) -> Result<Json<CookieStat>, Error> {
     let p_id = data.user_id;
     let user = crate::views::get_c_user(conn, p_id, &req).await;
-    return CookieStat::create(data, user, get_linguage_storage());
+    return Ok(CookieStat::create(data, user, get_linguage_storage())?);
 } 
 
 #[derive(Debug, Serialize, Deserialize)]

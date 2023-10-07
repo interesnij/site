@@ -1156,9 +1156,7 @@ pub async fn edit_category_page(session: Session, req: HttpRequest, _id: web::Pa
     else if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         if _request_user.perm == 60 {
-            let _cats = schema::categories::table
-                .load::<Categories>(&_connection)
-                .expect("Error");
+            let _cats = Categories::get_all();
 
             if is_desctop {
                 #[derive(TemplateOnce)]

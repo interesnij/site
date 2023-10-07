@@ -47,27 +47,27 @@ impl TechCategories {
         if user.perm < 60 && tech_cat.user_id != user.id {
             return 0;
         }
-        tech_categories
+        schema::tech_categories::table
             .filter(schema::tech_categories::id.eq(item_id))
             .execute(&_connection)
             .expect("E");
         return 1;
     }
     pub fn get_all() -> Vec<TechCategories> {
-        return tech_categories
+        return schema::tech_categories::table
             .load::<TechCategories>(&_connection)
             .expect("E");
     }
     pub fn get(id: i32) -> TechCategories {
         let _connection = establish_connection();
-        return tech_categories 
+        return schema::tech_categories::table
             .filter(schema::tech_categories::id.eq(id))
             .first::<TechCategories>(&_connection)
             .expect("E")
     }
     pub fn get_with_level(level: i16) -> Vec<TechCategories> {
         let _connection = establish_connection();
-        return tech_categories 
+        return schema::tech_categories::table
             .filter(schema::tech_categories::level.eq(level))
             .load::<TechCategories>(&_connection)
             .expect("E")
@@ -219,7 +219,7 @@ impl ServeCategories {
             .execute(&_connection)
             .expect("E");
         diesel::delete(
-            serve_categories
+            schema::serve_categories::table
                 .filter(schema::serve_categories::id.eq(item_id))
             )
             .execute(&_connection)
@@ -228,7 +228,7 @@ impl ServeCategories {
     }
     pub fn get(id: i32) -> ServeCategories {
         let _connection = establish_connection();
-        return serve_categories 
+        return schema::serve_categories::table
             .filter(schema::serve_categories::id.eq(id))
             .first::<ServeCategories>(&_connection)
             .expect("E")
@@ -329,10 +329,8 @@ impl ServeCategories {
     }
 
     pub fn get_serves(&self) -> Vec<Serve> {
-        use crate::schema::serve::dsl::serve;
-
         let _connection = establish_connection();
-        return serve
+        return schema::serve::table
             .filter(schema::serve::category_id.eq(self.id))
             .filter(schema::serve::serve_id.is_null())
             .order(schema::serve::position)
@@ -340,26 +338,23 @@ impl ServeCategories {
             .expect("E");
     }
     pub fn get_serves_2(&self) -> Vec<Serve> {
-        use crate::schema::serve::dsl::serve;
-
         let _connection = establish_connection();
-        return serve
+        return schema::serve::table
             .filter(schema::serve::category_id.eq(self.id))
             .order(schema::serve::position)
             .load::<Serve>(&_connection)
             .expect("E");
     }
     pub fn get_category(&self) -> TechCategories {
-        use crate::schema::tech_categories::dsl::tech_categories;
-
         let _connection = establish_connection();
-        return tech_categories
+        return schema::tech_categories::table
             .filter(schema::tech_categories::id.eq(self.category_id))
             .first::<TechCategories>(&_connection)
             .expect("E");
     }
     pub fn get_all() -> Vec<ServeCategories> {
-        return serve_categories
+        let _connection = establish_connection(); 
+        return schema::serve_categories::table
             .load::<ServeCategories>(&_connection)
             .expect("E");
     }
@@ -480,7 +475,7 @@ impl Serve {
             .expect("E.");
         return 1;
     }
-    pub fn update_serve_with_id(user: User, serve_id: i32, form: crate::utils::ServeForm) -> i16 {
+    pub fn update_serve_with_id(user: User, serve_id: i32, form: crate::utils::ServeForm, l: u8) -> i16 {
         if l > 2 {
             return 0;
         }
@@ -588,7 +583,7 @@ impl Serve {
 
     pub fn get(id: i32) -> Serve {
         let _connection = establish_connection();
-        return serve
+        return schema::serve::table
             .filter(schema::serve::id.eq(id))
             .first::<Serve>(&_connection)
             .expect("E")

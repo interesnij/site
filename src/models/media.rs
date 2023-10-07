@@ -96,16 +96,16 @@ impl File {
         }
         return 1;
     }
-    pub fn create(user: User, item_id: i32, form: crate::utils::files_form) -> i16 {
+    pub fn create(user: User, item_id: i32, form: crate::utils::FilesForm) -> i16 {
         let _connection = establish_connection();
-        let _item = Item::get_with_id(item_id);
+        let _item = crate::models::Item::get_with_id(item_id);
         if user.perm < 60 && _item.user_id != user.id {
             return 0;
         }
 
         for file in form.files.iter() {
             let new_file = NewFile::create (
-                user_id,
+                user.id,
                 item_id,
                 form.item_types,
                 form.types,
@@ -121,7 +121,7 @@ impl File {
     pub fn delete(user: User, item_id: i32) -> i16 {
         let _connection = establish_connection();
         let _file = File::get(item_id);
-        let _item = Item::get(_file.item_id);
+        let _item = crate::models::Item::get(_file.item_id);
         if user.perm < 60 && _file.user_id != user.id && _item.user_id != user.id {
             return 0;
         }
