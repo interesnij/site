@@ -2090,7 +2090,7 @@ impl Item {
         let _connection = establish_connection();
         if is_admin {
             if l == 1 {
-                return items
+                return schema::items::table
                     .filter(schema::items::title.ilike(&q))
                     .or_filter(schema::items::description.ilike(&q))
                     .or_filter(schema::items::content.ilike(&q))
@@ -2101,7 +2101,7 @@ impl Item {
                     .len();
             }
             else if l == 2 {
-                return items
+                return schema::items::table
                     .filter(schema::items::title_en.ilike(&q))
                     .or_filter(schema::items::description_en.ilike(&q))
                     .or_filter(schema::items::content_en.ilike(&q))
@@ -2114,7 +2114,7 @@ impl Item {
         }
         else {
             if l == 1 {
-                return items
+                return schema::items::table
                     .filter(schema::items::is_active.eq(true))
                     .filter(schema::items::title.ilike(&q))
                     .or_filter(schema::items::description.ilike(&q))
@@ -2126,7 +2126,7 @@ impl Item {
                     .len();
             }
             else if l == 2 {
-                return items
+                return schema::items::table
                     .filter(schema::items::is_active.eq(true))
                     .filter(schema::items::title_en.ilike(&q))
                     .or_filter(schema::items::description_en.ilike(&q))
