@@ -276,7 +276,7 @@ diesel::table! {
 }
 
 diesel::table! {
-    users (id) 
+    users (id) {
         id -> Int4,
         username -> Varchar,
         email -> Varchar,
