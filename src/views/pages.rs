@@ -1310,12 +1310,10 @@ pub async fn edit_item_page(session: Session, req: HttpRequest, _id: web::Path<i
 
             let item_cats = _item.get_categories_obj();
             let item_tags = _item.get_tags_obj();
-
-            let _all_tags = schema::tags::table
-                .load::<Tag>(&_connection)
-                .expect("Error.");
+            let _all_tags = Tag::get_all();
 
             let _cats = Categories::get_with_types(_item.types);
+
             let mut level: i16 = 0;
             let mut _tech_categories: Vec<TechCategories> = Vec::new();
             let _serve = _item.get_serves();
@@ -1323,6 +1321,7 @@ pub async fn edit_item_page(session: Session, req: HttpRequest, _id: web::Path<i
                 let tech_id = _serve[0].tech_cat_id;
                 let _tech_categories = TechCategories::get(tech_id);
                 level = _tech_categories.level;
+                let _connection = establish_connection();
                 let _tech_categories = schema::tech_categories::table
                     .filter(schema::tech_categories::level.eq(level))
                     .load::<TechCategories>(&_connection)

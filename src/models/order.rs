@@ -44,6 +44,7 @@ impl Order {
             .expect("E")
     }
     pub fn delete(user_id: i32, id: i32) -> i16 {
+        let _connection = establish_connection();
         let _order = schema::orders::table
             .filter(schema::orders::id.eq(id))
             .first::<Order>(&_connection)

@@ -25,6 +25,7 @@ use crate::utils::{
     is_signed_in,
     get_request_user_data,
     HistoryData,
+    get_linguage_storage,
 }; 
 use actix_session::Session;
 use actix_multipart::Multipart;
@@ -63,7 +64,7 @@ pub fn progs_routes(config: &mut web::ServiceConfig) {
 
 pub async fn create_c_user(conn: ConnectionInfo, req: &HttpRequest) -> CookieUser {
     let device: i16;
-    if is_desctop(&req) {
+    if crate::utils::is_desctop(&req) {
         device = 1;
     }
     else {
@@ -144,8 +145,8 @@ pub async fn create_history (
 ) -> Result<Json<CookieStat>, Error> {
     let p_id = data.user_id;
     let user = crate::views::get_c_user(conn, p_id, &req).await;
-    return Ok(CookieStat::create(data, user, get_linguage_storage()));
-}
+    return CookieStat::create(data, user, get_linguage_storage());
+} 
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ObjectResponse {

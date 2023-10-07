@@ -40,7 +40,7 @@ pub struct Tag {
 }
 impl Tag {
     pub fn get_all() -> Vec<Tag> {
-        return tags
+        return schema::tags::table
             .load::<Tag>(&_connection)
             .expect("E");
     }

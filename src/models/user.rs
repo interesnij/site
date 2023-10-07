@@ -293,8 +293,8 @@ impl CookieStat {
         Ok(list)
     }
     pub fn create (
-        data: crate::utils::HistoryData,
-        user: CookieUser,
+        data: Json<crate::utils::HistoryData>,
+        user: CookieUser, 
         l:    u8,
     ) -> Result<CookieStat, Error> {
         use chrono::Duration;
@@ -377,10 +377,10 @@ impl CookieStat {
         let _connection = establish_connection();
         if l == 1 {
             let _h = NewCookieStat {
-                user_id:  p_id,
-                page:     page,
-                link:     link,
-                title:    title,
+                user_id:  user.id,
+                page:     p_page_id,
+                link:     p_link,
+                title:    p_title,
                 title_en: "".to_string(),
                 height:   p_height,
                 seconds:  p_seconds,
@@ -394,11 +394,11 @@ impl CookieStat {
         }
         else if l == 2 {
             let _h = NewCookieStat {
-                user_id:  p_id,
-                page:     page,
-                link:     link,
+                user_id:  user.id,
+                page:     p_page_id,
+                link:     p_link,
                 title:    "".to_string(),
-                title_en: title_en,
+                title_en: p_title_en,
                 height:   p_height,
                 seconds:  p_seconds,
                 created:  chrono::Local::now().naive_utc() + Duration::hours(3),

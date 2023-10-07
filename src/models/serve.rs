@@ -358,6 +358,11 @@ impl ServeCategories {
             .first::<TechCategories>(&_connection)
             .expect("E");
     }
+    pub fn get_all() -> Vec<ServeCategories> {
+        return serve_categories
+            .load::<ServeCategories>(&_connection)
+            .expect("E");
+    }
 }
 
 #[derive(Insertable,AsChangeset)]

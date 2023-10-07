@@ -155,7 +155,7 @@ pub async fn tag_page(req: HttpRequest, session: Session, _id: web::Path<String>
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
             let is_admin = _request_user.is_superuser(); 
-            let (blogs, blogs_count) = Item::get_blogs_for_ids(3, 0, blog_stack, is_admin, l);
+            let (_blogs, blogs_count) = Item::get_blogs_for_ids(3, 0, blog_stack, is_admin, l);
             let (_services, services_count) = Item::get_services_for_ids(3, 0, service_stack, is_admin, l);
             let (_stores, stores_count) = Item::get_stores_for_ids(3, 0, store_stack, is_admin, l);
             let (_wikis, wikis_count) = Item::get_wikis_for_ids(3, 0, wiki_stack, is_admin, l);
