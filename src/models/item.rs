@@ -3241,11 +3241,11 @@ impl Item {
         if page > 1 {
             let step = (page - 1) * 20;
             have_next = page * limit + 1; 
-            object_list = Item::get_helps_for_ids(limit.into(), step.into(), ids, is_admin, l);
+            object_list = Item::get_helps_for_ids(limit.into(), step.into(), ids.clone(), is_admin, l);
         }
         else {
             have_next = limit + 1;
-            object_list = Item::get_helps_for_ids(limit.into(), 0, ids, is_admin, l);
+            object_list = Item::get_helps_for_ids(limit.into(), 0, ids.clone(), is_admin, l);
         }
         if Item::get_helps_for_ids(1, have_next.into(), ids, is_admin, l).0.len() > 0 {
             next_page_number = page + 1;
@@ -3447,6 +3447,8 @@ impl Item {
         };
         let _connection = establish_connection();
         let _item = Item::get_with_id(item_id);
+        let _categories = _item.get_categories_obj();
+        let _tags = _item.get_tags_obj();
         if user.perm < 60 && _item.user_id != user.id {
             return 0;
         }
@@ -3486,9 +3488,6 @@ impl Item {
             ) 
             .execute(&_connection)
             .expect("E");
-
-        let _categories = _item.get_categories_obj();
-        let _tags = _item.get_tags_obj();
 
         for _category in _categories.iter() {
             diesel::update(_category)
