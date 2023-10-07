@@ -2086,7 +2086,7 @@ impl Item {
             .expect("E.")
             .len();
     }
-    pub fn get_count_for_types_and_q(q: String, types: i16, is_admin: bool, l: u8) -> usize {
+    pub fn get_count_for_types_and_q(q: &String, types: i16, is_admin: bool, l: u8) -> usize {
         let _connection = establish_connection();
         if is_admin {
             if l == 1 {

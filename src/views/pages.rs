@@ -202,11 +202,11 @@ pub async fn index_page (
             let _request_user = get_request_user_data(&session);
             let is_admin = _request_user.is_superuser();
             //User::create_superuser(_request_user.id);
-            let _last_works = Item::get_works(3, 0, is_admin);
-            let _last_services = Item::get_services(3, 0, is_admin);
-            let _last_wikis = Item::get_wikis(3, 0, is_admin);
-            let _last_blogs = Item::get_blogs(3, 0, is_admin);
-            let _last_stores = Item::get_stores(3, 0, is_admin);
+            let (_last_works, work_count) = Item::get_works(3, 0, is_admin, l); 
+            let (_last_services, work_count) = Item::get_services(3, 0, is_admin, l);
+            let (_last_wikis, work_count) = Item::get_wikis(3, 0, is_admin, l);
+            let (_last_blogs, work_count) = Item::get_blogs(3, 0, is_admin, l);
+            let (_last_stores, work_count) = Item::get_stores(3, 0, is_admin, l);
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -249,6 +249,11 @@ pub async fn index_page (
                     last_wikis:     Vec<Wiki>,
                     last_blogs:     Vec<Blog>,
                     last_stores:    Vec<Store>,
+                    works_count:    usize,
+                    services_count: usize,
+                    wikis_count:    usize,
+                    blogs_count:    usize,
+                    stores_count:   usize,
                     is_ajax:        i32,
                     stat:           StatPage,
                     template_types: u8,
@@ -261,6 +266,11 @@ pub async fn index_page (
                     last_wikis:     _last_wikis,
                     last_blogs:     _last_blogs,
                     last_stores:    _last_stores,
+                    works_count:    work_count,
+                    services_count: service_count,
+                    wikis_count:    wiki_count,
+                    blogs_count:    blog_count,
+                    stores_count:   store_count,
                     is_ajax:        is_ajax,
                     stat:           _stat,
                     template_types: t,
@@ -272,11 +282,11 @@ pub async fn index_page (
             }
         }
         else {
-            let _last_works = Item::get_works(3, 0, false);
-            let _last_services = Item::get_services(3, 0, false);
-            let _last_wikis = Item::get_wikis(3, 0, false);
-            let _last_blogs = Item::get_blogs(3, 0, false);
-            let _last_stores = Item::get_stores(3, 0, false);
+            let (_last_works, work_count) = Item::get_works(3, 0, false, l); 
+            let (_last_services, work_count) = Item::get_services(3, 0, false, l);
+            let (_last_wikis, work_count) = Item::get_wikis(3, 0, false, l);
+            let (_last_blogs, work_count) = Item::get_blogs(3, 0, false, l);
+            let (_last_stores, work_count) = Item::get_stores(3, 0, false, l);
 
             if is_desctop {
                 #[derive(TemplateOnce)]
@@ -287,6 +297,11 @@ pub async fn index_page (
                     last_wikis:     Vec<Wiki>,
                     last_blogs:     Vec<Blog>,
                     last_stores:    Vec<Store>,
+                    works_count:    usize,
+                    services_count: usize,
+                    wikis_count:    usize,
+                    blogs_count:    usize,
+                    stores_count:   usize,
                     is_ajax:        i32,
                     stat:           StatPage,
                     template_types: u8,
@@ -298,6 +313,11 @@ pub async fn index_page (
                     last_wikis:     _last_wikis,
                     last_blogs:     _last_blogs,
                     last_stores:    _last_stores,
+                    works_count:    work_count,
+                    services_count: service_count,
+                    wikis_count:    wiki_count,
+                    blogs_count:    blog_count,
+                    stores_count:   store_count,
                     is_ajax:        is_ajax,
                     stat:           _stat,
                     template_types: t,
