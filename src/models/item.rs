@@ -316,7 +316,7 @@ impl Categories {
     pub fn delete(user: User, item_id: i32) -> i16 {
         let _connection = establish_connection();
         let _item = Categories::get_with_id(item_id);
-        if user.perm < 60 && _item.user_id != user.id {
+        if user.perm < 60 {
             return 0;
         }
         if _item.image.is_some() {
