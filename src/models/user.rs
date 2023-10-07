@@ -391,7 +391,7 @@ impl CookieStat {
             let new = diesel::insert_into(schema::cookie_stats::table)
                 .values(&_h)
                 .get_result::<CookieStat>(&_connection)?;
-                Ok(new)
+                return Ok(new);
         }
         else if l == 2 {
             let _h = NewCookieStat {
@@ -408,7 +408,7 @@ impl CookieStat {
             let new = diesel::insert_into(schema::cookie_stats::table)
                 .values(&_h)
                 .get_result::<CookieStat>(&_connection)?;
-                Ok(new)
+            return Ok(new);
         }
         return Err(Error::BadRequest("Permission Denied".to_string()));
     }

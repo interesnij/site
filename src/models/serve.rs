@@ -408,8 +408,8 @@ pub struct ServeVar {
 }
 
 impl Serve {
-    pub fn create(user: User, form: crate::utils::ServeCategoriesForm) -> i16 {
-        let _connection = establish_connection();
+    pub fn create(user: User, form: crate::utils::ServeForm) -> i16 {
+        let _connection = establish_connection(); 
         let l = get_linguage_storage();
         let _category = ServeCategories::get(form.category_id);
         if user.perm < 60 && _category.user_id != user.id {
@@ -475,7 +475,7 @@ impl Serve {
             .expect("E.");
         return 1;
     }
-    pub fn update_serve_with_id(user: User, serve_id: i32, form: crate::utils::serve_split_payload) -> i16 {
+    pub fn update_serve_with_id(user: User, serve_id: i32, form: crate::utils::ServeForm) -> i16 {
         if l > 2 {
             return 0;
         }

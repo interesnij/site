@@ -2753,7 +2753,6 @@ impl Item {
                     .expect("E."), count);
             }
         }
-        return Vec::new();
     }
 
     pub fn get_services_list_for_ids (
@@ -2867,7 +2866,6 @@ impl Item {
                     .expect("E."), count);
             }
         }
-        return Vec::new();
     }
 
     pub fn get_stores_list_for_ids (
@@ -2989,7 +2987,6 @@ impl Item {
                     .expect("E."), count);
             }
         }
-        return Vec::new();
     }
 
     pub fn get_wikis_list_for_ids (
@@ -3107,7 +3104,6 @@ impl Item {
                     .expect("E."), count);
             }
         }
-        return Vec::new();
     }
 
     pub fn get_works_list_for_ids (
@@ -3221,7 +3217,6 @@ impl Item {
                     .expect("E."), count);
             }
         }
-        return Vec::new();
     }
 
     pub fn get_helps_list_for_ids (
@@ -3281,7 +3276,7 @@ impl Item {
         let count = Item::get_count_for_ids(&ids, is_admin);
         if is_admin {
             if l == 1 {
-                let list = items
+                return (items
                     .filter(schema::items::id.eq_any(ids))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3293,11 +3288,10 @@ impl Item {
                         schema::items::content.nullable(),
                     )) 
                     .load::<Help>(&_connection)
-                    .expect("E.");
-                return (list, count);
+                    .expect("E."), count);
             }
             else if l == 2 {
-                return items
+                return (items
                     .filter(schema::items::id.eq_any(ids))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3309,12 +3303,12 @@ impl Item {
                         schema::items::content_en.nullable(),
                     )) 
                     .load::<Help>(&_connection)
-                    .expect("E.");
+                    .expect("E."), count);
             }
         }
         else {
             if l == 1 {
-                return items
+                return (items
                     .filter(schema::items::id.eq_any(ids))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
@@ -3327,10 +3321,10 @@ impl Item {
                         schema::items::content.nullable(),
                     ))
                     .load::<Help>(&_connection)
-                    .expect("E.");
+                    .expect("E."), count);
             }
             else if l == 2 {
-                return items
+                return (items
                     .filter(schema::items::id.eq_any(ids))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
@@ -3343,10 +3337,9 @@ impl Item {
                         schema::items::content_en.nullable(),
                     ))
                     .load::<Help>(&_connection)
-                    .expect("E.");
+                    .expect("E."), count);
             }
         }
-        return Vec::new();
     }
 
     pub fn get_serves_ids(&self) -> Vec<i32> {

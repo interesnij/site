@@ -116,6 +116,7 @@ impl File {
                 .execute(&_connection)
                 .expect("E.");
         };
+        return 1;
     }
     pub fn delete(user: User, item_id: i32) -> i16 {
         let _connection = establish_connection();
