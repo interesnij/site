@@ -133,7 +133,7 @@ pub async fn create_c_user(conn: ConnectionInfo, req: &HttpRequest) -> CookieUse
 
 pub async fn get_c_user(conn: ConnectionInfo, id: i32, req: &HttpRequest) -> CookieUser {
     if id > 0 { 
-        res = crate::models::CookieUser::get_res(id);
+        let res = crate::models::CookieUser::get_res(id);
         if res.is_ok() {
             return res.expect("E.");
         }
