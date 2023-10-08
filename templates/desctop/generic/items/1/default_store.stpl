@@ -1,5 +1,5 @@
 <% let (__read, __price) = match linguage {
-        2 => ("Details", "от ".to_string() + (object.price) / 100).to_string() + " $"), 
+        2 => ("Details", "от ".to_string() + (object.price / 100).to_string() + " $"), 
         1 | _ => ("Детали", "от ".to_string() + object.price.to_string() + " ₽"),
     };
 %> 
@@ -21,7 +21,7 @@
         <span style="color: red">🛇</span>
       <% } %>
       <%= object.title %>
-    </a>
+    </a> 
   </div>
   <div class="post-prev-text align-center">
     <strong><%= __price %></strong>
