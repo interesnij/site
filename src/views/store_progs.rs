@@ -207,7 +207,7 @@ pub async fn get_store_page(session: Session, req: HttpRequest, param: web::Path
 
 pub async fn store_category_page(session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
     let (t, l) = get_all_storage();
-    let _category = Categories::get_detail(_id.clone(), 1, 3);
+    let _category = Categories::get_detail(_id.clone(), 3, l);
 
     let cat_image: String;
     if _category.image.is_some() {

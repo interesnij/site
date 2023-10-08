@@ -217,7 +217,7 @@ pub async fn get_wiki_page(session: Session, req: HttpRequest, param: web::Path<
 pub async fn wiki_category_page(session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
     let (t, l) = get_all_storage();
 
-    let _category = Categories::get_detail(_id.clone(), 1, 4);
+    let _category = Categories::get_detail(_id.clone(), 4, l);
 
     let cat_image: String;
     if _category.image.is_some() {
