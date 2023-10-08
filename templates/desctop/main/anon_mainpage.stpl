@@ -5,7 +5,9 @@
     2 => include!("2/anon_mainpage.stpl"),
     _ => todo!(),
 }; %> 
-
-<% include!(template_types.to_string() + "/anon_mainpage.stpl"); %>
+<% 
+    let te = template_types.to_string() + &"/anon_mainpage.stpl".to_string();
+    include!(te); 
+%>
 
 <% include!("../anon_footer.stpl"); %>
