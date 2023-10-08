@@ -1,4 +1,3 @@
-<% if all_tags.len() > 0 { %>
 <% let __help = match linguage {
         2 => "Help items", 
         1 | _ => "Помощь",
