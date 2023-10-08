@@ -2,7 +2,7 @@
     logo, home, templates, services, works, blogs, stores, info, search, 
     search_pl, wikis, l_change, tags, orders, helps, stats, design,
     pages, history, ru_en) = match linguage {
-        2 => ( 
+        2 => (  
             "Web-services", "Home", "Templates", "Services", 
             "Works", "Blog", "Stores", "Info", "Search", 
             "Search from 3 letters", "Wiki", "Ru", "Tags", "Orders",
@@ -36,7 +36,7 @@
                                   <a style="cursor:default;" class="mn-group-title">Rhythm ✓</a>
                               </li>
                               <li>
-                                  <a href="/?template=2" class="mn-group-title">Eremia</a>
+                                  <a href="/change_t/2" class="mn-group-title">Eremia</a>
                               </li>
                           </ul>
                       </li> 

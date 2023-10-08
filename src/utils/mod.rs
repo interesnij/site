@@ -124,10 +124,11 @@ pub fn get_all_storage() -> (u8, u8) {
 
 pub fn set_template(types: u8) -> () {
     let _f = web_local_storage_api::set_item("template", types.to_string().as_str());
+    println!("set template {:?}", types);
 }
 pub fn set_linguage(types: u8) -> () {
     let _f = web_local_storage_api::set_item("linguage", types.to_string().as_str());
-    println!("set types {:?}", types);
+    println!("set linguage {:?}", types);
 }
 
 

@@ -305,6 +305,6 @@ pub async fn change_t (
     t: web::Path<u8>
 ) -> impl Responder {
     crate::utils::set_template(*t);
-    println!("progs set l {:?}", *t);
+    println!("progs set t {:?}", *t);
     crate::views::index_page(req, session).await
 } 
