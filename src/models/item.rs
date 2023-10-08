@@ -1278,7 +1278,7 @@ impl Categories {
     }
     pub fn get_detail(slug: String, types: i16, l: u8) -> CatDetail {
         let _connection = establish_connection();
-        if l == 1 {
+        if l == 1 { 
             return schema::categories::table
                 .filter(schema::categories::slug.eq(&slug))
                 .filter(schema::categories::types.eq(types))
