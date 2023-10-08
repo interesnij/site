@@ -125,9 +125,9 @@ impl CookieUser {
     }
     pub fn get_res(user_id: i32) -> Result<CookieUser, Error> {
         let _connection = establish_connection();
-        return schema::cookie_users::table
+        return Ok(schema::cookie_users::table
             .filter(schema::cookie_users::id.eq(user_id))
-            .first::<CookieUser>(&_connection); 
+            .first::<CookieUser>(&_connection)?); 
     }
     pub fn get_users_list(page: i32, limit: i32) -> (Vec<CookieUser>, i32) {
         let mut next_page_number = 0;
