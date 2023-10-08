@@ -1,9 +1,9 @@
 <% include!("../anon_header.stpl"); %>
 
-<% if template_types == 1 { %>
-    <% include!("1/anon_serve_list.stpl"); %>
-<% } else if template_types == 2 { %>
-    <% include!("2/anon_serve_list.stpl"); %>
-<% } %>
+<% match template_types { 
+    1 => include!("1/anon_serve_list.stpl"),
+    2 => include!("2/anon_serve_list.stpl"),
+    _ => todo!(),
+}; %>
 
 <% include!("../anon_footer.stpl"); %>
