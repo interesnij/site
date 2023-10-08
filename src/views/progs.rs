@@ -58,6 +58,7 @@ pub fn progs_routes(config: &mut web::ServiceConfig) {
     config.route("/create_files/{id}/", web::post().to(create_files));
     config.route("/edit_file/{id}/", web::post().to(edit_file));
     config.route("/delete_file/{id}/", web::post().to(delete_file));
+    config.route("/change_l/", web::get().to(change_l));
 }
 
 pub async fn create_c_user(conn: ConnectionInfo, req: &HttpRequest) -> CookieUser {
@@ -284,6 +285,21 @@ pub async fn hide_item(session: Session, _id: web::Path<i32>) -> impl Responder 
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         Item::hide(_request_user, *_id);
+    }
+    HttpResponse::Ok()
+}
+
+#[derive(Deserialize)]
+pub struct Linguage {
+    pub value: u8,
+}
+pub async fn change_l(req: HttpRequest) -> impl Responder {
+    let params_some = web::Query::<Linguage>::from_query(&req.query_string());
+    if params_some.is_ok() {
+        let params = params_some.unwrap();
+        if params.value.is_some() {
+            crate::utils::set_linguage(params.value.unwrap());
+        }
     }
     HttpResponse::Ok()
 }

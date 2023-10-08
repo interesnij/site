@@ -1,21 +1,40 @@
+<% let (
+    logo, home, templates, t_change, services, works, blogs, stores, info, search, 
+    search_pl, wikis, l_change, tags, orders, helps, stats, design,
+    pages): (&str, &str, &str, &str, &str, &str, &str, &str, &str, &str, &str, &str, 
+    &str, &str, &str, &str, &str, &str, &str, &str) = match linguage {
+        2 => (
+            "Web-services", "Home", "Templates", "change", "Services", 
+            "Works", "Blog", "Stores", "Info", "Search", 
+            "Search from 3 letters", "Wiki", "Ru", "Tags", "Orders",
+            "Helps", "Statistics", "Background", "Pages",
+        ),
+        1 | _ => (
+            "Вебсервисы", "Главная", "Шаблоны", "выбрано", "Услуги", 
+            "Работы", "Блог", "Товары", "Инфо", "Поиск", 
+            "Поиск от 3х букв", "База", "En", "Теги", "Заказы",
+            "Помощь", "Статистика", "Фон", "Страницы",
+        ),
+    };
+%>
 <div class="page desctop_version" id="top">
       <nav class="main-nav small-height stick-fixed">
           <div class="full-wrapper relative clearfix">
               <div class="nav-logo-wrap local-scroll">
                   <a href="/" class="logo ajax">
-                      Вебсервисы
+                      <%= logo %>
                   </a>
               </div>
               <div class="inner-nav desktop-nav">
                   <ul class="clearlist">
                       <li>
-                          <a href="/" class="ajax mn-has-sub folder main">Главная</a>
+                          <a href="/" class="ajax mn-has-sub folder main"><%= home %></a>
                           <ul class="border mn-sub">
                             <li>
-                              <a style="cursor:default;font-weight:bold;">Шаблоны:</a>
+                              <a style="cursor:default;font-weight:bold;"><%= templates %>:</a>
                             </li>
                               <li>
-                                  <a style="cursor:default;" class="mn-group-title">Rhythm - выбрано</a>
+                                  <a style="cursor:default;" class="mn-group-title">Rhythm - <%= t_change %></a>
                               </li>
                               <li>
                                   <a href="/?template=2" class="mn-group-title">Eremia</a>
@@ -27,7 +46,7 @@
                         let (service_cats, store_cats, blog_cats, wiki_cats, work_cats, help_cats) = get_categories_2(linguage);
                       %>
                       <li>
-                          <a href="/service_categories/" class="mn-has-sub service ajax folder">Услуги</a>
+                          <a href="/service_categories/" class="mn-has-sub service ajax folder"><%= services %></a>
                           <ul class="border mn-sub">
                               <% for object in service_cats.iter() { %>
                               <li>
@@ -37,7 +56,7 @@
                           </ul>
                       </li>
                       <li>
-                          <a href="/work_categories/" class="mn-has-sub ajax folder work">Портфолио</a>
+                          <a href="/work_categories/" class="mn-has-sub ajax folder work"><%= works %></a>
                           <ul class="border mn-sub">
                               <% for object in work_cats.iter() { %>
                               <li>
@@ -47,7 +66,7 @@
                           </ul>
                       </li>
                       <li>
-                          <a href="/store_categories/" class="mn-has-sub store ajax folder">Товары</a>
+                          <a href="/store_categories/" class="mn-has-sub store ajax folder"><%= stores %></a>
                           <ul class="border mn-sub">
                               <% for object in store_cats.iter() { %>
                               <li>
@@ -58,7 +77,7 @@
                       </li>
 
                       <li>
-                          <a href="/wiki_categories/" class="mn-has-sub wiki ajax folder">База знаний</a>
+                          <a href="/wiki_categories/" class="mn-has-sub wiki ajax folder"><%= wikis %></a>
                           <ul class="border mn-sub">
                               <% for object in wiki_cats.iter() { %>
                               <li>
@@ -68,7 +87,7 @@
                           </ul>
                       </li>
                       <li>
-                          <a href="/blog_categories/" class="mn-has-sub blog ajax folder">Блог</a>
+                          <a href="/blog_categories/" class="mn-has-sub blog ajax folder"><%= blogs %></a>
                           <ul class="border mn-sub">
                               <% for object in blog_cats.iter() { %>
                               <li>
@@ -78,10 +97,10 @@
                           </ul>
                       </li>
                       <li>
-                        <a href="/info/" class="mn-has-sub ajax folder infos">Инфо</a>
+                        <a href="/info/" class="mn-has-sub ajax folder infos"><%= info %></a>
                         <ul class="mn-sub mn-has-multi border" style="display:none;right:-200px;left:auto;">
                             <li class="mn-sub-multi">
-                                <a class="mn-group-title" style="cursor:default;font-weight:bold;">Помощь:</a>
+                                <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= helps %>:</a>
                                 <ul>
                                   <% for object in help_cats.iter() { %>
                                     <li>
@@ -92,19 +111,19 @@
                             </li>
 
                             <li class="mn-sub-multi">
-                                <a class="mn-group-title" style="cursor:default;font-weight:bold;">Страницы:</a>
+                                <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= pages %>:</a>
                                 <ul>
                                   <li>
-                                    <a class="history ajax" href="/tags/">Теги</a>
+                                    <a class="history ajax" href="/tags/"><%= tags %></a>
                                   </li>
                                   <li>
-                                    <a class="history ajax" href="/history/">История просмотров</a>
+                                    <a class="history ajax" href="/history/"><%= history %></a>
                                   </li>
                                   <li>
-                                    <a class="user_orders ajax" href="/user_orders/">Ваши заказы</a>
+                                    <a class="user_orders ajax" href="/user_orders/"><%= orders %></a>
                                   </li>
                                   <li>
-                                    <a class="cookie_users_list ajax" href="/cookie_users_list/">Статистика</a>
+                                    <a class="cookie_users_list ajax" href="/cookie_users_list/"><%= stats %></a>
                                   </li>
                                 </ul>
                             </li>
@@ -113,32 +132,26 @@
                       <li><a>&nbsp;</a></li>
                       <li>
                           <a class="mn-has-sub search folder">
-                              Поиск
+                              <%= search %>
                           </a>
                           <ul class="mn-sub to-left" style="right: -70px;">
                               <li>
                                   <div class="mn-wrap">
                                       <form class="form">
                                           <div class="search-wrap">
-                                              <input type="text" class="general_search form-control search-field" placeholder="Поиск от 3х букв">
+                                              <input type="text" class="general_search form-control search-field" placeholder="<%= search_pl %>">
                                           </div>
                                       </form>
                                   </div>
                               </li>
                           </ul>
                       </li>
-                      <!--
                       <li>
-                          <a href="#" class="mn-has-sub">Ru</a>
-                          <ul class="border mn-sub">
-                              <li><a href="" class="active">Ru</a></li>
-                              <li><a href="">En</a></li>
-                          </ul>
+                          <a href="#" class="mn-has-sub"><%= l_change %></a>
                       </li>
-                      -->
                       <li>
                           <a class="pointer anon_color_change" data-color="dark">
-                              Фон
+                              <%= description %>
                           </a>
                       </li>
                   </ul>
