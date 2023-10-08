@@ -2,7 +2,7 @@
 
 <% match linguage {
     1 => include!("1/login.stpl"),
-    2 => <% include!("2/login.stpl"),
+    2 => include!("2/login.stpl"),
     _ => todo!(),
   }; %> 
 <% if template_types == 1 { %>
