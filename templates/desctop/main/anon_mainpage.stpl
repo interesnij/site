@@ -1,6 +1,6 @@
 <% include!("../anon_header.stpl"); %>
 
-<% match linguage {
+<% match template_types {
     1 => include!("1/anon_mainpage.stpl"),
     2 => include!("2/anon_mainpage.stpl"),
     _ => todo!(),
