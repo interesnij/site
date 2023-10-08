@@ -1,5 +1,5 @@
 <% let (
-    logo, home, templates, t_change, services, works, blogs, stores, info, search, 
+    logo, home, templates, services, works, blogs, stores, info, search, 
     search_pl, wikis, l_change, tags, orders, helps, stats, design,
     pages, history, ru_en) = match linguage {
         2 => ( 
