@@ -132,6 +132,18 @@ impl File {
             .expect("E");
         return 1;
     }
+    pub fn get_ru_description(&self) -> String {
+        if self.description.is_some() {
+            return self.description.as_deref().unwrap();
+        }
+        return "".to_string();
+    }
+    pub fn get_en_description(&self) -> String {
+        if self.description_en.is_some() {
+            return self.description_en.as_deref().unwrap();
+        }
+        return "".to_string();
+    }
 }
 #[derive(Debug, Deserialize, Insertable)]
 #[table_name="files"]

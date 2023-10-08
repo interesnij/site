@@ -13,6 +13,12 @@
     </a>
   <% } %>
   </span>
+  <p>
+  <% match linguage {
+    1 => object.get_ru_description(),
+    2 => object.get_en_description(),
+  }; %> 
+  <p>
   <% if object.description.is_some() && linguage == 1 { %>
     <p><%= object.description.as_deref().unwrap() %><p>
   <% } else if object.description_en.is_some() && linguage == 2 { %>
