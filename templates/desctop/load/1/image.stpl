@@ -17,6 +17,7 @@
   <% match linguage {
     1 => object.get_ru_description(),
     2 => object.get_en_description(),
+    _ => todo!(),
   }; %> 
   <p>
   <% if object.description.is_some() && linguage == 1 { %>
