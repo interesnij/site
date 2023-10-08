@@ -6,7 +6,7 @@
     _ => todo!(),
 }; %> 
 <%   
-    include!(template_types"/anon_mainpage.stpl");
+    include!(template_types.to_string() + "/anon_mainpage.stpl");
 %> 
 
 <% include!("../anon_footer.stpl"); %>
