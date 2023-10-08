@@ -407,6 +407,7 @@ pub async fn blog_category_page(session: Session, req: HttpRequest, _id: web::Pa
     }
 }
 
+
 pub async fn blog_categories_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
