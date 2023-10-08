@@ -2,14 +2,14 @@
     logo, home, templates, t_change, services, works, blogs, stores, info, search, 
     search_pl, wikis, l_change, tags, orders, helps, stats, design,
     pages, history, ru_en) = match linguage {
-        2 => (
-            "Web-services", "Home", "Templates", "change", "Services", 
+        2 => ( 
+            "Web-services", "Home", "Templates", "Services", 
             "Works", "Blog", "Stores", "Info", "Search", 
             "Search from 3 letters", "Wiki", "Ru", "Tags", "Orders",
             "Helps", "Statistics", "Background", "Pages", "You watched", 1
         ),
         1 | _ => (
-            "Вебсервисы", "Главная", "Шаблоны", "выбрано", "Услуги", 
+            "Вебсервисы", "Главная", "Шаблоны", "Услуги", 
             "Работы", "Блог", "Товары", "Инфо", "Поиск", 
             "Поиск от 3х букв", "База", "En", "Теги", "Заказы",
             "Помощь", "Статистика", "Фон", "Страницы", "Вы смотрели", 2
@@ -33,7 +33,7 @@
                               <a style="cursor:default;font-weight:bold;"><%= templates %>:</a>
                             </li>
                               <li>
-                                  <a style="cursor:default;" class="mn-group-title">Rhythm - <%= t_change %></a>
+                                  <a style="cursor:default;" class="mn-group-title">Rhythm ✓</a>
                               </li>
                               <li>
                                   <a href="/?template=2" class="mn-group-title">Eremia</a>
