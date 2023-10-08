@@ -1,5 +1,5 @@
-<% if template_types == 1 { %>
-    <% include!("1/create_order.stpl"); %>
-<% } else if template_types == 2 { %>
-    <% include!("2/create_order.stpl"); %>
-<% } %>
+<% match template_types {
+    1 => include!("1/create_order.stpl"),
+    2 => include!("2/create_order.stpl"),
+    _ => include!("1/create_order.stpl"),
+}; %>

@@ -1,9 +1,9 @@
 <% include!("../header.stpl"); %>
 
-<% if template_types == 1 { %>
-    <% include!("1/info.stpl"); %>
-<% } else if template_types == 2 { %>
-    <% include!("2/info.stpl"); %>
-<% } %>
+<% match template_types {
+    1 => include!("1/info.stpl"),
+    2 => include!("2/info.stpl"),
+    _ => include!("1/info.stpl"),
+}; %>
 
 <% include!("../footer.stpl"); %>

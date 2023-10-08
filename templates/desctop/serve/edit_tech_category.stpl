@@ -1,9 +1,9 @@
 <% include!("../header.stpl"); %>
 
-<% if template_types == 1 { %>
-    <% include!("1/edit_tech_category.stpl"); %>
-<% } else if template_types == 2 { %>
-    <% include!("2/edit_tech_category.stpl"); %>
-<% } %>
+<% match template_types {
+    1 => include!("1/edit_tech_category.stpl"),
+    2 => include!("2/edit_tech_category.stpl"),
+    _ => include!("1/edit_tech_category.stpl"),
+}; %>
 
 <% include!("../footer.stpl"); %>

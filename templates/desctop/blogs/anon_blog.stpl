@@ -3,7 +3,7 @@
 <% match template_types { 
     1 => include!("1/anon_blog.stpl"),
     2 => include!("2/anon_blog.stpl"),
-    _ => todo!(),
+    _ => include!("1/anon_blog.stpl"),
 }; %>
 
 <% include!("../anon_footer.stpl"); %>

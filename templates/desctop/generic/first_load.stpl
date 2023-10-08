@@ -21,7 +21,7 @@
     <% match template_types { 
       1 => include!("../../block/styles/1/d.stpl"),
       2 => include!("../../block/styles/2/d.stpl"),
-      _ => todo!(),
+      _ => include!("../../block/styles/1/d.stpl"),
     }; %>
   </head>
 
@@ -31,8 +31,11 @@
     <% include!("../../block/scripts/1/anon_d.stpl"); %>
 <%} else if template_types == 2 { %>
   <body class="dsn-line-style dsn-effect-scroll dsn-cursor-effect dsn-ajax">
-
     <% include!("../../block/scripts/2/anon_d.stpl"); %>
+<% } else { %>
+  <body>
+    <span class="span"></span>
+    <% include!("../../block/scripts/1/anon_d.stpl"); %>
 <% } %>
   </body>
 </html>

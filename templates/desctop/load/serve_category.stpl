@@ -1,5 +1,5 @@
-<% if template_types == 1 { %>
-    <% include!("1/serve_category.stpl"); %>
-<% } else if template_types == 2 { %>
-    <% include!("2/serve_category.stpl"); %>
-<% } %>
+<% match template_types {
+    1 => include!("1/serve_category.stpl"),
+    2 => include!("2/serve_category.stpl"),
+    _ => include!("1/serve_category.stpl"),
+}; %>

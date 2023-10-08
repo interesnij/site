@@ -1,7 +1,9 @@
 <% include!("../anon_header.stpl"); %>
 
-<% if template_types == 1 { %>
-    <% include!("1/anon_work.stpl"); %>
-<% } %>
+<% match template_types { 
+    1 => include!("1/anon_work.stpl"),
+    2 => include!("2/anon_work.stpl"),
+    _ => include!("1/anon_work.stpl"),
+}; %>
 
 <% include!("../anon_footer.stpl"); %>
