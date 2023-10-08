@@ -134,13 +134,13 @@ impl File {
     }
     pub fn get_ru_description(&self) -> String {
         if self.description.is_some() {
-            return self.description.as_deref().unwrap();
+            return self.description.as_deref().unwrap().to_string();
         }
         return "".to_string();
     }
     pub fn get_en_description(&self) -> String {
         if self.description_en.is_some() {
-            return self.description_en.as_deref().unwrap();
+            return self.description_en.as_deref().unwrap().to_string();
         }
         return "".to_string();
     }
