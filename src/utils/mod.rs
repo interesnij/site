@@ -302,7 +302,6 @@ pub async fn get_first_load_page_2 (
                 image:          String,
                 uri:            String,
                 template_types: u8,
-                linguage:       u8,
             }
             let body = Template {
                 title:          title,
@@ -310,7 +309,6 @@ pub async fn get_first_load_page_2 (
                 image:          image,
                 uri:            uri,
                 template_types: t,
-                linguage:       l,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -325,7 +323,6 @@ pub async fn get_first_load_page_2 (
                 image:          String,
                 uri:            String,
                 template_types: u8,
-                linguage:       u8,
             }
             let body = Template {
                 title:          title,
@@ -333,7 +330,6 @@ pub async fn get_first_load_page_2 (
                 image:          image,
                 uri:            uri,
                 template_types: t,
-                linguage:       l,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
