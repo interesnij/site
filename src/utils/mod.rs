@@ -127,6 +127,7 @@ pub fn set_template(types: u8) -> () {
 }
 pub fn set_linguage(types: u8) -> () {
     let _f = web_local_storage_api::set_item("linguage", types.to_string().as_str());
+    println!("set types {:?}", types);
 }
 
 

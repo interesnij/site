@@ -289,7 +289,8 @@ pub async fn hide_item(session: Session, _id: web::Path<i32>) -> impl Responder 
     HttpResponse::Ok()
 }
 
-pub async fn change_l(req: HttpRequest, l: web::Path<u8>) -> impl Responder {
+pub async fn change_l(l: web::Path<u8>) -> impl Responder {
     crate::utils::set_linguage(*l);
+    println!("set l {:?}", *l);
     HttpResponse::Ok()
 }
