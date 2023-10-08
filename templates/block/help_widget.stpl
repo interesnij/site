@@ -2,16 +2,13 @@
     <h5 class="widget-title font-alt">Помощь</h5>
     <div class="widget-body">
       <ul class="clearlist widget-menu">
-        <li>
-          <a target="_blank" tel="nofollow" href="/helps/7/">
-            Как заказать проект
-          </a>
-        </li>
-        <li>
-          <a target="_blank" tel="nofollow" href="/helps/8/">
-            Этапы создания проектов
-          </a>
-        </li>
+        <% for object in help_cats.iter() { %>
+          <li>
+            <a href="/helps/<%= object.slug %>/" class="ajax">
+              <%= object.name %>
+            </a>
+          </li>
+        <% } %>
       </ul>
-    </div>
+    </div> 
 </div>

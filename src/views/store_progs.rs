@@ -238,6 +238,7 @@ pub async fn store_category_page(session: Session, req: HttpRequest, _id: web::P
         let next_page_number: i32;
         let _cats = block(move || Categories::get_categories_for_types(3, l)).await?;
         let _tags = block(move || Categories::get_tags(3, l)).await?;
+        let _help_cats = block(move || Categories::get_categories_for_types(6, l)).await?;
 
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
@@ -254,6 +255,7 @@ pub async fn store_category_page(session: Session, req: HttpRequest, _id: web::P
                     all_tags:         Vec<SmallTag>,
                     category:         CatDetail,
                     cats:             Vec<Cat>,
+                    help_cats:        Vec<Cat>,
                     object_list:      Vec<Store>,
                     next_page_number: i32,
                     is_ajax:          i32,
@@ -265,6 +267,7 @@ pub async fn store_category_page(session: Session, req: HttpRequest, _id: web::P
                     all_tags:         _tags,
                     category:         _category,
                     cats:             _cats,
+                    help_cats:        _help_cats,
                     object_list:      object_list,
                     next_page_number: next_page_number,
                     is_ajax:          is_ajax,
@@ -282,6 +285,7 @@ pub async fn store_category_page(session: Session, req: HttpRequest, _id: web::P
                     all_tags:         Vec<SmallTag>,
                     category:         CatDetail,
                     cats:             Vec<Cat>,
+                    help_cats:        Vec<Cat>,
                     object_list:      Vec<Store>,
                     next_page_number: i32,
                     is_ajax:          i32,
@@ -293,6 +297,7 @@ pub async fn store_category_page(session: Session, req: HttpRequest, _id: web::P
                     all_tags:         _tags,
                     category:         _category,
                     cats:             _cats,
+                    help_cats:        _help_cats,
                     object_list:      object_list,
                     next_page_number: next_page_number,
                     is_ajax:          is_ajax,
@@ -318,6 +323,7 @@ pub async fn store_category_page(session: Session, req: HttpRequest, _id: web::P
                     all_tags:         Vec<SmallTag>,
                     category:         CatDetail,
                     cats:             Vec<Cat>,
+                    help_cats:        Vec<Cat>,
                     object_list:      Vec<Store>,
                     next_page_number: i32,
                     is_ajax:          i32,
@@ -328,6 +334,7 @@ pub async fn store_category_page(session: Session, req: HttpRequest, _id: web::P
                     all_tags:         _tags,
                     category:         _category,
                     cats:             _cats,
+                    help_cats:        _help_cats,
                     object_list:      object_list,
                     next_page_number: next_page_number,
                     is_ajax:          is_ajax,
@@ -345,6 +352,7 @@ pub async fn store_category_page(session: Session, req: HttpRequest, _id: web::P
                     all_tags:         Vec<SmallTag>,
                     category:         CatDetail,
                     cats:             Vec<Cat>,
+                    help_cats:        Vec<Cat>,
                     object_list:      Vec<Store>,
                     next_page_number: i32,
                     is_ajax:          i32,
@@ -355,6 +363,7 @@ pub async fn store_category_page(session: Session, req: HttpRequest, _id: web::P
                     all_tags:         _tags,
                     category:         _category,
                     cats:             _cats,
+                    help_cats:        _help_cats,
                     object_list:      object_list,
                     next_page_number: next_page_number,
                     is_ajax:          is_ajax,

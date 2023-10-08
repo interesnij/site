@@ -248,8 +248,9 @@ pub async fn service_category_page(session: Session, req: HttpRequest, _id: web:
         let next_page_number: i32;
         let _cats = block(move || Categories::get_categories_for_types(2, l)).await?;
         let _tags = block(move || Categories::get_tags(2, l)).await?;
+        let _help_cats = block(move || Categories::get_categories_for_types(6, l)).await?;
 
-        if is_signed_in(&session) {
+        if is_signed_in(&session) { 
             let _request_user = get_request_user_data(&session);
             let _res = block(move || Categories::get_services_list(_category.id, page, 20, _request_user.perm == 60, l)).await?;
             let _dict = match _res {
@@ -263,6 +264,7 @@ pub async fn service_category_page(session: Session, req: HttpRequest, _id: web:
                     request_user:     User,
                     category:         CatDetail,
                     object_list:      Vec<Service>,
+                    help_cats:        Vec<Cat>,
                     next_page_number: i32,
                     is_ajax:          i32,
                     template_types:   u8,
@@ -272,6 +274,7 @@ pub async fn service_category_page(session: Session, req: HttpRequest, _id: web:
                     request_user:     _request_user,
                     category:         _category,
                     object_list:      object_list,
+                    help_cats:        _help_cats,
                     next_page_number: next_page_number,
                     is_ajax:          is_ajax,
                     template_types:   t,
@@ -288,6 +291,7 @@ pub async fn service_category_page(session: Session, req: HttpRequest, _id: web:
                     all_tags:         Vec<SmallTag>,
                     category:         CatDetail,
                     cats:             Vec<Cat>,
+                    help_cats:        Vec<Cat>,
                     object_list:      Vec<Service>,
                     next_page_number: i32,
                     is_ajax:          i32,
@@ -298,6 +302,7 @@ pub async fn service_category_page(session: Session, req: HttpRequest, _id: web:
                     all_tags:         _tags,
                     category:         _category,
                     cats:             _cats,
+                    help_cats:        _help_cats,
                     object_list:      object_list,
                     next_page_number: next_page_number,
                     is_ajax:          is_ajax,
@@ -322,6 +327,7 @@ pub async fn service_category_page(session: Session, req: HttpRequest, _id: web:
                 struct Template {
                     category:         CatDetail,
                     object_list:      Vec<Service>,
+                    help_cats:        Vec<Cat>,
                     next_page_number: i32,
                     is_ajax:          i32,
                     template_types:   u8,
@@ -330,6 +336,7 @@ pub async fn service_category_page(session: Session, req: HttpRequest, _id: web:
                 let body = Template {
                     category:         _category,
                     object_list:      object_list,
+                    help_cats:        _help_cats,
                     next_page_number: next_page_number,
                     is_ajax:          is_ajax,
                     template_types:   t,
@@ -346,6 +353,7 @@ pub async fn service_category_page(session: Session, req: HttpRequest, _id: web:
                     all_tags:         Vec<SmallTag>,
                     category:         CatDetail,
                     cats:             Vec<Cat>,
+                    help_cats:        Vec<Cat>,
                     object_list:      Vec<Service>,
                     next_page_number: i32,
                     is_ajax:          i32,
@@ -356,6 +364,7 @@ pub async fn service_category_page(session: Session, req: HttpRequest, _id: web:
                     all_tags:         _tags,
                     category:         _category,
                     cats:             _cats,
+                    help_cats:        _help_cats,
                     object_list:      object_list,
                     next_page_number: next_page_number,
                     is_ajax:          is_ajax,

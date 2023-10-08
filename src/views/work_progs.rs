@@ -239,6 +239,7 @@ pub async fn work_category_page(session: Session, req: HttpRequest, _id: web::Pa
         let next_page_number: i32;
         let _cats = block(move || Categories::get_categories_for_types(5, l)).await?;
         let _tags = block(move || Categories::get_tags(5, l)).await?;
+        let _help_cats = block(move || Categories::get_categories_for_types(6, l)).await?;
 
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
@@ -255,6 +256,7 @@ pub async fn work_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     all_tags:         Vec<SmallTag>,
                     category:         CatDetail,
                     object_list:      Vec<Work>,
+                    help_cats:        Vec<Cat>,
                     next_page_number: i32,
                     is_ajax:          i32,
                     template_types:   u8,
@@ -265,6 +267,7 @@ pub async fn work_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     all_tags:         _tags,
                     category:         _category,
                     object_list:      object_list,
+                    help_cats:        _help_cats,
                     next_page_number: next_page_number,
                     is_ajax:          is_ajax,
                     template_types:   t,
@@ -282,6 +285,7 @@ pub async fn work_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     category:         CatDetail,
                     cats:             Vec<Cat>,
                     object_list:      Vec<Work>,
+                    help_cats:        Vec<Cat>,
                     next_page_number: i32,
                     is_ajax:          i32,
                     template_types:   u8,
@@ -292,6 +296,7 @@ pub async fn work_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     category:         _category,
                     cats:             _cats,
                     object_list:      object_list,
+                    help_cats:        _help_cats,
                     next_page_number: next_page_number,
                     is_ajax:          is_ajax,
                     template_types:   t,
@@ -316,6 +321,7 @@ pub async fn work_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     all_tags:         Vec<SmallTag>,
                     category:         CatDetail,
                     object_list:      Vec<Work>,
+                    help_cats:        Vec<Cat>,
                     next_page_number: i32,
                     is_ajax:          i32,
                     template_types:   u8,
@@ -325,6 +331,7 @@ pub async fn work_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     all_tags:         _tags,
                     category:         _category,
                     object_list:      object_list,
+                    help_cats:        _help_cats,
                     next_page_number: next_page_number,
                     is_ajax:          is_ajax,
                     template_types:   t,
@@ -342,6 +349,7 @@ pub async fn work_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     category:         CatDetail,
                     cats:             Vec<Cat>,
                     object_list:      Vec<Work>,
+                    help_cats:        Vec<Cat>,
                     next_page_number: i32,
                     is_ajax:          i32,
                     template_types:   u8,
@@ -352,6 +360,7 @@ pub async fn work_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     category:         _category,
                     cats:             _cats,
                     object_list:      object_list,
+                    help_cats:        _help_cats,
                     next_page_number: next_page_number,
                     is_ajax:          is_ajax,
                     template_types:   t,
