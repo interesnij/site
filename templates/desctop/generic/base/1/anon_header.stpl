@@ -1,13 +1,13 @@
 <% let (
-    logo, home, templates, services, works, blogs, stores, info, search, 
-    search_pl, wikis, l_change, tags, orders, helps, stats, design,
-    pages, history, ru_en) = match linguage {
+    _logo, _home, _templates, _services, _works, _blogs, _stores, _info, _search, 
+    _search_pl, _wikis, _l_change, _tags, _orders, _helps, _stats, _design,
+    _pages, _history, _ru_en) = match linguage {
         2 => (  
             "Web-services", "Home", "Templates", "Services", 
             "Works", "Blog", "Stores", "Info", "Search", 
             "Search from 3 letters", "Wiki", "Ru", "Tags", "Orders",
             "Helps", "Statistics", "Background", "Pages", "You watched", 1
-        ),
+        ), 
         1 | _ => (
             "Вебсервисы", "Главная", "Шаблоны", "Услуги", 
             "Работы", "Блог", "Товары", "Инфо", "Поиск", 
@@ -21,16 +21,16 @@
           <div class="full-wrapper relative clearfix">
               <div class="nav-logo-wrap local-scroll">
                   <a href="/" class="logo ajax">
-                      <%= logo %>
+                      <%= _logo %>
                   </a>
               </div>
               <div class="inner-nav desktop-nav">
                   <ul class="clearlist">
                       <li>
-                          <a href="/" class="ajax mn-has-sub folder main"><%= home %></a>
+                          <a href="/" class="ajax mn-has-sub folder main"><%= _home %></a>
                           <ul class="border mn-sub">
                             <li>
-                              <a style="cursor:default;font-weight:bold;"><%= templates %>:</a>
+                              <a style="cursor:default;font-weight:bold;"><%= _templates %>:</a>
                             </li>
                               <li>
                                   <a style="cursor:default;" class="mn-group-title">Rhythm ✓</a>
@@ -45,7 +45,7 @@
                         let (service_cats, store_cats, blog_cats, wiki_cats, work_cats, help_cats) = get_categories_2(linguage);
                       %>
                       <li>
-                          <a href="/service_categories/" class="mn-has-sub service ajax folder"><%= services %></a>
+                          <a href="/service_categories/" class="mn-has-sub service ajax folder"><%= _services %></a>
                           <ul class="border mn-sub">
                               <% for object in service_cats.iter() { %>
                               <li>
@@ -55,7 +55,7 @@
                           </ul>
                       </li>
                       <li>
-                          <a href="/work_categories/" class="mn-has-sub ajax folder work"><%= works %></a>
+                          <a href="/work_categories/" class="mn-has-sub ajax folder work"><%= _works %></a>
                           <ul class="border mn-sub">
                               <% for object in work_cats.iter() { %>
                               <li>
@@ -65,7 +65,7 @@
                           </ul>
                       </li>
                       <li>
-                          <a href="/store_categories/" class="mn-has-sub store ajax folder"><%= stores %></a>
+                          <a href="/store_categories/" class="mn-has-sub store ajax folder"><%= _stores %></a>
                           <ul class="border mn-sub">
                               <% for object in store_cats.iter() { %>
                               <li>
@@ -76,7 +76,7 @@
                       </li>
 
                       <li>
-                          <a href="/wiki_categories/" class="mn-has-sub wiki ajax folder"><%= wikis %></a>
+                          <a href="/wiki_categories/" class="mn-has-sub wiki ajax folder"><%= _wikis %></a>
                           <ul class="border mn-sub">
                               <% for object in wiki_cats.iter() { %>
                               <li>
@@ -86,7 +86,7 @@
                           </ul>
                       </li>
                       <li>
-                          <a href="/blog_categories/" class="mn-has-sub blog ajax folder"><%= blogs %></a>
+                          <a href="/blog_categories/" class="mn-has-sub blog ajax folder"><%= _blogs %></a>
                           <ul class="border mn-sub">
                               <% for object in blog_cats.iter() { %>
                               <li>
@@ -99,7 +99,7 @@
                         <a href="/info/" class="mn-has-sub ajax folder infos"><%= info %></a>
                         <ul class="mn-sub mn-has-multi border" style="display:none;right:-200px;left:auto;">
                             <li class="mn-sub-multi">
-                                <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= helps %>:</a>
+                                <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _helps %>:</a>
                                 <ul>
                                   <% for object in help_cats.iter() { %>
                                     <li>
@@ -110,19 +110,19 @@
                             </li>
 
                             <li class="mn-sub-multi">
-                                <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= pages %>:</a>
+                                <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _pages %>:</a>
                                 <ul>
                                   <li>
-                                    <a class="history ajax" href="/tags/"><%= tags %></a>
+                                    <a class="history ajax" href="/tags/"><%= _tags %></a>
                                   </li>
                                   <li>
-                                    <a class="history ajax" href="/history/"><%= history %></a>
+                                    <a class="history ajax" href="/history/"><%= _history %></a>
                                   </li>
                                   <li>
-                                    <a class="user_orders ajax" href="/user_orders/"><%= orders %></a>
+                                    <a class="user_orders ajax" href="/user_orders/"><%= _orders %></a>
                                   </li>
                                   <li>
-                                    <a class="cookie_users_list ajax" href="/cookie_users_list/"><%= stats %></a>
+                                    <a class="cookie_users_list ajax" href="/cookie_users_list/"><%= _stats %></a>
                                   </li>
                                 </ul>
                             </li>
@@ -131,14 +131,14 @@
                       <li><a>&nbsp;</a></li>
                       <li>
                           <a class="mn-has-sub search folder">
-                              <%= search %>
+                              <%= _search %>
                           </a>
                           <ul class="mn-sub to-left" style="right: -70px;">
                               <li>
                                   <div class="mn-wrap">
                                       <form class="form">
                                           <div class="search-wrap">
-                                              <input type="text" class="general_search form-control search-field" placeholder="<%= search_pl %>">
+                                              <input type="text" class="general_search form-control search-field" placeholder="<%= _search_pl %>">
                                           </div>
                                       </form>
                                   </div>
@@ -146,11 +146,11 @@
                           </ul>
                       </li>
                       <li>
-                          <a href="/change_l/<%= ru_en %>" class="mn-has-sub"><%= l_change %></a>
+                          <a href="/change_l/<%= ru_en %>" class="mn-has-sub"><%= _l_change %></a>
                       </li>
                       <li>
                           <a class="pointer anon_color_change" data-color="dark">
-                              <%= design %>
+                              <%= _design %>
                           </a>
                       </li>
                   </ul>
