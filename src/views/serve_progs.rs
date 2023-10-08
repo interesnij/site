@@ -67,16 +67,30 @@ pub async fn serve_categories_page(session: Session, req: HttpRequest) -> actix_
     let (t, l) = get_all_storage();
 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Категории услуг".to_string(),
-            "вебсервисы.рф: Категории услуг".to_string(),
-            "/serve_categories/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Categories of options".to_string(),
+                "Web-services: Categories of options".to_string(),
+                "/serve_categories/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Категории опций".to_string(),
+                "вебсервисы.рф: Категории опций".to_string(),
+                "/serve_categories/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else if !is_signed_in(&session) {
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))

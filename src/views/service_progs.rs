@@ -40,16 +40,30 @@ pub async fn get_service_page(session: Session, req: HttpRequest, param: web::Pa
 
     let _item = Item::get(&_item_id); 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            _item.title.clone() + &" | Услуга".to_string(),
-            _item.title.clone() + &" | Услуга: вебсервисы.рф".to_string(),
-            "/service/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
-            _item.get_image(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _item.title.clone() + &" | Service".to_string(),
+                _item.title.clone() + &" | Service: Web-services".to_string(),
+                "/service/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
+                _item.get_image(),
+                t, 
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _item.title.clone() + &" | Статья ".to_string(),
+                _item.title.clone() + &" | Статья: вебсервисы.рф".to_string(),
+                "/service/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
+                _item.get_image(),
+                t, 
+                l,
+            ).await
+        }
     }
     else {
         use crate::models::{TechCategories, FeaturedItem};
@@ -237,16 +251,30 @@ pub async fn service_category_page(session: Session, req: HttpRequest, _id: web:
 
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            _category.name.clone() + &" | Категория услуг ".to_string(),
-            _category.name.clone() + &" | Категория услуг - вебсервисы.рф".to_string(),
-            "/services/".to_string() + &_category.slug.clone() + &"/".to_string(),
-            cat_image,
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _category.name.clone() + &" | Category of the services".to_string(),
+                _category.name.clone() + &" | Category of the services - Web-services".to_string(),
+                "/services/".to_string() + &_category.slug.clone() + &"/".to_string(),
+                cat_image,
+                t, 
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _category.name.clone() + &" | Категория услуг ".to_string(),
+                _category.name.clone() + &" | Категория услуг - вебсервисы.рф".to_string(),
+                "/services/".to_string() + &_category.slug.clone() + &"/".to_string(),
+                cat_image,
+                t, 
+                l,
+            ).await
+        }
     }
     else {
         use crate::models::Service;
@@ -391,16 +419,30 @@ pub async fn service_categories_page(session: Session, req: HttpRequest) -> acti
     let (t, l) = get_all_storage();
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Категории услуг".to_string(),
-            "вебсервисы.рф: Категории услуг".to_string(),
-            "/service_categories/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Blog Categories".to_string(),
+                "Web-services: Categories of services".to_string(),
+                "/service_categories/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t, 
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Категории услуг".to_string(),
+                "вебсервисы.рф: Категории услуг".to_string(),
+                "/service_categories/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t, 
+                l,
+            ).await
+        }
     }
     else {
         let _stat = crate::models::StatPage::get_or_create(61);

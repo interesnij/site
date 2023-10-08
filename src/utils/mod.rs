@@ -62,7 +62,6 @@ pub struct HistoryData {
     pub page_id:   i16,
     pub link:      String,
     pub title:     String,
-    pub title_en:  String,
     pub height:    f64,
     pub seconds:   i32,
     pub template:  String,

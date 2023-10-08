@@ -46,16 +46,30 @@ pub async fn get_orders_page(req: HttpRequest, session: Session) -> actix_web::R
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Заказы".to_string(),
-            "вебсервисы.рф: Заказы".to_string(),
-            "/orders/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Orders".to_string(),
+                "Web-services: Orders".to_string(),
+                "/orders/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Заказы".to_string(),
+                "вебсервисы.рф: Заказы".to_string(),
+                "/orders/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else if !is_signed_in(&session) {
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body("Permission Denied"))
@@ -118,16 +132,30 @@ pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_w
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Ваши заказы".to_string(),
-            "вебсервисы.рф: Ваши заказы".to_string(),
-            "/user_orders/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Your orders".to_string(),
+                "Web-services: Your orders".to_string(),
+                "/user_orders/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Ваши заказы".to_string(),
+                "вебсервисы.рф: Ваши заказы".to_string(),
+                "/user_orders/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         let user_id = get_cookie_user_id(&req);
@@ -237,16 +265,30 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
 
     let _order = Order::get(*_id); 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Заказ ".to_string() + &_order.title,
-            "вебсервисы.рф: Заказ ".to_string() + &_order.title,
-            "/order/".to_string() + &_order.id.to_string() + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Order ".to_string() + &_order.title,
+                "Web-services: Order ".to_string() + &_order.title,
+                "/order/".to_string() + &_order.id.to_string() + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Заказ ".to_string() + &_order.title,
+                "вебсервисы.рф: Заказ ".to_string() + &_order.title,
+                "/order/".to_string() + &_order.id.to_string() + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else if user_id != _order.user_id {
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body("Информация о заказчике не найдена"))

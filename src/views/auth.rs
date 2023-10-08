@@ -43,17 +43,31 @@ pub async fn signup_page(req: HttpRequest, session: Session) -> actix_web::Resul
     else {
         let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
         let (t, l) = get_all_storage();
-        if is_ajax == 0 { 
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Регистрация".to_string(),
-                "вебсервисы.рф: Регистрация".to_string(),
-                "/signup/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t, 
-                l,
-            ).await
+        if is_ajax == 0 {
+            if l == 2 {
+                get_first_load_page (
+                    &session,
+                    is_desctop,
+                    "Signup".to_string(),
+                    "Web-services: Signup".to_string(),
+                    "/signup/".to_string(),
+                    "/static/images/dark/store.jpg".to_string(),
+                    t, 
+                    l,
+                ).await
+            }
+            else {
+                get_first_load_page (
+                    &session,
+                    is_desctop,
+                    "Регистрация".to_string(),
+                    "вебсервисы.рф: Регистрация".to_string(),
+                    "/signup/".to_string(),
+                    "/static/images/dark/store.jpg".to_string(),
+                    t, 
+                    l,
+                ).await
+            }
         }
         else {
             let _stat = crate::models::StatPage::get_or_create(7);
@@ -105,17 +119,31 @@ pub async fn login_page(req: HttpRequest, session: Session) -> actix_web::Result
     else {
         let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
         let (t, l) = get_all_storage();
-        if is_ajax == 0 { 
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Вход".to_string(),
-                "вебсервисы.рф: Вход".to_string(),
-                "/login/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t, 
-                l,
-            ).await
+        if is_ajax == 0 {
+            if l == 2 {
+                get_first_load_page (
+                    &session,
+                    is_desctop,
+                    "Login".to_string(),
+                    "Web-services: Login".to_string(),
+                    "/login/".to_string(),
+                    "/static/images/dark/store.jpg".to_string(),
+                    t, 
+                    l,
+                ).await
+            }
+            else {
+                get_first_load_page (
+                    &session,
+                    is_desctop,
+                    "Регистрация".to_string(),
+                    "вебсервисы.рф: Регистрация".to_string(),
+                    "/login/".to_string(),
+                    "/static/images/dark/store.jpg".to_string(),
+                    t, 
+                    l,
+                ).await
+            }
         }
         else {
             let _stat = crate::models::StatPage::get_or_create(6);

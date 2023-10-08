@@ -136,16 +136,30 @@ pub async fn tag_page(req: HttpRequest, session: Session, _id: web::Path<String>
     let _tag = Tag::get_tag_with_slug(&slug);
 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            _tag.name.clone() + &" | Тег".to_string(),
-            _tag.name.clone() + &" | вебсервисы.рф:Тег".to_string(),
-            "/tag/".to_string() + &slug + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _tag.name_en.clone() + &" | Tag".to_string(),
+                _tag.name_en.clone() + &" | Web-services: Tag".to_string(),
+                "/tag/".to_string() + &slug + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _tag.name.clone() + &" | Тег".to_string(),
+                _tag.name.clone() + &" | вебсервисы.рф:Тег".to_string(),
+                "/tag/".to_string() + &slug + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         use crate::models::{Item, Blog, Service, Store, Wiki, Work, Help};
@@ -364,16 +378,30 @@ pub async fn tag_blogs_page(session: Session, req: HttpRequest, _id: web::Path<S
     let _tag = Tag::get_tag_with_slug(&slug); 
 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            _tag.name.clone() + &" | Статьи тега".to_string(),
-            _tag.name.clone() + &" | вебсервисы.рф: Статьи тега".to_string(),
-            "/tag_blogs/".to_string() + &slug + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _tag.name_en.clone() + &" | Articles of the tag".to_string(),
+                _tag.name_en.clone() + &" | Web-services: Articles of the tag".to_string(),
+                "/tag_blogs/".to_string() + &slug + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _tag.name.clone() + &" | Статьи тега".to_string(),
+                _tag.name.clone() + &" | вебсервисы.рф: Статьи тега".to_string(),
+                "/tag_blogs/".to_string() + &slug + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         use crate::schema::tags_items::dsl::tags_items;
@@ -518,16 +546,30 @@ pub async fn tag_services_page(session: Session, req: HttpRequest, _id: web::Pat
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            _tag.name.clone() + &" | Услуги тега".to_string(),
-            _tag.name.clone() + &" | вебсервисы.рф: Услуги тега".to_string(),
-            "/tag_services/".to_string() + &slug + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _tag.name_en.clone() + &" | Services of the tag".to_string(),
+                _tag.name_en.clone() + &" | Web-services: Services of the tag".to_string(),
+                "/tag_services/".to_string() + &slug + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _tag.name.clone() + &" | Статьи тега".to_string(),
+                _tag.name.clone() + &" | вебсервисы.рф: Статьи тега".to_string(),
+                "/tag_services/".to_string() + &slug + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         use crate::schema::tags_items::dsl::tags_items;
@@ -670,16 +712,30 @@ pub async fn tag_stores_page(session: Session, req: HttpRequest, _id: web::Path<
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            _tag.name.clone() + &" | Товары тега ".to_string(),
-            _tag.name.clone() + &" | вебсервисы.рф: Товары тега ".to_string(),
-            "/tag_stores/".to_string() + &slug + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _tag.name_en.clone() + &" | Goods of the tag".to_string(),
+                _tag.name_en.clone() + &" | Web-services: Goods of the tag".to_string(),
+                "/tag_stores/".to_string() + &slug + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _tag.name.clone() + &" | Товары тега".to_string(),
+                _tag.name.clone() + &" | вебсервисы.рф: Товары тега".to_string(),
+                "/tag_stores/".to_string() + &slug + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         use crate::schema::tags_items::dsl::tags_items;
@@ -823,16 +879,30 @@ pub async fn tag_wikis_page(session: Session, req: HttpRequest, _id: web::Path<S
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            _tag.name.clone() + &" | Статьи тега".to_string(),
-            _tag.name.clone() + &" | вебсервисы.рф: Статьи тега".to_string(),
-            "/tag_wikis/".to_string() + &slug + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _tag.name_en.clone() + &" | Wiki of the tag".to_string(),
+                _tag.name_en.clone() + &" | Web-services: Wiki of the tag".to_string(),
+                "/tag_wikis/".to_string() + &slug + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _tag.name.clone() + &" | Статьи тега".to_string(),
+                _tag.name.clone() + &" | вебсервисы.рф: Статьи тега".to_string(),
+                "/tag_wikis/".to_string() + &slug + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         use crate::schema::tags_items::dsl::tags_items;
@@ -976,16 +1046,30 @@ pub async fn tag_works_page(session: Session, req: HttpRequest, _id: web::Path<S
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            _tag.name.clone() + &" | Работы тега".to_string(),
-            _tag.name.clone() + &" | вебсервисы.рф: Работы тега".to_string(),
-            "/tag_works/".to_string() + &slug + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _tag.name_en.clone() + &" | Works of the tag".to_string(),
+                _tag.name_en.clone() + &" | Web-services: Works of the tag".to_string(),
+                "/tag_works/".to_string() + &slug + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _tag.name.clone() + &" | Работы тега".to_string(),
+                _tag.name.clone() + &" | вебсервисы.рф: Работы тега".to_string(),
+                "/tag_works/".to_string() + &slug + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         use crate::schema::tags_items::dsl::tags_items;
@@ -1128,16 +1212,30 @@ pub async fn tag_helps_page(session: Session, req: HttpRequest, _id: web::Path<S
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            _tag.name.clone() + &" | Справки тега".to_string(),
-            _tag.name.clone() + &" | вебсервисы.рф: Справки тега".to_string(),
-            "/tag_helps/".to_string() + &slug + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _tag.name_en.clone() + &" | Help of the tag".to_string(),
+                _tag.name_en.clone() + &" | Web-services: Help of the tag".to_string(),
+                "/tag_helps/".to_string() + &slug + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _tag.name.clone() + &" | Справки тега".to_string(),
+                _tag.name.clone() + &" | вебсервисы.рф: Справки тега".to_string(),
+                "/tag_helps/".to_string() + &slug + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         use crate::schema::tags_items::dsl::tags_items;
@@ -1277,16 +1375,30 @@ pub async fn tags_page(session: Session, req: HttpRequest) -> actix_web::Result<
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Ключевые слова".to_string(),
-            "вебсервисы.рф: Ключевые слова".to_string(),
-            "/tags/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Tags".to_string(),
+                "Web-services: Tags".to_string(),
+                "/tags/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Ключевые слова".to_string(),
+                "вебсервисы.рф: Ключевые слова".to_string(),
+                "/tags/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         let page = crate::utils::get_page(&req);

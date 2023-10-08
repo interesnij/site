@@ -248,7 +248,6 @@ pub struct CookieStat {
     pub page:     i16,
     pub link:     String,
     pub title:    String,
-    pub title_en: String,
     pub height:   f64,
     pub seconds:  i32,
     pub created:  chrono::NaiveDateTime,
@@ -260,7 +259,6 @@ pub struct HistoryResponse {
     pub id:       i32,
     pub link:     String,
     pub title:    String,
-    pub title_en: String,
     pub height:   f64,
     pub seconds:  i32,
     pub template: String,
@@ -317,7 +315,6 @@ impl CookieStat {
         }
         let p_link = data.link.clone();
         let p_title = data.title.clone();
-        let p_title_en = data.title_en.clone();
         let p_template = data.template.clone();
 
         let _connection = establish_connection();
@@ -383,40 +380,21 @@ impl CookieStat {
         }
 
         let _connection = establish_connection();
-        if l == 1 {
-            let _h = NewCookieStat {
-                user_id:  user.id,
-                page:     p_page_id,
-                link:     p_link,
-                title:    p_title,
-                title_en: "".to_string(),
-                height:   p_height,
-                seconds:  p_seconds,
-                created:  chrono::Local::now().naive_utc() + Duration::hours(3),
-                template: p_template,
-            };
-            let new = diesel::insert_into(schema::cookie_stats::table)
-                .values(&_h)
-                .get_result::<CookieStat>(&_connection)?;
-                return Ok(new);
-        }
-        else if l == 2 {
-            let _h = NewCookieStat {
-                user_id:  user.id,
-                page:     p_page_id,
-                link:     p_link,
-                title:    "".to_string(),
-                title_en: p_title_en,
-                height:   p_height,
-                seconds:  p_seconds,
-                created:  chrono::Local::now().naive_utc() + Duration::hours(3),
-                template: p_template,
-            };
-            let new = diesel::insert_into(schema::cookie_stats::table)
-                .values(&_h)
-                .get_result::<CookieStat>(&_connection)?;
+        let _h = NewCookieStat {
+            user_id:  user.id,
+            page:     p_page_id,
+            link:     p_link,
+            title:    p_title,
+            height:   p_height,
+            seconds:  p_seconds,
+            created:  chrono::Local::now().naive_utc() + Duration::hours(3),
+            template: p_template,
+        };
+        let new = diesel::insert_into(schema::cookie_stats::table)
+            .values(&_h)
+            .get_result::<CookieStat>(&_connection)?;
             return Ok(new);
-        }
+        
         return Err(Error::BadRequest("Permission Denied".to_string()));
     }
 }
@@ -428,7 +406,6 @@ pub struct NewCookieStat {
     pub page:     i16,
     pub link:     String,
     pub title:    String,
-    pub title_en: String,
     pub height:   f64,
     pub seconds:  i32,
     pub created:  chrono::NaiveDateTime,

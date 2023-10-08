@@ -41,16 +41,31 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
 
     let _item = Item::get(&_item_id);
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            _item.title.clone() + &" | Статья ".to_string(),
-            _item.title.clone() + &" | Статья: вебсервисы.рф".to_string(),
-            "/blog/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
-            _item.get_image(),
-            t, 
-            l,
-        ).await
+        if is_ajax == 0 {
+            if l == 2 {
+                get_first_load_page (
+                    &session,
+                    is_desctop,
+                    _item.title.clone() + &" | Article ".to_string(),
+                    _item.title.clone() + &" | Article: Web-services".to_string(),
+                    "/blog/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
+                    _item.get_image(),
+                    t, 
+                    l,
+                ).await
+            }
+            else {
+                get_first_load_page (
+                    &session,
+                    is_desctop,
+                    _item.title.clone() + &" | Статья ".to_string(),
+                    _item.title.clone() + &" | Статья: вебсервисы.рф".to_string(),
+                    "/blog/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
+                    _item.get_image(),
+                    t, 
+                    l,
+                ).await
+            }
     }
     else {
         use crate::models::FeaturedItem;
@@ -228,16 +243,30 @@ pub async fn blog_category_page(session: Session, req: HttpRequest, _id: web::Pa
 
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            _category.name.clone() + &" | Категория блога ".to_string(),
-            _category.name.clone() + &" | Категория блога - вебсервисы.рф".to_string(),
-            "/blogs/".to_string() + &_category.slug.clone() + &"/".to_string(),
-            cat_image,
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _category.name.clone() + &" | Category of the blog".to_string(),
+                _category.name.clone() + &" | Category of the blog - Web-services".to_string(),
+                "/blogs/".to_string() + &_category.slug.clone() + &"/".to_string(),
+                cat_image,
+                t, 
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _category.name.clone() + &" | Категория блога ".to_string(),
+                _category.name.clone() + &" | Категория блога - вебсервисы.рф".to_string(),
+                "/blogs/".to_string() + &_category.slug.clone() + &"/".to_string(),
+                cat_image,
+                t, 
+                l,
+            ).await
+        }
     }
     else {
         use crate::models::Blog;
@@ -382,16 +411,30 @@ pub async fn blog_categories_page(session: Session, req: HttpRequest) -> actix_w
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Категории блога".to_string(),
-            "вебсервисы.рф: Категории блога".to_string(),
-            "/blog_categories/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop, 
+                "Blog Categories".to_string(),
+                "Web-services: Categories of blog".to_string(),
+                "/blog_categories/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t, 
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Категории блога".to_string(),
+                "вебсервисы.рф: Категории блога".to_string(),
+                "/blog_categories/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t, 
+                l,
+            ).await
+        }
     }
     else {
         let _stat = crate::models::StatPage::get_or_create(41);

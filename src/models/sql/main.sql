@@ -103,16 +103,15 @@ CREATE TABLE cookie_users (
     created    TIMESTAMP NOT NULL     -- когда создан пользователь
 );
 CREATE TABLE cookie_stats (
-    id         SERIAL PRIMARY KEY,
-    user_id    INT NOT NULL,          -- связь с пользователем куки
-    page       SMALLINT NOT NULL,     -- номер страницы, которая просматривается
-    link       VARCHAR(200) NOT NULL, -- ссылка страницы
-    title      VARCHAR(200) NOT NULL, -- название страницы
-    title_en   VARCHAR(200) NOT NULL, -- название страницы
-    height     FLOAT NOT NULL,        -- высота просмотра страницы
-    seconds    INT NOT NULL,          -- секунды нахождения страницы
-    created    TIMESTAMP NOT NULL,    -- когда создана запись
-    template   VARCHAR(100) NOT NULL DEFAULT 'rhythm', -- вид шаблона
+    id       SERIAL PRIMARY KEY,
+    user_id  INT NOT NULL,          -- связь с пользователем куки
+    page     SMALLINT NOT NULL,     -- номер страницы, которая просматривается
+    link     VARCHAR(200) NOT NULL, -- ссылка страницы
+    title    VARCHAR(200) NOT NULL, -- название страницы
+    height   FLOAT NOT NULL,        -- высота просмотра страницы
+    seconds  INT NOT NULL,          -- секунды нахождения страницы
+    created  TIMESTAMP NOT NULL,    -- когда создана запись
+    template VARCHAR(100) NOT NULL DEFAULT 'rhythm', -- вид шаблона
 
     CONSTRAINT fk_cookie_stat_user
         FOREIGN KEY(user_id)

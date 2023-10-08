@@ -40,16 +40,30 @@ pub async fn get_wiki_page(session: Session, req: HttpRequest, param: web::Path<
 
     let _item = Item::get(&_item_id);
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            _item.title.clone() + &" | Обучающая статья".to_string(),
-            _item.title.clone() + &" | Обучающая статья: вебсервисы.рф".to_string(),
-            "/wiki/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
-            _item.get_image(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _item.title.clone() + &" | Wiki".to_string(),
+                _item.title.clone() + &" | Wiki: Web-services".to_string(),
+                "/wiki/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
+                _item.get_image(),
+                t, 
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _item.title.clone() + &" | Статья ".to_string(),
+                _item.title.clone() + &" | Статья: вебсервисы.рф".to_string(),
+                "/wiki/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
+                _item.get_image(),
+                t, 
+                l,
+            ).await
+        }
     }
     else {
         use crate::models::FeaturedItem;
@@ -229,16 +243,30 @@ pub async fn wiki_category_page(session: Session, req: HttpRequest, _id: web::Pa
 
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            _category.name.clone() + &" | Категория обучения ".to_string(),
-            _category.name.clone() + &" | Категория обучения - вебсервисы.рф".to_string(),
-            "/wikis/".to_string() + &_category.slug.clone() + &"/".to_string(),
-            cat_image,
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _category.name.clone() + &" | Category of the wiki".to_string(),
+                _category.name.clone() + &" | Category of the wiki - Web-services".to_string(),
+                "/wikis/".to_string() + &_category.slug.clone() + &"/".to_string(),
+                cat_image,
+                t, 
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _category.name.clone() + &" | Категория обучения ".to_string(),
+                _category.name.clone() + &" | Категория обучения - вебсервисы.рф".to_string(),
+                "/wikis/".to_string() + &_category.slug.clone() + &"/".to_string(),
+                cat_image,
+                t, 
+                l,
+            ).await
+        }
     }
     else {
         use crate::models::Wiki;
@@ -382,16 +410,30 @@ pub async fn wiki_categories_page(session: Session, req: HttpRequest) -> actix_w
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Категории обучения".to_string(),
-            "вебсервисы.рф: Категории обучения".to_string(),
-            "/wiki_categories/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Categories of wiki".to_string(),
+                "Web-services: Categories of wiki".to_string(),
+                "/wiki_categories/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Категории обучения".to_string(),
+                "вебсервисы.рф: Категории обучения".to_string(),
+                "/wiki_categories/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         let _stat = crate::models::StatPage::get_or_create(81);

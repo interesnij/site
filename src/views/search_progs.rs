@@ -34,16 +34,30 @@ pub async fn empty_search_page(req: HttpRequest, session: Session) -> actix_web:
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Общий поиск".to_string(),
-            "вебсервисы.рф: Общий поиск".to_string(),
-            "/search/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "General search".to_string(),
+                "Web-services: General search".to_string(),
+                "/search/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Общий поиск".to_string(),
+                "вебсервисы.рф: Общий поиск".to_string(),
+                "/search/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
@@ -131,16 +145,30 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
     let (t, l) = get_all_storage();
 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Общий поиск по фрагменту ".to_string() + &q,
-            "вебсервисы.рф: Общий поиск по фрагменту ".to_string() + &q,
-            "/search/".to_string() + &q + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Search for all by fragment ".to_string() + &q,
+                "Web-services: Search for all by fragment ".to_string() + &q,
+                "/search/".to_string() + &q + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Общий поиск по фрагменту ".to_string() + &q,
+                "вебсервисы.рф: Общий поиск по фрагменту ".to_string() + &q,
+                "/search/".to_string() + &q + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         use crate::models::{Item, Blog, Service, Store, Wiki, Work};
@@ -338,16 +366,30 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
     let (t, l) = get_all_storage();
 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Поиск статей по фрагменту ".to_string() + &q,
-            "вебсервисы.рф: Поиск статей по фрагменту ".to_string() + &q,
-            "/search_blogs/".to_string() + &q + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Search for articles by fragment ".to_string() + &q,
+                "Web-services: Search for articles by fragment ".to_string() + &q,
+                "/search_blogs/".to_string() + &q + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Поиск статей по фрагменту ".to_string() + &q,
+                "вебсервисы.рф: Поиск статей по фрагменту ".to_string() + &q,
+                "/search_blogs/".to_string() + &q + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         use crate::models::{Item, Blog};
@@ -497,16 +539,30 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
     let (t, l) = get_all_storage();
 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Поиск услуг по фрагменту ".to_string() + &q,
-            "вебсервисы.рф: Поиск услуг по фрагменту ".to_string() + &q,
-            "/search_services/".to_string() + &q + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Search for services by fragment ".to_string() + &q,
+                "Web-services: Search for services by fragment ".to_string() + &q,
+                "/search_services/".to_string() + &q + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Поиск услуг по фрагменту ".to_string() + &q,
+                "вебсервисы.рф: Поиск услуг по фрагменту ".to_string() + &q,
+                "/search_services/".to_string() + &q + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         use crate::models::{Item, Service};
@@ -657,16 +713,30 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
     let (t, l) = get_all_storage();
 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Поиск товаров по фрагменту ".to_string() + &q,
-            "вебсервисы.рф: Поиск товаров по фрагменту ".to_string() + &q,
-            "/search_stores/".to_string() + &q + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Search for market by fragment ".to_string() + &q,
+                "Web-services: Search for market by fragment ".to_string() + &q,
+                "/search_stores/".to_string() + &q + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Поиск услуг по фрагменту ".to_string() + &q,
+                "вебсервисы.рф: Поиск услуг по фрагменту ".to_string() + &q,
+                "/search_stores/".to_string() + &q + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         use crate::models::{Item, Store};
@@ -819,16 +889,30 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
     let (t, l) = get_all_storage();
 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Поиск статей по фрагменту ".to_string() + &q,
-            "вебсервисы.рф: Поиск статей по фрагменту ".to_string() + &q,
-            "/search_wikis/".to_string() + &q + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Search for wiki by fragment ".to_string() + &q,
+                "Web-services: Search for wiki by fragment ".to_string() + &q,
+                "/search_wikis/".to_string() + &q + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Поиск статей по фрагменту ".to_string() + &q,
+                "вебсервисы.рф: Поиск статей по фрагменту ".to_string() + &q,
+                "/search_wikis/".to_string() + &q + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         use crate::models::{Item, Wiki};
@@ -979,16 +1063,30 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
     let (t, l) = get_all_storage();
 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Поиск работ по фрагменту ".to_string() + &q,
-            "вебсервисы.рф: Поиск работ по фрагменту ".to_string() + &q,
-            "/search_works/".to_string() + &q + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Search for works by fragment ".to_string() + &q,
+                "Web-services: Search for works by fragment ".to_string() + &q,
+                "/search_works/".to_string() + &q + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Поиск работ по фрагменту ".to_string() + &q,
+                "вебсервисы.рф: Поиск работ по фрагменту ".to_string() + &q,
+                "/search_works/".to_string() + &q + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         use crate::models::{Item, Work};
@@ -1140,16 +1238,30 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
     let _q = q.clone();
 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Поиск по фрагменту ".to_string() + &q,
-            "вебсервисы.рф: Поиск по фрагменту ".to_string() + &q,
-            "/search_help/".to_string() + &q + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Search for help by fragment ".to_string() + &q,
+                "Web-services: Search for help by fragment ".to_string() + &q,
+                "/search_help/".to_string() + &q + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Поиск помощи по фрагменту ".to_string() + &q,
+                "вебсервисы.рф: Поиск помощи по фрагменту ".to_string() + &q,
+                "/search_help/".to_string() + &q + &"/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         use crate::models::{Item, Help};

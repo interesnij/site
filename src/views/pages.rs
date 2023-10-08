@@ -71,16 +71,30 @@ pub async fn not_found(req: HttpRequest, session: Session) -> actix_web::Result<
 
     let (t, l) = get_all_storage();
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Страница не найдена".to_string(),
-            "вебсервисы.рф: Страница не найдена".to_string(),
-            "/not_found/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Page not found".to_string(),
+                "Web-services: Page not found".to_string(),
+                "/not_found/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Страница не найдена".to_string(),
+                "вебсервисы.рф: Страница не найдена".to_string(),
+                "/not_found/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         if is_signed_in(&session) {
@@ -181,16 +195,30 @@ pub async fn index_page (
     let (t, l) = get_all_storage();
 
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Главная страница".to_string(),
-            "вебсервисы - Комплексное, экспертное создание и развитие высоконагруженных веб-ресурсов".to_string(),
-            "/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Home".to_string(),
+                "Web-services - Comprehensive, expert creation and development of highly loaded web resources".to_string(),
+                "/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Главная страница".to_string(),
+                "вебсервисы - Комплексное, экспертное создание и развитие высоконагруженных веб-ресурсов".to_string(),
+                "/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         use crate::models::{Blog, Service, Store, Wiki, Work};
@@ -374,16 +402,30 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
     if is_ajax == 0 {
-        return get_first_load_page (
-            &session,
-            is_desctop,
-            "Информация".to_string(),
-            "вебсервисы.рф: Информация о нас, о сайте, контакты, вкладка помощи".to_string(),
-            "/info/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await;
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Info".to_string(),
+                "Web-services: Info".to_string(),
+                "/info/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Информация".to_string(),
+                "вебсервисы.рф: Информация о нас, о сайте, контакты, вкладка помощи".to_string(),
+                "/info/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
 
     let _stat = crate::models::StatPage::get_or_create(10);
@@ -486,16 +528,30 @@ pub async fn history_page(conn: ConnectionInfo, req: HttpRequest, session: Sessi
 
     let (t, l) = get_all_storage();
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "История просмотров".to_string(),
-            "вебсервисы.рф: История просмотров пользователя".to_string(),
-            "/history/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Your browsing history".to_string(),
+                "Web-services: Your browsing history".to_string(),
+                "/history/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "История просмотров".to_string(),
+                "вебсервисы.рф: История просмотров пользователя".to_string(),
+                "/history/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         use crate::models::{CookieUser, CookieStat};
@@ -680,16 +736,30 @@ pub async fn serve_list_page(req: HttpRequest, session: Session) -> actix_web::R
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Список опций и услуг".to_string(),
-            "вебсервисы.рф: Список опций и услуг".to_string(),
-            "/serve_list/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "List of options and services".to_string(),
+                "Web-services: List of options and services".to_string(),
+                "/serve_list/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Список опций и услуг".to_string(),
+                "вебсервисы.рф: Список опций и услуг".to_string(),
+                "/serve_list/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
@@ -871,16 +941,30 @@ pub async fn cookie_users_list_page(session: Session, req: HttpRequest) -> actix
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Общая статистика сайта".to_string(),
-            "вебсервисы.рф: Общая статистика сайта".to_string(),
-            "/cookie_users_list/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "General site statistics".to_string(),
+                "Web-services: General site statistics".to_string(),
+                "/cookie_users_list/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Общая статистика сайта".to_string(),
+                "вебсервисы.рф: Общая статистика сайта".to_string(),
+                "/cookie_users_list/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else {
         let (object_list, next_page_number) = CookieUser::get_users_list(get_page(&req), 20);
@@ -1100,16 +1184,30 @@ pub async fn create_category_page(session: Session, req: HttpRequest) -> actix_w
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            "Создание категории".to_string(),
-            "вебсервисы.рф: Создание категории".to_string(),
-            "/create_category/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Creating a category".to_string(),
+                "Web-services: Creating a category".to_string(),
+                "/create_category/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                "Создание категории".to_string(),
+                "вебсервисы.рф: Создание категории".to_string(),
+                "/create_category/".to_string(),
+                "/static/images/dark/store.jpg".to_string(),
+                t,
+                l,
+            ).await
+        }
     }
     else if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);

@@ -46,16 +46,30 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
 
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     if is_ajax == 0 {
-        get_first_load_page (
-            &session,
-            is_desctop,
-            _category.name.clone() + &" | Категория помощи ".to_string(),
-            _category.name.clone() + &" | Категория помощи - вебсервисы.рф".to_string(),
-            "/help/".to_string() + &_category.slug.clone() + &"/".to_string(),
-            cat_image,
-            t, 
-            l,
-        ).await
+        if l == 2 {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _category.name.clone() + &" | Category of the help".to_string(),
+                _category.name.clone() + &" | Category of the help - Web-services".to_string(),
+                "/help/".to_string() + &_category.slug.clone() + &"/".to_string(),
+                cat_image,
+                t, 
+                l,
+            ).await
+        }
+        else {
+            get_first_load_page (
+                &session,
+                is_desctop,
+                _category.name.clone() + &" | Категория помощи ".to_string(),
+                _category.name.clone() + &" | Категория помощи - вебсервисы.рф".to_string(),
+                "/help/".to_string() + &_category.slug.clone() + &"/".to_string(),
+                cat_image,
+                t, 
+                l,
+            ).await
+        }
     }
     else {
         use crate::models::Help;
