@@ -234,6 +234,114 @@ pub fn get_request_user_data(session: &Session) -> User {
     }
 }
 
+pub async fn get_first_load_page_2 (
+    session:     &Session,
+    is_desctop:  bool,
+    title:       String,
+    description: String,
+    uri:         String,
+    image:       String,
+    t:           u8,
+) -> actix_web::Result<HttpResponse> {
+    if is_signed_in(&session) {
+        let _request_user = get_request_user_data(&session);
+        if is_desctop {
+            #[derive(TemplateOnce)] 
+            #[template(path = "desctop/generic/first_load.stpl")]
+            struct Template {
+                request_user:   User,
+                title:          String,
+                description:    String,
+                image:          String,
+                uri:            String,
+                template_types: u8,
+            }
+            let body = Template {
+                request_user:   _request_user,
+                title:          title,
+                description:    description,
+                image:          image,
+                uri:            uri,
+                template_types: t,
+            }
+            .render_once()
+            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
+            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
+        }
+        else {
+            #[derive(TemplateOnce)]
+            #[template(path = "mobile/generic/first_load.stpl")]
+            struct Template {
+                request_user:   User,
+                title:          String,
+                description:    String,
+                image:          String,
+                uri:            String,
+                template_types: u8,
+            }
+            let body = Template {
+                request_user:   _request_user,
+                title:          title,
+                description:    description,
+                image:          image,
+                uri:            uri,
+                template_types: t,
+            }
+            .render_once()
+            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
+            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
+        }
+    }
+    else {
+        if is_desctop {
+            #[derive(TemplateOnce)]
+            #[template(path = "desctop/generic/anon_first_load.stpl")]
+            struct Template {
+                title:          String,
+                description:    String,
+                image:          String,
+                uri:            String,
+                template_types: u8,
+                linguage:       u8,
+            }
+            let body = Template {
+                title:          title,
+                description:    description,
+                image:          image,
+                uri:            uri,
+                template_types: t,
+                linguage:       l,
+            }
+            .render_once()
+            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
+            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
+        }
+        else {
+            #[derive(TemplateOnce)]
+            #[template(path = "mobile/generic/anon_first_load.stpl")]
+            struct Template {
+                title:          String,
+                description:    String,
+                image:          String,
+                uri:            String,
+                template_types: u8,
+                linguage:       u8,
+            }
+            let body = Template {
+                title:          title,
+                description:    description,
+                image:          image,
+                uri:            uri,
+                template_types: t,
+                linguage:       l,
+            }
+            .render_once()
+            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
+            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
+        }
+    }
+}
+
 pub async fn get_first_load_page (
     session:     &Session,
     is_desctop:  bool,

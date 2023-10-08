@@ -42,7 +42,7 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
     let _item = Item::get(&_item_id);
     if is_ajax == 0 {
             if l == 2 {
-                get_first_load_page (
+                crate::utils::get_first_load_page_2 (
                     &session,
                     is_desctop,
                     _item.title.clone() + &" | Article ".to_string(),
@@ -50,11 +50,10 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
                     "/blog/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
                     _item.get_image(),
                     t, 
-                    l,
                 ).await
             }
             else {
-                get_first_load_page (
+                crate::utils::get_first_load_page_2 (
                     &session,
                     is_desctop,
                     _item.title.clone() + &" | Статья ".to_string(),
@@ -62,7 +61,6 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
                     "/blog/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
                     _item.get_image(),
                     t, 
-                    l,
                 ).await
             }
     }
