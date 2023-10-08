@@ -388,7 +388,7 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
 
     let _stat = crate::models::StatPage::get_or_create(10);
     let _help_cats = block(move || Categories::get_categories_for_types(6, l)).await?;
-    if is_signed_in(&session) {
+    if is_signed_in(&session) { 
         let _request_user = get_request_user_data(&session);
         if is_desctop {
             #[derive(TemplateOnce)]

@@ -57,7 +57,7 @@ pub async fn get_store_page(session: Session, req: HttpRequest, param: web::Path
         let _category = Categories::get(&_cat_id, _item.types);
         let _cats = block(move || Categories::get_categories_for_types(3, l)).await?;
         let _tags = block(move || Categories::get_tags(3, l)).await?;
-
+        let _help_cats = block(move || Categories::get_categories_for_types(6, l)).await?;
         let (prev, next) = _category.get_featured_items(_item.id, _item.types, l);
 
         if is_signed_in(&session) {
@@ -82,6 +82,7 @@ pub async fn get_store_page(session: Session, req: HttpRequest, param: web::Path
                     request_user:   User,
                     object:         Item,
                     category:       Categories,
+                    help_cats:      Vec<Cat>,
                     prev:           Option<FeaturedItem>,
                     next:           Option<FeaturedItem>,
                     is_ajax:        i32,
@@ -92,6 +93,7 @@ pub async fn get_store_page(session: Session, req: HttpRequest, param: web::Path
                     request_user:   _request_user,
                     object:         _item,
                     category:       _category,
+                    help_cats:      _help_cats,
                     prev:           prev,
                     next:           next,
                     is_ajax:        is_ajax,
@@ -109,6 +111,7 @@ pub async fn get_store_page(session: Session, req: HttpRequest, param: web::Path
                     request_user:   User,
                     object:         Item,
                     category:       Categories,
+                    help_cats:      Vec<Cat>,
                     cats:           Vec<Cat>,
                     all_tags:       Vec<SmallTag>,
                     prev:           Option<FeaturedItem>,
@@ -121,6 +124,7 @@ pub async fn get_store_page(session: Session, req: HttpRequest, param: web::Path
                     request_user:   _request_user,
                     object:         _item,
                     category:       _category,
+                    help_cats:      _help_cats,
                     cats:           _cats,
                     all_tags:       _tags,
                     prev:           prev,
@@ -153,6 +157,7 @@ pub async fn get_store_page(session: Session, req: HttpRequest, param: web::Path
                 struct Template {
                     object:         Item,
                     category:       Categories,
+                    help_cats:      Vec<Cat>,
                     prev:           Option<FeaturedItem>,
                     next:           Option<FeaturedItem>,
                     is_ajax:        i32,
@@ -162,6 +167,7 @@ pub async fn get_store_page(session: Session, req: HttpRequest, param: web::Path
                 let body = Template {
                     object:         _item,
                     category:       _category,
+                    help_cats:      _help_cats,
                     prev:           prev,
                     next:           next,
                     is_ajax:        is_ajax,
@@ -178,6 +184,7 @@ pub async fn get_store_page(session: Session, req: HttpRequest, param: web::Path
                 struct Template {
                     object:         Item,
                     category:       Categories,
+                    help_cats:      Vec<Cat>,
                     cats:           Vec<Cat>,
                     all_tags:       Vec<SmallTag>,
                     prev:           Option<FeaturedItem>,
@@ -189,6 +196,7 @@ pub async fn get_store_page(session: Session, req: HttpRequest, param: web::Path
                 let body = Template {
                     object:         _item,
                     category:       _category,
+                    help_cats:      _help_cats,
                     cats:           _cats,
                     all_tags:       _tags,
                     prev:           prev,
