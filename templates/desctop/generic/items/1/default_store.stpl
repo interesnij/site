@@ -1,8 +1,8 @@
 <% let (__read, __price) = match linguage {
-        2 => ("Details", "от ".to_string() + (object.price / 100).to_string() + " $"), 
-        1 | _ => ("Детали", "от ".to_string() + object.price.to_string() + " ₽"),
+        2 => ("Details", "от ".to_string() + &(object.price / 100).to_string() + &" $".to_string()), 
+        1 | _ => ("Детали", "от ".to_string() + &object.price.to_string() + &" ₽".to_string()),
     };
-%> 
+%>
 
 <div class="col-lg-4 col-md-6 mb-60 mb-xs-40">
   <div class="post-prev-img">

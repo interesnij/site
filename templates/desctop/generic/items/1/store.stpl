@@ -1,6 +1,6 @@
 <% let (__read, __price) = match linguage {
-        2 => ("Details", "от ".to_string() + (object.price / 100).to_string() + " $"), 
-        1 | _ => ("Детали", "от ".to_string() + object.price.to_string() + " ₽"),
+        2 => ("Details", "от ".to_string() + &(object.price / 100).to_string() + &" $".to_string()), 
+        1 | _ => ("Детали", "от ".to_string() + &object.price.to_string() + &" ₽".to_string()),
     };
 %>
 
