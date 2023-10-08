@@ -7,7 +7,7 @@
 }; %> 
 <% 
     let te = template_types.to_string() + &"/anon_mainpage.stpl".to_string();
-    include!(te.as_str()); 
+    include!(te.as_bytes()); 
 %>
 
 <% include!("../anon_footer.stpl"); %>
