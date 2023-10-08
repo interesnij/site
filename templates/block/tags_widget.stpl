@@ -1,6 +1,12 @@
+
 <% if all_tags.len() > 0 { %>
+<% let __tags = match linguage {
+        2 => "Tags", 
+        1 | _ => "Теги",
+    };
+%> 
 <div class="widget">
-    <h5 class="widget-title font-alt">Теги (<%= all_tags.len() %>)</h5>
+    <h5 class="widget-title font-alt"><%= __tags %> (<%= all_tags.len() %>)</h5>
     <div class="widget-body">
         <div class="tags">
           <% for tag in all_tags.iter() { %>

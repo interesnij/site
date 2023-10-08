@@ -1,12 +1,24 @@
+<% let (__home, __title, __desc, __cats, __search) = match linguage {
+        2 => (
+          "Home", "Blog", "Web-services: blog, articles on programming, strategy, company life", 
+          "Categories", "Search from 3 letters"
+          ), 
+        1 | _ => (
+          "Главная", "Блог", 
+          "вебсервисы.рф: блог, статьи на тему программирования, стратегии, жизни компании", 
+          "Категории", "Поиск от 3х букв"
+          ),
+    };
+%>
 
-<section page-id="41" data-title="Блог" data-description="вебсервисы.рф: блог, статьи на тему программирования, стратегии, жизни компании" data-uri="/blog_categories/" data-image="/static/images/dark/store.jpg" class="doc_title">
+<section page-id="41" data-title="<%= __title %>" data-description="<%= __desc %>" data-uri="/blog_categories/" data-image="/static/images/dark/store.jpg" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
             <a class="ajax" href="/">
-                Главная
+                <%= __home %>
             </a>
             &nbsp;/&nbsp;
-            <a>Блог</a>
+            <a><%= __title %></a>
             <% include!("../../generic/items/1/page_stat.stpl"); %>
         </div>
     </div>
@@ -61,8 +73,6 @@
                                 <%= object.created.format("%d-%m-%Y в %H:%M").to_string() %>
                                 <p><% if object.description.is_some() { %>
                                   <%= object.description.as_deref().unwrap() %>
-                                <% } else { %>
-                                  Без описания
                                 <% } %></p>
                             </div>
                         </div>
@@ -78,12 +88,12 @@
             <div class="widget">
                 <form class="form-inline form" role="form">
                     <div class="search-wrap">
-                        <input data-folder="_blogs" type="text" class="form-control search-field desctop_folder_search" placeholder="Поиск от 3х букв">
+                        <input data-folder="_blogs" type="text" class="form-control search-field desctop_folder_search" placeholder="<%= __search %>">
                     </div>
                 </form>
             </div>
             <div class="widget">
-                <h5 class="widget-title font-alt">Категории</h5>
+                <h5 class="widget-title font-alt"><%= __cats %></h5>
                 <div class="widget-body">
                     <ul class="clearlist widget-menu">
                       <% for cat in cats.iter() { %>

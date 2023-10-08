@@ -43,7 +43,6 @@ pub async fn empty_search_page(req: HttpRequest, session: Session) -> actix_web:
                 "/search/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -55,7 +54,6 @@ pub async fn empty_search_page(req: HttpRequest, session: Session) -> actix_web:
                 "/search/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -154,7 +152,6 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
                 "/search/".to_string() + &q + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -166,7 +163,6 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
                 "/search/".to_string() + &q + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -375,7 +371,6 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
                 "/search_blogs/".to_string() + &q + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -387,7 +382,6 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
                 "/search_blogs/".to_string() + &q + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -548,7 +542,6 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
                 "/search_services/".to_string() + &q + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -560,7 +553,6 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
                 "/search_services/".to_string() + &q + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -722,7 +714,6 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                 "/search_stores/".to_string() + &q + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -734,7 +725,6 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                 "/search_stores/".to_string() + &q + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -898,7 +888,6 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
                 "/search_wikis/".to_string() + &q + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -910,7 +899,6 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
                 "/search_wikis/".to_string() + &q + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -1072,7 +1060,6 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
                 "/search_works/".to_string() + &q + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -1084,7 +1071,6 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
                 "/search_works/".to_string() + &q + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -1247,7 +1233,6 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
                 "/search_help/".to_string() + &q + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -1259,7 +1244,6 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
                 "/search_help/".to_string() + &q + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }

@@ -1,6 +1,10 @@
 </span>
 </span>
-
+<% let _copy = match linguage {
+        2 => "web-services.top", 
+        1 | _ => "вебсервисы.рф",
+    };
+%>
 <footer class="page-section footer pb-60">
     <div class="container">
         <div class="footer-social-links mb-110 mb-xs-60">
@@ -11,7 +15,7 @@
 
         <div class="footer-text" style="margin-top: 10px">
             <div class="footer-copy font-alt">
-                <a href="/" class="ajax">&copy; вебсервисы.рф 2022</a>.
+                <a href="/" class="ajax">&copy; <%= _copy %> 2023</a>.
             </div>
             <!--
             <div class="footer-made">

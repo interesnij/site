@@ -80,7 +80,6 @@ pub async fn not_found(req: HttpRequest, session: Session) -> actix_web::Result<
                 "/not_found/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -92,7 +91,6 @@ pub async fn not_found(req: HttpRequest, session: Session) -> actix_web::Result<
                 "/not_found/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -204,7 +202,6 @@ pub async fn index_page (
                 "/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -216,7 +213,6 @@ pub async fn index_page (
                 "/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -411,7 +407,6 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
                 "/info/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await;
         }
         else {
@@ -423,7 +418,6 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
                 "/info/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await;
         } 
     }
@@ -537,7 +531,6 @@ pub async fn history_page(conn: ConnectionInfo, req: HttpRequest, session: Sessi
                 "/history/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -549,7 +542,6 @@ pub async fn history_page(conn: ConnectionInfo, req: HttpRequest, session: Sessi
                 "/history/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -745,7 +737,6 @@ pub async fn serve_list_page(req: HttpRequest, session: Session) -> actix_web::R
                 "/serve_list/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -757,7 +748,6 @@ pub async fn serve_list_page(req: HttpRequest, session: Session) -> actix_web::R
                 "/serve_list/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -950,7 +940,6 @@ pub async fn cookie_users_list_page(session: Session, req: HttpRequest) -> actix
                 "/cookie_users_list/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -962,7 +951,6 @@ pub async fn cookie_users_list_page(session: Session, req: HttpRequest) -> actix
                 "/cookie_users_list/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -1193,7 +1181,6 @@ pub async fn create_category_page(session: Session, req: HttpRequest) -> actix_w
                 "/create_category/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -1205,7 +1192,6 @@ pub async fn create_category_page(session: Session, req: HttpRequest) -> actix_w
                 "/create_category/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -1278,7 +1264,6 @@ pub async fn edit_category_page(session: Session, req: HttpRequest, _id: web::Pa
             "/edit_category/".to_string() + &_cat.id.to_string() + &"/".to_string(),
             _cat.get_image(),
             t, 
-            l,
         ).await
     }
     else if is_signed_in(&session) {
@@ -1352,7 +1337,6 @@ pub async fn create_item_page(session: Session, req: HttpRequest) -> actix_web::
             "/create_item/".to_string(),
             "/static/images/dark/store.jpg".to_string(),
             t, 
-            l,
         ).await
     }
     else if is_signed_in(&session) {
@@ -1426,7 +1410,6 @@ pub async fn edit_item_page(session: Session, req: HttpRequest, _id: web::Path<i
             "/edit_item/".to_string() + &_item.id.to_string() + &"/".to_string(),
             _item.get_image(),
             t, 
-            l,
         ).await
     }
     else if is_signed_in(&session) {
@@ -1542,7 +1525,6 @@ pub async fn edit_content_item_page(session: Session, req: HttpRequest, _id: web
             "/edit_content_item/".to_string() + &_item.id.to_string() + &"/".to_string(),
             _item.get_image(),
             t, 
-            l,
         ).await
     }
     else if is_signed_in(&session) {
@@ -1614,7 +1596,6 @@ pub async fn edit_file_page(session: Session, req: HttpRequest, _id: web::Path<i
             "/edit_file/".to_string() + &_file.id.to_string() + &"/".to_string(),
             "/static/images/dark/store.jpg".to_string(),
             t, 
-            l,
         ).await
     }
     else if is_signed_in(&session) {

@@ -53,7 +53,6 @@ pub async fn signup_page(req: HttpRequest, session: Session) -> actix_web::Resul
                     "/signup/".to_string(),
                     "/static/images/dark/store.jpg".to_string(),
                     t, 
-                    l,
                 ).await
             }
             else {
@@ -65,7 +64,6 @@ pub async fn signup_page(req: HttpRequest, session: Session) -> actix_web::Resul
                     "/signup/".to_string(),
                     "/static/images/dark/store.jpg".to_string(),
                     t, 
-                    l,
                 ).await
             }
         }
@@ -129,7 +127,6 @@ pub async fn login_page(req: HttpRequest, session: Session) -> actix_web::Result
                     "/login/".to_string(),
                     "/static/images/dark/store.jpg".to_string(),
                     t, 
-                    l,
                 ).await
             }
             else {
@@ -141,7 +138,6 @@ pub async fn login_page(req: HttpRequest, session: Session) -> actix_web::Result
                     "/login/".to_string(),
                     "/static/images/dark/store.jpg".to_string(),
                     t, 
-                    l,
                 ).await
             }
         }

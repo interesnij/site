@@ -1,3 +1,8 @@
+<% let __read = match linguage {
+        2 => "More detailed", 
+        1 | _ => "Подробнее",
+    };
+%> 
 <% if i % 2 == 0 { %>
   <div class="container relative">
     <div class="row">
@@ -17,13 +22,11 @@
               <p>
                 <% if object.description.is_some() { %>
                   <%= object.description.as_deref().unwrap() %>
-                <% } else { %>
-                  Без описания
                 <% } %>
               </p>
               <div class="mt-40">
                 <a class="btn btn-medium btn-mod border btn-round ajax" href="/service/all-services/<%= object.slug %>/">
-                  Подробнее
+                  <%= __read %>
                 </a>
               </div>
             </div>
@@ -44,13 +47,11 @@
             <p>
               <% if object.description.is_some() { %>
                 <%= object.description.as_deref().unwrap() %>
-              <% } else { %>
-                Без описания
               <% } %>
             </p>
             <div class="mt-40">
               <a class="btn btn-medium btn-mod border btn-round ajax" href="/service/all-services/<%= object.slug %>/">
-                Подробнее
+                <%= __read %>
               </a>
             </div>
           </div>

@@ -49,7 +49,6 @@ pub async fn get_wiki_page(session: Session, req: HttpRequest, param: web::Path<
                 "/wiki/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
                 _item.get_image(),
                 t, 
-                l,
             ).await
         }
         else {
@@ -61,7 +60,6 @@ pub async fn get_wiki_page(session: Session, req: HttpRequest, param: web::Path<
                 "/wiki/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
                 _item.get_image(),
                 t, 
-                l,
             ).await
         }
     }
@@ -252,7 +250,6 @@ pub async fn wiki_category_page(session: Session, req: HttpRequest, _id: web::Pa
                 "/wikis/".to_string() + &_category.slug.clone() + &"/".to_string(),
                 cat_image,
                 t, 
-                l,
             ).await
         }
         else {
@@ -264,7 +261,6 @@ pub async fn wiki_category_page(session: Session, req: HttpRequest, _id: web::Pa
                 "/wikis/".to_string() + &_category.slug.clone() + &"/".to_string(),
                 cat_image,
                 t, 
-                l,
             ).await
         }
     }
@@ -419,7 +415,6 @@ pub async fn wiki_categories_page(session: Session, req: HttpRequest) -> actix_w
                 "/wiki_categories/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -431,7 +426,6 @@ pub async fn wiki_categories_page(session: Session, req: HttpRequest) -> actix_w
                 "/wiki_categories/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }

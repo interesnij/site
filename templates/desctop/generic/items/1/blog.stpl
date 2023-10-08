@@ -1,3 +1,8 @@
+<% let __read = match linguage {
+        2 => "Read", 
+        1 | _ => "Читать",
+    };
+%>
 <div class="col-lg-4 col-md-6 mb-md-50">
     <div class="post-prev-img">
       <a href="/blog/<%= category.slug %>/<%= object.slug %>/" class="ajax">
@@ -20,11 +25,9 @@
     <div class="post-prev-text">
       <% if object.description.is_some() { %>
         <%= object.description.as_deref().unwrap() %>
-      <% } else { %>
-        Без описания
       <% } %>
     </div>
     <div class="post-prev-more">
-        <a href="/blog/<%= category.slug %>/<%= object.slug %>/" class="btn btn-mod border btn-round ajax">Читать</a>
+        <a href="/blog/<%= category.slug %>/<%= object.slug %>/" class="btn btn-mod border btn-round ajax"><%= __read %></a>
     </div>
 </div>

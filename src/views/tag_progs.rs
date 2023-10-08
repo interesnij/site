@@ -63,7 +63,6 @@ pub async fn create_tag_page(session: Session, req: HttpRequest) -> actix_web::R
             "/create_tag/".to_string(),
             "/static/images/dark/store.jpg".to_string(),
             t, 
-            l,
         ).await
     }
     else {
@@ -145,7 +144,6 @@ pub async fn tag_page(req: HttpRequest, session: Session, _id: web::Path<String>
                 "/tag/".to_string() + &slug + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -157,7 +155,6 @@ pub async fn tag_page(req: HttpRequest, session: Session, _id: web::Path<String>
                 "/tag/".to_string() + &slug + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -387,7 +384,6 @@ pub async fn tag_blogs_page(session: Session, req: HttpRequest, _id: web::Path<S
                 "/tag_blogs/".to_string() + &slug + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -399,7 +395,6 @@ pub async fn tag_blogs_page(session: Session, req: HttpRequest, _id: web::Path<S
                 "/tag_blogs/".to_string() + &slug + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -555,7 +550,6 @@ pub async fn tag_services_page(session: Session, req: HttpRequest, _id: web::Pat
                 "/tag_services/".to_string() + &slug + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -567,7 +561,6 @@ pub async fn tag_services_page(session: Session, req: HttpRequest, _id: web::Pat
                 "/tag_services/".to_string() + &slug + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -721,7 +714,6 @@ pub async fn tag_stores_page(session: Session, req: HttpRequest, _id: web::Path<
                 "/tag_stores/".to_string() + &slug + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -733,7 +725,6 @@ pub async fn tag_stores_page(session: Session, req: HttpRequest, _id: web::Path<
                 "/tag_stores/".to_string() + &slug + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -888,7 +879,6 @@ pub async fn tag_wikis_page(session: Session, req: HttpRequest, _id: web::Path<S
                 "/tag_wikis/".to_string() + &slug + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -900,7 +890,6 @@ pub async fn tag_wikis_page(session: Session, req: HttpRequest, _id: web::Path<S
                 "/tag_wikis/".to_string() + &slug + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -1055,7 +1044,6 @@ pub async fn tag_works_page(session: Session, req: HttpRequest, _id: web::Path<S
                 "/tag_works/".to_string() + &slug + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -1067,7 +1055,6 @@ pub async fn tag_works_page(session: Session, req: HttpRequest, _id: web::Path<S
                 "/tag_works/".to_string() + &slug + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -1221,7 +1208,6 @@ pub async fn tag_helps_page(session: Session, req: HttpRequest, _id: web::Path<S
                 "/tag_helps/".to_string() + &slug + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -1233,7 +1219,6 @@ pub async fn tag_helps_page(session: Session, req: HttpRequest, _id: web::Path<S
                 "/tag_helps/".to_string() + &slug + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -1384,7 +1369,6 @@ pub async fn tags_page(session: Session, req: HttpRequest) -> actix_web::Result<
                 "/tags/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -1396,7 +1380,6 @@ pub async fn tags_page(session: Session, req: HttpRequest) -> actix_web::Result<
                 "/tags/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -1540,7 +1523,6 @@ pub async fn edit_tag_page(session: Session, req: HttpRequest, _id: web::Path<i3
             "/edit_tag/".to_string() + &_tag.id.to_string() + &"/".to_string(),
             "/static/images/dark/store.jpg".to_string(),
             t, 
-            l,
         ).await
     }
     else if is_signed_in(&session) {

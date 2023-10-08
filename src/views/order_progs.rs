@@ -55,7 +55,6 @@ pub async fn get_orders_page(req: HttpRequest, session: Session) -> actix_web::R
                 "/orders/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -67,7 +66,6 @@ pub async fn get_orders_page(req: HttpRequest, session: Session) -> actix_web::R
                 "/orders/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -141,7 +139,6 @@ pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_w
                 "/user_orders/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -153,7 +150,6 @@ pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_w
                 "/user_orders/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -274,7 +270,6 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
                 "/order/".to_string() + &_order.id.to_string() + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -286,7 +281,6 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
                 "/order/".to_string() + &_order.id.to_string() + &"/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }

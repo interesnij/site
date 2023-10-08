@@ -76,7 +76,6 @@ pub async fn serve_categories_page(session: Session, req: HttpRequest) -> actix_
                 "/serve_categories/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
         else {
@@ -88,7 +87,6 @@ pub async fn serve_categories_page(session: Session, req: HttpRequest) -> actix_
                 "/serve_categories/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t,
-                l,
             ).await
         }
     }
@@ -161,7 +159,6 @@ pub async fn get_serve_page(session: Session, req: HttpRequest, _id: web::Path<i
             "/serve/".to_string() + &_serve.id.to_string() + &"/".to_string(),
             "/static/images/dark/store.jpg".to_string(),
             t, 
-            l,
         ).await
     }
     else if !is_signed_in(&session) {
@@ -237,7 +234,6 @@ pub async fn create_tech_categories_page(session: Session, req: HttpRequest) -> 
             "/create_tech_categories/".to_string(),
             "/static/images/dark/store.jpg".to_string(),
             t, 
-            l,
         ).await
     }
     else if !is_signed_in(&session) {
@@ -309,7 +305,6 @@ pub async fn create_serve_categories_page(session: Session, req: HttpRequest) ->
             "/create_serve_categories/".to_string(),
             "/static/images/dark/store.jpg".to_string(),
             t, 
-            l,
         ).await
     }
     else if !is_signed_in(&session) {
@@ -441,7 +436,6 @@ pub async fn create_serve_page(session: Session, req: HttpRequest) -> actix_web:
             "/create_serve/".to_string(),
             "/static/images/dark/store.jpg".to_string(),
             t, 
-            l,
         ).await
     }
     else if !is_signed_in(&session) {
@@ -511,7 +505,6 @@ pub async fn edit_tech_category_page(session: Session, req: HttpRequest, _id: we
             "/edit_tech_category/".to_string() + &_category.id.to_string() + &"/".to_string(),
             "".to_string(),
             t, 
-            l,
         ).await
     }
     else if !is_signed_in(&session) {
@@ -589,7 +582,6 @@ pub async fn edit_serve_category_page(session: Session, req: HttpRequest, _id: w
             "/edit_serve_category/".to_string() + &_category.id.to_string() + &"/".to_string(),
             "".to_string(),
             t, 
-            l,
         ).await
     }
     else if !is_signed_in(&session) {
@@ -667,7 +659,6 @@ pub async fn edit_serve_page(session: Session, req: HttpRequest, _id: web::Path<
             "/edit_serve/".to_string() + &_serve.id.to_string() + &"/".to_string(),
             "".to_string(),
             t, 
-            l,
         ).await
     }
     else if !is_signed_in(&session) {

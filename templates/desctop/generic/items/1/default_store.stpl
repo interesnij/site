@@ -1,3 +1,9 @@
+<% let (__read, __price) = match linguage {
+        2 => ("Details", "от ".to_string() + (object.price) / 100).to_string() + " $"), 
+        1 | _ => ("Детали", "от ".to_string() + object.price.to_string() + " ₽"),
+    };
+%> 
+
 <div class="col-lg-4 col-md-6 mb-60 mb-xs-40">
   <div class="post-prev-img">
     <a class="ajax" href="/store/all-stores/<%= object.slug %>/">
@@ -6,7 +12,7 @@
       </div>
     </a>
     <div class="intro-label">
-      <span class="label label-danger bg-red">от <%= object.price %> ₽</span>
+      <span class="label label-danger bg-red"><%= __price %></span>
     </div>
   </div>
   <div class="post-prev-title font-alt align-center">
@@ -18,11 +24,11 @@
     </a>
   </div>
   <div class="post-prev-text align-center">
-    <strong>от <%= object.price %> ₽</strong>
+    <strong><%= __price %></strong>
   </div>
   <div class="post-prev-more align-center">
     <a href="/store/all-stores/<%= object.slug %>/" class="btn border btn-mod ajax btn-round">
-      Детали
+      <%= __read %>
     </a>
   </div>
 </div>

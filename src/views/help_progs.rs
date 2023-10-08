@@ -55,7 +55,6 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
                 "/help/".to_string() + &_category.slug.clone() + &"/".to_string(),
                 cat_image,
                 t, 
-                l,
             ).await
         }
         else {
@@ -67,7 +66,6 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
                 "/help/".to_string() + &_category.slug.clone() + &"/".to_string(),
                 cat_image,
                 t, 
-                l,
             ).await
         }
     }

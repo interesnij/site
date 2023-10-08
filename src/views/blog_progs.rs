@@ -42,7 +42,7 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
     let _item = Item::get(&_item_id);
     if is_ajax == 0 {
             if l == 2 {
-                crate::utils::get_first_load_page_2 (
+                get_first_load_page (
                     &session,
                     is_desctop,
                     _item.title.clone() + &" | Article ".to_string(),
@@ -53,7 +53,7 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
                 ).await
             }
             else {
-                crate::utils::get_first_load_page_2 (
+                get_first_load_page (
                     &session,
                     is_desctop,
                     _item.title.clone() + &" | Статья ".to_string(),
@@ -249,7 +249,6 @@ pub async fn blog_category_page(session: Session, req: HttpRequest, _id: web::Pa
                 "/blogs/".to_string() + &_category.slug.clone() + &"/".to_string(),
                 cat_image,
                 t, 
-                l,
             ).await
         }
         else {
@@ -261,7 +260,6 @@ pub async fn blog_category_page(session: Session, req: HttpRequest, _id: web::Pa
                 "/blogs/".to_string() + &_category.slug.clone() + &"/".to_string(),
                 cat_image,
                 t, 
-                l,
             ).await
         }
     }
@@ -418,7 +416,6 @@ pub async fn blog_categories_page(session: Session, req: HttpRequest) -> actix_w
                 "/blog_categories/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t, 
-                l,
             ).await
         }
         else {
@@ -430,7 +427,6 @@ pub async fn blog_categories_page(session: Session, req: HttpRequest) -> actix_w
                 "/blog_categories/".to_string(),
                 "/static/images/dark/store.jpg".to_string(),
                 t, 
-                l,
             ).await
         }
     }
