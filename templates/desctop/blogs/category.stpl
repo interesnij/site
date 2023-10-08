@@ -1,8 +1,8 @@
 <% include!("../header.stpl"); %>
 
 <% match template_types { 
-    1 => include!("1/categories.stpl"),
-    2 => include!("2/categories.stpl"),
+    1 => include!("1/category.stpl"),
+    2 => include!("2/category.stpl"),
     _ => todo!(),
 }; %>
 

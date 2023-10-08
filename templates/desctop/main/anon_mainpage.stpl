@@ -5,5 +5,5 @@
     2 => include!("2/anon_mainpage.stpl"),
     _ => todo!(),
 }; %>
-
+ 
 <% include!("../anon_footer.stpl"); %>
