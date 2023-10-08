@@ -1,18 +1,18 @@
 <% let (
     logo, home, templates, t_change, services, works, blogs, stores, info, search, 
     search_pl, wikis, l_change, tags, orders, helps, stats, design,
-    pages) = match linguage {
+    pages, history, ru_en) = match linguage {
         2 => (
             "Web-services", "Home", "Templates", "change", "Services", 
             "Works", "Blog", "Stores", "Info", "Search", 
             "Search from 3 letters", "Wiki", "Ru", "Tags", "Orders",
-            "Helps", "Statistics", "Background", "Pages",
+            "Helps", "Statistics", "Background", "Pages", "You watched", 1
         ),
         1 | _ => (
             "Вебсервисы", "Главная", "Шаблоны", "выбрано", "Услуги", 
             "Работы", "Блог", "Товары", "Инфо", "Поиск", 
             "Поиск от 3х букв", "База", "En", "Теги", "Заказы",
-            "Помощь", "Статистика", "Фон", "Страницы",
+            "Помощь", "Статистика", "Фон", "Страницы", "Вы смотрели", 2
         ),
     };
 %>
@@ -146,7 +146,7 @@
                           </ul>
                       </li>
                       <li>
-                          <a href="#" class="mn-has-sub"><%= l_change %></a>
+                          <a href="/change_l/<%= ru_en %>" class="mn-has-sub"><%= l_change %></a>
                       </li>
                       <li>
                           <a class="pointer anon_color_change" data-color="dark">
