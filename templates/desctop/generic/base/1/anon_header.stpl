@@ -1,8 +1,7 @@
 <% let (
     logo, home, templates, t_change, services, works, blogs, stores, info, search, 
     search_pl, wikis, l_change, tags, orders, helps, stats, design,
-    pages): (&str, &str, &str, &str, &str, &str, &str, &str, &str, &str, &str, &str, 
-    &str, &str, &str, &str, &str, &str, &str, &str) = match linguage {
+    pages) = match linguage {
         2 => (
             "Web-services", "Home", "Templates", "change", "Services", 
             "Works", "Blog", "Stores", "Info", "Search", 
