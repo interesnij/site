@@ -403,7 +403,7 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
     let (t, l) = get_all_storage();
     if is_ajax == 0 {
         if l == 2 {
-            get_first_load_page (
+            return get_first_load_page (
                 &session,
                 is_desctop,
                 "Info".to_string(),
@@ -412,10 +412,10 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
                 "/static/images/dark/store.jpg".to_string(),
                 t,
                 l,
-            ).await
+            ).await;
         }
         else {
-            get_first_load_page (
+            return get_first_load_page (
                 &session,
                 is_desctop,
                 "Информация".to_string(),
@@ -424,8 +424,8 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
                 "/static/images/dark/store.jpg".to_string(),
                 t,
                 l,
-            ).await
-        }
+            ).await;
+        } 
     }
 
     let _stat = crate::models::StatPage::get_or_create(10);
