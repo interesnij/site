@@ -41,7 +41,6 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
 
     let _item = Item::get(&_item_id);
     if is_ajax == 0 {
-        if is_ajax == 0 {
             if l == 2 {
                 get_first_load_page (
                     &session,
