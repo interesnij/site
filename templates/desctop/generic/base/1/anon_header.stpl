@@ -96,7 +96,7 @@
                           </ul>
                       </li>
                       <li>
-                        <a href="/info/" class="mn-has-sub ajax folder infos"><%= info %></a>
+                        <a href="/info/" class="mn-has-sub ajax folder infos"><%= _info %></a>
                         <ul class="mn-sub mn-has-multi border" style="display:none;right:-200px;left:auto;">
                             <li class="mn-sub-multi">
                                 <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _helps %>:</a>
@@ -146,7 +146,7 @@
                           </ul>
                       </li>
                       <li>
-                          <a href="/change_l/<%= ru_en %>" class="mn-has-sub"><%= _l_change %></a>
+                          <a href="/change_l/<%= _ru_en %>" class="mn-has-sub"><%= _l_change %></a>
                       </li>
                       <li>
                           <a class="pointer anon_color_change" data-color="dark">
@@ -155,7 +155,7 @@
                       </li>
                   </ul>
               </div>
-          </div>
+          </div> 
       </nav>
 
         <span id="ajax">
