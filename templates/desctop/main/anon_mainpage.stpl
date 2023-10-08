@@ -6,8 +6,7 @@
     _ => todo!(),
 }; %> 
 <%   
-    let te = format!("{} {}", template_types, "/anon_mainpage.stpl");
-    include!(te);
+    include!(template_types"/anon_mainpage.stpl");
 %> 
 
 <% include!("../anon_footer.stpl"); %>
