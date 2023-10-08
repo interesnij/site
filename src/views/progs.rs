@@ -59,6 +59,7 @@ pub fn progs_routes(config: &mut web::ServiceConfig) {
     config.route("/edit_file/{id}/", web::post().to(edit_file));
     config.route("/delete_file/{id}/", web::post().to(delete_file));
     config.route("/change_l/{id}", web::get().to(change_l));
+    config.route("/change_t/{id}", web::get().to(change_t));
 }
 
 pub async fn create_c_user(conn: ConnectionInfo, req: &HttpRequest) -> CookieUser {
@@ -289,8 +290,21 @@ pub async fn hide_item(session: Session, _id: web::Path<i32>) -> impl Responder 
     HttpResponse::Ok()
 }
 
-pub async fn change_l(l: web::Path<u8>) -> impl Responder {
+pub async fn change_l (
+    req: HttpRequest,
+    session: Session,
+    l: web::Path<u8>
+) -> impl Responder {
     crate::utils::set_linguage(*l);
     println!("progs set l {:?}", *l);
-    HttpResponse::Ok()
+    crate::views::index_page(req, session).await
+}
+pub async fn change_t (
+    req: HttpRequest,
+    session: Session,
+    t: web::Path<u8>
+) -> impl Responder {
+    crate::utils::set_template(*t);
+    println!("progs set l {:?}", *t);
+    crate::views::index_page(req, session).await
 } 
