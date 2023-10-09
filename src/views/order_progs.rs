@@ -200,6 +200,10 @@ pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_w
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
