@@ -344,7 +344,7 @@ pub async fn get_private_page (
     is_desctop:  bool,
     title:       &String,
     description: &String,
-    uri:         &String,
+    link:        &String,
     image:       &String,
     t:           u8,
     l:           u8,
@@ -358,7 +358,7 @@ pub async fn get_private_page (
             title:          &'a String,
             description:    &'a String,
             image:          &'a String,
-            uri:            &'a String,
+            link:           &'a String,
             template_types: u8,
             linguage:       u8,
         }
@@ -368,7 +368,7 @@ pub async fn get_private_page (
             title:          title,
             description:    description,
             image:          image,
-            uri:            uri,
+            link:           link,
             template_types: t,
             linguage:       l,
         }
@@ -384,7 +384,7 @@ pub async fn get_private_page (
             title:          &'a String,
             description:    &'a String,
             image:          &'a String,
-            uri:            &'a String,
+            link:           &'a String,
             template_types: u8,
             linguage:       u8,
         }
@@ -393,7 +393,7 @@ pub async fn get_private_page (
             title:          title,
             description:    description,
             image:          image,
-            uri:            uri,
+            link:           link,
             template_types: t,
             linguage:       l,
         }
@@ -408,7 +408,7 @@ pub async fn get_anon_private_page (
     is_desctop:  bool,
     title:       &String,
     description: &String,
-    uri:         &String,
+    link:        &String,
     image:       &String,
     t:           u8,
     l:           u8,
@@ -421,7 +421,7 @@ pub async fn get_anon_private_page (
             title:          &'a String,
             description:    &'a String,
             image:          &'a String,
-            uri:            &'a String,
+            link:           &'a String,
             template_types: u8,
             linguage:       u8,
         }
@@ -430,7 +430,7 @@ pub async fn get_anon_private_page (
             title:          title,
             description:    description,
             image:          image,
-            uri:            uri,
+            link:           link,
             template_types: t,
             linguage:       l,
         }
@@ -446,7 +446,7 @@ pub async fn get_anon_private_page (
             title:          &'a String,
             description:    &'a String,
             image:          &'a String,
-            uri:            &'a String,
+            link:           &'a String,
             template_types: u8,
             linguage:       u8,
         }
@@ -455,7 +455,7 @@ pub async fn get_anon_private_page (
             title:          title,
             description:    description,
             image:          image,
-            uri:            uri,
+            link:           link,
             template_types: t,
             linguage:       l,
         }

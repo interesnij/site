@@ -1165,15 +1165,36 @@ pub async fn get_serve_page(_id: web::Path<i32>) -> actix_web::Result<HttpRespon
 
 pub async fn get_feedback_page() -> actix_web::Result<HttpResponse> {
     let (t, l) = get_all_storage();
+    let title: String;
+    let description: String;
+    let link = "/load_feedback/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Load feedback list".to_string();
+        description = "Web-services - Load feedback list".to_string();
+    }
+    else {
+        title = "Письма пользователей".to_string();
+        description = "вебсервисы.рф - Письма пользователей".to_string();
+    }
+
     #[derive(TemplateOnce)]
     #[template(path = "desctop/load/feedback.stpl")]
     struct Template {
         template_types: u8,
         linguage:       u8,
+        title:          String,
+        description:    String,
+        link:           String,
+        image:          String,
     }
     let body = Template {
         template_types: t,
         linguage:       l,
+        title:          title,
+        description:    description,
+        link:           link,
+        image:          image,
     }
     .render_once()
     .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
