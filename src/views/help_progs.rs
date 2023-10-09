@@ -51,8 +51,8 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
     let link = "/help/".to_string() + &_category.slug + &"/".to_string();
     let image = _category.get_image();
     if l == 2 {
-        title = String::new() + &_category.name_en + &" | Category of the help".to_string();
-        description = String::new() + &_category.name_en + &" | Category of the help: Web-services".to_string();
+        title = String::new() + &_category.name + &" | Category of the help".to_string();
+        description = String::new() + &_category.name + &" | Category of the help: Web-services".to_string();
     }
     else {
         title = String::new() + &_category.name + &" | Категория помощи".to_string();
