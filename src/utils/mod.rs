@@ -422,7 +422,6 @@ pub async fn get_first_load_page_2 (
             #[derive(TemplateOnce)]
             #[template(path = "mobile/generic/anon_first_load.stpl")]
             struct Template {
-                request_user:   User,
                 title:          &String,
                 description:    &String,
                 image:          &String,
