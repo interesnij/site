@@ -352,7 +352,7 @@ pub async fn get_first_load_page_2 (
         if is_desctop {
             #[derive(TemplateOnce)] 
             #[template(path = "desctop/generic/first_load.stpl")]
-            struct Template {
+            struct Template<'a> {
                 request_user:   User,
                 title:          &String,
                 description:    &String,
@@ -375,7 +375,7 @@ pub async fn get_first_load_page_2 (
         else {
             #[derive(TemplateOnce)]
             #[template(path = "mobile/generic/first_load.stpl")]
-            struct Template {
+            struct Template<'a> {
                 request_user:   User,
                 title:          &String,
                 description:    &String,
@@ -400,7 +400,7 @@ pub async fn get_first_load_page_2 (
         if is_desctop {
             #[derive(TemplateOnce)]
             #[template(path = "desctop/generic/anon_first_load.stpl")]
-            struct Template {
+            struct Template<'a> {
                 title:          &String,
                 description:    &String,
                 image:          &String,
@@ -421,7 +421,7 @@ pub async fn get_first_load_page_2 (
         else {
             #[derive(TemplateOnce)]
             #[template(path = "mobile/generic/anon_first_load.stpl")]
-            struct Template {
+            struct Template<'a> {
                 title:          &String,
                 description:    &String,
                 image:          &String,
