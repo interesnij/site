@@ -401,10 +401,10 @@ pub async fn get_first_load_page_2 (
             #[derive(TemplateOnce)]
             #[template(path = "desctop/generic/anon_first_load.stpl")]
             struct Template<'a> {
-                title:          &String,
-                description:    &String,
-                image:          &String,
-                uri:            &String,
+                title:          &'a String,
+                description:    &'a String,
+                image:          &'a String,
+                uri:            &'a String,
                 template_types: u8,
             }
             let body = Template {
