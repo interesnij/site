@@ -227,6 +227,20 @@ pub async fn logout_page(req: HttpRequest, session: Session) -> actix_web::Resul
         let _stat = crate::models::StatPage::get_or_create(8);
         session.clear();
         let (t, l) = get_all_storage();
+
+        let title: String;
+        let description: String;
+        let link = "/logout/".to_string();
+        let image = "/static/images/dark/store.jpg".to_string();
+        if l == 2 {
+            title = "Logout".to_string();
+            description = "Web-services: Logout".to_string();
+        }
+        else { 
+            title = "Выход".to_string();
+            description = "вебсервисы.рф: Выход".to_string();
+        }
+
         if crate::utils::is_desctop(&req) {
             #[derive(TemplateOnce)]
             #[template(path = "desctop/auth/logout.stpl")]

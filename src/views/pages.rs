@@ -801,6 +801,20 @@ pub async fn feedback_list_page(req: HttpRequest, session: Session) -> actix_web
             use crate::models::Feedback;
 
             let (t, l) = get_all_storage();
+
+            let title: String;
+            let description: String;
+            let link = "/feedback_list/".to_string();
+            let image = "/static/images/dark/store.jpg".to_string();
+            if l == 2 {
+                title = "Feedback list".to_string();
+                description = "Web-services: Feedback list".to_string();
+            }
+            else { 
+                title = "Письма пользователей".to_string();
+                description = "вебсервисы.рф: Письма пользователей".to_string();
+            }
+
             let _feedbacks = Feedback::get_all();
 
             let _request_user = get_request_user_data(&session);
@@ -1343,7 +1357,7 @@ pub async fn get_user_history_page(session: Session, req: HttpRequest, user_id: 
             let link = "/load_user_history/".to_string() + &user_id_str + &"/".to_string();
             let image = "/static/images/dark/store.jpg".to_string();
             if l == 2 {
-                title = "User history ".to_string() + &_cat.name_en.to_string();
+                title = "User history ".to_string() + &user_id_str;
                 description = "User history ".to_string() + &user_id_str + &" : Web-services".to_string();
             }
             else {
@@ -1400,6 +1414,7 @@ pub async fn get_tech_objects_page(session: Session, _id: web::Path<i32>) -> act
     use crate::models::TechCategories;
 
     let _cat = TechCategories::get(*_id);
+    let (t, l) = get_all_storage();
 
     let title: String;
     let description: String;
@@ -1416,7 +1431,6 @@ pub async fn get_tech_objects_page(session: Session, _id: web::Path<i32>) -> act
 
 
     let mut is_admin = false;
-    let (t, l) = get_all_storage();
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         if _request_user.is_superuser() {
