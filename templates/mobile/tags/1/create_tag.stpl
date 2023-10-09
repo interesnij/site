@@ -1,5 +1,5 @@
 
-<section data-title="Создание тега" data-description="вебсервисы.рф: Создание тега" data-uri="/create_tag/" data-image="/static/images/dark/store.jpg" class="doc_title">
+<section data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
             <a>Создание тега</a>

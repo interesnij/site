@@ -1,5 +1,5 @@
 
-<section page-id="81" data-title="База знаний" data-description="вебсервисы.рф: База знаний" data-uri="/wiki_categories/" data-image="/static/images/dark/store.jpg" class="doc_title">
+<section page-id="81" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
                 <div class="hs-line-4 font-alt">
                     <a class="ajax" href="/">Главная</a>

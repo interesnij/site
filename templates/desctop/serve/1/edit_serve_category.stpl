@@ -1,5 +1,5 @@
 
-<section data-title="Изменение категории технологий <%= category.name %>" data-description="вебсервисы.рф: Изменение категории технологий <%= category.name %>" data-uri="/edit_serve_category/<%= category.id %>/" data-image="" class="doc_title">
+<section data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
             <a class="ajax" href="/">Главная</a>

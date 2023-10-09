@@ -1,5 +1,5 @@
 
-<section page-id="41" data-title="Блог" data-description="вебсервисы.рф: блог, статьи на тему программирования, стратегии, жизни компании" data-uri="/blog_categories/" data-image="/static/images/dark/store.jpg" class="doc_title">
+<section page-id="41" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
             <a class="ajax" href="/">
