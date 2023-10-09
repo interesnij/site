@@ -1,4 +1,4 @@
-<% if l == 2 { %> 
+<% if linguage == 2 { %> 
 <section class="page-section" id="about">
     <div class="container relative">
         <h5 class="section-title font-alt align-left">
@@ -46,7 +46,7 @@
     </div>
 </section>
 
-<% } else if l == 1 { %>
+<% } else if linguage == 1 { %>
 
 <section class="page-section" id="about">
     <div class="container relative">
