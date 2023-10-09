@@ -40,18 +40,18 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
     let (t, l) = get_all_storage();
 
     let _item = Item::get(&_item_id);
-    
+
     let title: String;
     let description: String;
     let link = "/blog/".to_string() + &_cat_id + &"/".to_string() + &_item_id.to_string() + &"/".to_string();
     let image = _item.get_image();
     if l == 2 {
-        title = String:new() + &_item.title + &" | Article ".to_string();
-        description = String:new() + &_item.title + &" | Article: Web-services".to_string();
+        title = String::new() + &_item.title + &" | Article ".to_string();
+        description = String::new() + &_item.title + &" | Article: Web-services".to_string();
     }
     else {
-        title = String:new() + &_item.title + &" | Статья ".to_string();
-        description = String:new() + &_item.title + &" | Статья: вебсервисы.рф".to_string();
+        title = String::new() + &_item.title + &" | Статья ".to_string();
+        description = String::new() + &_item.title + &" | Статья: вебсервисы.рф".to_string();
     }
     if is_ajax == 0 {
         crate::utils::get_first_load_page_2 (
