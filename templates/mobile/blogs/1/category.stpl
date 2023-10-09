@@ -1,8 +1,12 @@
-
+<% let (__blog, __empty) = match linguage {
+        2 => ("Blog", "The list is still empty."), 
+        1 | _ => ("Блог", "Список пока пустой."),
+    };
+%>
 <section page-id="42" data-id="<%= category.id %>" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
-            <a class="ajax" href="/blog_categories/">Блог</a>
+            <a class="ajax" href="/blog_categories/"><%= __blog %></a>
             &nbsp;/&nbsp;
             <a><%= category.name %></a>
             <% include!("../../generic/items/1/category_stat.stpl"); %>
@@ -25,7 +29,7 @@
                   <% } else { %>
                   <div style="margin-top: 40px;">
                       <div class="align-center">
-                          <span class="border" style="padding: 10px 15px;">Список пока пустой.</span>
+                          <span class="border" style="padding: 10px 15px;"><%= __empty %></span>
                       </div>
                   </div>
                   <% } %>

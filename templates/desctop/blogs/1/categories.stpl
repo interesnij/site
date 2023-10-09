@@ -1,12 +1,17 @@
+<% let (__home, __empty) = match linguage {
+        2 => "Home", 
+        1 | _ => "Главная",
+    };
+%>
 
 <section page-id="41" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
             <a class="ajax" href="/">
-                Главная
+                <%= __home %>
             </a>
             &nbsp;/&nbsp;
-            <a>Блог</a>
+            <a><%= title %></a>
             <% include!("../../generic/items/1/page_stat.stpl"); %>
         </div>
     </div>
@@ -14,7 +19,7 @@
 
 <section class="page-section">
     <div class="container align-center">
-        <h1 class="font-alt">Наш блог</h1>
+        <h1 class="font-alt"><%= title %></h1>
     </div>
     <div class="container relative">
         <div class="row">
@@ -60,8 +65,6 @@
                                 <%= object.created.format("%d-%m-%Y в %H:%M").to_string() %>
                                 <p><% if object.description.is_some() { %>
                                   <%= object.description.as_deref().unwrap() %>
-                                <% } else { %>
-                                  Без описания
                                 <% } %></p>
                             </div>
                         </div>
@@ -74,27 +77,7 @@
                 </div>
             </div>
             <div class="col-sm-4">
-            <div class="widget">
-                <form class="form-inline form" role="form">
-                    <div class="search-wrap">
-                        <input data-folder="_blogs" type="text" class="form-control search-field desctop_folder_search" placeholder="Поиск от 3х букв">
-                    </div>
-                </form>
-            </div>
-            <div class="widget">
-                <h5 class="widget-title font-alt">Категории</h5>
-                <div class="widget-body">
-                    <ul class="clearlist widget-menu">
-                      <% for cat in cats.iter() { %>
-                        <li>
-                          <a class="ajax" href="/blog/<%= cat.slug %>/"><%= cat.name %></a>
-                        </li>
-                      <% } %>
-                    </ul>
-                </div>
-            </div>
-
-            <% include!("../../../block/tags_widget.stpl"); %>
+              <% include!("sidebar.stpl"); %>
             </div>
         </div>
 

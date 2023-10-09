@@ -2,7 +2,7 @@
         2 => ("Category statistics", "Views", "Meters", "Seconds"), 
         1 | _ => ("Статистика категории", "Просмотры", "Метры", "Секунды"),
     };
-%> 
+%>  
  
 <span class="pointer toggle_next_hide" tooltip="<%= __stat %>" flow="up">
 <svg fill="currentColor" style="vertical-align: text-bottom;width:17px" viewBox="0 0 24 24">

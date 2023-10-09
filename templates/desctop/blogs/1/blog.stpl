@@ -1,8 +1,12 @@
-
+<% let (__blog, __empty) = match linguage {
+        2 => "Blog", 
+        1 | _ => "Блог",
+    };
+%>
 <section page-id="43" data-id="<%= object.id %>" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
   <div class="relative container align-left">
     <div class="hs-line-4 font-alt">
-      <a class="ajax" href="/blog_categories/">Блог</a>
+      <a class="ajax" href="/blog_categories/"><%= __blog %></a>
       &nbsp;/&nbsp;
       <a class="ajax" href="/blogs/<%= category.slug %>/"> <%= category.name %></a>
       <% include!("../../generic/items/1/object_stat.stpl"); %>
@@ -24,8 +28,6 @@
                         </div>
                         <% if object.content.is_some() { %>
                           <%- object.content.as_deref().unwrap() %>
-                        <% } else { %>
-                          Информация отсутствует.
                         <% } %>
                     </div>
 
