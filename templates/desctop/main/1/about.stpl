@@ -1,3 +1,53 @@
+<% if l == 2 { %> 
+<section class="page-section" id="about">
+    <div class="container relative">
+        <h5 class="section-title font-alt align-left">
+            About the project
+            <a href="/about/" class="section-more ajax">more</a>
+        </h5>
+
+        <div class="section-text">
+            <div class="row">
+              <div class="mb-sm-50">
+                <p>
+                <strong>The company "Webservices"</strong> was created with the aim of providing the public with a whole world of complex web resources -
+                social, corporate, private networks, complex portals, highly specialized sites and programs.
+                This niche remains unfilled, in our opinion. This is despite the fact that social networks remain the most relevant and in demand
+                sites all over the world. Many people want to become the "new Zuckerberg". Order a project of this scale or build everything yourself -
+                the task is very difficult. It costs either many millions of rubles, or many years of independent training in construction skills
+                such whoppers.
+                </p>
+              </div>
+              <div class="mb-sm-50">
+                <p>
+                <strong>The feature of this site</strong> is <strong>in the presence of</strong> a large number of <strong>alternatives</strong>
+                creating social networks and other projects for you. <br>
+                With the help of us <strong>You can</strong>:
+                <ul class="my_ul">
+                  <li>Order a highly loaded project. This is the easiest but most expensive way to get what you want. We can do a lot and we know our worth.</li>
+                  <li>Formalize an equity agreement with us. With different conditions. For example, owning a 50-50 future resource will give you a discount
+                  half the cost of our work.</li>
+                  <li>Train your employees in the skills of creating social networks. For a reward.</li>
+                  <li>Learn on your own and for free with the help of our articles. This is the most difficult way, but it is quite possible.</li>
+                </ul>
+                </p>
+              </div>
+                <div class="mb-sm-50">
+                  <p>
+                  We are a young but extremely ambitious team. One of us alone made an almost complete analogue of the Vkontakte network,
+                  with its fundamental improvements, protection of children from harmful information and similar improvements.
+                  We can do a lot, we are ready to demonstrate it, show the recommendations of respected people and organizations in Russia.
+                  We confess: constant development, striving for perfection and extreme attention to detail.
+                  Visit other pages of this site and make sure of it.
+                  </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<% } else if l == 1 { %>
+
 <section class="page-section" id="about">
     <div class="container relative">
         <h5 class="section-title font-alt align-left">
@@ -44,4 +94,6 @@
         </div>
     </div>
 </section>
+<% } %>
+
 <hr class="mt-0 mb-0 " />

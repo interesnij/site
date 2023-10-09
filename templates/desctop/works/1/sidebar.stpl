@@ -23,7 +23,7 @@
         </ul>
     </div>
 </div>
-
+ 
 <% include!("../../../block/tags_widget.stpl"); %>
 <% include!("../../../block/help_widget.stpl"); %>
 <!--
