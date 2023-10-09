@@ -41,7 +41,7 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
 
     let _item = Item::get(&_item_id);
     let title: String;
-    let description: &String;
+    let description: String;
     let link = "/blog/".to_string() + &_cat_id + &"/".to_string() + &_item_id.to_string() + &"/".to_string();
     let image = _item.get_image();
     if l == 2 {
@@ -53,7 +53,7 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
         description = " ".to_string() + &_item.title + &" | Статья: вебсервисы.рф".to_string();
     }
     if is_ajax == 0 {
-        get_first_load_page_2 (
+        use crate::utils::gget_first_load_page_2 (
             &session,
             is_desctop,
             &title,
