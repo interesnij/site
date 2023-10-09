@@ -53,7 +53,7 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
         description = " ".to_string() + &_item.title + &" | Статья: вебсервисы.рф".to_string();
     }
     if is_ajax == 0 {
-        use crate::utils::gget_first_load_page_2 (
+        use crate::utils::get_first_load_page_2 (
             &session,
             is_desctop,
             &title,
