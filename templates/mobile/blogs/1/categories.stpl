@@ -44,5 +44,5 @@
 </section>
 
 <div class="sidebar hidden">
-    <% include!("../../../block/tags_widget.stpl"); %>
+    <% include!("sidebar2.stpl"); %>
 </div>

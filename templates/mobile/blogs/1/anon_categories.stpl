@@ -45,6 +45,6 @@
 </section>
 
 <div class="sidebar hidden">
-    <% include!("sidebar.stpl"); %>
+    <% include!("sidebar2.stpl"); %>
 </div>
 
