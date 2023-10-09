@@ -1,6 +1,6 @@
 <% let (__h2, __h1, __about_us, __about_you) = match linguage {
-        2 => ("Comprehensive, expert creation and development of web resources", "The list is still empty.", "About us", "About you"), 
-        1 | _ => ("Комплексное, экспертное создание и развитие веб-ресурсов", "Web services!", "О нас", "О вас"),
+        2 => ("Comprehensive, expert creation and development of web resources", "Web-services!", "About us", "About you"), 
+        1 | _ => ("Комплексное, экспертное создание и развитие веб-ресурсов", "Вебсервисы!", "О нас", "О вас"),
     };
 %>
 
