@@ -413,7 +413,7 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
     }
 
     if is_ajax == 0 {
-        crate::utils::get_first_load_page (
+        return crate::utils::get_first_load_page (
             &session,
             is_desctop,
             &title,
@@ -421,7 +421,7 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
             &link,
             &image,
             t, 
-        ).await
+        ).await;
     }
 
     let _stat = crate::models::StatPage::get_or_create(10);

@@ -352,7 +352,7 @@ pub async fn get_private_page (
     if is_desctop {
         #[derive(TemplateOnce)]
         #[template(path = "desctop/generic/private_object.stpl")]
-        struct Template {
+        struct Template<'a> {
             is_ajax:        i32,
             request_user:   User,
             title:          &'a String,
@@ -379,7 +379,7 @@ pub async fn get_private_page (
     else {
         #[derive(TemplateOnce)]
         #[template(path = "mobile/generic/private_object.stpl")]
-        struct Template {
+        struct Template<'a> {
             is_ajax:        i32,
             title:          &'a String,
             description:    &'a String,
@@ -416,7 +416,7 @@ pub async fn get_anon_private_page (
     if is_desctop {
         #[derive(TemplateOnce)]
         #[template(path = "desctop/generic/anon_private_object.stpl")]
-        struct Template {
+        struct Template<'a> {
             is_ajax:        i32,
             title:          &'a String,
             description:    &'a String,
@@ -441,7 +441,7 @@ pub async fn get_anon_private_page (
     else {
         #[derive(TemplateOnce)]
         #[template(path = "mobile/generic/anon_private_object.stpl")]
-        struct Template {
+        struct Template<'a> {
             is_ajax:        i32,
             title:          &'a String,
             description:    &'a String,
