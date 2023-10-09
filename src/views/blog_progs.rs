@@ -40,29 +40,28 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
     let (t, l) = get_all_storage();
 
     let _item = Item::get(&_item_id);
+    let title: String;
+    let description: &String;
+    let link = "/blog/".to_string() + &_cat_id + &"/".to_string() + &_item_id.to_string() + &"/".to_string();
+    let image = _item.get_image();
+    if l == 2 {
+        title = " ".to_string() + &_item.title + &" | Article ".to_string();
+        description = " ".to_string() + &_item.title + &" | Article: Web-services".to_string();
+    }
+    else {
+        title = " ".to_string() + &_item.title + &" | Статья ".to_string();
+        description = " ".to_string() + &_item.title + &" | Статья: вебсервисы.рф".to_string();
+    }
     if is_ajax == 0 {
-            if l == 2 {
-                get_first_load_page (
-                    &session,
-                    is_desctop,
-                    _item.title.clone() + &" | Article ".to_string(),
-                    _item.title.clone() + &" | Article: Web-services".to_string(),
-                    "/blog/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
-                    _item.get_image(),
-                    t, 
-                ).await
-            }
-            else {
-                get_first_load_page (
-                    &session,
-                    is_desctop,
-                    _item.title.clone() + &" | Статья ".to_string(),
-                    _item.title.clone() + &" | Статья: вебсервисы.рф".to_string(),
-                    "/blog/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
-                    _item.get_image(),
-                    t, 
-                ).await
-            }
+        get_first_load_page_2 (
+            &session,
+            is_desctop,
+            &title,
+            &description,
+            &link,
+            &image,
+            t, 
+        ).await
     }
     else {
         use crate::models::FeaturedItem;
