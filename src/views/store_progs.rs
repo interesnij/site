@@ -499,6 +499,7 @@ pub async fn store_categories_page(session: Session, req: HttpRequest) -> actix_
         let _stat = crate::models::StatPage::get_or_create(71);
         let _cats = block(move || Categories::get_categories_for_types(3, l)).await?;
         let _tags = block(move || Categories::get_tags(3, l)).await?;
+        let _help_cats = block(move || Categories::get_categories_for_types(6, l)).await?;
 
         if is_signed_in(&session) {
             let _request_user = get_request_user_data(&session);
@@ -509,6 +510,7 @@ pub async fn store_categories_page(session: Session, req: HttpRequest) -> actix_
                     request_user:   User,
                     is_ajax:        i32,
                     cats:           Vec<Cat>,
+                    help_cats:      Vec<Cat>,
                     all_tags:       Vec<SmallTag>,
                     stat:           StatPage,
                     template_types: u8,
@@ -522,6 +524,7 @@ pub async fn store_categories_page(session: Session, req: HttpRequest) -> actix_
                     request_user:   _request_user,
                     is_ajax:        is_ajax,
                     cats:           _cats,
+                    help_cats:      _help_cats,
                     all_tags:       _tags,
                     stat:           _stat,
                     template_types: t,
@@ -542,6 +545,7 @@ pub async fn store_categories_page(session: Session, req: HttpRequest) -> actix_
                     request_user: User,
                     is_ajax:        i32,
                     cats:           Vec<Cat>,
+                    help_cats:      Vec<Cat>,
                     all_tags:       Vec<SmallTag>,
                     stat:           StatPage,
                     template_types: u8,
@@ -555,6 +559,7 @@ pub async fn store_categories_page(session: Session, req: HttpRequest) -> actix_
                     request_user:   _request_user,
                     is_ajax:        is_ajax,
                     cats:           _cats,
+                    help_cats:      _help_cats,
                     all_tags:       _tags,
                     stat:           _stat,
                     template_types: t,
@@ -576,6 +581,7 @@ pub async fn store_categories_page(session: Session, req: HttpRequest) -> actix_
                 struct Template {
                     is_ajax:        i32,
                     cats:           Vec<Cat>,
+                    help_cats:      Vec<Cat>,
                     all_tags:       Vec<SmallTag>,
                     stat:           StatPage,
                     template_types: u8,
@@ -588,6 +594,7 @@ pub async fn store_categories_page(session: Session, req: HttpRequest) -> actix_
                 let body = Template {
                     is_ajax:        is_ajax,
                     cats:           _cats,
+                    help_cats:      _help_cats,
                     all_tags:       _tags,
                     stat:           _stat,
                     template_types: t,
@@ -607,6 +614,7 @@ pub async fn store_categories_page(session: Session, req: HttpRequest) -> actix_
                 struct Template {
                     is_ajax:        i32,
                     cats:           Vec<Cat>,
+                    help_cats:      Vec<Cat>,
                     all_tags:       Vec<SmallTag>,
                     stat:           StatPage,
                     template_types: u8,
@@ -619,6 +627,7 @@ pub async fn store_categories_page(session: Session, req: HttpRequest) -> actix_
                 let body = Template {
                     is_ajax:        is_ajax,
                     cats:           _cats,
+                    help_cats:      _help_cats,
                     all_tags:       _tags,
                     stat:           _stat,
                     template_types: t,
