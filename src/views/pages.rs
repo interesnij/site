@@ -22,7 +22,6 @@ use crate::utils::{
     get_device_and_ajax,
     get_request_user_data,
     is_signed_in,
-    get_first_load_page,
     get_all_storage,
     IndexResponse, AppState,
 };
@@ -106,12 +105,20 @@ pub async fn not_found(req: HttpRequest, session: Session) -> actix_web::Result<
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -124,11 +131,19 @@ pub async fn not_found(req: HttpRequest, session: Session) -> actix_web::Result<
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -143,11 +158,19 @@ pub async fn not_found(req: HttpRequest, session: Session) -> actix_web::Result<
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 } 
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -160,11 +183,19 @@ pub async fn not_found(req: HttpRequest, session: Session) -> actix_web::Result<
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -252,6 +283,10 @@ pub async fn index_page (
                     stat:           StatPage,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -269,6 +304,10 @@ pub async fn index_page (
                     stat:           _stat,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -293,6 +332,10 @@ pub async fn index_page (
                     stat:           StatPage,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -310,6 +353,10 @@ pub async fn index_page (
                     stat:           _stat,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -341,6 +388,10 @@ pub async fn index_page (
                     stat:           StatPage,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     last_works:     _last_works,
@@ -357,6 +408,10 @@ pub async fn index_page (
                     stat:           _stat,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -375,6 +430,10 @@ pub async fn index_page (
                     stat:           StatPage,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     last_works:     _last_works,
@@ -386,6 +445,10 @@ pub async fn index_page (
                     stat:           _stat,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -438,6 +501,10 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
                 stat:           StatPage,
                 template_types: u8,
                 linguage:       u8,
+                title:          String,
+                description:    String,
+                link:           String,
+                image:          String,
             }
             let body = Template {
                 request_user:   _request_user,
@@ -446,6 +513,10 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
                 stat:           _stat,
                 template_types: t,
                 linguage:       l,
+                title:          title,
+                description:    description,
+                link:           link,
+                image:          image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -460,6 +531,10 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
                 stat:           StatPage,
                 template_types: u8,
                 linguage:       u8,
+                title:          String,
+                description:    String,
+                link:           String,
+                image:          String,
             }
             let body = Template {
                 is_ajax:        is_ajax,
@@ -467,6 +542,10 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
                 stat:           _stat,
                 template_types: t,
                 linguage:       l,
+                title:          title,
+                description:    description,
+                link:           link,
+                image:          image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -483,6 +562,10 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
                 stat:           StatPage,
                 template_types: u8,
                 linguage:       u8,
+                title:          String,
+                description:    String,
+                link:           String,
+                image:          String,
             }
             let body = Template {
                 is_ajax:        is_ajax,
@@ -490,6 +573,10 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
                 stat:           _stat,
                 template_types: t,
                 linguage:       l,
+                title:          title,
+                description:    description,
+                link:           link,
+                image:          image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -504,6 +591,10 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
                 stat:           StatPage,
                 template_types: u8,
                 linguage:       u8,
+                title:          String,
+                description:    String,
+                link:           String,
+                image:          String,
             }
             let body = Template {
                 is_ajax:        is_ajax,
@@ -511,6 +602,10 @@ pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<
                 stat:           _stat,
                 template_types: t,
                 linguage:       l,
+                title:          title,
+                description:    description,
+                link:           link,
+                image:          image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -576,6 +671,10 @@ pub async fn history_page(conn: ConnectionInfo, req: HttpRequest, session: Sessi
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
 
                 }
                 let body = Template {
@@ -586,6 +685,10 @@ pub async fn history_page(conn: ConnectionInfo, req: HttpRequest, session: Sessi
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -601,6 +704,10 @@ pub async fn history_page(conn: ConnectionInfo, req: HttpRequest, session: Sessi
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     user:             _cookie_user,
@@ -609,6 +716,10 @@ pub async fn history_page(conn: ConnectionInfo, req: HttpRequest, session: Sessi
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -626,6 +737,10 @@ pub async fn history_page(conn: ConnectionInfo, req: HttpRequest, session: Sessi
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     user:             _cookie_user,
@@ -634,6 +749,10 @@ pub async fn history_page(conn: ConnectionInfo, req: HttpRequest, session: Sessi
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -649,6 +768,10 @@ pub async fn history_page(conn: ConnectionInfo, req: HttpRequest, session: Sessi
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     user:             _cookie_user,
@@ -657,6 +780,10 @@ pub async fn history_page(conn: ConnectionInfo, req: HttpRequest, session: Sessi
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -690,6 +817,10 @@ pub async fn feedback_list_page(req: HttpRequest, session: Session) -> actix_web
                     feedback_list:  Vec<Feedback>,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -697,6 +828,10 @@ pub async fn feedback_list_page(req: HttpRequest, session: Session) -> actix_web
                     feedback_list:  _feedbacks,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -710,12 +845,20 @@ pub async fn feedback_list_page(req: HttpRequest, session: Session) -> actix_web
                     feedback_list:  Vec<Feedback>,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     is_ajax:        is_ajax,
                     feedback_list:  _feedbacks,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -766,6 +909,10 @@ pub async fn serve_list_page(req: HttpRequest, session: Session) -> actix_web::R
                 tech_cats:      Vec<TechCategories>,
                 template_types: u8,
                 linguage:       u8,
+                title:          String,
+                description:    String,
+                link:           String,
+                image:          String,
             }
             let body = Template {
                 request_user:   _request_user,
@@ -773,6 +920,10 @@ pub async fn serve_list_page(req: HttpRequest, session: Session) -> actix_web::R
                 tech_cats:      all_tech_categories,
                 template_types: t,
                 linguage:       l,
+                title:          title,
+                description:    description,
+                link:           link,
+                image:          image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -787,6 +938,10 @@ pub async fn serve_list_page(req: HttpRequest, session: Session) -> actix_web::R
                 tech_cats:      Vec<TechCategories>,
                 template_types: u8,
                 linguage:       u8,
+                title:          String,
+                description:    String,
+                link:           String,
+                image:          String,
             }
             let body = Template {
                 request_user:   _request_user,
@@ -794,6 +949,10 @@ pub async fn serve_list_page(req: HttpRequest, session: Session) -> actix_web::R
                 tech_cats:      all_tech_categories,
                 template_types: t,
                 linguage:       l,
+                title:          title,
+                description:    description,
+                link:           link,
+                image:          image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -809,12 +968,20 @@ pub async fn serve_list_page(req: HttpRequest, session: Session) -> actix_web::R
                 tech_cats:      Vec<TechCategories>,
                 template_types: u8,
                 linguage:       u8,
+                title:          String,
+                description:    String,
+                link:           String,
+                image:          String,
             }
             let body = Template {
                 is_ajax:        is_ajax,
                 tech_cats:      all_tech_categories,
                 template_types: t,
                 linguage:       l,
+                title:          title,
+                description:    description,
+                link:           link,
+                image:          image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -828,12 +995,20 @@ pub async fn serve_list_page(req: HttpRequest, session: Session) -> actix_web::R
                 tech_cats:      Vec<TechCategories>,
                 template_types: u8,
                 linguage:       u8,
+                title:          String,
+                description:    String,
+                link:           String,
+                image:          String,
             }
             let body = Template {
                 is_ajax:        is_ajax,
                 tech_cats:      all_tech_categories,
                 template_types: t,
                 linguage:       l,
+                title:          title,
+                description:    description,
+                link:           link,
+                image:          image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -848,17 +1023,38 @@ pub async fn get_tech_category_page(_id: web::Path<i32>) -> actix_web::Result<Ht
     let (t, l) = get_all_storage();
     let tech_category = TechCategories::get(*_id);
 
+    let title: String;
+    let description: String;
+    let link = "/load_tech_category/".to_string() + &tech_category.name_en + &"/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Web service ".to_string() + &tech_category.name_en;
+        description = "Web service ".to_string() + &tech_category.name_en + &" : Web-services".to_string();
+    }
+    else {
+        title = "Веб-сервис ".to_string() + &tech_category.name_en;
+        description = "Веб-сервис ".to_string() + &tech_category.name_en + &" : вебсервисы.рф".to_string();
+    }
+
     #[derive(TemplateOnce)]
     #[template(path = "desctop/load/tech_category.stpl")]
     struct Template {
         object:         TechCategories,
         template_types: u8,
         linguage:       u8,
+        title:          String,
+        description:    String,
+        link:           String,
+        image:          String,
     }
     let body = Template {
         object:         tech_category,
         template_types: t,
         linguage:       l,
+        title:          title,
+        description:    description,
+        link:           link,
+        image:          image,
     }
     .render_once()
     .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -871,17 +1067,38 @@ pub async fn get_serve_category_page(_id: web::Path<i32>) -> actix_web::Result<H
     let (t, l) = get_all_storage();
     let serve_category = ServeCategories::get(*_id);
 
+    let title: String;
+    let description: String;
+    let link = "/load_serve_category/".to_string() + &serve_category.name_en + &"/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Category of serve ".to_string() + &serve_category.name_en;
+        description = "Category of serve ".to_string() + &serve_category.name_en + &" : Web-services".to_string();
+    }
+    else {
+        title = "Опция ".to_string() + &serve_category.name_en;
+        description = "Опция ".to_string() + &serve_category.name_en + &" : вебсервисы.рф".to_string();
+    }
+
     #[derive(TemplateOnce)]
     #[template(path = "desctop/load/serve_category.stpl")]
     struct Template {
         object:         ServeCategories,
         template_types: u8,
         linguage:       u8,
+        title:          String,
+        description:    String,
+        link:           String,
+        image:          String,
     }
     let body = Template {
         object:         serve_category,
         template_types: t,
         linguage:       l,
+        title:          title,
+        description:    description,
+        link:           link,
+        image:          image,
     }
     .render_once()
     .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -894,17 +1111,38 @@ pub async fn get_serve_page(_id: web::Path<i32>) -> actix_web::Result<HttpRespon
     let (t, l) = get_all_storage();
     let _serve = Serve::get(*_id);
 
+    let title: String;
+    let description: String;
+    let link = "/load_serve/".to_string() + &_serve.name_en + &"/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Serve ".to_string() + &_serve.name_en;
+        description = "Serve ".to_string() + &_serve.name_en + &" : Web-services".to_string();
+    }
+    else {
+        title = "Опция ".to_string() + &_serve.name_en;
+        description = "Опция ".to_string() + &_serve.name_en + &" : вебсервисы.рф".to_string();
+    }
+
     #[derive(TemplateOnce)]
     #[template(path = "desctop/load/serve.stpl")]
     struct Template {
         object:         Serve,
         template_types: u8,
         linguage:       u8,
+        title:          String,
+        description:    String,
+        link:           String,
+        image:          String,
     }
     let body = Template {
         object:         _serve,
         template_types: t,
         linguage:       l,
+        title:          title,
+        description:    description,
+        link:           link,
+        image:          image,
     }
     .render_once()
     .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -974,6 +1212,10 @@ pub async fn cookie_users_list_page(session: Session, req: HttpRequest) -> actix
                     is_ajax:          i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     request_user:     _request_user,
@@ -982,6 +1224,10 @@ pub async fn cookie_users_list_page(session: Session, req: HttpRequest) -> actix
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -997,6 +1243,10 @@ pub async fn cookie_users_list_page(session: Session, req: HttpRequest) -> actix
                     is_ajax:          i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     request_user:     _request_user,
@@ -1005,6 +1255,10 @@ pub async fn cookie_users_list_page(session: Session, req: HttpRequest) -> actix
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1021,6 +1275,10 @@ pub async fn cookie_users_list_page(session: Session, req: HttpRequest) -> actix
                     is_ajax:          i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     object_list:      object_list,
@@ -1028,6 +1286,10 @@ pub async fn cookie_users_list_page(session: Session, req: HttpRequest) -> actix
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1042,6 +1304,10 @@ pub async fn cookie_users_list_page(session: Session, req: HttpRequest) -> actix
                     is_ajax:          i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     object_list:      object_list,
@@ -1049,6 +1315,10 @@ pub async fn cookie_users_list_page(session: Session, req: HttpRequest) -> actix
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1063,8 +1333,24 @@ pub async fn get_user_history_page(session: Session, req: HttpRequest, user_id: 
         let _request_user = get_request_user_data(&session);
         let (t, l) = get_all_storage();
         if _request_user.is_superuser() {
+
             use crate::utils::get_page;
             use crate::models::CookieStat;
+
+            let user_id_str = _request_user.id.to_string();
+            let title: String;
+            let description: String;
+            let link = "/load_user_history/".to_string() + &user_id_str + &"/".to_string();
+            let image = "/static/images/dark/store.jpg".to_string();
+            if l == 2 {
+                title = "User history ".to_string() + &_cat.name_en.to_string();
+                description = "User history ".to_string() + &user_id_str + &" : Web-services".to_string();
+            }
+            else {
+                title = "История просмотров пользователя ".to_string() + &user_id_str;
+                description = "Веб-сервис ".to_string() + &user_id_str + &" : вебсервисы.рф".to_string();
+            }
+
 
             let object_list: Vec<CookieStat>;
             let next_page_number: i32;
@@ -1082,12 +1368,20 @@ pub async fn get_user_history_page(session: Session, req: HttpRequest, user_id: 
                 next_page_number: i32,
                 template_types:   u8,
                 linguage:         u8,
+                title:            String,
+                description:      String,
+                link:             String,
+                image:            String,
             }
             let body = Template {
                 object_list:      object_list,
                 next_page_number: next_page_number,
                 template_types:   t,
                 linguage:         l,
+                title:            title,
+                description:      description,
+                link:             link,
+                image:            image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1105,6 +1399,22 @@ pub async fn get_user_history_page(session: Session, req: HttpRequest, user_id: 
 pub async fn get_tech_objects_page(session: Session, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     use crate::models::TechCategories;
 
+    let _cat = TechCategories::get(*_id);
+
+    let title: String;
+    let description: String;
+    let link = "/load_tech_objects/".to_string() + &_cat.name_en + &"/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Web-service ".to_string() + &_cat.name_en.to_string();
+        description = "Web-service ".to_string() + &_cat.name_en + &" : Web-services".to_string();
+    }
+    else {
+        title = "Веб-сервис ".to_string() + &_cat.name;
+        description = "Веб-сервис ".to_string() + &_cat.name + &" : вебсервисы.рф".to_string();
+    }
+
+
     let mut is_admin = false;
     let (t, l) = get_all_storage();
     if is_signed_in(&session) {
@@ -1113,7 +1423,6 @@ pub async fn get_tech_objects_page(session: Session, _id: web::Path<i32>) -> act
             is_admin = true;
         }
     }
-    let _cat = TechCategories::get(*_id);
 
     #[derive(TemplateOnce)]
     #[template(path = "desctop/load/tech_category_objects.stpl")]
@@ -1122,12 +1431,20 @@ pub async fn get_tech_objects_page(session: Session, _id: web::Path<i32>) -> act
         is_admin:       bool,
         template_types: u8,
         linguage:       u8,
+        title:          String,
+        description:    String,
+        link:           String,
+        image:          String,
     }
     let body = Template {
         object:         _cat,
         is_admin:       is_admin,
         template_types: t,
         linguage:       l,
+        title:          title,
+        description:    description,
+        link:           link,
+        image:          image,
     }
     .render_once()
     .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1215,6 +1532,10 @@ pub async fn create_category_page(session: Session, req: HttpRequest) -> actix_w
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -1222,6 +1543,10 @@ pub async fn create_category_page(session: Session, req: HttpRequest) -> actix_w
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1235,12 +1560,20 @@ pub async fn create_category_page(session: Session, req: HttpRequest) -> actix_w
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     cats:           _cats,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1300,6 +1633,10 @@ pub async fn edit_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -1308,6 +1645,10 @@ pub async fn edit_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1322,6 +1663,10 @@ pub async fn edit_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     cat:            _cat,
@@ -1329,6 +1674,10 @@ pub async fn edit_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1389,6 +1738,10 @@ pub async fn create_item_page(session: Session, req: HttpRequest) -> actix_web::
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -1396,6 +1749,10 @@ pub async fn create_item_page(session: Session, req: HttpRequest) -> actix_web::
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1409,12 +1766,20 @@ pub async fn create_item_page(session: Session, req: HttpRequest) -> actix_web::
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     all_tags:       all_tags,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1499,6 +1864,10 @@ pub async fn edit_item_page(session: Session, req: HttpRequest, _id: web::Path<i
                     level:          i16,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -1512,6 +1881,10 @@ pub async fn edit_item_page(session: Session, req: HttpRequest, _id: web::Path<i
                     level:          level,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1531,6 +1904,10 @@ pub async fn edit_item_page(session: Session, req: HttpRequest, _id: web::Path<i
                     level:          i16,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     object:         _item,
@@ -1543,6 +1920,10 @@ pub async fn edit_item_page(session: Session, req: HttpRequest, _id: web::Path<i
                     level:          level,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1600,6 +1981,10 @@ pub async fn edit_content_item_page(session: Session, req: HttpRequest, _id: web
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -1607,6 +1992,10 @@ pub async fn edit_content_item_page(session: Session, req: HttpRequest, _id: web
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1620,12 +2009,20 @@ pub async fn edit_content_item_page(session: Session, req: HttpRequest, _id: web
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     item:           _item,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1686,6 +2083,10 @@ pub async fn edit_file_page(session: Session, req: HttpRequest, _id: web::Path<i
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -1693,6 +2094,10 @@ pub async fn edit_file_page(session: Session, req: HttpRequest, _id: web::Path<i
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1706,12 +2111,20 @@ pub async fn edit_file_page(session: Session, req: HttpRequest, _id: web::Path<i
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     file:           _file,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1738,6 +2151,19 @@ pub async fn image_page(_id: web::Path<i32>) -> actix_web::Result<HttpResponse> 
     let _images_len = _images.len();
     let mut prev: Option<File> = None;
     let mut next: Option<File> = None;
+
+    let title: String;
+    let description: String;
+    let link = "/image/".to_string() + &_file.id.to_string() + &"/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Image #".to_string() + &_file.id.to_string();
+        description = "Изображение #".to_string() + &_file.id.to_string() + &" : Web-services".to_string();
+    }
+    else {
+        title = "Изображение №".to_string() + &_file.id.to_string();
+        description = "Изображение №".to_string() + &_file.id.to_string() + &" : вебсервисы.рф".to_string();
+    }
 
     for (i, obj) in _images.iter().enumerate().rev() {
         if obj == &*_id { 
@@ -1770,6 +2196,10 @@ pub async fn image_page(_id: web::Path<i32>) -> actix_web::Result<HttpResponse> 
         next:           Option<File>,
         template_types: u8,
         linguage:       u8,
+        title:          String,
+        description:    String,
+        link:           String,
+        image:          String,
     } 
     let body = Template {
         object:         _file,
@@ -1778,6 +2208,10 @@ pub async fn image_page(_id: web::Path<i32>) -> actix_web::Result<HttpResponse> 
         next:           next,
         template_types: t,
         linguage:       l,
+        title:          title,
+        description:    description,
+        link:           link,
+        image:          image,
     }
     .render_once()
     .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;

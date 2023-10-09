@@ -10,7 +10,6 @@ use std::borrow::BorrowMut;
 use crate::utils::{
     is_signed_in,
     get_request_user_data,
-    get_first_load_page,
     get_or_create_cookie_user_id,
     get_cookie_user_id,
     get_all_storage,
@@ -90,6 +89,10 @@ pub async fn get_orders_page(req: HttpRequest, session: Session) -> actix_web::R
                 next_page_number: i32,
                 template_types:   u8,
                 linguage:         u8,
+                title:            String,
+                description:      String,
+                link:             String,
+                image:            String,
             }
             let body = Template {
                 request_user:     _request_user,
@@ -98,6 +101,10 @@ pub async fn get_orders_page(req: HttpRequest, session: Session) -> actix_web::R
                 next_page_number: next_page_number,
                 template_types:   t,
                 linguage:         l,
+                title:          title,
+                description:    description,
+                link:           link,
+                image:          image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -112,6 +119,10 @@ pub async fn get_orders_page(req: HttpRequest, session: Session) -> actix_web::R
                 next_page_number: i32,
                 template_types:   u8,
                 linguage:         u8,
+                title:            String,
+                description:      String,
+                link:             String,
+                image:            String,
             }
             let body = Template {
                 is_ajax:          is_ajax,
@@ -119,6 +130,10 @@ pub async fn get_orders_page(req: HttpRequest, session: Session) -> actix_web::R
                 next_page_number: next_page_number,
                 template_types:   t,
                 linguage:         l,
+                title:            title,
+                description:      description,
+                link:             link,
+                image:            image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -173,6 +188,10 @@ pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_w
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     request_user:     _request_user,
@@ -195,6 +214,10 @@ pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_w
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     object_list:      _orders,
@@ -202,6 +225,10 @@ pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_w
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -218,6 +245,10 @@ pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_w
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     object_list:      _orders,
@@ -225,6 +256,10 @@ pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_w
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -239,6 +274,10 @@ pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_w
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     object_list:      _orders,
@@ -246,6 +285,10 @@ pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_w
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -305,6 +348,10 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -313,6 +360,10 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -327,6 +378,10 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     object:         _order,
@@ -334,6 +389,10 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -350,6 +409,10 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     object:         _order,
@@ -357,6 +420,10 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -371,6 +438,10 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     object:         _order,
@@ -378,6 +449,10 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -389,15 +464,37 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
 
 pub async fn create_order_page() -> actix_web::Result<HttpResponse> {
     let (t, l) = get_all_storage();
+
+    let title: String;
+    let description: String;
+    let link = "/create_order/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Create order".to_string();
+        description = "Web-services: Create order".to_string();
+    }
+    else { 
+        title = "Создание заказа".to_string();
+        description = "вебсервисы.рф: Создание заказа".to_string();
+    }
+
     #[derive(TemplateOnce)]
     #[template(path = "desctop/pages/create_order.stpl")]
     struct Template {
         template_types: u8,
         linguage:       u8,
+        title:          String,
+        description:    String,
+        link:           String,
+        image:          String,
     }
     let body = Template {
         template_types: t,
         linguage:       l,
+        title:          title,
+        description:    description,
+        link:           link,
+        image:          image,
     }
     .render_once()
     .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
