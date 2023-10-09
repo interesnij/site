@@ -374,6 +374,7 @@ pub async fn blog_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
                     description:      description,
                     link:             link,
                     image:            image,
