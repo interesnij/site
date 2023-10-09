@@ -10,7 +10,6 @@ use actix_session::Session;
 use crate::utils::{
     is_signed_in,
     get_request_user_data,
-    get_first_load_page,
     get_all_storage,
 };
 
@@ -68,12 +67,20 @@ pub async fn empty_search_page(req: HttpRequest, session: Session) -> actix_web:
                 is_ajax:        i32,
                 template_types: u8,
                 linguage:       u8,
+                title:          String,
+                description:    String,
+                link:           String,
+                image:          String,
             }
             let body = Template {
                 request_user:   _request_user,
                 is_ajax:        is_ajax,
                 template_types: t,
                 linguage:       l,
+                title:          title,
+                description:    description,
+                link:           link,
+                image:          image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -86,11 +93,19 @@ pub async fn empty_search_page(req: HttpRequest, session: Session) -> actix_web:
                 is_ajax:        i32,
                 template_types: u8,
                 linguage:       u8,
+                title:          String,
+                description:    String,
+                link:           String,
+                image:          String,
             }
             let body = Template {
                 is_ajax:        is_ajax,
                 template_types: t,
                 linguage:       l,
+                title:          title,
+                description:    description,
+                link:           link,
+                image:          image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -105,11 +120,19 @@ pub async fn empty_search_page(req: HttpRequest, session: Session) -> actix_web:
                 is_ajax:        i32,
                 template_types: u8,
                 linguage:       u8,
+                title:          String,
+                description:    String,
+                link:           String,
+                image:          String,
             }
             let body = Template {
                 is_ajax:        is_ajax,
                 template_types: t,
                 linguage:       l,
+                title:          title,
+                description:    description,
+                link:           link,
+                image:          image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -122,11 +145,19 @@ pub async fn empty_search_page(req: HttpRequest, session: Session) -> actix_web:
                 is_ajax:        i32,
                 template_types: u8,
                 linguage:       u8,
+                title:          String,
+                description:    String,
+                link:           String,
+                image:          String,
             }
             let body = Template {
                 is_ajax:        is_ajax,
                 template_types: t,
                 linguage:       l,
+                title:          title,
+                description:    description,
+                link:           link,
+                image:          image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -199,6 +230,10 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
                     q:              String,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -217,6 +252,10 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
                     q:              _q,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -241,6 +280,10 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
                     q:              String,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     works_list:     work_list,
@@ -258,6 +301,10 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
                     q:              _q,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -290,6 +337,10 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
                     q:              String,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     works_list:     work_list,
@@ -307,6 +358,10 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
                     q:              _q,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -331,6 +386,10 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
                     q:              String,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     works_list:     work_list,
@@ -348,6 +407,10 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
                     q:              _q,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -425,6 +488,10 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     request_user:     _request_user,
@@ -435,6 +502,10 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
 
                 .render_once()
@@ -452,6 +523,10 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     blogs_list:       blog_list,
@@ -461,6 +536,10 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -485,6 +564,10 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     blogs_list:       blog_list,
@@ -494,6 +577,10 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -510,6 +597,10 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     blogs_list:       blog_list,
@@ -519,6 +610,10 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -595,6 +690,10 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     request_user:     _request_user,
@@ -605,6 +704,10 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -621,6 +724,10 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
 
                 let body = Template {
@@ -631,6 +738,10 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -655,6 +766,10 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     services_list:    services_list,
@@ -664,6 +779,10 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -680,6 +799,10 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     services_list:    services_list,
@@ -689,6 +812,10 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -769,6 +896,10 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     request_user:     _request_user,
@@ -779,6 +910,10 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -795,6 +930,10 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     stores_list:      stores_list,
@@ -804,6 +943,10 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -828,6 +971,10 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
 
                 let body = Template {
@@ -838,6 +985,10 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -854,6 +1005,10 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     stores_list:      stores_list,
@@ -863,6 +1018,10 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -942,6 +1101,10 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     request_user:     _request_user,
@@ -952,6 +1115,10 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -968,6 +1135,10 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     wikis_list:       wiki_list,
@@ -977,6 +1148,10 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1001,6 +1176,10 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     wikis_list:       wiki_list,
@@ -1010,6 +1189,10 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1026,6 +1209,10 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     wikis_list:       wiki_list,
@@ -1035,6 +1222,10 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1115,6 +1306,10 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     request_user:     _request_user,
@@ -1125,6 +1320,10 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1141,6 +1340,10 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     works_list:       work_list,
@@ -1150,6 +1353,10 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1174,6 +1381,10 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     works_list:       work_list,
@@ -1183,6 +1394,10 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1199,6 +1414,10 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     works_list:       work_list,
@@ -1208,6 +1427,10 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1286,6 +1509,10 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     request_user:     _request_user,
@@ -1296,6 +1523,10 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1312,6 +1543,10 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     items_list:       _items,
@@ -1321,6 +1556,10 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1343,6 +1582,10 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     items_list:       _items,
@@ -1352,6 +1595,10 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -1368,6 +1615,10 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
                     next_page_number: i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     items_list:       _items,
@@ -1377,6 +1628,10 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;

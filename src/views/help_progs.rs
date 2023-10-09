@@ -10,7 +10,6 @@ use actix_web::{
 use crate::utils::{
     is_signed_in,
     get_request_user_data,
-    get_first_load_page,
     get_all_storage,
 };
 use actix_session::Session;
@@ -99,6 +98,10 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     is_ajax:          i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     request_user:     _request_user,
@@ -110,6 +113,10 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -128,6 +135,10 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     is_ajax:          i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     request_user:     _request_user,
@@ -139,6 +150,10 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -164,6 +179,10 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     is_ajax:          i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     all_tags:         _tags,
@@ -174,6 +193,10 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -191,6 +214,10 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     is_ajax:          i32,
                     template_types:   u8,
                     linguage:         u8,
+                    title:            String,
+                    description:      String,
+                    link:             String,
+                    image:            String,
                 }
                 let body = Template {
                     all_tags:         _tags,
@@ -201,6 +228,10 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    title:            title,
+                    description:      description,
+                    link:             link,
+                    image:            image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;

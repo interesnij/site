@@ -110,6 +110,10 @@ pub async fn serve_categories_page(session: Session, req: HttpRequest) -> actix_
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -117,6 +121,10 @@ pub async fn serve_categories_page(session: Session, req: HttpRequest) -> actix_
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -130,12 +138,20 @@ pub async fn serve_categories_page(session: Session, req: HttpRequest) -> actix_
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     serve_cats:     _serve_cats,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -195,6 +211,10 @@ pub async fn get_serve_page(session: Session, req: HttpRequest, _id: web::Path<i
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -203,6 +223,10 @@ pub async fn get_serve_page(session: Session, req: HttpRequest, _id: web::Path<i
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -217,6 +241,10 @@ pub async fn get_serve_page(session: Session, req: HttpRequest, _id: web::Path<i
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     category:       _s_category,
@@ -224,6 +252,10 @@ pub async fn get_serve_page(session: Session, req: HttpRequest, _id: web::Path<i
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -283,6 +315,10 @@ pub async fn create_tech_categories_page(session: Session, req: HttpRequest) -> 
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -290,6 +326,10 @@ pub async fn create_tech_categories_page(session: Session, req: HttpRequest) -> 
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -303,12 +343,20 @@ pub async fn create_tech_categories_page(session: Session, req: HttpRequest) -> 
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     tech_cats:      _categories,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -366,6 +414,10 @@ pub async fn create_serve_categories_page(session: Session, req: HttpRequest) ->
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -373,6 +425,10 @@ pub async fn create_serve_categories_page(session: Session, req: HttpRequest) ->
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -386,12 +442,20 @@ pub async fn create_serve_categories_page(session: Session, req: HttpRequest) ->
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     tech_cats:      _tech_categories,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -511,12 +575,20 @@ pub async fn create_serve_page(session: Session, req: HttpRequest) -> actix_web:
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -529,11 +601,19 @@ pub async fn create_serve_page(session: Session, req: HttpRequest) -> actix_web:
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -595,6 +675,10 @@ pub async fn edit_tech_category_page(session: Session, req: HttpRequest, _id: we
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -603,6 +687,10 @@ pub async fn edit_tech_category_page(session: Session, req: HttpRequest, _id: we
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -617,6 +705,10 @@ pub async fn edit_tech_category_page(session: Session, req: HttpRequest, _id: we
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     tech_cats:      _tech_categories,
@@ -624,6 +716,10 @@ pub async fn edit_tech_category_page(session: Session, req: HttpRequest, _id: we
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -685,6 +781,10 @@ pub async fn edit_serve_category_page(session: Session, req: HttpRequest, _id: w
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -693,6 +793,10 @@ pub async fn edit_serve_category_page(session: Session, req: HttpRequest, _id: w
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -707,6 +811,10 @@ pub async fn edit_serve_category_page(session: Session, req: HttpRequest, _id: w
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     tech_cats:      _tech_categories,
@@ -714,6 +822,10 @@ pub async fn edit_serve_category_page(session: Session, req: HttpRequest, _id: w
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -778,6 +890,10 @@ pub async fn edit_serve_page(session: Session, req: HttpRequest, _id: web::Path<
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -787,6 +903,10 @@ pub async fn edit_serve_page(session: Session, req: HttpRequest, _id: web::Path<
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -802,6 +922,10 @@ pub async fn edit_serve_page(session: Session, req: HttpRequest, _id: web::Path<
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     level:          _level,
@@ -810,6 +934,10 @@ pub async fn edit_serve_page(session: Session, req: HttpRequest, _id: web::Path<
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;

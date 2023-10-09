@@ -10,7 +10,6 @@ use serde::{Deserialize, Serialize};
 use crate::utils::{
     is_signed_in,
     verify,
-    get_first_load_page,
     get_all_storage,
     NewUserForm,
 };
@@ -78,12 +77,20 @@ pub async fn signup_page(req: HttpRequest, session: Session) -> actix_web::Resul
                     stat:           StatPage,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     is_ajax:        is_ajax,
                     stat:           _stat,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -97,12 +104,20 @@ pub async fn signup_page(req: HttpRequest, session: Session) -> actix_web::Resul
                     stat:           StatPage,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     is_ajax:        is_ajax,
                     stat:           _stat,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -154,12 +169,20 @@ pub async fn login_page(req: HttpRequest, session: Session) -> actix_web::Result
                     stat:           StatPage,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     is_ajax:        is_ajax,
                     stat:           _stat,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -173,12 +196,20 @@ pub async fn login_page(req: HttpRequest, session: Session) -> actix_web::Result
                     stat:           StatPage,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     is_ajax:        is_ajax,
                     stat:           _stat,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -204,12 +235,20 @@ pub async fn logout_page(req: HttpRequest, session: Session) -> actix_web::Resul
                 stat:           StatPage,
                 template_types: u8,
                 linguage:       u8,
+                title:          String,
+                description:    String,
+                link:           String,
+                image:          String,
             }
             let body = Template {
                 is_ajax:        0,
                 stat:           _stat,
                 template_types: t,
                 linguage:       l,
+                title:          title,
+                description:    description,
+                link:           link,
+                image:          image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -223,12 +262,20 @@ pub async fn logout_page(req: HttpRequest, session: Session) -> actix_web::Resul
                 stat:           StatPage,
                 template_types: u8,
                 linguage:       u8,
+                title:          String,
+                description:    String,
+                link:           String,
+                image:          String,
             }
             let body = Template {
                 is_ajax:        0,
                 stat:           _stat,
                 template_types: t,
                 linguage:       l,
+                title:          title,
+                description:    description,
+                link:           link,
+                image:          image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
