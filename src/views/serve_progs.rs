@@ -66,29 +66,29 @@ pub async fn serve_categories_page(session: Session, req: HttpRequest) -> actix_
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
 
+    let title: String;
+    let description: String;
+    let link = "/serve_categories/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Categories of options".to_string();
+        description = "Web-services - Categories of options".to_string();
+    }
+    else {
+        title = "Категории опций".to_string();
+        description = "вебсервисы.рф - Категории опций".to_string();
+    }
+
     if is_ajax == 0 {
-        if l == 2 {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Categories of options".to_string(),
-                "Web-services: Categories of options".to_string(),
-                "/serve_categories/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
-        else {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Категории опций".to_string(),
-                "вебсервисы.рф: Категории опций".to_string(),
-                "/serve_categories/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
+        crate::utils::get_first_load_page (
+            &session,
+            is_desctop,
+            &title,
+            &description,
+            &link,
+            &image,
+            t, 
+        ).await
     }
     else if !is_signed_in(&session) {
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
@@ -150,14 +150,27 @@ pub async fn get_serve_page(session: Session, req: HttpRequest, _id: web::Path<i
     let (t, l) = get_all_storage();
     let _serve = Serve::get(*_id);
 
+    let title: String;
+    let description: String;
+    let link = "/serve/".to_string() + &_serve.id.to_string() + &"/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Serve ".to_string() + &_serve.name_en;
+        description = "Web-services: Serve ".to_string() + &_serve.name_en;
+    }
+    else {
+        title = "Опция ".to_string() + &_serve.name;
+        description = "вебсервисы.рф - Опция ".to_string() + &_serve.name;
+    }
+
     if is_ajax == 0 {
-        get_first_load_page (
+        crate::utils::get_first_load_page (
             &session,
             is_desctop,
-            "Опция ".to_string() + &_serve.name,
-            "вебсервисы.рф: Опция ".to_string() + &_serve.name,
-            "/serve/".to_string() + &_serve.id.to_string() + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
+            &title,
+            &description,
+            &link,
+            &image,
             t, 
         ).await
     }
@@ -225,14 +238,28 @@ pub async fn create_tech_categories_page(session: Session, req: HttpRequest) -> 
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
+
+    let title: String;
+    let description: String;
+    let link = "/create_tech_categories/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Creating a web-service".to_string();
+        description = "Web-services - Creating a web-service".to_string();
+    }
+    else {
+        title = "Создание веб-сервиса".to_string();
+        description = "вебсервисы.рф - Создание веб-сервиса".to_string();
+    }
+
     if is_ajax == 0 {
-        get_first_load_page (
+        crate::utils::get_first_load_page (
             &session,
             is_desctop,
-            "Создание веб-сервиса".to_string(),
-            "вебсервисы.рф: Создание веб-сервиса".to_string(),
-            "/create_tech_categories/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
+            &title,
+            &description,
+            &link,
+            &image,
             t, 
         ).await
     }
@@ -296,14 +323,27 @@ pub async fn create_serve_categories_page(session: Session, req: HttpRequest) ->
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
 
+    let title: String;
+    let description: String;
+    let link = "/create_serve_categories/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Creation of service technology".to_string();
+        description = "Web-services - Creation of service technology".to_string();
+    }
+    else {
+        title = "Создание технологии услуг".to_string();
+        description = "вебсервисы.рф - Создание технологии услуг".to_string();
+    }
+
     if is_ajax == 0 {
-        get_first_load_page (
+        crate::utils::get_first_load_page (
             &session,
             is_desctop,
-            "Создание технологии услуг".to_string(),
-            "вебсервисы.рф: Создание технологии услуг".to_string(),
-            "/create_serve_categories/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
+            &title,
+            &description,
+            &link,
+            &image,
             t, 
         ).await
     }
@@ -427,14 +467,28 @@ pub async fn create_serve_page(session: Session, req: HttpRequest) -> actix_web:
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
+
+    let title: String;
+    let description: String;
+    let link = "/create_serve/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Creation a option".to_string();
+        description = "Web-services - Creation a option".to_string();
+    }
+    else {
+        title = "Создание опции".to_string();
+        description = "вебсервисы.рф - Создание опции".to_string();
+    }
+
     if is_ajax == 0 {
-        get_first_load_page (
+        crate::utils::get_first_load_page (
             &session,
             is_desctop,
-            "Создание опции".to_string(),
-            "вебсервисы.рф: Создание опции".to_string(),
-            "/create_serve/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
+            &title,
+            &description,
+            &link,
+            &image,
             t, 
         ).await
     }
@@ -496,14 +550,27 @@ pub async fn edit_tech_category_page(session: Session, req: HttpRequest, _id: we
     let _category = TechCategories::get(*_id);
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
 
+    let title: String;
+    let description: String;
+    let link = "/edit_tech_category/".to_string() + &_category.id.to_string() + &"/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Update web-service ".to_string() + &_category.name_en;
+        description = "Web-services: Update web-service ".to_string() + &_category.name_en;
+    }
+    else {
+        title = "Изменение веб-сервиса ".to_string() + &_category.name;
+        description = "вебсервисы.рф - Изменение веб-сервиса ".to_string() + &_category.name;
+    }
+
     if is_ajax == 0 {
-        get_first_load_page (
+        crate::utils::get_first_load_page (
             &session,
             is_desctop,
-            "Изменение веб-сервиса ".to_string() + &_category.name,
-            "вебсервисы.рф: Изменение веб-сервиса ".to_string() + &_category.name,
-            "/edit_tech_category/".to_string() + &_category.id.to_string() + &"/".to_string(),
-            "".to_string(),
+            &title,
+            &description,
+            &link,
+            &image,
             t, 
         ).await
     }
@@ -573,14 +640,27 @@ pub async fn edit_serve_category_page(session: Session, req: HttpRequest, _id: w
     let _category = ServeCategories::get(*_id);
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
 
+    let title: String;
+    let description: String;
+    let link = "/edit_serve_category/".to_string() + &_category.id.to_string() + &"/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Update category of serve ".to_string() + &_category.name_en;
+        description = "Web-services: Update category of serve ".to_string() + &_category.name_en;
+    }
+    else {
+        title = "Изменение категории опций ".to_string() + &_category.name;
+        description = "вебсервисы.рф - Изменение категории опций ".to_string() + &_category.name;
+    }
+
     if is_ajax == 0 {
-        get_first_load_page (
+        crate::utils::get_first_load_page (
             &session,
             is_desctop,
-            "Изменение категории опций ".to_string() + &_category.name,
-            "вебсервисы.рф: Изменение категории опций ".to_string() + &_category.name,
-            "/edit_serve_category/".to_string() + &_category.id.to_string() + &"/".to_string(),
-            "".to_string(),
+            &title,
+            &description,
+            &link,
+            &image,
             t, 
         ).await
     }
@@ -650,14 +730,27 @@ pub async fn edit_serve_page(session: Session, req: HttpRequest, _id: web::Path<
     let (t, l) = get_all_storage();
     let _serve = Serve::get(*_id);
 
+    let title: String;
+    let description: String;
+    let link = "/edit_serve/".to_string() + &_serve.id.to_string() + &"/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Update serve ".to_string() + &_serve.name_en;
+        description = "Web-services: Update serve ".to_string() + &_serve.name_en;
+    }
+    else {
+        title = "Изменение опции ".to_string() + &_serve.name;
+        description = "вебсервисы.рф - Изменение опции ".to_string() + &_serve.name;
+    }
+
     if is_ajax == 0 {
-        get_first_load_page (
+        crate::utils::get_first_load_page (
             &session,
             is_desctop,
-            "Изменение опции ".to_string() + &_serve.name,
-            "вебсервисы.рф: Изменение опции ".to_string() + &_serve.name,
-            "/edit_serve/".to_string() + &_serve.id.to_string() + &"/".to_string(),
-            "".to_string(),
+            &title,
+            &description,
+            &link,
+            &image,
             t, 
         ).await
     }

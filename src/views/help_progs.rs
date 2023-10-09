@@ -45,29 +45,30 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
     }
 
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
+
+    let title: String;
+    let description: String;
+    let link = "/help/".to_string() + &_category.slug + &"/".to_string();
+    let image = _category.get_image();
+    if l == 2 {
+        title = String::new() + &_category.name_en + &" | Category of the help".to_string();
+        description = String::new() + &_category.name_en + &" | Category of the help: Web-services".to_string();
+    }
+    else {
+        title = String::new() + &_category.name + &" | Категория помощи".to_string();
+        description = String::new() + &_category.name + &" | Категория помощи: вебсервисы.рф".to_string();
+    }
+    
     if is_ajax == 0 {
-        if l == 2 {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                _category.name.clone() + &" | Category of the help".to_string(),
-                _category.name.clone() + &" | Category of the help - Web-services".to_string(),
-                "/help/".to_string() + &_category.slug.clone() + &"/".to_string(),
-                cat_image,
-                t, 
-            ).await
-        }
-        else {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                _category.name.clone() + &" | Категория помощи ".to_string(),
-                _category.name.clone() + &" | Категория помощи - вебсервисы.рф".to_string(),
-                "/help/".to_string() + &_category.slug.clone() + &"/".to_string(),
-                cat_image,
-                t, 
-            ).await
-        }
+        crate::utils::get_first_load_page (
+            &session,
+            is_desctop,
+            &title,
+            &description,
+            &link,
+            &image,
+            t, 
+        ).await
     }
     else {
         use crate::models::Help;
