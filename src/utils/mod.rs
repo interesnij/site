@@ -363,9 +363,9 @@ pub async fn get_first_load_page_2 (
             let body = Template {
                 request_user:   _request_user,
                 title:          title,
-                description:    description,
-                image:          image,
-                uri:            uri,
+                description:    &'a description,
+                image:          &'a image,
+                uri:            &'a uri,
                 template_types: t,
             }
             .render_once()
@@ -385,10 +385,10 @@ pub async fn get_first_load_page_2 (
             }
             let body = Template {
                 request_user:   _request_user,
-                title:          title,
-                description:    description,
-                image:          image,
-                uri:            uri,
+                title:          &'a title,
+                description:    &'a description,
+                image:          &'a image,
+                uri:            &'a uri,
                 template_types: t,
             }
             .render_once()
