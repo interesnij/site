@@ -19,7 +19,7 @@
 
 <section class="page-section">
     <div class="container align-center">
-        <h1 class="magazine-logo-text font-alt"><%= title %></h1>
+        <h1 class="font-alt"><%= title %></h1>
     </div>
     <div class="container relative">
         <div class="row">
@@ -29,12 +29,11 @@
                 <% for category in cats.iter() { %>
                   <%
                     use crate::models::Categories;
-                    let get_6_blogs = Categories::get_blogs(category.id, 3, 0, false, linguage).expect("E");
+                    let get_6_blogs = Categories::get_blogs(category.id, 3, 0, request_user.is_superuser(), linguage).expect("E");
                   %>
-
                 <h4 class="font-alt mb-10">
                     <a class="ajax" href="/blogs/<%= category.slug %>/">
-                        <%= category.name %> (<%= category.count %>)
+                        <%= category.name %>
                     </a>
                 </h4>
                 <hr class="mt-0 mb-30">
@@ -78,7 +77,33 @@
                 </div>
             </div>
             <div class="col-sm-4">
-              <% include!("sidebar.stpl"); %>
+                <% let (__cats, __search) = match linguage {
+                  2 => ("Categories", "Search from 3 letters"), 
+                  1 | _ => ("Категории", "Поиск от 3х букв"),
+                  };
+                %> 
+
+                  <div class="widget">
+                      <form class="form-inline form" role="form">
+                          <div class="search-wrap">
+                              <input data-folder="_blogs" type="text" class="form-control search-field desctop_folder_search" placeholder="<%= __search %>">
+                          </div>
+                      </form>
+                  </div>
+                  <div class="widget">
+                      <h5 class="widget-title font-alt"><%= __cats %></h5>
+                      <div class="widget-body">
+                          <ul class="clearlist widget-menu">
+                            <% for cat in cats.iter() { %>
+                              <li>
+                                <a class="ajax" href="/blogs/<%= cat.slug %>/"><%= cat.name %></a>
+                              </li>
+                            <% } %>
+                          </ul>
+                      </div>
+</div>
+
+<% include!("../../../block/tags_widget.stpl"); %>
             </div>
         </div>
 

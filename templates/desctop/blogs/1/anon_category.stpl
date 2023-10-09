@@ -2,7 +2,7 @@
         2 => ("Blog", "The list is still empty."), 
         1 | _ => ("Блог", "Список пока пустой."),
     };
-%> 
+%>  
 
 <section page-id="42" data-id="<%= category.id %>" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
