@@ -46,15 +46,15 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
     let link = "/blog/".to_string() + &_cat_id + &"/".to_string() + &_item_id.to_string() + &"/".to_string();
     let image = _item.get_image();
     if l == 2 {
-        title = String::new() + &_item.title + &" | Article ".to_string();
-        description = String::new() + &_item.title + &" | Article: Web-services".to_string();
+        title = String::new() + &_item.title_en + &" | Article ".to_string();
+        description = String::new() + &_item.title_en + &" | Article: Web-services".to_string();
     }
     else {
         title = String::new() + &_item.title + &" | Статья ".to_string();
         description = String::new() + &_item.title + &" | Статья: вебсервисы.рф".to_string();
     }
     if is_ajax == 0 {
-        crate::utils::get_first_load_page_2 (
+        crate::utils::get_first_load_page (
             &session,
             is_desctop,
             &title,
@@ -79,10 +79,10 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
                     is_ajax,
                     _request_user,
                     is_desctop,
-                    _item.title.clone() + &" | Статья ".to_string(),
-                    _item.title.clone() + &" | Статья: вебсервисы.рф".to_string(),
-                    "/service/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
-                    _item.get_image(),
+                    &title,
+                    &description,
+                    &link,
+                    &image,
                     t, 
                     l,
                 ).await
@@ -101,6 +101,10 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -113,6 +117,10 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -132,6 +140,10 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     request_user:   _request_user,
@@ -144,6 +156,10 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -153,13 +169,13 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
         else {
             if !_item.is_active {
                 crate::utils::get_anon_private_page (
-                    is_ajax,
+                    is_ajax, 
                     is_desctop,
-                    _item.title.clone() + &" | Статья ".to_string(),
-                    _item.title.clone() + &" | Статья: вебсервисы.рф".to_string(),
-                    "/blog/".to_string() + &_cat_id.to_string() + &"/".to_string() + &_item_id.to_string() + &"/".to_string(),
-                    _item.get_image(),
-                    t, 
+                    &title,
+                    &description,
+                    &link,
+                    &image,
+                    t,
                     l,
                 ).await
             }
@@ -176,6 +192,10 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     object:         _item,
@@ -187,6 +207,10 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -205,6 +229,10 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
                     is_ajax:        i32,
                     template_types: u8,
                     linguage:       u8,
+                    title:          String,
+                    description:    String,
+                    link:           String,
+                    image:          String,
                 }
                 let body = Template {
                     object:         _item,
@@ -216,6 +244,10 @@ pub async fn get_blog_page(session: Session, req: HttpRequest, param: web::Path<
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    title:          title,
+                    description:    description,
+                    link:           link,
+                    image:          image,
                 }
                 .render_once()
                 .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -238,30 +270,30 @@ pub async fn blog_category_page(session: Session, req: HttpRequest, _id: web::Pa
         cat_image = "/static/images/dark/store.jpg".to_string();
     }
 
+    let title: String;
+    let description: String;
+    let link = "/blogs/".to_string() + &_category.slug + &"/".to_string();
+    let image = _category.get_image();
+    if l == 2 {
+        title = String::new() + &_category.name_en + &" | Category of the blog".to_string();
+        description = String::new() + &_category.name_en + &" | Category of the blog: Web-services".to_string();
+    }
+    else {
+        title = String::new() + &_category.name + &" | Категория блога".to_string();
+        description = String::new() + &_category.name + &" | Категория блога: вебсервисы.рф".to_string();
+    }
+
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     if is_ajax == 0 {
-        if l == 2 {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                _category.name.clone() + &" | Category of the blog".to_string(),
-                _category.name.clone() + &" | Category of the blog - Web-services".to_string(),
-                "/blogs/".to_string() + &_category.slug.clone() + &"/".to_string(),
-                cat_image,
-                t, 
-            ).await
-        }
-        else {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                _category.name.clone() + &" | Категория блога ".to_string(),
-                _category.name.clone() + &" | Категория блога - вебсервисы.рф".to_string(),
-                "/blogs/".to_string() + &_category.slug.clone() + &"/".to_string(),
-                cat_image,
-                t, 
-            ).await
-        }
+        crate::utils::get_first_load_page (
+            &session,
+            is_desctop,
+            &title,
+            &description,
+            &link,
+            &image,
+            t, 
+        ).await
     }
     else {
         use crate::models::Blog;
@@ -406,29 +438,30 @@ pub async fn blog_category_page(session: Session, req: HttpRequest, _id: web::Pa
 pub async fn blog_categories_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
+
+    let title: String;
+    let description: String;
+    let link = "/blog_categories/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Blog Categories".to_string();
+        description = "Web-services: Blog Categories".to_string();
+    }
+    else {
+        title = "Категории блога".to_string();
+        description = "вебсервисы.рф: Категории блога".to_string();
+    }
+
     if is_ajax == 0 {
-        if l == 2 {
-            get_first_load_page (
-                &session,
-                is_desctop, 
-                "Blog Categories".to_string(),
-                "Web-services: Categories of blog".to_string(),
-                "/blog_categories/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t, 
-            ).await
-        }
-        else {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Категории блога".to_string(),
-                "вебсервисы.рф: Категории блога".to_string(),
-                "/blog_categories/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t, 
-            ).await
-        }
+        crate::utils::get_first_load_page (
+            &session,
+            is_desctop,
+            &title,
+            &description,
+            &link,
+            &image,
+            t, 
+        ).await
     }
     else {
         let _stat = crate::models::StatPage::get_or_create(41);

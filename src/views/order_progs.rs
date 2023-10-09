@@ -45,29 +45,30 @@ pub fn order_routes(config: &mut web::ServiceConfig) {
 pub async fn get_orders_page(req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
+
+    let title: String;
+    let description: String;
+    let link = "/orders/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Orders".to_string();
+        description = "Web-services: Orders".to_string();
+    }
+    else {
+        title = "Заказы".to_string();
+        description = "вебсервисы.рф: Заказы".to_string();
+    }
+
     if is_ajax == 0 {
-        if l == 2 {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Orders".to_string(),
-                "Web-services: Orders".to_string(),
-                "/orders/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
-        else {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Заказы".to_string(),
-                "вебсервисы.рф: Заказы".to_string(),
-                "/orders/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
+        crate::utils::get_first_load_page (
+            &session,
+            is_desctop,
+            &title,
+            &description,
+            &link,
+            &image,
+            t, 
+        ).await
     }
     else if !is_signed_in(&session) {
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body("Permission Denied"))
@@ -129,29 +130,30 @@ pub async fn get_orders_page(req: HttpRequest, session: Session) -> actix_web::R
 pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
+
+    let title: String;
+    let description: String;
+    let link = "/user_orders/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Your orders".to_string();
+        description = "Web-services: Your orders".to_string();
+    }
+    else {
+        title = "Ваши заказы".to_string();
+        description = "вебсервисы.рф: Ваши заказы".to_string();
+    }
+
     if is_ajax == 0 {
-        if l == 2 {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Your orders".to_string(),
-                "Web-services: Your orders".to_string(),
-                "/user_orders/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
-        else {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Ваши заказы".to_string(),
-                "вебсервисы.рф: Ваши заказы".to_string(),
-                "/user_orders/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
+        crate::utils::get_first_load_page (
+            &session,
+            is_desctop,
+            &title,
+            &description,
+            &link,
+            &image,
+            t, 
+        ).await
     }
     else {
         let user_id = get_cookie_user_id(&req);
@@ -260,29 +262,30 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
     let user_id = get_cookie_user_id(&req);
 
     let _order = Order::get(*_id); 
+
+    let title: String;
+    let description: String;
+    let link = "/order/".to_string() + &_order.id.to_string() + &"/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Order ".to_string() + &_order.title;
+        description = "Web-services: Order ".to_string() + &_order.title;
+    }
+    else {
+        title = "Заказ ".to_string() + &_order.title;
+        description = "вебсервисы.рф: Заказ ".to_string() + &_order.title;
+    }
+    
     if is_ajax == 0 {
-        if l == 2 {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Order ".to_string() + &_order.title,
-                "Web-services: Order ".to_string() + &_order.title,
-                "/order/".to_string() + &_order.id.to_string() + &"/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
-        else {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Заказ ".to_string() + &_order.title,
-                "вебсервисы.рф: Заказ ".to_string() + &_order.title,
-                "/order/".to_string() + &_order.id.to_string() + &"/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
+        crate::utils::get_first_load_page (
+            &session,
+            is_desctop,
+            &title,
+            &description,
+            &link,
+            &image,
+            t, 
+        ).await
     }
     else if user_id != _order.user_id {
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body("Информация о заказчике не найдена"))

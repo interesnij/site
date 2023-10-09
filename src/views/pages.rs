@@ -70,29 +70,30 @@ pub async fn not_found(req: HttpRequest, session: Session) -> actix_web::Result<
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
 
     let (t, l) = get_all_storage();
+
+    let title: String;
+    let description: String;
+    let link = "/not_found/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Page not found".to_string();
+        description = "Web-services: Page not found".to_string();
+    }
+    else {
+        title = "Страница не найдена".to_string();
+        description = "вебсервисы.рф: Страница не найдена".to_string();
+    }
+
     if is_ajax == 0 {
-        if l == 2 {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Page not found".to_string(),
-                "Web-services: Page not found".to_string(),
-                "/not_found/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
-        else {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Страница не найдена".to_string(),
-                "вебсервисы.рф: Страница не найдена".to_string(),
-                "/not_found/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
+        crate::utils::get_first_load_page (
+            &session,
+            is_desctop,
+            &title,
+            &description,
+            &link,
+            &image,
+            t, 
+        ).await
     }
     else {
         if is_signed_in(&session) {
@@ -192,29 +193,29 @@ pub async fn index_page (
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
 
+    let title: String;
+    let description: String;
+    let link = "/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Home".to_string();
+        description = "Web-services - Comprehensive, expert creation and development of highly loaded web resources".to_string();
+    }
+    else {
+        title = "Главная страница".to_string();
+        description = "вебсервисы.рф - Комплексное, экспертное создание и развитие высоконагруженных веб-ресурсов".to_string();
+    }
+
     if is_ajax == 0 {
-        if l == 2 {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Home".to_string(),
-                "Web-services - Comprehensive, expert creation and development of highly loaded web resources".to_string(),
-                "/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
-        else {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Главная страница".to_string(),
-                "вебсервисы - Комплексное, экспертное создание и развитие высоконагруженных веб-ресурсов".to_string(),
-                "/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
+        crate::utils::get_first_load_page (
+            &session,
+            is_desctop,
+            &title,
+            &description,
+            &link,
+            &image,
+            t, 
+        ).await
     }
     else {
         use crate::models::{Blog, Service, Store, Wiki, Work};
@@ -397,29 +398,30 @@ pub async fn index_page (
 pub async fn info_page(req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
+
+    let title: String;
+    let description: String;
+    let link = "/info/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Info".to_string();
+        description = "Web-services - Info".to_string();
+    }
+    else {
+        title = "Информация".to_string();
+        description = "вебсервисы.рф - Информация о нас, о сайте, контакты, вкладка помощи".to_string();
+    }
+
     if is_ajax == 0 {
-        if l == 2 {
-            return get_first_load_page (
-                &session,
-                is_desctop,
-                "Info".to_string(),
-                "Web-services: Info".to_string(),
-                "/info/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await;
-        }
-        else {
-            return get_first_load_page (
-                &session,
-                is_desctop,
-                "Информация".to_string(),
-                "вебсервисы.рф: Информация о нас, о сайте, контакты, вкладка помощи".to_string(),
-                "/info/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await;
-        } 
+        crate::utils::get_first_load_page (
+            &session,
+            is_desctop,
+            &title,
+            &description,
+            &link,
+            &image,
+            t, 
+        ).await
     }
 
     let _stat = crate::models::StatPage::get_or_create(10);
@@ -521,29 +523,30 @@ pub async fn history_page(conn: ConnectionInfo, req: HttpRequest, session: Sessi
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
 
     let (t, l) = get_all_storage();
+
+    let title: String;
+    let description: String;
+    let link = "/history/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Your browsing history".to_string();
+        description = "Web-services - Your browsing history".to_string();
+    }
+    else {
+        title = "История просмотров".to_string();
+        description = "вебсервисы.рф - История просмотров".to_string();
+    }
+
     if is_ajax == 0 {
-        if l == 2 {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Your browsing history".to_string(),
-                "Web-services: Your browsing history".to_string(),
-                "/history/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
-        else {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "История просмотров".to_string(),
-                "вебсервисы.рф: История просмотров пользователя".to_string(),
-                "/history/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
+        crate::utils::get_first_load_page (
+            &session,
+            is_desctop,
+            &title,
+            &description,
+            &link,
+            &image,
+            t, 
+        ).await
     }
     else {
         use crate::models::{CookieUser, CookieStat};
@@ -727,29 +730,30 @@ pub async fn serve_list_page(req: HttpRequest, session: Session) -> actix_web::R
     let all_tech_categories = TechCategories::get_all();
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
+
+    let title: String;
+    let description: String;
+    let link = "/serve_list/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "List of options and services".to_string();
+        description = "Web-services - List of options and services".to_string();
+    }
+    else {
+        title = "Список опций и услуг".to_string();
+        description = "вебсервисы.рф - Список опций и услуг".to_string();
+    }
+
     if is_ajax == 0 {
-        if l == 2 {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "List of options and services".to_string(),
-                "Web-services: List of options and services".to_string(),
-                "/serve_list/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
-        else {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Список опций и услуг".to_string(),
-                "вебсервисы.рф: Список опций и услуг".to_string(),
-                "/serve_list/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
+        crate::utils::get_first_load_page (
+            &session,
+            is_desctop,
+            &title,
+            &description,
+            &link,
+            &image,
+            t, 
+        ).await
     }
     else if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
@@ -930,29 +934,30 @@ pub async fn cookie_users_list_page(session: Session, req: HttpRequest) -> actix
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
+
+    let title: String;
+    let description: String;
+    let link = "/cookie_users_list/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "General site statistics".to_string();
+        description = "Web-services - General site statistics".to_string();
+    }
+    else {
+        title = "Общая статистика сайта".to_string();
+        description = "вебсервисы.рф - Общая статистика сайта".to_string();
+    }
+
     if is_ajax == 0 {
-        if l == 2 {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "General site statistics".to_string(),
-                "Web-services: General site statistics".to_string(),
-                "/cookie_users_list/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
-        else {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Общая статистика сайта".to_string(),
-                "вебсервисы.рф: Общая статистика сайта".to_string(),
-                "/cookie_users_list/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
+        crate::utils::get_first_load_page (
+            &session,
+            is_desctop,
+            &title,
+            &description,
+            &link,
+            &image,
+            t, 
+        ).await
     }
     else {
         let (object_list, next_page_number) = CookieUser::get_users_list(get_page(&req), 20);
@@ -1171,29 +1176,30 @@ pub async fn unical_object_form_page(session: Session, _id: web::Path<i16>) -> a
 pub async fn create_category_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
+
+    let title: String;
+    let description: String;
+    let link = "/create_category/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Creating a category".to_string();
+        description = "Web-services - Creating a category".to_string();
+    }
+    else {
+        title = "Создание категории".to_string();
+        description = "вебсервисы.рф - Создание категории".to_string();
+    }
+
     if is_ajax == 0 {
-        if l == 2 {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Creating a category".to_string(),
-                "Web-services: Creating a category".to_string(),
-                "/create_category/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
-        else {
-            get_first_load_page (
-                &session,
-                is_desctop,
-                "Создание категории".to_string(),
-                "вебсервисы.рф: Создание категории".to_string(),
-                "/create_category/".to_string(),
-                "/static/images/dark/store.jpg".to_string(),
-                t,
-            ).await
-        }
+        crate::utils::get_first_load_page (
+            &session,
+            is_desctop,
+            &title,
+            &description,
+            &link,
+            &image,
+            t, 
+        ).await
     }
     else if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
@@ -1253,16 +1259,29 @@ pub async fn create_category_page(session: Session, req: HttpRequest) -> actix_w
 pub async fn edit_category_page(session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
-    let _cat = Categories::get_with_id(*_id);  
+    let _cat = Categories::get_with_id(*_id);
+
+    let title: String;
+    let description: String;
+    let link = "/edit_category/".to_string() + &_cat.id.to_string() + &"/".to_string();
+    let image = _cat.get_image();
+    if l == 2 {
+        title = "Creating a category ".to_string() + &_cat.name_en;
+        description = "Web-services - Creating a category ".to_string() + &_cat.name_en;
+    }
+    else {
+        title = "Изменение категории ".to_string() + &_cat.name;
+        description = "вебсервисы.рф: Изменение категории ".to_string() + &_cat.name;
+    }
 
     if is_ajax == 0 {
-        get_first_load_page (
+        crate::utils::get_first_load_page (
             &session,
             is_desctop,
-            "Изменение категории ".to_string() + &_cat.name,
-            "вебсервисы.рф: Изменение категории ".to_string() + &_cat.name,
-            "/edit_category/".to_string() + &_cat.id.to_string() + &"/".to_string(),
-            _cat.get_image(),
+            &title,
+            &description,
+            &link,
+            &image,
             t, 
         ).await
     }
@@ -1328,14 +1347,28 @@ pub async fn edit_category_page(session: Session, req: HttpRequest, _id: web::Pa
 pub async fn create_item_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let (t, l) = get_all_storage();
+
+    let title: String;
+    let description: String;
+    let link = "/create_item/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Creating a object".to_string();
+        description = "Web-services - Creating a object".to_string();
+    }
+    else {
+        title = "Создание объекта".to_string();
+        description = "вебсервисы.рф - Создание объекта".to_string();
+    }
+
     if is_ajax == 0 {
-        get_first_load_page (
+        crate::utils::get_first_load_page (
             &session,
             is_desctop,
-            "Создание объекта".to_string(),
-            "вебсервисы.рф: Создание объекта".to_string(),
-            "/create_item/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
+            &title,
+            &description,
+            &link,
+            &image,
             t, 
         ).await
     }
@@ -1401,14 +1434,28 @@ pub async fn edit_item_page(session: Session, req: HttpRequest, _id: web::Path<i
     let _item = Item::get_with_id(*_id); 
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
+
+    let title: String;
+    let description: String;
+    let link = "/edit_item/".to_string() + &_item.id.to_string() + &"/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Update a object ".to_string() + &_item.title_en;
+        description = "Web-services - Update a object ".to_string() + &_item.title_en;
+    }
+    else {
+        title = "Изменение объекта ".to_string() + &_item.title;
+        description = "вебсервисы.рф - Изменение объекта ".to_string() + &_item.title;
+    }
+
     if is_ajax == 0 {
-        get_first_load_page (
+        crate::utils::get_first_load_page (
             &session,
             is_desctop,
-            "Изменение объекта ".to_string() + &_item.title,
-            "вебсервисы.рф: Изменение объекта ".to_string() + &_item.title,
-            "/edit_item/".to_string() + &_item.id.to_string() + &"/".to_string(),
-            _item.get_image(),
+            &title,
+            &description,
+            &link,
+            &image,
             t, 
         ).await
     }
@@ -1516,14 +1563,28 @@ pub async fn edit_content_item_page(session: Session, req: HttpRequest, _id: web
     let _item = Item::get_with_id(*_id);
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
+
+    let title: String;
+    let description: String;
+    let link = "/edit_content_item/".to_string() + &_item.id.to_string() + &"/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Update a object content ".to_string() + &_item.title_en;
+        description = "Web-services - Update a object content ".to_string() + &_item.title_en;
+    }
+    else {
+        title = "Изменение текста объекта ".to_string() + &_item.title;
+        description = "вебсервисы.рф - Изменение текста объекта ".to_string() + &_item.title;
+    }
+
     if is_ajax == 0 {
-        get_first_load_page (
+        crate::utils::get_first_load_page (
             &session,
             is_desctop,
-            "Изменение текста объекта ".to_string() + &_item.title,
-            "вебсервисы.рф: Изменение текста объекта ".to_string() + &_item.title,
-            "/edit_content_item/".to_string() + &_item.id.to_string() + &"/".to_string(),
-            _item.get_image(),
+            &title,
+            &description,
+            &link,
+            &image,
             t, 
         ).await
     }
@@ -1585,16 +1646,31 @@ pub async fn edit_file_page(session: Session, req: HttpRequest, _id: web::Path<i
 
     let (t, l) = get_all_storage();
     let _file = File::get(*_id);
+    let id_str = _file.id.to_string();
+
+    let title: String;
+    let description: String;
+    let link = "/edit_file/".to_string() + &id_str + &"/".to_string();
+    let image = "/static/images/dark/store.jpg".to_string();
+    if l == 2 {
+        title = "Update file #".to_string() + &id_str;
+        description = "Web-services: Update file #".to_string() + &id_str;
+    }
+    else {
+        title = "Изменение файла ".to_string() + &id_str;
+        description = "вебсервисы.рф: Изменение файла ".to_string() + &id_str;
+    }
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
+    
     if is_ajax == 0 {
-        get_first_load_page (
+        crate::utils::get_first_load_page (
             &session,
             is_desctop,
-            "Изменение файла".to_string(),
-            "вебсервисы.рф: Изменение файла".to_string(),
-            "/edit_file/".to_string() + &_file.id.to_string() + &"/".to_string(),
-            "/static/images/dark/store.jpg".to_string(),
+            &title,
+            &description,
+            &link,
+            &image,
             t, 
         ).await
     }
