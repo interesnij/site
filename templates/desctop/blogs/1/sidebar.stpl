@@ -17,7 +17,7 @@
         <ul class="clearlist widget-menu">
           <% for cat in cats.iter() { %>
             <li>
-              <a <% if cat.id == category.id { %>style="font-weight:bold"<% } %> class="ajax" href="/blogs/<%= cat.slug %>/"><%= cat.name %></a>
+              <a <% if category && cat.id == category.id { %>style="font-weight:bold"<% } %> class="ajax" href="/blogs/<%= cat.slug %>/"><%= cat.name %></a>
             </li>
           <% } %>
         </ul>
