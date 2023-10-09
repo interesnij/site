@@ -243,8 +243,8 @@ pub async fn work_category_page(session: Session, req: HttpRequest, _id: web::Pa
     let link = "/works/".to_string() + &_category.slug + &"/".to_string();
     let image = _category.get_image();
     if l == 2 {
-        title = String::new() + &_category.name_en + &" | Category of the works".to_string();
-        description = String::new() + &_category.name_en + &" | Category of the works: Web-services".to_string();
+        title = String::new() + &_category.name + &" | Category of the works".to_string();
+        description = String::new() + &_category.name + &" | Category of the works: Web-services".to_string();
     }
     else {
         title = String::new() + &_category.name + &" | Категория работ".to_string();

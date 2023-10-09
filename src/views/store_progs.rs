@@ -245,8 +245,8 @@ pub async fn store_category_page(session: Session, req: HttpRequest, _id: web::P
     let link = "/stores/".to_string() + &_category.slug + &"/".to_string();
     let image = _category.get_image();
     if l == 2 {
-        title = String::new() + &_category.name_en + &" | Category of the market".to_string();
-        description = String::new() + &_category.name_en + &" | Category of the market: Web-services".to_string();
+        title = String::new() + &_category.name + &" | Category of the market".to_string();
+        description = String::new() + &_category.name + &" | Category of the market: Web-services".to_string();
     }
     else {
         title = String::new() + &_category.name + &" | Категория товаров".to_string();
