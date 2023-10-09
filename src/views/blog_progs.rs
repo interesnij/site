@@ -261,14 +261,6 @@ pub async fn blog_category_page(session: Session, req: HttpRequest, _id: web::Pa
     let (t, l) = get_all_storage();
 
     let _category = Categories::get_detail(_id.clone(), 1, l);
-    let cat_image: String;
-    if _category.image.is_some() {
-        cat_image = _category.image.as_deref().unwrap().to_string();
-    }
-    else {
-        cat_image = "/static/images/dark/store.jpg".to_string();
-    }
-
     let title: String;
     let description: String;
     let link = "/blogs/".to_string() + &_category.slug + &"/".to_string();

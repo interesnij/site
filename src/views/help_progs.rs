@@ -35,14 +35,6 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
     let (t, l) = get_all_storage();
     let _category = Categories::get_detail(_id.clone(), 6, l);
 
-    let cat_image: String;
-    if _category.image.is_some() {
-        cat_image = _category.image.as_deref().unwrap().to_string();
-    }
-    else {
-        cat_image = "/static/images/dark/store.jpg".to_string();
-    }
-
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
 
     let title: String;
