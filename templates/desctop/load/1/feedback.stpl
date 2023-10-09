@@ -1,4 +1,4 @@
-<div data-title="Создание сообщения" class="doc_title" style="padding: 0;">
+<div data-title="Создание сообщения" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title" style="padding: 0;">
 
 <form class="form">
     <div class="mb-20 mb-md-10">

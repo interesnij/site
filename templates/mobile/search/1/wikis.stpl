@@ -1,5 +1,5 @@
 
-<section page-id="25" data-title="<%= q %> | Общий поиск статей по фрагменту" data-description="вебсервисы.рф: <%= q %> | Общий поиск статей по фрагменту" data-uri="/search_wikis/<%= q %>/" data-image="/static/images/dark/store.jpg" class="doc_title">
+<section page-id="25" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
             <a href="/search/<%= q %>/" class="ajax">Общий поиск</a>
