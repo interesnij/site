@@ -1,22 +1,25 @@
+<% let (__label, __subs, __placeholder, __desc) = match linguage {
+        2 => ("Articles", "more", "Enter your email", "The latest news from the high-tech universe, up-to-date training material, cool products and large-scale projects, upcoming discounts, invitations to cooperation, publications and events of our company."), 
+        1 | _ => ("Get updates from the IT world", "Subscribe", "Введите Вашу почту", "Свежие новости из вселенной высоких технологий, актуальный обучающий материал, крутые продукты и масштабные проекты, готовящиеся скидки, приглашения к сотрудничеству, публикации и события нашей компании."),
+    };
+%> 
 <section class="small-section">
     <div class="container relative">
         <form class="form align-center" id="mailchimp">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="newsletter-label font-alt">
-                        Получайте обновления из мира IT
+                        <%= __label %>
                     </div>
                     <div class="mb-20">
-                        <input placeholder="Введите Вашу почту" name="email" class="form-control input-md round mb-xs-10" type="email" pattern=".{5,100}" />
+                        <input placeholder="<%= __placeholder %>" name="email" class="form-control input-md round mb-xs-10" type="email" pattern=".{5,100}" />
                         <button type="button" class="btn btn-mod btn-border btn-round btn-small newsletter_subcribe">
-                            Подписаться
+                            <%= __subs %>
                         </button>
                     </div>
                     <div id="subscribe-result"></div>
                     <div class="form-tip">
-                      Свежие новости из вселенной высоких технологий, актуальный обучающий материал,
-                      крутые продукты и масштабные проекты, готовящиеся скидки, приглашения к сотрудничеству,
-                      публикации и события компании "Вебсервисы".
+                      <%= __desc %>
                     </div>
                 </div>
             </div>

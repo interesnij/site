@@ -1,8 +1,14 @@
-
+<% let (__a, __b) = match linguage {
+        2 => ("Home", "Messages"), 
+        1 | _ => ("Главная", "Сообщения"),
+    };
+%> 
 <section data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
-            <a>Сообщения</a>
+            <a class="ajax" href="/"><%= __a %></a>
+            &nbsp;/&nbsp;
+            <a><%= __b %></a>
         </div>
     </div>
 </section>

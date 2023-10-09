@@ -1,7 +1,7 @@
 <% if last_blogs.len() > 0 { %>
 
 <% let (__a, __b) = match linguage {
-        2 => ("Home", "List of options"), 
+        2 => ("Home", "more"), 
         1 | _ => ("Статьи", "ещё"),
     };
 %>

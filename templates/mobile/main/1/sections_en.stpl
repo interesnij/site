@@ -1,0 +1,209 @@
+<section class="page-section">
+    <div class="container relative">
+        <h5 class="section-title font-alt">
+            Site Sections
+        </h5>
+        <ul class="nav nav-tabs tpl-alt-tabs font-alt pt-30 pt-sm-0 pb-30 pb-sm-0">
+            <li class="yy s_1 active">
+                <a><div class="alt-tabs-icon"><span class="icon-lightbulb"></span></div>Services</a>
+            </li>
+            <li class="yy s_2 pointer">
+                <a><div class="alt-tabs-icon"><span class="icon-briefcase"></span></div>Works</a>
+            </li>
+            <li class="yy s_3 pointer">
+                <a><div class="alt-tabs-icon"><span class="icon-newspaper"></span></div>Blog</a>
+            </li>
+            <li class="yy s_4 pointer">
+                <a><div class="alt-tabs-icon"><span class="icon-book-open"></span></div>Wiki</a>
+            </li>
+            <li class="yy s_5 pointer">
+                <a><div class="alt-tabs-icon"><span class="icon-documents"></span></div>Pages</a>
+            </li>
+            <li class="yy s_6 pointer">
+                <a><div class="alt-tabs-icon"><span class="icon-profile-male"></span></div>Profile</a>
+            </li>
+        </ul>
+
+        <div class="tab-content tpl-tabs-cont">
+            <div class="tab_1 fade tab-pane in active">
+                <div class="section-text">
+                    <div class="row">
+                        <div class="mb-sm-50">
+                          <blockquote style="margin-bottom: 10px">
+                            <a href="/service_categories/" class="ajax" style="text-decoration: underline;"><p>Our services</p></a>
+                          </blockquote>
+                          <p>
+                          <strong>The section</strong> is devoted to the description <strong>of our services</strong> for the development of web resources, the principles of cooperation,
+                          terms of support for your projects.<br><br>
+                          Here are the <strong>key points</strong>:
+                        <ul class="my_ul">
+                            <li>
+                                We develop web resources of any capacity
+                                in programming languages: python, rust, javascript, c++, java, etc. We know how to argue
+                                technical solutions for specific tasks for a person with any level of understanding of the topic. Discussing
+                                only decent ideas, we give hefty discounts for projects of social significance. We are working ahead of the curve
+                                expectations of the customer, as we know the best programming practices and strive to produce products
+                                only the highest class.
+                              </li>
+                              <li>
+                                We are able to make one-page books, quizzes, portfolios, shops, corporate /
+                                city / news / specialized portals,
+                                CRM systems, messengers, mail services, neural networks, mobile and desktop applications,
+                                full-scale social networks. In short, we can do anything.
+                              </li>
+                              <li>
+                                We can host your projects on our platforms.
+                                We are ready to take care of all technical issues related to the organization of a reliable and developing project. We commit to
+                                constantly increase its technical power and expert potential. We can solve any question in this topic.
+                              </li>
+                              <li>
+                                The projects ordered from us receive full technical documentation.
+                                 Even if you have /will have programmers with low experience or
+                                 competence - they will be able to understand the application code quite clearly.
+                              </li>
+                              <li>
+                                <strong style="color: #FF0000">New</strong>. We have added
+                                convenient calculator for ordering additional services and options, with a choice of development technology,
+                                 with a description of all of them in a drop-down window. So you can calculate it yourself
+                                 functionality, see pricing and discounts, understand the required number of man-hours
+                                 to complete the order.
+                              </li>
+                          </ul>
+                          </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab_2 fade tab-pane in">
+                <div class="section-text">
+                    <div class="row">
+                      <div class="mb-sm-50">
+                        <blockquote style="margin-bottom: 10px">
+                          <a href="/work_categories/" class="ajax" style="text-decoration: underline;"><p>Portfolio</p></a>
+                        </blockquote>
+                        <p>
+                          In this section we will post our own / ordered / joint sites.<br><br>
+                          Here are the <strong>important nuances</strong>:
+                            <ul class="my_ul">
+                                <li>We will be able to show only those projects that do not have a private type.</li>
+                                <li>We introduce the resources under development (if the customer does not mind).</li>
+                                <li>All the resources shown can be ordered by adding/removing options that you need/don't need, in a convenient and
+                                    a full-fledged calculator.</li>
+                            </ul>
+                        </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab_3 fade tab-pane in">
+                <div class="section-text">
+                    <div class="row">
+                      <div class="mb-sm-50">
+                        <blockquote style="margin-bottom: 10px">
+                          <a href="/blog_categories/" class="ajax" style="text-decoration: underline;"><p>Blog</p></a>
+                        </blockquote>
+                        <p>
+                            Any company that respects itself and its prestige should give information about different aspects of its existence.<br><br>
+                            <strong>What</strong> will be included in the blog</strong>:
+                            <ul class="my_ul">
+                                <li>Development of own projects.</li>
+                                <li>Important and interesting moments of the company's life.</li>
+                                <li>Observations in the field of professional activity.</li>
+                                <li>Useful ideas for everyone interested in the topic of large projects.</li>
+                            </ul>
+                        </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab_4 fade tab-pane in">
+                <div class="section-text">
+                    <div class="row">
+                      <div class="mb-sm-50">
+                        <blockquote style="margin-bottom: 10px">
+                          <a href="/wiki_categories/" class="ajax" style="text-decoration: underline;"><p>Wiki articles</p></a>
+                        </blockquote>
+                        <p>
+                            Not everyone can afford to order a social network from professionals. You can't deprive people of chances
+                            to fulfill such a dream. Therefore, we will post articles with free material.<br><br>
+                            <strong> What will the articles be about</strong>:
+                            <ul class="my_ul">
+                                <li>Website development from simple to complex</li>
+                                <li>Creating applications for smartphones.</li>
+                                <li>Neural network training experiments from python to c++</li>
+                                <li>Related technologies. Caching, websockets, security, scaling,
+                                databases, the variability of the use of tools, the practice of clean code and many, many things.</li>
+                            </ul>
+                        </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab_5 fade tab-pane in">
+                <div class="section-text">
+                    <div class="row">
+                      <div class="mb-sm-50">
+                        <blockquote style="margin-bottom: 10px">
+                          <p style="text-decoration: underline;">Страницы</p>
+                        </blockquote>
+                        <p>
+                          <strong>The site has many separate pages</strong>:
+                            <ul class="my_ul">
+                                <li>
+                                    <a href="/info/" class="ajax" style="text-decoration: underline;">About us</a>.
+                                    Who we are, what we want, how we develop, what we are going to. Form of communication,
+                                    information about this site. Providing assistance on various issues.
+                                </li>
+                                <li>
+                                    <a href="/tags/" class="ajax" style="text-decoration: underline;">Tags</a>.
+                                    By keywords, you will be able to see all the material from all sections of the site.
+                                </li>
+                                <li>
+                                    <a href="/search/" class="ajax" style="text-decoration: underline;">Search</a>.
+                                    A quick elevator to the right content.
+                                </li>
+                                <li>
+                                    <a>Design</a>.
+                                    We like to give users the tools to customize the pages for their convenience.
+                                    So far, the modes "Day", "Night", "Yellow original", "Vintage", "Ebony" have been implemented.
+                                </li>
+                          </ul>
+                        </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab_6 fade tab-pane in">
+                <div class="section-text">
+                    <div class="row">
+                      <div class="mb-sm-50">
+                        <blockquote style="margin-bottom: 10px">
+                          <a href="/history/" class="ajax" style="text-decoration: underline;"><p>Profile</p></a>
+                        </blockquote>
+                        <p>
+                            This is <strong>your section</strong>. When you go to this site,
+                            we automatically create it based on adding files to your browser
+                            cookie. This is needed to add new features for you as well
+                            to organize our own statistics of user visits.
+                            <strong>The section contains</strong>:
+                            <ul class="my_ul">
+                                <li>The page of information about you - Country, region, city. Your ip address, equipment.
+                                The number of seconds of interaction with the site, meters that you scrolled on the site pages.</li>
+                                <li>Your browsing history. You will be able to quickly return to any page you have visited. 
+                                Each history entry shows the number of page meters wound and seconds spent.</li>
+                                <li>A list of orders, if you have made them.</li>
+                            </ul>
+                        </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr class="mt-0 mb-0 " />

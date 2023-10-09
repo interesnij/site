@@ -1,14 +1,18 @@
 <% if last_works.len() > 0 { %>
-
+<% let (__a, __b) = match linguage {
+        2 => ("Works", "more"), 
+        1 | _ => ("Работы", "ещё"),
+    };
+%>
 <section class="page-section">
     <div class="container relative">
-        <h5 class="section-title align-left font-alt">
-            Работы
+        <h5 class="section-title font-alt align-left">
+            <%= __a %>
             <a href="/work_categories/" class="section-more right ajax">
-              ещё
+              <%= __b %> (<%=works_count%>)
             </a>
         </h5>
-        <ul class="works-grid work-grid-3 work-grid-gut clearfix">
+        <ul class="works-grid work-grid-3 work-grid-gut clearfix font-alt">
           <% for object in last_works.iter() { %>
             <% include!("../../generic/items/1/default_work.stpl"); %>
           <% } %>

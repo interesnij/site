@@ -1,11 +1,15 @@
 <% if last_wikis.len() > 0 { %>
-
+<% let (__a, __b) = match linguage {
+        2 => ("Wiki", "more"), 
+        1 | _ => ("Обучалки", "ещё"),
+    };
+%> 
 <section class="page-section">
     <div class="container relative">
         <h5 class="section-title font-alt align-left">
-            Обучалки
+            <%= __a %> 
             <a href="/wiki_categories/" class="section-more right ajax">
-              ещё
+              <%= __b %> (<%=wikis_count%>)
             </a>
         </h5>
         <ul class="works-grid work-grid-3 work-grid-gut clearfix font-alt">

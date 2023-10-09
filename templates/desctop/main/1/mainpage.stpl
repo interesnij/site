@@ -1,13 +1,13 @@
 
 <% include!("banner.stpl"); %>
 
-<% include!("about.stpl"); %>
-
 <% include!("templates.stpl"); %>
 
-<% include!("sections.stpl"); %>
-
-<% include!("service.stpl"); %>
+<% if linguage == 2 { %>
+    <% include!("sections_en.stpl"); %>
+<% } else if linguage == 1 %>
+    <% include!("sections_ru.stpl"); %>
+<% } %>
 
 <% include!("work.stpl"); %>
 

@@ -1,5 +1,10 @@
+<% let __a = match linguage {
+        2 => "Go to Search", 
+        1 | _ => "Перейти в поиск",
+    };
+%> 
 <div class="widget">
   <h5 href="/search/" class="widget-title ajax font-alt">
-    Перейти в поиск
+    <%= __a %>
   </h5>
 </div>

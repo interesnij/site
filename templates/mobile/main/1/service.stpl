@@ -1,18 +1,22 @@
 <% if last_services.len() > 0 { %>
-
+<% let (__a, __b) = match linguage {
+        2 => ("Services", "more"), 
+        1 | _ => ("Услуги", "ещё"),
+    };
+%>
 <section class="page-section">
     <div class="container relative">
         <h5 class="section-title font-alt align-left">
-            Услуги
-            <a href="/service_categories/" class="right section-more ajax">
-              ещё
+            <%= __a %> 
+            <a href="/service_categories/" class="section-more right ajax">
+              <%= __b %> (<%=services_count%>)
             </a>
         </h5>
-        <div class="row multi-columns-row">
-          <% for object in last_services.iter() { %>
+        <ul class="works-grid work-grid-3 work-grid-gut clearfix">
+          <% for (i, object) in last_services.iter().enumerate() { %>
             <% include!("../../generic/items/1/default_service.stpl"); %>
           <% } %>
-        </div>
+        </ul>
     </div>
 </section>
 <hr class="mt-0 mb-0 " />
