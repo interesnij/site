@@ -1,0 +1,18 @@
+<% let (__a, __b) = match linguage {
+        2 => ("Do you want to discuss the project?", "Write to us"), 
+        1 | _ => ("Хотите обсудить проект?", "Напишите нам"),
+    };
+%>
+<section class="border small-section bg-dark">
+    <div class="container relative">
+        <div class="align-center">
+            <h3 class="banner-heading font-alt"><%= __a %></h3>
+            <div>
+                <a class="btn btn-mod create_feedback_form btn-border btn-medium btn-round"><%= __b %></a>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="sidebar hidden">
+    <% include!("sidebar.stpl"); %>
+</div>
