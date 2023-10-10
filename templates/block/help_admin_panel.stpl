@@ -10,21 +10,21 @@
   |
   <form item-type="6" data-type="1" data-pk="<%= object.id %>" style="display: contents;">
     <input accept="image/*" class="add_file_in_object hidden" type="file" multiple name="files[]" />
-    <a class="previous_click pointer">+ф</a>
+    <a class="previous_click pointer">+img</a>
   </form>
   |
   <form item-type="6" data-type="2" data-pk="<%= object.id %>" style="display: contents;">
     <input accept="video/*" class="add_file_in_object hidden" type="file" multiple name="files[]" />
-    <a class="previous_click pointer">+в</a>
+    <a class="previous_click pointer">+video</a>
   </form>
   |
   <form item-type="6" data-type="3" data-pk="<%= object.id %>" style="display: contents;">
     <input accept="audio/*" class="add_file_in_object hidden" type="file" multiple name="files[]" />
-    <a class="previous_click pointer">+а</a>
+    <a class="previous_click pointer">+audio</a>
   </form>
   |
   <form item-type="6" data-type="4" data-pk="<%= object.id %>" style="display: contents;">
     <input accept="doc/*" class="add_file_in_object hidden" type="file" multiple name="files[]" />
-    <a class="previous_click pointer">+д</a>
+    <a class="previous_click pointer">+doc</a>
   </form>
 <% } %>

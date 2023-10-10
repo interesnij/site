@@ -1,0 +1,87 @@
+<section class="page-section">
+    <div class="container relative">
+        <h5 class="section-title font-alt mb-70 mb-sm-40">
+            Why us?
+        </h5>
+
+<div class="row multi-columns-row alt-features-grid">
+    <div class="col-md-4">
+        <div class="alt-features-item align-center">
+            <div class="alt-features-icon">
+                <span class="icon-flag"></span>
+            </div>
+            <h3 class="alt-features-title font-alt">We are efficient</h3>
+            <div class="alt-features-descr align-left">
+                In the process of developing our experience, we did not "fail" any project. None
+                the customer was not upset with the result of our work.
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="alt-features-item align-center">
+            <div class="alt-features-icon">
+                <span class="icon-clock"></span>
+            </div>
+            <h3 class="alt-features-title font-alt">We are punctual</h3>
+            <div class="alt-features-descr align-left">
+                We turn web services into independent, embedded elements for any platform. This standard saves time.
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="alt-features-item align-center">
+            <div class="alt-features-icon">
+                <span class="icon-hotairballoon"></span>
+            </div>
+            <h3 class="alt-features-title font-alt">We are recognizable</h3>
+            <div class="alt-features-descr align-left">
+                In just a few years of persistent development, we have gained some fame in Russia and the USA,
+                having worked with famous people and organizations in their fields.
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="alt-features-item align-center">
+            <div class="alt-features-icon">
+                <span class="icon-heart"></span>
+            </div>
+            <h3 class="alt-features-title font-alt">We love what we do</h3>
+            <div class="alt-features-descr align-left">
+                We write in pure programming languages, we create only our own technical solutions.
+                And we can do everything.
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="alt-features-item align-center">
+            <div class="alt-features-icon">
+                <span class="icon-linegraph"></span>
+            </div>
+            <h3 class="alt-features-title font-alt">We make a profit</h3>
+            <div class="alt-features-descr align-left">
+                Our websites and applications work faster and safer than software products
+                competitors. You get an advantage.
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="alt-features-item align-center">
+            <div class="alt-features-icon">
+                <span class="icon-chat"></span>
+            </div>
+            <h3 class="alt-features-title font-alt">We want to be friends</h3>
+            <div class="alt-features-descr align-left">
+                We are ready to cooperate with you! Just write to us and tell us about your ideas.
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+</div>
+</section>

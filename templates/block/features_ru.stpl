@@ -1,3 +1,9 @@
+<section class="page-section">
+    <div class="container relative">
+        <h5 class="section-title font-alt mb-70 mb-sm-40">
+            Почему мы?
+        </h5>
+
 <div class="row multi-columns-row alt-features-grid">
     <div class="col-md-4">
         <div class="alt-features-item align-center">
@@ -19,8 +25,8 @@
             </div>
             <h3 class="alt-features-title font-alt">Мы пунктуальные</h3>
             <div class="alt-features-descr align-left">
-                Наши успехи в объектно-ориентированном программировании позволили накопить
-                огромное количество программных пакетов и решений.
+                Мы превращаем веб-сервисы в самостоятельные, встраиваемые элементы для любых платформ. 
+                Такой стандарт экономит время.
             </div>
         </div>
     </div>
@@ -32,7 +38,7 @@
             </div>
             <h3 class="alt-features-title font-alt">Мы узнаваемые</h3>
             <div class="alt-features-descr align-left">
-                Всего за несколько лет упорного развития мы получили некоторую известность в России,
+                Всего за несколько лет упорного развития мы получили некоторую известность в России и США,
                 поработав со знаменитыми в своих сферах людьми и организациями.
             </div>
         </div>
@@ -77,3 +83,6 @@
     </div>
     
 </div>
+
+</div>
+</section>

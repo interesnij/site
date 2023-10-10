@@ -5,69 +5,89 @@
 </svg>
 <br><br><br>
 
+<% let (
+    _logo, _home, _services, _works, _blogs, _stores, _info, _search, 
+    _wikis, _l_change, _tags, _orders, _helps, _stats, _design,
+    _pages, _history, _ru_en, _folders, _desc) = match linguage {
+        2 => (  
+            "Web-services", "Home", "Services", 
+            "Works", "Blog", "Stores", "Info", "Search", 
+            "Wiki", "Ru", "Tags", "Orders", "Helps", "Statistics", 
+            "Background", "Pages", "You watched", 1, 
+            "Folders", "Creating high-load services"
+        ), 
+        1 | _ => (
+            "Вебсервисы", "Главная", "Услуги", 
+            "Работы", "Блог", "Товары", "Инфо", "Поиск", 
+            "База", "En", "Теги", "Заказы","Помощь", "Статистика", 
+            "Фон", "Страницы", "Вы смотрели", 2, 
+            "Разделы", "Создание высоконагруженных сервисов"
+        ),
+    };
+%>
 <span class="menu_buttons">
 <span class="first_span" style="display:none">
   <button href="/service_categories/" class="mobile_icon service border ajax">
     <span class="icon-lightbulb"></span>
-    <p>Услуги</p>
+    <p><%= _services %></p>
   </button>
   <button href="/work_categories/" class="mobile_icon work border ajax">
     <span class="icon-briefcase"></span>
-    <p>Работы</p>
+    <p><%= _works %></p>
   </button>
   <button href="/store_categories/" class="mobile_icon store border ajax">
     <span class="icon-basket"></span>
-    <p>Товары</p>
+    <p><%= _stores %></p>
   </button>
   <button href="/blog_categories/" class="mobile_icon blog border ajax">
     <span class="icon-newspaper"></span>
-    <p>Блог</p>
+    <p><%= _blogs %></p>
   </button>
   <button href="/wiki_categories/" class="mobile_icon wiki border ajax">
     <span class="icon-book-open"></span>
-    <p>Обучалка</p>
+    <p><%= _wikis %></p>
   </button>
 </span>
 
 <span class="second_span" style="display:none">
   <button href="/info/" class="mobile_icon infos border ajax">
     <span class="icon-heart"></span>
-    <p>О нас</p>
+    <p><%= _info %></p>
   </button>
   <button href="/history/" class="mobile_icon border ajax history">
     <span class="icon-profile-male"></span>
-    <p>О вас</p>
+    <p><%= _history %></p>
   </button>
   <button href="/tags/" class="mobile_icon tags border ajax">
     <span class="icon-ribbon"></span>
-    <p>Теги</p>
+    <p><%= _tags %></p>
   </button>
   <button href="/helps/how_to_order_a_project/" class="mobile_icon help border ajax">
     <span class="icon-lifesaver"></span>
-    <p>Помощь</p>
+    <p><%= _helps %></p>
   </button>
   <button class="mobile_icon border anon_color_change" data-color="dark">
     <span class="icon-pencil"></span>
-    <p>Фон</p>
+    <p><%= _design %></p>
   </button>
 </span>
 
   <nav class="mobile_nav">
     <button href="/" class="mobile_icon ajax border main main_btn">
       <span class="icon-flag"></span>
-      <p>Главная</p>
+      <p><%= _home %></p>
     </button>
     <button class="mobile_icon border apps_btn">
       <span class="icon-layers"></span>
-      <p>Разделы</p>
+      <p><%= _folders %></p>
     </button>
     <button href="" class="mobile_icon border pages_btn">
       <span class="icon-documents"></span>
-      <p>Страницы</p>
+      <p><%= _pages %></p>
     </button>
     <button href="/search/" class="mobile_icon border search ajax search_btn">
       <span class="icon-search"></span>
-      <p>Поиск</p>
+      <p><%= _search %></p>
     </button>
   </nav>
 </span>
@@ -85,11 +105,11 @@
 <div class="container">
 <span class="banner_block border" style="width:100%;text-align:center;">
 <h3 class="hs-line-8 font-alt mb-xs-10">
-    Разработка соцсетей
+    <%= _desc %>
 </h3>
 <h2 class="hs-line-14" style="margin-bottom: 0;">
   <a href="/" class="ajax">
-    вебсервисы!
+    <%= _logo %>
   </a>
 </h2>
 </span>

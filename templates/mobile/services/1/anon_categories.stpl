@@ -1,20 +1,29 @@
 
+<% let (__home, __sect) = match linguage {
+        2 => ("Home", "Services"), 
+        1 | _ => ("Главная", "Услуги"),
+    };
+%>
+
 <section page-id="61" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
-            <a>Услуги</a>
+            <a class="ajax" href="/"><%= __home %></a>
+            &nbsp;/&nbsp;
+            <a><%= __sect %></a>
             <% include!("../../generic/items/1/page_stat.stpl"); %>
         </div>
     </div>
 </section>
 
+<% if linguage == 1 { %>
 <section class="page-section" style="padding-top: 45px;">
     <div class="container relative">
         <div class="section-text">
             <div class="row">
                 <div class="mb-sm-50">
                     <p>
-                        <strong>Компания "Вебсервисы"</strong> предоставляет услуги по разработке, доработке, поддержке больших,
+                        <strong>Компания "Веб-сервисы"</strong> предоставляет услуги по разработке, доработке, поддержке больших,
                         высоконагруженных проектов.<br>
                         Мы считаем, что <strong>данная ниша бизнеса</strong>, как минимум, <strong>не освоена до конца</strong>. Сложности
                         в данной проблематике создаёт и большое количество фирм, предлагающих подобные услуги,
@@ -51,11 +60,56 @@
         </div>
     </div>
 </section>
+<% } else if linguage == 2 { %>
+    <section class="page-section" style="padding-top: 45px;">
+    <div class="container relative">
+        <div class="section-text">
+            <div class="row">
+                <div class="mb-sm-50">
+                    <p>
+                        <strong>The company "Web-services"</strong> provides services for the development, refinement, support of large,
+                        highly loaded projects.<br>
+                        We believe that <strong>this niche of business</strong>, at least <strong> is not fully mastered</strong>. Difficulties
+                        a large number of companies offering similar services are also involved in this issue,
+                        and <strong>that's why</strong>:
+
+                    <ul class="my_ul">
+                        <li>Many firms stamp out low-quality, limited resources that do not reach the baseboard of Vkontakte-type networks
+                            or Facebook. Often, even CMS - ready engines for ordinary tasks are used, suitable for small projects.
+                        </li>
+                        <li>It takes a lot of money for uninteresting software options. Often there is no information about what amounts we are talking about.
+                            It is clear that the question is complicated and how much finance exactly is needed — no one will say right away. But the framework?
+                        </li>
+                        <li>There is no additional information — what the code is written on, where they are going to be stored, how they implement important
+                            network requirements. But firms do not sell pies, but websites for millions. The problem of trust is especially here
+                            needed and important.
+                        </li>
+                        <li>Often the customer wants, for example, a social network, because he has investments and he knows that with the help of an idea (not necessarily)
+                            and money, you can do it and then get good dividends. And such people often want to find an exemplary
+                            understanding the product they want to buy. And he sees, for example, "improved geolocation" (this is such an option to the network).
+                            What is it, what advantages does it give? Why not add a "what is it" button directly on the site?
+                        </li>
+                        <li>
+                            Portfolios, if present on the websites of companies, often cause tears. Even in the works of the only wonderful
+                            the company we found on the Internet has unacceptable nuances. For example, the absence of block loading, which solves
+                            many important tasks at once. That is, the company's specialists do not understand well that they will be met "according to their clothes" (according to the quality of their own website)
+                        </li>
+                    </ul>
+                    <br>
+                    <strong>We</strong> tried to take into account many nuances in the organization of production of the most complex websites in the world and
+                    <strong>we are able to show a complete and transparent picture of the entire cycle of creating highly loaded projects</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<% } %>
 
 <section class="page-section">
     <div class="container relative">
         <h5 class="section-title font-alt mb-40">
-            Наши услуги
+            <%= title %>
         </h5>
         <ul class="nav nav-tabs tpl-alt-tabs font-alt pt-30 pt-sm-0 pb-30 pb-sm-0">
           <% for category in cats.iter() { %>
@@ -72,27 +126,10 @@
     </div>
 </section>
 
-<section class="page-section">
-    <div class="container relative">
-        <h5 class="section-title font-alt mb-70 mb-sm-40">
-            Почему мы?
-        </h5>
 
-        <% include!("../../../block/features.stpl"); %>
-    </div>
-</section>
-
-<section class="border small-section bg-dark">
-    <div class="container relative">
-        <div class="align-center">
-            <h3 class="banner-heading font-alt">Хотите обсудить проект?</h3>
-            <div>
-                <a class="btn btn-mod btn-border create_feedback_form btn-medium btn-round ajax">Напишите нам</a>
-            </div>
-        </div>
-    </div>
-</section>
-<div class="sidebar hidden">
-    <% include!("sidebar2.stpl"); %>
-</div>
+<% if linguage == 1 { %>
+    <% include!("../../../block/features_ru.stpl"); %>
+<% } else if linguage == 2 { %>
+    <% include!("../../../block/features_en.stpl"); %>
+<% } %>
 

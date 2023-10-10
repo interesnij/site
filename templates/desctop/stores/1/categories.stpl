@@ -1,12 +1,16 @@
-
+<% let (__home, __sect, __empty) = match linguage {
+        2 => ("Home", "Market", "The list is still empty."), 
+        1 | _ => ("Главная", "Товары", "Список пока пустой."),
+    };
+%>
 <section page-id="71" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
             <a class="ajax" href="/">
-                Главная
+                <%= __home %>
             </a>
             &nbsp;/&nbsp;
-            <a>Категории товаров</a>
+            <a><%= __sect %></a>
             <% include!("../../generic/items/1/page_stat.stpl"); %>
         </div>
     </div>
@@ -38,7 +42,7 @@
                   <% } else { %>
                   <div style="margin-top: 40px;">
                       <div class="align-center">
-                          <span class="border" style="padding: 10px 15px;">Список пока пустой.</span>
+                          <span class="border" style="padding: 10px 15px;"><%= __empty %></span>
                       </div>
                   </div>
                   <% } %>

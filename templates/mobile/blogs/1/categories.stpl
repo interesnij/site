@@ -1,8 +1,8 @@
-<% let __home = match linguage {
-        2 => "Home", 
-        1 | _ => "Главная",
+<% let (__home, __sect) = match linguage {
+        2 => ("Home", "Blog"), 
+        1 | _ => ("Главная", "Блог"),
     };
-%> 
+%>
 
 <section page-id="41" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
@@ -11,7 +11,7 @@
                 <%= __home %>
             </a>
             &nbsp;/&nbsp;
-            <a><%= title %></a>
+            <a><%= __sect %></a>
             <% include!("../../generic/items/1/page_stat.stpl"); %>
         </div>
     </div>
@@ -19,7 +19,7 @@
 
 <section class="page-section">
     <div class="container align-center">
-        <h1 class="font-alt"><%= title %></h1>
+        <h1 class="font-alt"><%= __sect %></h1>
     </div>
     <div class="container relative">
         <% for category in cats.iter() { %>
