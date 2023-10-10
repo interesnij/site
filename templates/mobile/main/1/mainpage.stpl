@@ -19,6 +19,6 @@
 
 <% include!("blog.stpl"); %>
 
-<% include!("wiki.stpl"); %>
+<% include!("wiki.stpl"); %> 
 
-<% include!("../../../block/action.stpl"); %>
+
