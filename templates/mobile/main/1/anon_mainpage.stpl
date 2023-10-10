@@ -3,11 +3,11 @@
 
 <% include!("templates.stpl"); %>
 
-<% if linguage == 2 { %>
-    <% include!("sections_en.stpl"); %>
-<% } else if linguage == 1 { %>
-    <% include!("sections_ru.stpl"); %>
-<% } %>
+<% if linguage == 2 {
+    include!("sections_en.stpl");
+} else if linguage == 1 {
+    <% include!("sections_ru.stpl");
+} %>
 
 <% include!("service.stpl"); %>
 
