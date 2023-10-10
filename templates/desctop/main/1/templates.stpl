@@ -1,7 +1,7 @@
 <% let (__change_t, __about, __desc_1, __desc_2, __select) = match linguage {
         2 => (
             "Select a template", 
-            "This is not an easy site. Using it, you can adjust "for yourself" not only
+            "This is not an easy site. Using it, you can adjust 'for yourself' not only
             the background color, and even the entire appearance. Do you need to familiarize yourself with
             the site information without being distracted by effects and animations? You want 
             evaluate our capabilities by the quality of user interfaces? The site can do this.", 
@@ -16,7 +16,7 @@
         ), 
         1 | _ => (
             "Выберите шаблон", 
-            "Это непростой сайт. Используя его, Вы можете подстраивать "под себя" не только
+            "Это непростой сайт. Используя его, Вы можете подстраивать 'под себя' не только
             цвет фона, а даже полностью весь внешний вид. Вам нужно ознакомиться с 
             информацией сайта, не отвлекаясь на эффекты и анимацию? Вы хотите 
             оценить наши возможности по качеству пользовательских интерфейсов? Сайт в такое может.", 
