@@ -1,4 +1,4 @@
-<% let __store = match linguage {
+<% let __wikis = match linguage {
         2 => "Wiki", 
         1 | _ => "База знаний",
     };
