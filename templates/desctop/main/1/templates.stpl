@@ -78,7 +78,7 @@
                             </p>
                             <br />
                             <div>
-                                <a href="/change_t/2" class="btn btn-mod btn-border btn-medium btn-round"><%= __select %></a>
+                                <a data-t="2" class="change_t btn btn-mod btn-border btn-medium btn-round pointer"><%= __select %></a>
                             </div>
                         </div>
                     </div>

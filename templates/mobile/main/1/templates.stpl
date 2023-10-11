@@ -44,10 +44,10 @@
         </div>
 
         <div class="row multi-columns-row">
-            <div class="col-md-4">
+            <div class="col-xs-6">
                 <div class="team-item">
                     <div class="team-item-image">
-                        <img src="/static/images/rhythm.jpg" alt="">
+                        <img src="/static/images/rhythm.jpg" alt="img">
                         <div class="team-item-detail">
                             <h4 class="font-alt normal">
                                 Rhythm
@@ -63,10 +63,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-xs-6">
                 <div class="team-item">
                     <div class="team-item-image">
-                        <img src="/static/images/eremia.jpg" alt="">
+                        <img src="/static/images/eremia.jpg" alt="img">
                         <div class="team-item-detail">
                             <h4 class="font-alt normal">
                                 <a href="/?template=2">

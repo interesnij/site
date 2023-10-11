@@ -120,13 +120,13 @@
   <% if linguage == 2 { %> 
       <p>Device:   <span class="device_en"></span></p>
       <p>Location: <span class="city_en"></span></p>
-      <p>Linguage: <span>En</span> &nbsp;&nbsp;&nbsp; <a href="/change_l/1">Ru</a></p>
-      <p>Template: <span>Rhythm</span> &nbsp;&nbsp;&nbsp; <a href="/change_t/2">Eremia</a></p>
+      <p>Linguage: <span>En</span> &nbsp;&nbsp; <a data-l="1" class="change_l pointer">Ru</a></p>
+      <p>Template: <span>Rhythm</span> &nbsp;&nbsp; <a data-t="2" class="change_t pointer">Eremia</a></p>
   <% } else if linguage == 1 { %> 
       <p>Девайс:  <span class="device_en"></span></p> 
       <p>Локация: <span class="city_en"></span></p> 
-      <p>Язык:    <span>En</span> &nbsp;&nbsp;&nbsp; <a href="/change_l/1">Ru</a></p>
-      <p>Шаблон:  <span>Rhythm</span> &nbsp;&nbsp;&nbsp; <a href="/change_t/2">Eremia</a></p>
+      <p>Язык:    <span>Ru</span> &nbsp;&nbsp; <a data-l="2" class="change_l pointer">En</a></p>
+      <p>Шаблон:  <span>Rhythm</span> &nbsp;&nbsp; <a data-t="2" class="change_t pointer">Eremia</a></p>
   <% } %>
 </div>
 </div>

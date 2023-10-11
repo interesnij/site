@@ -36,7 +36,7 @@
                                   <a style="cursor:default;" class="mn-group-title">Rhythm ✓</a>
                               </li>
                               <li>
-                                  <a href="/change_t/2" class="mn-group-title">Eremia</a>
+                                  <a data-t="2" class="mn-group-title change_t">Eremia</a>
                               </li>
                           </ul>
                       </li> 
