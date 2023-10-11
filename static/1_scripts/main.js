@@ -1344,7 +1344,7 @@ function disconnect() {
 //connect()
 
 on('body', 'click', '.change_t', function() {
-  form_data = new FormData(form);
+  form_data = new FormData();
   form_data.append("id", this.getAttribute("data-t"));
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'POST', "/change_t/", true );
@@ -1356,7 +1356,7 @@ on('body', 'click', '.change_t', function() {
   link.send(form_data);
 }); 
 on('body', 'click', '.change_l', function() {
-  form_data = new FormData(form);
+  form_data = new FormData();
   form_data.append("id", this.getAttribute("data-l"));
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'POST', "/change_l/", true );

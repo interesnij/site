@@ -212,7 +212,7 @@ function send_post_data(form, url) {
   link.send(form_data);
 };
 function delete_item(url, id) {
-  form_data = new FormData(form);
+  form_data = new FormData();
   form_data.append("id", id);
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'POST', url, true );
