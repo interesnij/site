@@ -1341,29 +1341,4 @@ function disconnect() {
 }
 
 //пока сокеты оставим неактивными
-//connect()
-
-on('body', 'click', '.change_t', function() {
-  form_data = new FormData();
-  form_data.append("id", this.getAttribute("data-t"));
-  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'POST', "/change_t/", true );
-  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link.onreadystatechange = function () {
-  if ( link.readyState == 4 && link.status == 200 ) {
-    ajax_get_reload(document.location.href);
-  }};
-  link.send(form_data);
-}); 
-on('body', 'click', '.change_l', function() {
-  form_data = new FormData();
-  form_data.append("id", this.getAttribute("data-l"));
-  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'POST', "/change_l/", true );
-  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link.onreadystatechange = function () {
-  if ( link.readyState == 4 && link.status == 200 ) {
-    ajax_get_reload(document.location.href);
-  }};
-  link.send(form_data);
-}); 
+//connect() 

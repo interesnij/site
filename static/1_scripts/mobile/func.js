@@ -244,3 +244,54 @@ function get_active_button() {
     }
   //} catch { null }
 };
+
+ 
+on('body', 'click', '.change_t', function() {
+  id = this.getAttribute("data-t")*1;
+  form_data = new FormData();
+  form_data.append("id", id);
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'POST', "/change_t/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    temp_options = this.parentElement.querySelectorAll(".template");
+    if (temp_options[i].getAttribute == id) {
+      temp_options[i].classList.remove("change_t");
+      temp_options[i].classList.add("underline");
+    }
+    else {
+      temp_options[i].classList.add("change_t");
+      temp_options[i].classList.remove("underline");
+    }
+  }
+    ajax_get_reload(document.location.href);
+  }};
+  link.send(form_data);
+}); 
+
+on('body', 'click', '.change_l', function() {
+  id = this.getAttribute("data-t")*1;
+  form_data = new FormData();
+
+  form_data.append("id", id);
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'POST', "/change_l/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    temp_options = this.parentElement.querySelectorAll(".linguage");
+    for (var i = 0; i < temp_options.length; i++) {
+      if (temp_options[i].getAttribute == id) {
+        temp_options[i].classList.remove("change_l");
+        temp_options[i].classList.add("underline");
+      }
+      else {
+        temp_options[i].classList.add("change_l");
+        temp_options[i].classList.remove("underline");
+      }
+    }
+    ajax_get_reload(document.location.href);
+  }};
+  link.send(form_data);
+});

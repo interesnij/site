@@ -261,3 +261,48 @@ if (window.location.href.indexOf('ajax') > -1) {
 else {
   check_first_load();
 }
+
+on('body', 'click', '.change_t', function() {
+  id = this.getAttribute("data-t")*1;
+  form_data = new FormData();
+  if (id == 1) {
+    new_id = 2;
+  }
+  else if (id == 2) {
+    new_id = 1;
+  }
+
+  form_data.append("id", id);
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'POST', "/change_t/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    ajax_get_reload(document.location.href);
+  }};
+  link.send(form_data);
+}); 
+on('body', 'click', '.change_l', function() {
+  id = this.getAttribute("data-t")*1;
+  form_data = new FormData();
+  if (id == 1) {
+    new_id = 2;
+    new_title = "En";
+  }
+  else if (id == 2) {
+    new_id = 1;
+    new_title = "Ru";
+  }
+
+  form_data.append("id", id);
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'POST', "/change_l/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    this.setAttribute("data-t", new_id);
+    this,innerHeight = new_title;
+    ajax_get_reload(document.location.href);
+  }};
+  link.send(form_data);
+});

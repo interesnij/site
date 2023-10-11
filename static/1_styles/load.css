@@ -1,6 +1,7 @@
 .doc_title {
   padding-top: 90px;
 }
+
 .mn-sub li {
     display: block;
     width: 100%;
@@ -1530,6 +1531,9 @@ blockquote footer{
 .underline {
   text-decoration: underline;
 }
+.bold {
+    font-weight: bold;
+  }
 
 
 .body_overlay {
