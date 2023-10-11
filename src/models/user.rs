@@ -241,8 +241,8 @@ pub struct NewCookieUser {
 // 93 - работа
 ////////////////////
 
-#[derive(Debug, Queryable, Serialize, Identifiable)]
-pub struct CookieStat { 
+#[derive(Debug, Serialize, Identifiable)]
+pub struct CookieStat {  
     pub id:       i32,
     pub user_id:  i32,
     pub page:     i16,
