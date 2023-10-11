@@ -146,7 +146,7 @@
                           </ul>
                       </li>
                       <li>
-                          <a href="/change_l/<%= _ru_en %>" data-linguage="<%= _l_change %>" class="mn-has-sub"><%= _l_change %></a>
+                          <a href="pointer" data-l="<%= _ru_en %>"><%= _l_change %></a>
                       </li>
                       <li> 
                           <a class="pointer anon_color_change" data-color="dark">
