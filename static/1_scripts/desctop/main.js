@@ -283,7 +283,8 @@ on('body', 'click', '.change_t', function() {
   link.send(form_data);
 }); 
 on('body', 'click', '.change_l', function() {
-  id = this.getAttribute("data-l")*1;
+  obj = this;
+  id = obj.getAttribute("data-l")*1;
   form_data = new FormData();
   if (id == 1) {
     new_id = 2;
@@ -300,8 +301,8 @@ on('body', 'click', '.change_l', function() {
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    this.setAttribute("data-l", new_id);
-    this,innerHeight = new_title;
+    obj.setAttribute("data-l", new_id);
+    obj.innerHeight = new_title;
     ajax_get_reload(document.location.href);
   }};
   link.send(form_data);
