@@ -213,8 +213,7 @@
           <% let (__page, __meters, __seconds, __time, __template, __empty) = match linguage {
               2 => ("Page", "Meters", "Seconds", "Time", "Template", "The browsing history is still empty."), 
               1 | _ => ("Страница", "Метры", "Секунды", "Время", "Шаблон", "История просмотров пока пуста."),
-          };
-      %>
+          }; %>
       <div class="row solid_bottom" style="padding: 8px 0;">
           <div class="col-md-4">
             <span style="font-weight: bold"><%= __page %></span>
