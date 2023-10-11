@@ -1,10 +1,15 @@
+<% let (__home, __sect, __title, __position, __btn) = match linguage {
+        2 => ("Home", "Create tag", "Title", "Position", "Create"), 
+        1 | _ => ("Главная", "Создание тега", "Название", "Порядок следования", "Создать"),
+    };
+%> 
 
 <section data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
-            <a class="ajax" href="/">Главная</a>
+            <a class="ajax" href="/"><%= __home %></a>
             &nbsp;/&nbsp;
-            <a>Создание тега</a>
+            <a><%= __sect %></a>
         </div>
     </div>
 </section>
@@ -12,14 +17,14 @@
     <div class="container relative">
         <form enctype="multipart/form-data" class="form mb-20 col-md-8 col-md-offset-2">
             <div class="mb-20 mb-md-10">
-                <input class="form_title input-md form-control" type="text" name="name" placeholder="Название" />
+                <input class="form_title input-md form-control" type="text" name="name" placeholder="<%= __title %>" />
             </div>
             <div class="mb-20 mb-md-10">
-                <input class="input-md form-control" type="number" name="position" placeholder="Порядок следования" />
+                <input class="input-md form-control" type="number" name="position" placeholder="<%= __position %>" />
             </div>
-            <button class="btn btn-mod btn-border btn-medium btn-round" style="float: right;" type="button" id="create_tag_btn">Создать</button>
+            <button class="btn btn-mod btn-border btn-medium btn-round" style="float: right;" type="button" id="create_tag_btn"><%= __btn %></button>
         </form>
-        <div class="container">
+        <div class="container" style="padding-top: 50px">
             <% for tag in all_tags.iter() { %>
             <p><%= tag.name %>
                 | <a class="ajax" href="/edit_tag/<%= tag.id %>/">~</a>
@@ -29,3 +34,7 @@
         </div>
     </div>
 </section>
+<div class="sidebar hidden">
+
+</div>
+

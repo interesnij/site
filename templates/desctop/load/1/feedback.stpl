@@ -1,21 +1,27 @@
-<div data-title="Создание сообщения" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title" style="padding: 0;">
+<% let (__username, __email, __message, __sent) = match linguage {
+        2 => ("How to contact you", "Your mail", "Message", "Send"), 
+        1 | _ => ("Как к Вам обращаться", "Ваша почта", "Сообщение", "Отправить"),
+    };
+%>
+
+<div data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title" style="padding: 0;">
 
 <form class="form">
     <div class="mb-20 mb-md-10">
-      <label for="id_username">Как к Вам обращаться:</label>
+      <label for="id_username"><%= __username %>:</label>
       <input class="input-md form-control" id="id_username" type="text" name="username">
     </div>
     <div class="mb-20 mb-md-10">
-      <label for="id_email">Ваша почта:</label>
+      <label for="id_email"><%= __email %>:</label>
       <input class="input-md form-control" id="id_email" type="email" name="email">
     </div>
     <div class="mb-20 mb-md-10">
-      <label for="id_message">Сообщение:</label>
+      <label for="id_message"><%= __message %>:</label>
       <textarea style="height: 117px;" class="input-md form-control" id="id_message" type="text" name="message"></textarea>
     </div>
 
 <button style="width: 100%;padding: 15px;" class="btn btn-mod btn-border btn-medium btn-round" type="button" id="create_feedback_btn">
-  Отправить!
+  <%= __sent %>!
 </button>
 </form>
 </div>

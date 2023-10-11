@@ -1,3 +1,8 @@
+<% let (__text, __btn) = match linguage {
+        2 => ("The page was not found, deleted or moved.", "To the beginning."), 
+        1 | _ => ("Страница не найдена, удалена или перемещена.", "В начало"),
+    };
+%>
 
 <section style="padding: 0;" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title home-section main_banner">
     <div class="js-height-full" style="height: 100vh">
@@ -8,14 +13,13 @@
                     404
                 </h1>
                 <h2 class="hs-line-8 no-transp font-alt mb-50 mb-xs-30">
-                    Страница не найдена, удалена или перемещена.
+                    <%= __text %>
                 </h2>
                 <div class="local-scroll" style="position:relative">
-                  <a href="/" class="btn btn-mod btn-border btn-medium btn-round ajax">В начало</a>
+                  <a href="/" class="btn btn-mod btn-border btn-medium btn-round ajax"><%= __btn %></a>
                 </div>
               </span>
             </div>
         </div>
     </div>
 </section>
-

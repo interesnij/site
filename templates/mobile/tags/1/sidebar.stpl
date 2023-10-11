@@ -1,7 +1,12 @@
+<% let __search = match linguage {
+        2 => "Search tags", 
+        1 | _ => "Поиск тегов",
+    };
+%>
 <div class="widget">
     <form class="form-inline form" role="form">
         <div class="search-wrap">
-            <input data-folder="_tags" type="text" class="form-control search-field mobile" placeholder="Поиск тегов">
+            <input data-folder="_tags" type="text" class="form-control search-field mobile" placeholder="<%= __search %>">
         </div>
     </form>
 </div>

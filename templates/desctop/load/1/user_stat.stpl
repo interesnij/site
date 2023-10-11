@@ -1,5 +1,11 @@
+<% let (__h, __e) = match linguage {
+        2 => ("Browsing history", "The browsing history is still empty."), 
+        1 | _ => ("История просмотров", "История просмотров пока пуста."),
+    };
+%>
+
 <div style="padding: 0;">
-<h5 class="font-alt mb-20">История просмотров</h5>
+<h5 class="font-alt mb-20"><%= __h %></h5>
   <% if object_list.len() > 0 { %>
   <div class="is_paginate">
     <% for (i, object) in object_list.iter().enumerate() { %>
@@ -33,7 +39,7 @@
   <% } else { %>
     <div style="margin-top: 40px;">
       <div class="align-center">
-        <span class="border" style="padding: 10px 15px;">История просмотров пока пуста.</span>
+        <span class="border" style="padding: 10px 15px;"><%= __e %></span>
       </div>
     </div>
   <% } %>

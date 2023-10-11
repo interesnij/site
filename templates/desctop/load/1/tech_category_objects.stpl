@@ -1,3 +1,8 @@
+<% let (__price, __hour) = match linguage {
+        2 => ("$", "hour"), 
+        1 | _ => ("₽", "час"),
+    };
+%>
 
 <% for category in object.get_serve_categories().iter() { %>
   <li>
@@ -41,7 +46,7 @@
           <li>
             <span>
               - <% if child.is_default { %>* <% } %>
-              <%= child.name %>: <%= child.price %> руб. (<%= child.man_hours %> час.)
+              <%= child.name %>: <%= child.price %> <%= __price %> (<%= child.man_hours %> <%= __hour %>.)
             </span>
             <% if is_admin { %>
               <a target="_blank" rel="nofollow" href="/edit_serve/<%= child.id %>/">~</a>
@@ -59,7 +64,7 @@
         <% } else { %>
           <span>
             <% if object.is_default { %>* <% } %>
-            <%= object.name %>: <%= object.price %> руб. (<%= object.get_hours() %>)
+            <%= object.name %>: <%= object.price %> <%= __price %> (<%= object.get_hours() %>)
           </span>
           <% if is_admin { %>
             <a target="_blank" rel="nofollow" href="/edit_serve/<%= object.id %>/">~</a>

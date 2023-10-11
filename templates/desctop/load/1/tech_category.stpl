@@ -1,13 +1,17 @@
+<% let (__d, __l) = match linguage {
+        2 => ("This application is a large structural unit", "complexity"), 
+        1 | _ => ("Это приложениe - большая структурная единица", "сложность"),
+    };
+%>
+
 <div page-id="" object-id="<%= object.id %>" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title" style="padding: 0;">
-  <h4 style="margin-bottom: 0 !important"><%= object.name %> (сложность: <%= object.get_level_ru() %>)</h4>
-  <p class="solid_bottom" style="font-size: 80%;">Это приложениe - большая структурная единица.
+  <h4 style="margin-bottom: 0 !important"><%= object.name %> (<%= __l %>: <%= object.get_level_ru() %>)</h4>
+  <p class="solid_bottom" style="font-size: 80%;"><%= __d %>.
   </p>
 
   <div style="margin-top:10px">
     <% if object.description.is_some() { %>
       <%- object.description.as_deref().unwrap() %>
-    <% } else { %>
-      Описание отсутствует
     <% } %>
   </div>
 </div>

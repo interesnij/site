@@ -1,3 +1,9 @@
+<% let (__t, __s, __l) = match linguage {
+        2 => ("Web-service", "Application language / technology", "complexity"), 
+        1 | _ => ("Веб-сервис", "Язык / технология приложения", "сложность"),
+    };
+%>
+
 <div page-id="" object-id="<%= object.id %>" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title" style="padding: 0;">
   <% let s_cat = object.get_category(); %>
   <% let t_cat = s_cat.get_category(); %>
@@ -12,12 +18,12 @@
   <% } %>
 
     <p class="solid_bottom" style="font-size: 80%;">
-      Веб-сервис:
+      <%= __t %>:
       <span class="pointer get_tech_category_info underline" data-pk="<%= t_cat.id %>">
-        <%= t_cat.name %> (сложность: <%= t_cat.get_level_ru() %>)
+        <%= t_cat.name %> (<%= __l %>: <%= t_cat.get_level_ru() %>)
       </span>
       <br />
-      Язык / технология:
+      <%= __s %>:
       <span class="pointer get_serve_category_info underline" data-pk="<%= s_cat.id %>">
         <%= s_cat.name %>
       </span>
@@ -26,8 +32,6 @@
   <div style="margin-top:10px">
     <% if object.description.is_some() { %>
       <%- object.description.as_deref().unwrap() %>
-    <% } else { %>
-      Описание отсутствует
     <% } %>
   <div>
 </div>
