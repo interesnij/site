@@ -302,7 +302,7 @@ on('body', 'click', '.change_l', function() {
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
     obj.setAttribute("data-l", new_id);
-    obj.innerHeight = new_title;
+    obj.innerHTML = new_title;
     ajax_get_reload(document.location.href);
   }};
   link.send(form_data);
