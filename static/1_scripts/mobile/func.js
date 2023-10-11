@@ -247,7 +247,8 @@ function get_active_button() {
 
  
 on('body', 'click', '.change_t', function() {
-  id = this.getAttribute("data-t")*1;
+  obj = this;
+  id = obj.getAttribute("data-t")*1;
   form_data = new FormData();
   form_data.append("id", id);
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
@@ -255,7 +256,7 @@ on('body', 'click', '.change_t', function() {
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    temp_options = this.parentElement.querySelectorAll(".template");
+    temp_options = obj.parentElement.querySelectorAll(".template");
     if (temp_options[i].getAttribute == id) {
       temp_options[i].classList.remove("change_t");
       temp_options[i].classList.add("underline");
@@ -270,7 +271,8 @@ on('body', 'click', '.change_t', function() {
 }); 
 
 on('body', 'click', '.change_l', function() {
-  id = this.getAttribute("data-t")*1;
+  obj = this;
+  id = obj.getAttribute("data-t")*1;
   form_data = new FormData();
 
   form_data.append("id", id);
@@ -279,7 +281,7 @@ on('body', 'click', '.change_l', function() {
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    temp_options = this.parentElement.querySelectorAll(".linguage");
+    temp_options = obj.parentElement.querySelectorAll(".linguage");
     for (var i = 0; i < temp_options.length; i++) {
       if (temp_options[i].getAttribute == id) {
         temp_options[i].classList.remove("change_l");
