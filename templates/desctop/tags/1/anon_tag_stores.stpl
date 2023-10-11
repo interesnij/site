@@ -1,10 +1,14 @@
-
+<% let (__home, __sect, __list) = match linguage {
+        2 => ("Home", "Tags", "Market"), 
+        1 | _ => ("Главная", "Ключевые слова", "Товары"),
+    };
+%>
 <section page-id="35" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
-          <a class="ajax" href="/">Главная</a>
+          <a class="ajax" href="/"><%= __home %></a>
             &nbsp;/&nbsp;
-          <a class="ajax" href="/tags/">Ключевые слова</a>
+          <a class="ajax" href="/tags/"><%= __sect %></a>
             &nbsp;/&nbsp;
           <a class="ajax" href="/tag/<%= tag.name %>/"><%= tag.name %></a>
         </div>
@@ -16,7 +20,7 @@
       <section class="page-section">
           <div class="container relative">
               <h5 class="section-title font-alt align-left">
-                  Товары (<%= stores_count %>)
+                  <%= __list %> (<%= stores_count %>)
               </h5>
               <div class="row multi-columns-row is_paginate">
                 <% for object in stores_list.iter() { %>
