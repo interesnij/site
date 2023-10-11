@@ -1,5 +1,111 @@
 
-<section page-id="13" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
+<% if linguage == 2 { %>
+
+    <section page-id="13" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
+    <div class="relative container align-left">
+        <div class="hs-line-4 font-alt">
+            <a class="ajax" href="/">Home</a>
+            &nbsp;/&nbsp;
+            <a>Browsing history</a>
+        </div>
+    </div>
+</section>
+
+<section class="page-section">
+    <div class="container relative">
+        <ul class="nav nav-tabs tpl-alt-tabs font-alt pt-30 pt-sm-0 pb-30 pb-sm-0">
+            <li class="yy active">
+              <a>
+                <div class="alt-tabs-icon">
+                  <span class="icon-document"></span>
+                </div>
+                History
+              </a>
+            </li>
+            <li class="yy pointer">
+              <a href="/user_orders/" class="ajax">
+                <div class="alt-tabs-icon">
+                  <span class="icon-briefcase"></span>
+                </div>
+                Orders
+              </a>
+            </li>
+        </ul>
+
+    </div>
+    <div class="container relative">
+      <div class="border work-detail mt-20 mb-20" style="padding-left: 10px;">
+              <h5 class="font-alt mb-20">Information about you</h5>
+              <div class="row" style="margin-left: 0;margin-right: 0;">
+              <div class="col-md-6 mb-20">
+                <div class="">
+                  <p style="display: flex;">
+                      <strong>Equipment:</strong>
+                      <% if user.device == 1 { %>
+                        <span style="margin-left: auto;margin-right: 10px">Компьютер</span>
+                      <% } else { %>
+                        <span style="margin-left: auto;margin-right: 10px">Телефон</span>
+                      <% } %>
+                  </p>
+                  <p style="display: flex;">
+                      <strong>Wound meters:</strong>
+                      <span style="margin-left: auto;margin-right: 10px"><%= user.height %></span>
+                  </p>
+                  <p style="display: flex;">
+                      <strong>Seconds spent:</strong>
+                      <span style="margin-left: auto;margin-right: 10px"><%= user.seconds %></span>
+                  </p>
+                  <p style="display: flex;">
+                      <strong>Profile created:</strong>
+                      <span style="margin-left: auto;margin-right: 10px"><%= user.created.format("%d-%m-%Y в %H:%M").to_string() %></span>
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6 solid_left">
+                <p style="display: flex;">
+                  <strong>IP address:</strong>
+                  <span style="margin-left: auto;margin-right: 10px"><%= user.ip %></span>
+                </p>
+                <% if user.country_en.is_some() { %>
+                <p style="display: flex;">
+                  <strong>Country:</strong>
+                  <span style="margin-left: auto;margin-right: 10px">
+                      <%= user.country_en.unwrap() %>
+                  </span>
+                </p>
+                <% } %>
+                <% if user.region_en.is_some() { %>
+                <p style="display: flex;">
+                  <strong>Region:</strong>
+                  <span style="margin-left: auto;margin-right: 10px">
+                    <% if user.region_en.is_some() { %>
+                      <%= user.region_en.unwrap() %>
+                    <% } %>
+                  </span>
+                </p>
+                <% } %>
+                <% if user.city_en.is_some() { %>
+                <p style="display: flex">
+                  <strong>City:</strong>
+                  <span style="margin-left: auto;margin-right: 10px">
+                    <% if user.city_en.is_some() { %>
+                      <%= user.city_en.unwrap() %>
+                    <% } %>
+                  </span>
+                </p>
+                <% } %>
+              </div>
+            </div>
+          </div>
+
+    <hr class="mt-0 mb-0 " />
+    <h5 class="font-alt mb-20">Browsing history</h5>
+
+
+      <% } else if linguage == 1 { %>
+
+
+    <section page-id="13" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
             <a class="ajax" href="/">Главная</a>
@@ -64,41 +170,32 @@
                   <strong>IP адрес:</strong>
                   <span style="margin-left: auto;margin-right: 10px"><%= user.ip %></span>
                 </p>
-                <% if user.country_ru.is_some() || user.country_en.is_some() { %>
+                <% if user.country_ru.is_some() { %>
                 <p style="display: flex;">
                   <strong>Страна:</strong>
                   <span style="margin-left: auto;margin-right: 10px">
                     <% if user.country_ru.is_some() { %>
                       <%= user.country_ru.unwrap() %>
                     <% } %>
-                    <% if user.country_en.is_some() { %>
-                      <%= user.country_en.unwrap() %>
-                    <% } %>
                   </span>
                 </p>
                 <% } %>
-                <% if user.region_ru.is_some() || user.region_en.is_some() { %>
+                <% if user.region_ru.is_some() { %>
                 <p style="display: flex;">
                   <strong>Регион:</strong>
                   <span style="margin-left: auto;margin-right: 10px">
                     <% if user.region_ru.is_some() { %>
                       <%= user.region_ru.unwrap() %>
                     <% } %>
-                    <% if user.region_en.is_some() { %>
-                      <%= user.region_en.unwrap() %>
-                    <% } %>
                   </span>
                 </p>
                 <% } %>
-                <% if user.city_ru.is_some() || user.city_en.is_some() { %>
+                <% if user.city_ru.is_some() { %>
                 <p style="display: flex">
                   <strong>Город:</strong>
                   <span style="margin-left: auto;margin-right: 10px">
                     <% if user.city_ru.is_some() { %>
                       <%= user.city_ru.unwrap() %>
-                    <% } %>
-                    <% if user.city_en.is_some() { %>
-                      <%= user.city_en.unwrap() %>
                     <% } %>
                   </span>
                 </p>
@@ -109,44 +206,60 @@
 
     <hr class="mt-0 mb-0 " />
     <h5 class="font-alt mb-20">История просмотров</h5>
+      
+      <% } %>
+
+      <% let (__page, __meters, __seconds, __time, __template, __empty) = match linguage {
+              2 => ("Page", "Meters", "Seconds", "Time", "Template", "The browsing history is still empty."), 
+              1 | _ => ("Страница", "Метры", "Секунды", "Время", "Шаблон", "История просмотров пока пуста."),
+          }; %>
       <% if object_list.len() > 0 { %>
+          
       <div class="row solid_bottom" style="padding: 8px 0;">
           <div class="col-md-4">
-            <span style="font-weight: bold">Страница</span>
+            <span style="font-weight: bold"><%= __page %></span>
           </div> 
           <div class="col-md-2">
-            <span style="font-weight: bold">Метры</span>
+            <span style="font-weight: bold"><%= __meters %></span>
           </div>
           <div class="col-md-2">
-            <span style="font-weight: bold">Секунды</span>
+            <span style="font-weight: bold"><%= __seconds %></span>
           </div>
           <div class="col-md-2">
-            <span style="font-weight: bold">Время</span>
+            <span style="font-weight: bold"><%= __time %></span>
           </div>
           <div class="col-md-2">
-            <span style="font-weight: bold">Шаблон</span>
+            <span style="font-weight: bold"><%= __template %></span>
           </div>
       </div>
       <div class="is_paginate">
         <% for (i, object) in object_list.iter().enumerate() { %>
           <div class="row <% if i % 2 == 0 { %>hover<% } %>" style="padding: 5px 0;">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <a class="pointer get_page_window" data-href="<%= object.link %>">
                 <%= object.title %>
-              </a> 
+              </a>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
               <svg fill="currentColor" style="vertical-align: text-bottom;width:17px" viewBox="0 0 24 24">
                 <g><rect fill="none" height="24" width="24"/></g><g><g/><polygon points="13,6.99 16,6.99 12,3 8,6.99 11,6.99 11,17.01 8,17.01 12,21 16,17.01 13,17.01"/></g>
               </svg><%= object.height %>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
               <svg fill="currentColor" style="width:17px;vertical-align: text-bottom;" viewBox="0 0 24 24">
                 <path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 2v6h.01L6 8.01 10 12l-4 4 .01.01H6V22h12v-5.99h-.01L18 16l-4-4 4-3.99-.01-.01H18V2H6zm10 14.5V20H8v-3.5l4-4 4 4zm-4-5l-4-4V4h8v3.5l-4 4z"/>
               </svg> <%= object.seconds %>
             </div>
-            <div class="col-md-4">
-               <%= object.created.format("%d-%m-%Y в %H:%M").to_string() %>
+            <div class="col-md-2">
+              <svg fill="currentColor" style="width:17px;vertical-align: text-bottom;" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0V0z" fill="none"/><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.25 2.52.77-1.28-3.52-2.09V8z"/>
+              </svg>
+              <%= object.created.format("%d-%m-%Y в %H:%M").to_string() %>
+            </div>
+            <div class="col-md-2">
+              <svg fill="currentColor" style="width:17px;vertical-align: text-bottom;" viewBox="0 0 24 24">
+                <g><rect fill="none" height="24" width="24"/></g><g><g><g><g><path d="M12,22C6.49,22,2,17.51,2,12S6.49,2,12,2s10,4.04,10,9c0,3.31-2.69,6-6,6h-1.77c-0.28,0-0.5,0.22-0.5,0.5 c0,0.12,0.05,0.23,0.13,0.33c0.41,0.47,0.64,1.06,0.64,1.67C14.5,20.88,13.38,22,12,22z M12,4c-4.41,0-8,3.59-8,8s3.59,8,8,8 c0.28,0,0.5-0.22,0.5-0.5c0-0.16-0.08-0.28-0.14-0.35c-0.41-0.46-0.63-1.05-0.63-1.65c0-1.38,1.12-2.5,2.5-2.5H16 c2.21,0,4-1.79,4-4C20,7.14,16.41,4,12,4z"/><circle cx="6.5" cy="11.5" r="1.5"/><circle cx="9.5" cy="7.5" r="1.5"/><circle cx="14.5" cy="7.5" r="1.5"/><circle cx="17.5" cy="11.5" r="1.5"/></g></g></g></g>
+              </svg> <%= object.template %>
             </div>
           </div>
         <% } %>
@@ -159,7 +272,7 @@
       <% } else { %>
         <div style="margin-top: 40px;">
           <div class="align-center">
-            <span class="border" style="padding: 10px 15px;">История просмотров пока пуста.</span>
+            <span class="border" style="padding: 10px 15px;"><%= __empty %></span>
           </div>
         </div>
       <% } %>
