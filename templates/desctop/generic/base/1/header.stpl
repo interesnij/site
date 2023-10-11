@@ -146,7 +146,7 @@
                           </ul>
                       </li>
                       <li>
-                          <a class="pointer" data-l="<%= _ru_en %>"><%= _l_change %></a>
+                          <a class="pointer change_l" data-l="<%= _ru_en %>"><%= _l_change %></a>
                       </li>
                       <li> 
                           <a class="pointer anon_color_change" data-color="dark">
