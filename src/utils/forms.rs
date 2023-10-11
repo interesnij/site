@@ -433,6 +433,34 @@ pub async fn order_form(payload: &mut Multipart, owner_id: i32) -> OrderForms {
     form
 }
 
+
+
+#[derive(Deserialize, Serialize)]
+pub struct IdForm {
+    pub id: i32,
+}
+// форма для удаления чего-либо по id объекта
+pub async fn id_form(payload: &mut Multipart) -> IdForm {
+    let mut form: IdForm = IdForm {
+        id: 0,
+    };
+
+    while let Some(item) = payload.next().await {
+        let mut field: Field = item.expect("split_payload err");
+        if field.name() == "id" {
+            while let Some(chunk) = field.next().await {
+                let data = chunk.expect("split_payload err chunk");
+                if let Ok(s) = str::from_utf8(&data) {
+                    let _int: i32 = s.parse().unwrap();
+                    form.id = _int;
+                }
+            }
+        }
+    }
+    form
+}
+
+
 #[derive(Deserialize, Serialize, Debug)]
 pub struct FileForm {
     pub item_types: i16,      // блог, услуга ......

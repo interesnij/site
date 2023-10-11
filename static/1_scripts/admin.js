@@ -105,8 +105,10 @@ on('body', 'input', '.smile_supported', function() {
 });
 
 function get_and_change_btn(_this, url, hide) {
+  form_data = new FormData(form);
+  form_data.append("id", _this.getAttribute("data-pk"));
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', url + _this.getAttribute("data-pk") + "/", true );
+  link.open( 'POST', url, true );
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
     if (hide) {
@@ -120,7 +122,7 @@ function get_and_change_btn(_this, url, hide) {
       _this.classList.add("hide_item");
     }
   }};
-  link.send();
+  link.send(form_data);
 };
 
 function send_category_data(form, url) {
@@ -209,15 +211,17 @@ function send_post_data(form, url) {
   }};
   link.send(form_data);
 };
-function delete_item(url) {
+function delete_item(url, id) {
+  form_data = new FormData(form);
+  form_data.append("id", id);
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', url, true );
+  link.open( 'POST', url, true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
     toast_success("Удалено!");
   }};
-  link.send();
+  link.send(form_data);
 };
 ///////////SERVE //////////////////
 on('body', 'click', '#create_serve_btn', function() {
@@ -242,15 +246,15 @@ on('body', 'click', '#edit_tech_category_btn', function() {
   send_category_data(this.parentElement, "/edit_tech_category/" + this.getAttribute("data-pk") + "/");
 });
 on('body', 'click', '.remove_serve', function() {
-  delete_item("/delete_serve/" + this.getAttribute("data-pk") + "/");
+  delete_item("/delete_serve/", this.getAttribute("data-pk"));
   this.parentElement.remove();
 });
 on('body', 'click', '.remove_serve_category', function() {
-  delete_item("/delete_serve_category/" + this.getAttribute("data-pk") + "/");
+  delete_item("/delete_serve_category/", this.getAttribute("data-pk"));
   this.parentElement.remove();
 });
 on('body', 'click', '.remove_tech_category', function() {
-  delete_item("/delete_tech_category/" + this.getAttribute("data-pk") + "/");
+  delete_item("/delete_tech_category/", this.getAttribute("data-pk"));
   this.parentElement.remove();
 });
 
@@ -268,11 +272,11 @@ on('body', 'click', '#edit_category_btn', function() {
   send_category_data(this.parentElement, "/edit_category/" + this.getAttribute("data-pk") + "/");
 });
 on('body', 'click', '.remove_item', function() {
-  delete_item("/delete_item/" + this.getAttribute("data-pk") + "/");
+  delete_item("/delete_item/", this.getAttribute("data-pk"));
   this.parentElement.remove();
 });
 on('body', 'click', '.remove_category', function() {
-  delete_item("/delete_category/" + this.getAttribute("data-pk") + "/");
+  delete_item("/delete_category/", this.getAttribute("data-pk"));
   this.parentElement.remove();
 });
 
@@ -283,7 +287,7 @@ on('body', 'click', '#edit_tag_btn', function() {
   send_post_data(this.parentElement, "/edit_tag/" + this.getAttribute("data-pk") + "/");
 });
 on('body', 'click', '.remove_tag', function() {
-  delete_item("/delete_tag/" + this.getAttribute("data-pk") + "/");
+  delete_item("/delete_tag/", this.getAttribute("data-pk"));
   this.parentElement.remove();
 });
 

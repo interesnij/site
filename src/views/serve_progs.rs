@@ -55,10 +55,10 @@ pub fn serve_routes(config: &mut web::ServiceConfig) {
     config.service(web::resource("/edit_serve/{id}/")
         .route(web::get().to(edit_serve_page))
         .route(web::post().to(edit_serve))
-    );
-    config.route("/delete_serve/{id}/", web::get().to(delete_serve));
-    config.route("/delete_serve_category/{id}/", web::get().to(delete_serve_category));
-    config.route("/delete_tech_category/{id}/", web::get().to(delete_tech_category));
+    ); 
+    config.route("/delete_serve/", web::post().to(delete_serve));
+    config.route("/delete_serve_category/", web::post().to(delete_serve_category));
+    config.route("/delete_tech_category/", web::post().to(delete_tech_category));
 }
 
 pub async fn serve_categories_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
@@ -1005,26 +1005,28 @@ pub async fn edit_serve(session: Session, mut payload: Multipart, _id: web::Path
     return HttpResponse::Ok();
 }
 
-
-pub async fn delete_serve(session: Session, _id: web::Path<i32>) -> impl Responder {
+pub async fn delete_serve(session: Session, mut payload: Multipart) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
-        Serve::delete(_request_user, *_id);
+        let form = crate::utils::id_form(payload.borrow_mut()).await;
+        Serve::delete(_request_user, form.id);
     }
     HttpResponse::Ok()
 }
 
-pub async fn delete_tech_category(session: Session, _id: web::Path<i32>) -> impl Responder {
+pub async fn delete_tech_category(session: Session, mut payload: Multipart) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
-        TechCategories::delete(_request_user, *_id);
+        let form = crate::utils::id_form(payload.borrow_mut()).await;
+        TechCategories::delete(_request_user, form.id);
     }
     HttpResponse::Ok()
 }
-pub async fn delete_serve_category(session: Session, _id: web::Path<i32>) -> impl Responder {
+pub async fn delete_serve_category(session: Session, mut payload: Multipart) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
-        ServeCategories::delete(_request_user, *_id);
+        let form = crate::utils::id_form(payload.borrow_mut()).await;
+        ServeCategories::delete(_request_user, form.id);
     }
     HttpResponse::Ok()
 }

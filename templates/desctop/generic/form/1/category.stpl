@@ -1,3 +1,4 @@
+
 <div data-pk="<%= category.id %>" data-sum="<%= category.default_price %>" class="tab_<%= i + 1 %> fade tab-pane <% if i == 0 { %>in active<% } %>">
   <table class="table">
     <tbody>
@@ -16,7 +17,7 @@
 
         <% if serve.is_parent() { %>
           <% let first_child = serve.get_first_variable(); %>
-          <% if serve.is_default { %>
+          <% if serve.is_default { %> 
             <tr class="is_default open_child_serves hover pointer" parent-pk="<%= serve.id %>">
               <% include!("first_child.stpl"); %>
               <td class="action_text border-top" style="width:15%">

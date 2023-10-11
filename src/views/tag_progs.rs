@@ -47,7 +47,7 @@ pub fn tag_routes(config: &mut web::ServiceConfig) {
         .route(web::get().to(edit_tag_page))
         .route(web::post().to(edit_tag))
     );
-    config.route("/delete_tag/{id}/", web::get().to(delete_tag));
+    config.route("/delete_tag/", web::post().to(delete_tag));
 }
 
 pub async fn create_tag_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
@@ -1905,14 +1905,15 @@ pub async fn edit_tag(session: Session, mut payload: Multipart, _id: web::Path<i
     HttpResponse::Ok()
 }
 
-pub async fn delete_tag(session: Session, _id: web::Path<i32>) -> impl Responder {
+pub async fn delete_tag(session: Session, mut payload: Multipart) -> impl Responder {
 
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         if _request_user.perm == 60 {
             let _connection = establish_connection();
-            diesel::delete(schema::tags_items::table.filter(schema::tags_items::tag_id.eq(*_id))).execute(&_connection).expect("E");
-            diesel::delete(schema::tags::table.filter(schema::tags::id.eq(*_id))).execute(&_connection).expect("E");
+            let form = crate::utils::id_form(payload.borrow_mut()).await;
+            diesel::delete(schema::tags_items::table.filter(schema::tags_items::tag_id.eq(form.id))).execute(&_connection).expect("E");
+            diesel::delete(schema::tags::table.filter(schema::tags::id.eq(form.id))).execute(&_connection).expect("E");
         }
     }
     HttpResponse::Ok()

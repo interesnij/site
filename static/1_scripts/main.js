@@ -262,15 +262,28 @@ function get_or_create_cookie_user() {
   ajax_link.onreadystatechange = function () {
     if ( this.readyState == 4 && this.status == 200 ) {
       data = JSON.parse(ajax_link.responseText);
-      if (data.device == 1) {
-        _device = "Компьютер";
+      let linquage = document.getElementById("top").getAttribute("data-l")*1;
+      stat_meta = document.body.querySelector(".stat_meta");
+      if (linquage == 1) {
+        if (data.device == 1) {
+          _device = "Компьютер";
+        }
+        else {
+          _device = "Телефон";
+        }
+        stat_meta.querySelector(".device_ru").innerHTML = "<span class='ip_span'>" +  data.ip + "</span> (" + _device + ") ";
+        stat_meta.querySelector(".city_ru").innerHTML = data.city_ru + " (" + data.country_ru + ") ";
       }
       else {
-        _device = "Телефон";
+        if (data.device == 1) {
+          _device = "Desctop";
+        }
+        else {
+          _device = "Phone";
+        }
+        stat_meta.querySelector(".device_en").innerHTML = "<span class='ip_span'>" +  data.ip + "</span> (" + _device + ") ";
+        stat_meta.querySelector(".city_en").innerHTML = data.city_en + " (" + data.country_en + ") ";
       }
-      stat_meta = document.body.querySelector(".stat_meta");
-      stat_meta.querySelector(".device").innerHTML = "<span class='ip_span'>" +  data.ip + "</span> (" + _device + ") ";
-      stat_meta.querySelector(".city").innerHTML = data.city_en + " (" + data.country_en + ") ";
 
       setCookie("user", data.id, 120);
       $user_id = data.id;
@@ -700,13 +713,14 @@ on('body', 'click', '.select_child_serve', function(event) {
   price = _this.querySelector(".price").innerHTML;
   parent_price = parent.querySelector(".price").innerHTML;
   hours = _this.querySelector(".hours").innerHTML;
-  parent_hours = parent.querySelector(".hours").innerHTML;
+  parent_hours = parent.querySelector(".hours").innerHTML; 
 
-  if (parent_title.includes('Не выбрано')) {
+  linquage = document.getElementById("top").getAttribute("data-l")*1;
+  if ((linquage == 1 && parent_title.includes('Не выбрано')) || (linquage == 2 && parent_title.includes('Not selected'))) {
     parent.classList.add("hover");
-    parent.querySelector(".icon_check").innerHTML = "✔";
+    parent.querySelector(".icon_check").innerHTML = "✔"; 
   }
-  else if (title.includes('Не выбрано')){
+  else if ((linquage == 1 && title.includes('Не выбрано')) || (linquage == 2 && title.includes('Not selected'))){
     parent.classList.remove("hover");
     parent.querySelector(".icon_check").innerHTML = "";
   }
@@ -796,7 +810,8 @@ on('body', 'click', '.select_serve', function(event) {
   };
 
   // найдем цену опции и сделаем цену числом
-  serve_price = _this.querySelector(".price").innerHTML*1
+  serve_price = _this.querySelector(".price").innerHTML*1;
+  linquage = document.getElementById("top").getAttribute("data-l")*1;
 
   if (!_this.classList.contains("hover")){
     // если до нажатия опция не выбрана...
@@ -804,7 +819,13 @@ on('body', 'click', '.select_serve', function(event) {
     _this.classList.add("hover");
     action_text = _this.querySelector(".action_text");
     action_text.innerHTML = '&nbsp;✔&nbsp;';
-    action_text.setAttribute("tooltip", "Опция выбрана");
+
+    if (linquage = 1) {
+      action_text.setAttribute("tooltip", "Опция выбрана");
+    }
+    else {
+      action_text.setAttribute("tooltip", "Option selected");
+    }
   }
   else {
     // если опция выбрана, надо снять выделение и счетчик уменьшить на сумму опции.
@@ -813,6 +834,13 @@ on('body', 'click', '.select_serve', function(event) {
     _this.classList.remove("hover");
     action_text = _this.querySelector(".action_text");
     action_text.innerHTML = '&nbsp;+&nbsp;';
+
+    if (linquage = 1) {
+      action_text.setAttribute("tooltip", "Опция не выбрана");
+    }
+    else {
+      action_text.setAttribute("tooltip", "Option not selected");
+    }
     action_text.setAttribute("tooltip", "Опция не выбрана");
   }
 });
@@ -1039,16 +1067,27 @@ on('body', 'click', '#logg', function() {
   _this = this;
   form = _this.parentElement;
   response = form.querySelector(".api_response");
+  linquage = document.getElementById("top").getAttribute("data-l")*1;
 
   if (!form.querySelector("#id_username").value){
     form.querySelector("#id_username").style.border = "1px #FF0000 solid";
-    response.innerHTML = "Введите логин!";
+    if (linquage == 1) {
+      response.innerHTML = "Введите логин!";
+    }
+    else {
+      response.innerHTML = "Enter your username!";
+    }
     response.classList.add("error");
     return
   }
   else if (!form.querySelector("#id_password").value){
     form.querySelector("#id_password").style.border = "1px #FF0000 solid";
-    response.innerHTML = "Введите пароль!";
+    if (linquage == 1) {
+      response.innerHTML = "Enter the password!";
+    }
+    else {
+      response.innerHTML = "Enter your username!";
+    }
     response.classList.add("error")
     return
   }
@@ -1129,7 +1168,13 @@ on('body', 'click', '#create_order_btn', function() {
   }
 
   this.setAttribute("disable", "true");
-  this.innerHTML = "Данные отправляются!";
+  linquage = document.getElementById("top").getAttribute("data-l")*1;
+  if (linquage == 1) {
+    this.innerHTML = "Данные отправляются!";
+  }
+  else {
+    this.innerHTML = "Data is being sent!";
+  }
   serves_input = "";
   serve_list = form.parentElement.querySelectorAll(".get_serve_info");
   for (var i = 0; i < serve_list.length; i++) {
@@ -1161,13 +1206,15 @@ on('body', 'click', '#create_order_btn', function() {
 });
 
 on('body', 'click', '.remove_order', function() {
+  form_data = new FormData(form);
+  form_data.append("id", this.getAttribute("data-pk"));
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', "/delete_order/" + this.getAttribute("data-pk") + "/", true );
+  link.open( 'POST', "/delete_order/", true );
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
     ajax_get_reload("/user_orders/", true);
-  }};
-  link.send();
+  }}; 
+  link.send(form_data); 
 });
 
 on('body', 'click', '.toggle_next_hide', function() {
@@ -1194,7 +1241,13 @@ on('body', 'click', '#create_feedback_btn', function() {
   }
 
   this.setAttribute("disable", "true");
-  this.innerHTML = "Данные отправляются!";
+  linquage = document.getElementById("top").getAttribute("data-l")*1;
+  if (linquage == 1) {
+    this.innerHTML = "Данные отправляются!";
+  }
+  else {
+    this.innerHTML = "Data is being sent!";
+  }
   form_data = new FormData(form);
 
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
@@ -1202,7 +1255,13 @@ on('body', 'click', '#create_feedback_btn', function() {
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
     close_fullscreen();
-    toast_info("Сообщение отправлено!")
+    linquage = document.getElementById("top").getAttribute("data-l")*1;
+    if (linquage == 1) {
+      toast_info("Сообщение отправлено!")
+    }
+    else {
+      toast_info("The message has been sent!")
+    }
   }};
   link.send(form_data);
 });

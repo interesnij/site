@@ -21,4 +21,4 @@
 
 <% include!("wiki.stpl"); %> 
 
-
+<% include!("../../../block/action.stpl"); %>

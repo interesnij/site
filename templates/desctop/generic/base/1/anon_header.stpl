@@ -13,10 +13,10 @@
             "Работы", "Блог", "Товары", "Инфо", "Поиск", 
             "Поиск от 3х букв", "База", "En", "Теги", "Заказы",
             "Помощь", "Статистика", "Фон", "Страницы", "Вы смотрели", 2
-        ),
+        ),  
     };
 %>
-<div class="page desctop_version" id="top">
+<div class="page desctop_version" id="top" data-l="<%= linquage %>">
       <nav class="main-nav small-height stick-fixed">
           <div class="full-wrapper relative clearfix">
               <div class="nav-logo-wrap local-scroll">
@@ -146,8 +146,8 @@
                           </ul>
                       </li>
                       <li>
-                          <a href="/change_l/<%= _ru_en %>" class="mn-has-sub"><%= _l_change %></a>
-                      </li>
+                          <a href="/change_l/<%= _ru_en %>" data-linguage="<%= _l_change %>" class="mn-has-sub"><%= _l_change %></a>
+                      </li> 
                       <li>
                           <a class="pointer anon_color_change" data-color="dark">
                               <%= _design %>

@@ -11,7 +11,7 @@
                 <%= __home %>
             </a>
             &nbsp;/&nbsp;
-            <a><%= __sect %></a>
+            <%= __sect %>
             <% include!("../../generic/items/1/page_stat.stpl"); %>
         </div>
     </div>

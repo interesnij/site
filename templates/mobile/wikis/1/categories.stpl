@@ -1,59 +1,61 @@
+<% let (__home, __wikis, __desc, __about, __stat, __li, __st, __ar, __vi) = match linguage {
+        2 => (
+            "Home", "Wiki", "Articles about creating web services, neural networks, blockchains in python, rust, javascript, c++, Go, java",
+            "About the project", "About the project", "Statistics", "Languages", "Stack", "Articles", "Views"
+        ), 
+        1 | _ => (
+            "Главная", "База знаний", "Статьи о создании веб-сервисов, нейросетей, блокчейнов на python, rust, javascript, c++, Go, java",
+            "О проекте", "Статистика", "Языков", "Стека", "Статей", "Просмотров"
+        ),
+    };
+%>  
 
-<section page-id="81" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title small-section">
+<section page-id="81" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
-        <div class="hs-line-4 font-alt">
-            <a>База знаний</a>
-            <% include!("../../generic/items/1/page_stat.stpl"); %>
-        </div>
+                <div class="hs-line-4 font-alt">
+                    <a class="ajax" href="/"><%= __home %></a>
+                    &nbsp;/&nbsp;
+                    <a><%= __wikis %></a>
+                    <% include!("../../generic/items/1/page_stat.stpl"); %>
+                </div>
     </div>
 </section>
 
 <section class="page-section small-section">
     <div class="relative container-1400">
-        <div class="home-content">
-            <div class="home-text align-center">
-                <div class="row">
-                    <div class="col-sm-10 col-sm-offset-1">
-                        <h1 class="hs-line-4 font-alt">База знаний программиста</h1>
-                        <h2 class="hs-line-15 font-alt mb-0">
-                            Статьи о программировании на python, rust,
-                            javascript, c++, C#, java
-                        </h2>
-                    </div>
-                </div>
-            </div>
+      <div class="home-content">
+        <div class="home-text align-center">
+          <h1 class="hs-line-4 font-alt"><%= __wikis %></h1>
+          <h2 class="hs-line-15 font-alt mb-0">
+            <%= __desc %>
+          </h2>
         </div>
+      </div>
     </div>
-</section>
-<hr class="mt-0 mb-0">
+  </section>
+    <hr class="mt-0 mb-0">
 
 <div class="pt-10 container relative">
     <h3 class="section-title font-alt align-left mt-0 mb-70 mb-sm-40">
-        О проекте
+        <%= __about %>
     </h3>
     <div class="section-text mb-70 mb-xs-40">
-        <p>
-            Люди делятся на два примерных типа по отношению к себе и обществу. Первый
-            особо популярен в наши дни: всё моё, я никому ничего не должен, надо всех
-            обогнать и стать самым крутым. Второй тип - коллективистский. Такие люди
-            стараются помочь обществу больше чем себе, и выбирают коллективное развитие в ущерб
-            собственному.
-        </p>
-        <p>
-            Я буду писать статьи на тему создания высоконагруженных веб-ресурсов на
-            популярных языках программирования. Постараюсь выдавать структурированные и
-            полные знания для такой цели, ибо в таком виде найти подсказки и советы в
-            интернете неожиданно трудно.<br>
-            Мне "не жалко" поделиться крутым опытом, так как я воспитываю в себе второй
-            тип личности, описанный выше.
-        </p>
-
         <ul class="list-unstyled lead">
-            <li>— Python, Django, PostgreSQL, js, Bootstrap</li>
-            <li>— Rust, Actix-web, PostgreSQL, Diesel, Tera</li>
-            <li>— Linux, Nginx, Git, Gunicorn, Supervisor</li>
-            <li>— Docker, Celery, Redis, Websockets</li>
-            <li>— проверенные примеры, полные и с расшифровкой</li>
+            <% if linguage == 2 { %>
+                <li>— Distributed, independent Web services</li>
+                <li>— Database clusters, data architecture</li>
+                <li>— Private, reliable, duplicated media servers</li>
+                <li>— Creation of social networks of any level</li>
+                <li>— Neural networks and machine learning</li>
+                <li>— Blockchain and cryptocurrency, marketplaces and its own currency</li>
+            <% } else if linguage == 1 { %>
+                <li>— Распределенные, самостоятельные Веб-сервисы</li>
+                <li>— Кластеры баз данных, архитектура данных</li>
+                <li>— Приватные, надежные, дублируемые медиа-сервера</li>
+                <li>— Создание соцсетей любого уровня</li>
+                <li>— Нейросети и машинное обучение</li>
+                <li>— Блокчейн и криптовалюта, маркетплейсы и своя валюта</li>
+            <% } %>
         </ul>
     </div>
 </div>
@@ -63,35 +65,35 @@
 <section class="page-section">
     <div class="container-1400 relative">
         <h3 class="section-title font-alt align-left mt-0 mb-70 mb-sm-40">
-            Цифры
+            <%= __stat %>
         </h3>
     </div>
 
     <div class="row multi-columns-row features-grid">
         <div class="col-sm-6 col-md-3 col-lg-3">
-            <div class="features-item pt-0 pb-0 align-center">
-                <div class="count-number">4</div>
-                <h3 class="alt-features-title font-alt">Языка</h3>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3">
-            <div class="features-item pt-0 pb-0 align-center">
-                <div class="count-number">3</div>
-                <h3 class="alt-features-title font-alt">Стека</h3>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3">
-            <div class="features-item pt-0 pb-0 align-center">
-                <div class="count-number">10</div>
-                <h3 class="alt-features-title font-alt">Статей</h3>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3">
-            <div class="features-item pt-0 pb-0 align-center">
-                <div class="count-number">100</div>
-                <h3 class="alt-features-title font-alt">Просмотров</h3>
-            </div>
-        </div>
+                        <div class="features-item pt-0 pb-0 align-center">
+                            <div class="count-number">5</div>
+                            <h3 class="alt-features-title font-alt"><%= __li %></h3>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-3">
+                        <div class="features-item pt-0 pb-0 align-center">
+                            <div class="count-number">4</div>
+                            <h3 class="alt-features-title font-alt"><%= __st %></h3>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-3">
+                        <div class="features-item pt-0 pb-0 align-center">
+                            <div class="count-number">0</div>
+                            <h3 class="alt-features-title font-alt"><%= __ar %></h3>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-3">
+                        <div class="features-item pt-0 pb-0 align-center">
+                            <div class="count-number">56</div>
+                            <h3 class="alt-features-title font-alt"><%= __vi %></h3>
+                        </div>
+                    </div>
     </div>
 </section>
 <hr class="mt-0 mb-0">
@@ -108,7 +110,7 @@
         <div class="section-text">
         <%
           use crate::models::Categories;
-          let get_6_wikis = Categories::get_wikis(category.id, 3, 0, false, linguage).expect("E");
+          let get_6_wikis = Categories::get_wikis(category.id, 3, 0, request_user.is_superuser(), linguage).expect("E");
         %>
           <% for object in get_6_wikis.iter() { %>
             <% include!("../../generic/items/1/wiki.stpl"); %>

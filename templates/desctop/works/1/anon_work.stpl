@@ -1,10 +1,13 @@
+<% let (__works, __info, __date, __cats, __tags, __link) = match linguage {
+        2 => ("Works", "Info", "Date", "Categories", "Tags", "Link"), 
+        1 | _ => ("Портфолио", "Информация", "Дата", "Категории", "Теги", "Ссылка"),
+    };
+%>
 
 <section page-id="93" data-id="<%= object.id %>" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
-            <a class="ajax" href="/">Главная</a>
-            &nbsp;/&nbsp;
-            <a class="ajax" href="/work_categories/">Портфолио</a>
+            <a class="ajax" href="/work_categories/"><%= __works %></a>
             &nbsp;/&nbsp;
             <a class="ajax" href="/works/<%= category.slug %>/"><%= category.name %></a>
             <% include!("../../generic/items/1/object_stat.stpl"); %>
@@ -24,14 +27,14 @@
                         <hr class="mt-0 mb-0 " />
 
                         <div class="work-detail mt-20 mb-20">
-                            <h5 class="font-alt mb-20">Информация</h5>
+                            <h5 class="font-alt mb-20"><%= __info %></h5>
                             <div class="work-full-detail">
                                 <p>
-                                    <strong>Дата:</strong>
+                                    <strong><%= __date %>:</strong>
                                     <%= object.created.format("%d-%m-%Y в %H:%M").to_string() %>
                                 </p>
                                 <p>
-                                    <strong>Категории:</strong>
+                                    <strong><%= __cats %>:</strong>
                                     <% let _work_categories = object.get_categories(); %>
                                     <% for (i, category) in _work_categories.iter().enumerate() { %>
                                       <a href="/works/<%= category.slug %>/" class="ajax"><%= category.name %> - <%= category.count %></a><% if i != _work_categories.len() { %>, <% } %>
@@ -40,7 +43,7 @@
                                 <% let _work_tags = object.get_tags(linguage); %>
                                 <% if _work_tags.len() > 0 { %>
                                 <p>
-                                    <strong>Теги:</strong>
+                                    <strong><%= __tags %>:</strong>
                                     <% for (i, tag) in _work_tags.iter().enumerate() { %>
                                       <a class="ajax border" href="/tag/<%= tag.name %>/"><%= tag.name %> (<%= tag.count %>)</a><% if i != _work_tags.len() { %>, <% } %>
                                     <% } %>
@@ -49,7 +52,7 @@
                                 <% if object.link.is_some() { %>
                                   <% let work_link = object.link.as_deref().unwrap(); %>
                                   <p>
-                                    <strong>Ссылка:</strong>
+                                    <strong><%= __link %>:</strong>
                                     <a href="<%= work_link %>" target="_blank" rel="nofollow"><%= work_link %></a>
                                   </p>
                                 <% } %>
@@ -57,8 +60,6 @@
                         </div>
                         <% if object.content.is_some() { %>
                           <%- object.content.as_deref().unwrap() %>
-                        <% } else { %>
-                          Информация отсутствует.
                         <% } %>
 
                         <% let object_serve_ids = object.get_serves_ids(); %>

@@ -1,9 +1,13 @@
-
+<% let __store = match linguage {
+        2 => "Wiki", 
+        1 | _ => "База знаний",
+    };
+%>
 <section page-id="83" data-id="<%= object.id %>" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title small-section">
     <div class="relative container align-left">
         <div class="mt-30">
             <div class="font-alt">
-                <a class="ajax" href="/wiki_categories/">База знаний</a>
+                <a class="ajax" href="/wiki_categories/"><%= __wikis %></a>
                 &nbsp;/&nbsp;
                 <a class="ajax" href="/wikis/<%= category.slug %>/"><%= category.name %></a>
                 <% include!("../../generic/items/1/object_stat.stpl"); %>
@@ -21,9 +25,7 @@
                     <span class="separator">&nbsp;</span>
                 </div>
                 <% if object.content.is_some() { %>
-                <%- object.content.as_deref().unwrap() %>
-                <% } else { %>
-                Информация отсутствует.
+                    <%- object.content.as_deref().unwrap() %>
                 <% } %>
             </div>
 

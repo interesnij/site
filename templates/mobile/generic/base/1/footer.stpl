@@ -7,20 +7,20 @@
 
 <% let (
     _logo, _home, _services, _works, _blogs, _stores, _info, _search, 
-    _wikis, _l_change, _tags, _orders, _helps, _stats, _design,
-    _pages, _history, _ru_en, _folders, _desc) = match linguage {
+    _wikis, _tags, _orders, _helps, _stats, _design,
+    _pages, _history, _folders, _desc) = match linguage {
         2 => (  
             "Web-services", "Home", "Services", 
             "Works", "Blog", "Stores", "Info", "Search", 
-            "Wiki", "Ru", "Tags", "Orders", "Helps", "Statistics", 
-            "Background", "Pages", "You watched", 1, 
+            "Wiki", "Tags", "Orders", "Helps", "Statistics", 
+            "Background", "Pages", "History", 
             "Folders", "Creating high-load services"
         ), 
         1 | _ => (
             "Вебсервисы", "Главная", "Услуги", 
             "Работы", "Блог", "Товары", "Инфо", "Поиск", 
-            "База", "En", "Теги", "Заказы","Помощь", "Статистика", 
-            "Фон", "Страницы", "Вы смотрели", 2, 
+            "База", "Теги", "Заказы","Помощь", "Статистика", 
+            "Фон", "Страницы", "История",
             "Разделы", "Создание высоконагруженных сервисов"
         ),
     };
@@ -114,14 +114,22 @@
   </a>
 </h2>
 </span>
-<p class="stat_meta" style="text-align: center;">
-  <span class="device"></span>
-  &nbsp;-&nbsp;
-  <span class="city"></span>
-</p>
 </div>
 </div>
 <div id="reload_nav_block" class="container" style="margin-top:20px;position:relative;"></div>
+<div class="stat_meta" style="text-align: center;">
+  <% if linguage == 2 { %> 
+      <p>Device:   <span class="device_en"></span></p>
+      <p>Location: <span class="city_en"></span></p>
+      <p>Linguage: <span>En</span>&nbsp;<a href="/change_l/1">Ru</a></p>
+      <p>Template: <span>Rhythm</span>&nbsp;<a href="/change_t/2">Eremia</a></p>
+  <% } else if linguage == 1 { %> 
+      <p>Девайс:  <span class="device_en"></span></p> 
+      <p>Локация: <span class="city_en"></span></p> 
+      <p>Язык:    <span>En</span>&nbsp;<a href="/change_l/1">Ru</a></p>
+      <p>Шаблон:  <span>Rhythm</span>&nbsp;<a href="/change_t/2">Eremia</a></p>
+  <% } %>
+</div>
 </div>
 </div>
 <div class="body_overlay pointer"></div>

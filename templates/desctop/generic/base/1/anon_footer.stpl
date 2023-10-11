@@ -1,32 +1,44 @@
 </span>
 </span>
-<% let _copy = match linguage {
-        2 => "web-services.top", 
-        1 | _ => "вебсервисы.рф",
-    };
-%>
+
 <footer class="page-section footer pb-60">
     <div class="container">
         <div class="footer-social-links mb-110 mb-xs-60">
             <a href="#" title="VK" target="_blank">VK</a>
-            <a href="#" title="Youtube" target="_blank">YT</a>
-            <a href="#" title="Dzen" target="_blank">DZ</a>
+            <a href="#" title="Youtube" target="_blank">Youtube</a>
+            <a href="#" title="Dzen" target="_blank">Dzen</a>
         </div>
 
         <div class="footer-text" style="margin-top: 10px">
-            <div class="footer-copy font-alt">
-                <a href="/" class="ajax">&copy; <%= _copy %> 2023</a>.
-            </div>
-            <!--
-            <div class="footer-made">
-                Наша мета-вселенная.
-            </div>
-            -->
-            <p class="stat_meta">
-              <span class="device"></span>
-              &nbsp;-&nbsp;
-              <span class="city"></span>
-            </p>
+            <% if linguage == 2 { %>
+                <div class="footer-copy font-alt">
+                    <a href="/" class="ajax">&copy;web-services.top 2023</a>.
+                </div>
+                <!--
+                <div class="footer-made">
+                    Наша мета-вселенная.
+                </div>
+                -->
+                <p class="stat_meta">
+                    <span class="device_en"></span>
+                    &nbsp;-&nbsp;
+                    <span class="city_en"></span>
+                </p>
+            <% } else if linguage == 1 { %>
+                <div class="footer-copy font-alt">
+                    <a href="/" class="ajax">&copy;вебсервисы.рф 2023</a>.
+                </div>
+                <!--
+                <div class="footer-made">
+                    Наша мета-вселенная.
+                </div>
+                -->
+                <p class="stat_meta">
+                    <span class="device_ru"></span>
+                    &nbsp;-&nbsp;
+                    <span class="city_ru"></span>
+                </p>
+            <% } %>
         </div>
      </div>
 </footer>

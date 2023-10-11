@@ -25,9 +25,7 @@
         </div>
 
         <% if object.content.is_some() { %>
-        <%- object.content.as_deref().unwrap() %>
-        <% } else { %>
-        Информация отсутствует.
+            <%- object.content.as_deref().unwrap() %>
         <% } %>
 
         <% let object_serve_ids = object.get_serves_ids(); %>

@@ -38,7 +38,7 @@ use crate::websocket::{
 };
 
 
-pub fn progs_routes(config: &mut web::ServiceConfig) {
+pub fn progs_routes(config: &mut web::ServiceConfig) { 
     config.route("/ws", web::get().to(ws_index));
     config.route("/create_history/", web::post().to(create_history));
     config.route("/object_history/{id}/", web::get().to(object_history));
@@ -46,18 +46,18 @@ pub fn progs_routes(config: &mut web::ServiceConfig) {
 
     config.route("/create_item/", web::post().to(create_item));
     config.route("/edit_item/{id}/", web::post().to(edit_item));
-    config.route("/delete_item/{id}/", web::post().to(delete_item));
-    config.route("/publish_item/{id}/", web::post().to(publish_item));
-    config.route("/hide_item/{id}/", web::post().to(hide_item));
+    config.route("/delete_item/", web::post().to(delete_item));
+    config.route("/publish_item/", web::post().to(publish_item));
+    config.route("/hide_item/", web::post().to(hide_item));
     config.route("/edit_content_item/{id}/", web::post().to(edit_content_item));
 
     config.route("/create_category/", web::post().to(create_category));
     config.route("/edit_category/{id}/", web::post().to(edit_category));
-    config.route("/delete_category/{id}/", web::post().to(delete_category));
+    config.route("/delete_category/", web::post().to(delete_category));
 
     config.route("/create_files/{id}/", web::post().to(create_files));
     config.route("/edit_file/{id}/", web::post().to(edit_file));
-    config.route("/delete_file/{id}/", web::post().to(delete_file));
+    config.route("/delete_file/", web::post().to(delete_file));
     config.route("/change_l/{id}", web::get().to(change_l));
     config.route("/change_t/{id}", web::get().to(change_t));
 }
@@ -239,18 +239,20 @@ pub async fn edit_content_item(session: Session, mut payload: Multipart, _id: we
     HttpResponse::Ok().body("")
 }
 
-pub async fn delete_item(session: Session, _id: web::Path<i32>) -> impl Responder {
+pub async fn delete_item(session: Session, mut payload: Multipart) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
-        Item::delete(_request_user, *_id);
+        let form = crate::utils::id_form(payload.borrow_mut()).await;
+        Item::delete(_request_user, form.id);
     }
     HttpResponse::Ok()
 }
 
-pub async fn delete_category(session: Session, _id: web::Path<i32>) -> impl Responder {
+pub async fn delete_category(session: Session, mut payload: Multipart) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
-        Categories::delete(_request_user, *_id);
+        let form = crate::utils::id_form(payload.borrow_mut()).await;
+        Categories::delete(_request_user, form.id);
     }
     HttpResponse::Ok()
 } 
@@ -273,25 +275,28 @@ pub async fn edit_file(session: Session, mut payload: Multipart, _id: web::Path<
     HttpResponse::Ok()
 }
 
-pub async fn delete_file(session: Session, _id: web::Path<i32>) -> impl Responder {
-    if is_signed_in(&session) { 
+pub async fn delete_file(session: Session, mut payload: Multipart) -> impl Responder {
+    if is_signed_in(&session) {  
         let _request_user = get_request_user_data(&session);
-        crate::models::File::delete(_request_user, *_id);
+        let form = crate::utils::id_form(payload.borrow_mut()).await;
+        crate::models::File::delete(_request_user, form.id);
     }
     HttpResponse::Ok()
 }
 
-pub async fn publish_item(session: Session, _id: web::Path<i32>) -> impl Responder {
+pub async fn publish_item(session: Session, mut payload: Multipart) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
-        Item::publish(_request_user, *_id);
+        let form = crate::utils::id_form(payload.borrow_mut()).await;
+        Item::publish(_request_user, form.id);
     }
-    HttpResponse::Ok()
+    HttpResponse::Ok() 
 }
-pub async fn hide_item(session: Session, _id: web::Path<i32>) -> impl Responder {
+pub async fn hide_item(session: Session, mut payload: Multipart) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
-        Item::hide(_request_user, *_id);
+        let form = crate::utils::id_form(payload.borrow_mut()).await;
+        Item::hide(_request_user, form.id);
     }
     HttpResponse::Ok()
 }

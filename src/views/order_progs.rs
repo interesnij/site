@@ -38,7 +38,7 @@ pub fn order_routes(config: &mut web::ServiceConfig) {
     //    .route(web::get().to(edit_order_page))
     //    .route(web::post().to(edit_order))
     //);
-    config.route("/delete_order/{id}/", web::get().to(delete_order));
+    config.route("/delete_order/", web::post().to(delete_order));
 }
 
 pub async fn get_orders_page(req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
@@ -514,8 +514,9 @@ pub async fn create_order(conn: ConnectionInfo, req: HttpRequest, mut payload: M
     HttpResponse::Ok() 
 }
 
-pub async fn delete_order(req: HttpRequest, _id: web::Path<i32>) -> impl Responder {
+pub async fn delete_order(req: HttpRequest, mut payload: Multipart) -> impl Responder {
     let user_id = get_cookie_user_id(&req);
-    Order::delete(user_id, *_id);
+    let form = crate::utils::id_form(payload.borrow_mut()).await;
+    Order::delete(user_id, form.id);
     HttpResponse::Ok()
-}
+} 

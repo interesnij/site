@@ -1,8 +1,12 @@
-
+<% let __store = match linguage {
+        2 => "Market", 
+        1 | _ => "Магазин",
+    };
+%>
 <section page-id="73" data-id="<%= object.id %>" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
-            <a class="ajax" href="/store_categories/">Магазин</a>
+            <a class="ajax" href="/store_categories/"><%= __store %></a>
             &nbsp;/&nbsp;
             <a class="ajax" href="/stores/<%= category.slug %>/"><%= category.name %></a>
             <% include!("../../generic/items/1/object_stat.stpl"); %>
@@ -51,9 +55,7 @@
                 </div>
 
                 <% if object.content.is_some() { %>
-                <%- object.content.as_deref().unwrap() %>
-                <% } else { %>
-                Информация отсутствует.
+                    <%- object.content.as_deref().unwrap() %>
                 <% } %>
 
                 <% let object_serve_ids = object.get_serves_ids(); %>

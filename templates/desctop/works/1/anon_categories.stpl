@@ -1,10 +1,15 @@
+<% let (__home, __sect) = match linguage {
+        2 => ("Home", "Works"), 
+        1 | _ => ("Главная", "Работы"),
+    };
+%>  
 
 <section page-id="91" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
                 <div class="hs-line-4 font-alt">
-                    <a class="ajax" href="/">Главная</a>
+                    <a class="ajax" href="/"><%= __home %></a>
                     &nbsp;/&nbsp;
-                    <a>Работы</a>
+                    <%= __sect %>
                     <% include!("../../generic/items/1/page_stat.stpl"); %>
                 </div>
     </div>
