@@ -1,14 +1,28 @@
 <% let (__home, __wikis, __desc, __about, __stat, __li, __st, __ar, __vi) = match linguage {
         2 => (
-            "Home", "Wiki", "Articles about creating web services, neural networks, blockchains in python, rust, javascript, c++, Go, java",
-            "About the project", "About the project", "Statistics", "Languages", "Stack", "Articles", "Views"
+            "Home", 
+            "Wiki", 
+            "Articles about creating web services, neural networks, blockchains in python, rust, javascript, c++, Go, java",
+            "About the project", 
+            "Statistics", 
+            "Languages", 
+            "Stack", 
+            "Articles", 
+            "Views"
         ), 
         1 | _ => (
-            "Главная", "База знаний", "Статьи о создании веб-сервисов, нейросетей, блокчейнов на python, rust, javascript, c++, Go, java",
-            "О проекте", "Статистика", "Языков", "Стека", "Статей", "Просмотров"
+            "Главная", 
+            "База знаний", 
+            "Статьи о создании веб-сервисов, нейросетей, блокчейнов на python, rust, javascript, c++, Go, java",
+            "О проекте", 
+            "Статистика", 
+            "Языков", 
+            "Стека", 
+            "Статей", 
+            "Просмотров"
         ),
     };
-%>  
+%>
 
 <section page-id="81" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">

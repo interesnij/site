@@ -262,9 +262,9 @@ function get_or_create_cookie_user() {
   ajax_link.onreadystatechange = function () {
     if ( this.readyState == 4 && this.status == 200 ) {
       data = JSON.parse(ajax_link.responseText);
-      let linquage = document.getElementById("top").getAttribute("data-l")*1;
+      let linguage = document.getElementById("top").getAttribute("data-l")*1;
       stat_meta = document.body.querySelector(".stat_meta");
-      if (linquage == 1) {
+      if (linguage == 1) {
         if (data.device == 1) {
           _device = "Компьютер";
         }
@@ -715,12 +715,12 @@ on('body', 'click', '.select_child_serve', function(event) {
   hours = _this.querySelector(".hours").innerHTML;
   parent_hours = parent.querySelector(".hours").innerHTML; 
 
-  linquage = document.getElementById("top").getAttribute("data-l")*1;
-  if ((linquage == 1 && parent_title.includes('Не выбрано')) || (linquage == 2 && parent_title.includes('Not selected'))) {
+  linguage = document.getElementById("top").getAttribute("data-l")*1;
+  if ((linguage == 1 && parent_title.includes('Не выбрано')) || (linguage == 2 && parent_title.includes('Not selected'))) {
     parent.classList.add("hover");
     parent.querySelector(".icon_check").innerHTML = "✔"; 
   }
-  else if ((linquage == 1 && title.includes('Не выбрано')) || (linquage == 2 && title.includes('Not selected'))){
+  else if ((linguage == 1 && title.includes('Не выбрано')) || (linguage == 2 && title.includes('Not selected'))){
     parent.classList.remove("hover");
     parent.querySelector(".icon_check").innerHTML = "";
   }
@@ -811,7 +811,7 @@ on('body', 'click', '.select_serve', function(event) {
 
   // найдем цену опции и сделаем цену числом
   serve_price = _this.querySelector(".price").innerHTML*1;
-  linquage = document.getElementById("top").getAttribute("data-l")*1;
+  linguage = document.getElementById("top").getAttribute("data-l")*1;
 
   if (!_this.classList.contains("hover")){
     // если до нажатия опция не выбрана...
@@ -820,7 +820,7 @@ on('body', 'click', '.select_serve', function(event) {
     action_text = _this.querySelector(".action_text");
     action_text.innerHTML = '&nbsp;✔&nbsp;';
 
-    if (linquage = 1) {
+    if (linguage = 1) {
       action_text.setAttribute("tooltip", "Опция выбрана");
     }
     else {
@@ -835,7 +835,7 @@ on('body', 'click', '.select_serve', function(event) {
     action_text = _this.querySelector(".action_text");
     action_text.innerHTML = '&nbsp;+&nbsp;';
 
-    if (linquage = 1) {
+    if (linguage = 1) {
       action_text.setAttribute("tooltip", "Опция не выбрана");
     }
     else {
@@ -1067,11 +1067,11 @@ on('body', 'click', '#logg', function() {
   _this = this;
   form = _this.parentElement;
   response = form.querySelector(".api_response");
-  linquage = document.getElementById("top").getAttribute("data-l")*1;
+  linguage = document.getElementById("top").getAttribute("data-l")*1;
 
   if (!form.querySelector("#id_username").value){
     form.querySelector("#id_username").style.border = "1px #FF0000 solid";
-    if (linquage == 1) {
+    if (linguage == 1) {
       response.innerHTML = "Введите логин!";
     }
     else {
@@ -1082,7 +1082,7 @@ on('body', 'click', '#logg', function() {
   }
   else if (!form.querySelector("#id_password").value){
     form.querySelector("#id_password").style.border = "1px #FF0000 solid";
-    if (linquage == 1) {
+    if (linguage == 1) {
       response.innerHTML = "Enter the password!";
     }
     else {
@@ -1168,8 +1168,8 @@ on('body', 'click', '#create_order_btn', function() {
   }
 
   this.setAttribute("disable", "true");
-  linquage = document.getElementById("top").getAttribute("data-l")*1;
-  if (linquage == 1) {
+  linguage = document.getElementById("top").getAttribute("data-l")*1;
+  if (linguage == 1) {
     this.innerHTML = "Данные отправляются!";
   }
   else {
@@ -1241,8 +1241,8 @@ on('body', 'click', '#create_feedback_btn', function() {
   }
 
   this.setAttribute("disable", "true");
-  linquage = document.getElementById("top").getAttribute("data-l")*1;
-  if (linquage == 1) {
+  linguage = document.getElementById("top").getAttribute("data-l")*1;
+  if (linguage == 1) {
     this.innerHTML = "Данные отправляются!";
   }
   else {
@@ -1255,8 +1255,8 @@ on('body', 'click', '#create_feedback_btn', function() {
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
     close_fullscreen();
-    linquage = document.getElementById("top").getAttribute("data-l")*1;
-    if (linquage == 1) {
+    linguage = document.getElementById("top").getAttribute("data-l")*1;
+    if (linguage == 1) {
       toast_info("Сообщение отправлено!")
     }
     else {
