@@ -35,7 +35,7 @@
   <button href="/work_categories/" class="mobile_icon work border ajax">
     <span class="icon-briefcase"></span>
     <p><%= _works %></p>
-  </button>
+  </button> 
   <button href="/store_categories/" class="mobile_icon store border ajax">
     <span class="icon-basket"></span>
     <p><%= _stores %></p>
@@ -121,13 +121,13 @@
   <% if linguage == 2 { %> 
       <p>Device:   <span class="device_en"></span></p>
       <p>Location: <span class="city_en"></span></p>
-      <p>Linguage: <span>En</span>&nbsp;<a href="/change_l/1">Ru</a></p>
-      <p>Template: <span>Rhythm</span>&nbsp;<a href="/change_t/2">Eremia</a></p>
+      <p>Linguage: <span>En</span> &nbsp;&nbsp;&nbsp; <a href="/change_l/1">Ru</a></p>
+      <p>Template: <span>Rhythm</span> &nbsp;&nbsp;&nbsp; <a href="/change_t/2">Eremia</a></p>
   <% } else if linguage == 1 { %> 
       <p>Девайс:  <span class="device_en"></span></p> 
       <p>Локация: <span class="city_en"></span></p> 
-      <p>Язык:    <span>En</span>&nbsp;<a href="/change_l/1">Ru</a></p>
-      <p>Шаблон:  <span>Rhythm</span>&nbsp;<a href="/change_t/2">Eremia</a></p>
+      <p>Язык:    <span>En</span> &nbsp;&nbsp;&nbsp; <a href="/change_l/1">Ru</a></p>
+      <p>Шаблон:  <span>Rhythm</span> &nbsp;&nbsp;&nbsp; <a href="/change_t/2">Eremia</a></p>
   <% } %>
 </div>
 </div>

@@ -249,7 +249,7 @@ pub struct CookieStat {
     pub link:     String,
     pub title:    String,
     pub height:   f64,
-    pub seconds:  i32,
+    pub seconds:  i32, 
     pub created:  chrono::NaiveDateTime,
     pub template: String,
 }
