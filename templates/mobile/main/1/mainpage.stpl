@@ -1,10 +1,6 @@
 
 <% include!("banner.stpl"); %>
 
-<% if request_user.is_superuser() { %>
-  <% include!("admin.stpl"); %>
-<% } %>
-
 <% include!("templates.stpl"); %>
 
 <% if linguage == 2 { %>
@@ -13,12 +9,17 @@
     <% include!("sections_ru.stpl"); %>
 <% } %>
 
+<% include!("service.stpl"); %>
+
 <% include!("work.stpl"); %>
 
 <% include!("store.stpl"); %>
 
 <% include!("blog.stpl"); %>
 
-<% include!("wiki.stpl"); %> 
+<% include!("wiki.stpl"); %>
 
-<% include!("../../../block/action.stpl"); %>
+
+<div class="sidebar hidden">
+    <% include!("sidebar.stpl"); %>
+</div>
