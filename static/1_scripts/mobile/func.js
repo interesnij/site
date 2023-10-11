@@ -264,7 +264,6 @@ on('body', 'click', '.change_t', function() {
       temp_options[i].classList.add("change_t");
       temp_options[i].classList.remove("underline");
     }
-  }
     ajax_get_reload(document.location.href);
   }};
   link.send(form_data);
