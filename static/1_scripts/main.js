@@ -1354,7 +1354,7 @@ on('body', 'click', '.change_t', function() {
     ajax_get_reload(document.location.href);
   }};
   link.send(form_data);
-}; 
+}); 
 on('body', 'click', '.change_l', function() {
   form_data = new FormData(form);
   form_data.append("id", this.getAttribute("data-l"));
@@ -1366,4 +1366,4 @@ on('body', 'click', '.change_l', function() {
     ajax_get_reload(document.location.href);
   }};
   link.send(form_data);
-};
+}); 
