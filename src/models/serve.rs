@@ -572,7 +572,7 @@ impl ServeVar {
                 ))
                 .first::<ServeVar>(&_connection)
                 .expect("E");
-            _serve.price = i.price / 100;
+            _serve.price = _serve.price / 100;
             _serve
         }
     }

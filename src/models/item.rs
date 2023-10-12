@@ -4009,7 +4009,7 @@ impl Item {
                     schema::serve::is_default,
                     schema::serve::tech_cat_id,
                 ))
-                .load::<ServeVar>(&_connection)
+                .load::<ServeVar2>(&_connection)
                 .expect("E");
         }
         else if l == 2 {
@@ -4024,7 +4024,7 @@ impl Item {
                     schema::serve::is_default,
                     schema::serve::tech_cat_id,
                 ))
-                .load::<ServeVar>(&_connection)
+                .load::<ServeVar2>(&_connection)
                 .expect("E");
             for i in &mut list {
                 i.price = i.price / 100;
