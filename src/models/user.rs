@@ -414,7 +414,7 @@ impl CookieStat {
         }
 
         let _connection = establish_connection();
-        let _t = String:
+        let _t: String;
         if user.template == 1 {
             _t = "Rhythm";
         }

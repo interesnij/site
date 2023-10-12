@@ -624,7 +624,8 @@ pub async fn info_page(conn: ConnectionInfo, req: HttpRequest, session: Session)
 
 pub async fn history_page(conn: ConnectionInfo, conn: ConnectionInfo, req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-
+    
+    let user_id = crate::utils::get_or_create_cookie_user_id(&conn, &req).await;
     let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
 
     let title: String;
@@ -653,13 +654,11 @@ pub async fn history_page(conn: ConnectionInfo, conn: ConnectionInfo, req: HttpR
     }
     else {
         use crate::models::{CookieUser, CookieStat};
-        use crate::utils::{get_page, get_or_create_cookie_user_id};
 
-        let user_id = get_or_create_cookie_user_id(&conn, &req).await;
         let _cookie_user = CookieUser::get(user_id);
         let object_list: Vec<CookieStat>;
         let next_page_number: i32; 
-        let page = get_page(&req);
+        let page = crate::utils::get_page(&req);
         let _res = block(move || CookieStat::get_stat_list(user_id, page, 20)).await?;
         let _dict = match _res {
             Ok(_ok) => {object_list = _ok.0; next_page_number = _ok.1},
@@ -1039,7 +1038,7 @@ pub async fn serve_list_page(conn: ConnectionInfo, req: HttpRequest, session: Se
     }
 }
 
-pub async fn get_tech_category_page(conn: ConnectionInfo, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
+pub async fn get_tech_category_page(req: HttpRequest, conn: ConnectionInfo, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     use crate::models::TechCategories;
 
     let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
@@ -1083,7 +1082,7 @@ pub async fn get_tech_category_page(conn: ConnectionInfo, _id: web::Path<i32>) -
     Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
 }
 
-pub async fn get_serve_category_page(conn: ConnectionInfo, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
+pub async fn get_serve_category_page(req: HttpRequest, conn: ConnectionInfo, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     use crate::models::ServeCategories;
 
     let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
@@ -1171,7 +1170,7 @@ pub async fn get_serve_page(conn: ConnectionInfo, _id: web::Path<i32>) -> actix_
     Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
 }
 
-pub async fn get_feedback_page(conn: ConnectionInfo) -> actix_web::Result<HttpResponse> {
+pub async fn get_feedback_page(req: HttpRequest, conn: ConnectionInfo) -> actix_web::Result<HttpResponse> {
     let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
     let title: String;
     let description: String;
@@ -1439,7 +1438,7 @@ pub async fn get_user_history_page(conn: ConnectionInfo, session: Session, req: 
     }
 }
 
-pub async fn get_tech_objects_page(conn: ConnectionInfo, session: Session, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
+pub async fn get_tech_objects_page(req: HttpRequest, conn: ConnectionInfo, session: Session, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     use crate::models::TechCategories;
 
     let _cat = TechCategories::get(*_id);
@@ -1494,7 +1493,7 @@ pub async fn get_tech_objects_page(conn: ConnectionInfo, session: Session, _id: 
     Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
 }
 
-pub async fn unical_object_form_page(conn: ConnectionInfo, session: Session, _id: web::Path<i16>) -> actix_web::Result<HttpResponse> {
+pub async fn unical_object_form_page(req: HttpRequest, conn: ConnectionInfo, session: Session, _id: web::Path<i16>) -> actix_web::Result<HttpResponse> {
     let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
@@ -2183,7 +2182,7 @@ pub async fn edit_file_page(conn: ConnectionInfo, session: Session, req: HttpReq
     }
 }
 
-pub async fn image_page(conn: ConnectionInfo, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
+pub async fn image_page(req: HttpRequest, conn: ConnectionInfo, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     use crate::models::File;
 
     let _connection = establish_connection();

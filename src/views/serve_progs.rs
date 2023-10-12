@@ -463,7 +463,7 @@ pub async fn create_serve_categories_page(conn: ConnectionInfo, session: Session
     }
 }
 
-pub async fn load_serve_categories_from_level(conn: ConnectionInfo, session: Session, level: web::Path<i16>) -> actix_web::Result<HttpResponse> {
+pub async fn load_serve_categories_from_level(req: HttpRequest, conn: ConnectionInfo, session: Session, level: web::Path<i16>) -> actix_web::Result<HttpResponse> {
     if !is_signed_in(&session) {
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
     }
@@ -492,7 +492,7 @@ pub async fn load_serve_categories_from_level(conn: ConnectionInfo, session: Ses
         }
     }
 }
-pub async fn load_form_from_level(conn: ConnectionInfo, session: Session, level: web::Path<i16>) -> actix_web::Result<HttpResponse> {
+pub async fn load_form_from_level(req: HttpRequest, conn: ConnectionInfo, session: Session, level: web::Path<i16>) -> actix_web::Result<HttpResponse> {
     if !is_signed_in(&session) {
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
     }

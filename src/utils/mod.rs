@@ -626,28 +626,22 @@ pub async fn get_or_create_c_user_with_id_return_object(id: i32, conn: Connectio
     return create_c_user_return_object(conn, &req).await;
 }
 pub async fn get_or_create_c_user_return_object(conn: ConnectionInfo, req: &HttpRequest) -> CookieUser {
-    if id > 0 { 
-        let res = CookieUser::get_res(get_cookie_user_id(req));
-        if res.is_ok() {
-            return res.expect("E.");
-        }
-        else {
-            return create_c_user_return_object(conn, &req).await;
-        }
-    } 
-    return create_c_user_return_object(conn, &req).await;
+    let res = CookieUser::get_res(get_cookie_user_id(req));
+    if res.is_ok() {
+        return res.expect("E.");
+    }
+    else {
+        return create_c_user_return_object(conn, &req).await;
+    }
 }
 pub async fn get_or_create_c_user_return_lt(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16) {
-    if id > 0 { 
-        let res = CookieUser::get_res_lt(get_cookie_user_id(req));
-        if res.is_ok() {
-            return res.expect("E.");
-        }
-        else {
-            return create_c_user_return_lt(conn, req).await;
-        }
+    let res = CookieUser::get_res_lt(get_cookie_user_id(req));
+    if res.is_ok() {
+        return res.expect("E.");
     }
-    return create_c_user_return_lt(conn, req).await;
+    else {
+        return create_c_user_return_lt(conn, req).await;
+    }
 }
 
 pub fn get_cookie_user_id(req: &HttpRequest) -> i32 {
