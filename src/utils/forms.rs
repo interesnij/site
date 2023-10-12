@@ -459,6 +459,30 @@ pub async fn id_form(payload: &mut Multipart) -> IdForm {
     }
     form
 }
+#[derive(Deserialize, Serialize)]
+pub struct TypesForm {
+    pub types: i16,
+}
+// форма для удаления чего-либо по id объекта
+pub async fn types_form(payload: &mut Multipart) -> TypesForm {
+    let mut form: TypesForm = TypesForm {
+        types: 0,
+    };
+
+    while let Some(item) = payload.next().await {
+        let mut field: Field = item.expect("split_payload err");
+        if field.name() == "types" {
+            while let Some(chunk) = field.next().await {
+                let data = chunk.expect("split_payload err chunk");
+                if let Ok(s) = str::from_utf8(&data) {
+                    let _int: i16 = s.parse().unwrap();
+                    form.types = _int;
+                }
+            }
+        }
+    }
+    form
+}
 
 
 #[derive(Deserialize, Serialize, Debug)]

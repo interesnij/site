@@ -224,13 +224,13 @@ pub async fn hide_item(session: Session, mut payload: Multipart) -> impl Respond
 }
 
 pub async fn change_l(req: HttpRequest, mut payload: Multipart) -> impl Responder {
-    let form = crate::utils::id_form(payload.borrow_mut()).await;
+    let form = crate::utils::types_form(payload.borrow_mut()).await;
     let user_id = crate::utils::get_cookie_user_id(&req);
     crate::models::CookieUser::update_l(user_id, form.id);
     HttpResponse::Ok()
 }
 pub async fn change_t(req: HttpRequest, mut payload: Multipart) -> impl Responder {
-    let form = crate::utils::id_form(payload.borrow_mut()).await;
+    let form = crate::utils::types_form(payload.borrow_mut()).await;
     let user_id = crate::utils::get_cookie_user_id(&req);
     crate::models::CookieUser::update_t(user_id, form.id);
     HttpResponse::Ok()
