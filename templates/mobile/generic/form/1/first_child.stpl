@@ -4,7 +4,7 @@
   </a>
   <br />
   <span style="font-size:80%">
-    <span class="price_td"><span class="price"><%= first_child.price %></span> <%= __p= %></span>
+    <span class="price_td"><span class="price"><%= first_child.price %></span> <%= __p %></span>
     &nbsp;&nbsp;
     <span class="hours"><%= first_child.man_hours %> <%= __h %></span>
   </span>

@@ -3,5 +3,5 @@
     <%= serve.name %>
   </a>
 </td>
-<td class="price_td" style="width:15%"><span class="price"><%= serve.price %></span> <%= __p= %></td>
+<td class="price_td" style="width:15%"><span class="price"><%= serve.price %></span> <%= __p %></td>
 <td class="hours" style="width:15%"><%= serve.man_hours %></td>
