@@ -64,7 +64,7 @@
         <% } else { %>
           <span>
             <% if object.is_default { %>* <% } %>
-            <%= object.name %>: <%= object.price %> <%= __price %> (<%= object.get_hours() %>)
+            <%= object.name %>: <%= object.price %> <%= __price %> (<%= object.get_hours(l) %>)
           </span>
           <% if is_admin { %>
             <a target="_blank" rel="nofollow" href="/edit_serve/<%= object.id %>/">~</a>

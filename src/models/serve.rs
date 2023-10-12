@@ -445,6 +445,26 @@ impl ServeVar {
             .first::<i32>(&_connection)
             .is_ok();
     }
+    pub fn get_hours(&self, l: i16) -> String {
+        use crate::utils::get_count_for_ru;
+        if l == 1 {
+            return get_count_for_ru (
+                self.man_hours,
+                " час".to_string(),
+                " часа".to_string(),
+                " часов".to_string(),
+            );
+        }
+        else if l == 2 {
+            return get_count_for_ru (
+                self.man_hours,
+                " hour".to_string(),
+                " hours".to_string(),
+                " hours".to_string(),
+            );
+        }
+        return "".to_string();
+    }
 }
 
 impl Serve {
