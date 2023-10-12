@@ -122,7 +122,7 @@ pub async fn edit_item(req: HttpRequest, session: Session, mut payload: Multipar
         if _request_user.perm == 60 {
             let form = crate::utils::item_form(payload.borrow_mut(), _request_user.id).await;
             let l = crate::utils::get_c_user_l(&req);
-            Item::update_item_with_id(*_id, form), l; 
+            Item::update_item_with_id(*_id, form, l); 
         }
     };
     HttpResponse::Ok()
