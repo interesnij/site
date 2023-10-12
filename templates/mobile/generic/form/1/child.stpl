@@ -1,6 +1,6 @@
 <% let (__hours, __price) = match linguage {
         2 => ("h.", "<span class='price'>".to_string() + &(child.price / 100).to_string() + &"</span> $".to_string()), 
-        1 | _ => ("ч.", "<span class='price'>".to_string() + &&object.price.to_string() + &"</span> ₽".to_string()),
+        1 | _ => ("ч.", "<span class='price'>".to_string() + &object.price.to_string() + &"</span> ₽".to_string()),
     };
 %>
 
