@@ -1,7 +1,12 @@
 <% let (images, videos, audios, docs) = object.get_files(); %>
-
+<% let ( 
+    _images, _videos, _audios, _docs) = match linguage {
+        2 => ("Images", "Videos", "Audios", "Docs"), 
+        1 | _ => ("Изображения", "Видеозаписи", "Аудиозаписи", "Документы"),
+    };
+%>
 <% if images.len() > 0 { %>
-<h3 class="mt-20">Изображения</h3>
+<h3 class="mt-20"><%= _images %></h3>
 <div class="row multi-columns-row mb-30 mb-xs-10">
     <% for img in images.iter() { %>
     <div class="col-md-6">
@@ -19,7 +24,7 @@
 <% } %>
 
 <% if videos.len() > 0 { %>
-<h6>Видеозаписи</h6>
+<h6><%= _videos %></h6>
 <div class="row multi-columns-row mb-30 mb-xs-10">
   <% for video in videos.iter() { %>
   <% if video.description.is_some() { %>
@@ -34,7 +39,7 @@
 
 
 <% if audios.len() > 0 { %>
-<h6>Аудиозаписи</h6>
+<h6><%= _audios %></h6>
 <div class="row multi-columns-row mb-30 mb-xs-10">
   <% for audio in audios.iter() { %>
   <% if audio.description.is_some() { %>
@@ -46,7 +51,7 @@
 <% } %>
 
 <% if docs.len() > 0 { %>
-<h6>Документы</h6>
+<h6><%= _docs %></h6>
 <div class="row multi-columns-row mb-30 mb-xs-10">
   <% for doc in docs.iter() { %>
   <% if doc.description.is_some() { %>

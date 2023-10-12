@@ -1,10 +1,24 @@
+<% let (
+    _home, _title, _text) = match linguage {
+        2 => (  
+            "Home", 
+            "The page is private", 
+            "This is a private page. This is either a new page, but not verified an object, or an administrator section.", 
+        ), 
+        1 | _ => (
+            "Главная", 
+            "Страница приватная", 
+            "Это приватная страница. Это либо страница нового, но не проверенного объекта, либо - раздела администратора."
+        ),
+    };
+%>
 
 <section data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
   <div class="relative container align-left">
     <div class="hs-line-4 font-alt">
-      <a class="ajax"href="/">Главная</a>
+      <a class="ajax"href="/"><%= _home %></a>
       &nbsp;/&nbsp;
-      <a>Страница приватная</a>
+      <a><%= _title %></a>
     </div>
   </div>
 </section>
@@ -14,8 +28,7 @@
     <div style="margin-top: 40px;">
       <div class="border align-center" style="padding: 10px 15px;">
         <span>
-          Это приватная страница. Это либо страница нового, но не проверенного
-          объекта, либо - раздела администратора.
+          <%= _text %>
         </span>
       </div>
     </div>

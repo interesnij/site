@@ -1,6 +1,12 @@
+<% let (__from, __no_selected) = match linguage {
+        2 => ("in", "Not selected"), 
+        1 | _ => ("на", "Не выбрано"),
+    };
+%>
+
 <div data-pk="<%= category.id %>" data-sum="<%= category.default_price %>" class="tab_<%= i + 1 %> fade tab-pane <% if i == 0 { %>in active<% } %>">
   <p data-pk="<%= category.id %>" class="pointer get_serve_category_info">
-    <%= t_category.name %> на <%= category.name %>
+    <%= t_category.name %> <%= __from %> <%= category.name %>
   </p>
   <table class="table">
     <tbody>
@@ -34,7 +40,7 @@
             <tr class="open_child_serves no_select_parent pointer" parent-pk="<%= serve.id %>">
               <td class="border-top" style="width:70%">
                 <a class="get_serve_info pointer" data-pk="<%= object.id %>">
-                  <%= serve.name %> → Не выбрано
+                  <%= serve.name %> → <%= __no_selected %>
                 </a>
                 <br />
                 <span style="font-size:80%">

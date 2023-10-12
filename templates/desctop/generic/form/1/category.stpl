@@ -1,16 +1,36 @@
+<% let (
+  __from, __what, __price, 
+  __hours, __info, __no_selected,
+  __selected, __not_selected, __require, 
+  __many
+) = match linguage {
+        2 => (
+          "in", "what is it?", "Price",
+          "Hours", "Info", "Not selected",
+          "Option selected", "Option not selected", "The option is required",
+          "The option has several options"
+        ), 
+        1 | _ => (
+          "на", "что это?", "Цена",
+          "Часы", "Инфо", "Не выбрано",
+          "Опция выбрана", "Опция не выбрана", "Опция обязательна",
+          "Опция имеет несколько вариантов"
+        ),
+    };
+%> 
 
 <div data-pk="<%= category.id %>" data-sum="<%= category.default_price %>" class="tab_<%= i + 1 %> fade tab-pane <% if i == 0 { %>in active<% } %>">
   <table class="table">
     <tbody>
       <tr>
         <th class="hidden-xs">
-          <span data-pk="<%= category.id %>" class="pointer get_serve_category_info" tooltip="Справка" flow="up">
-            <%= t_category.name %> на <%= category.name %>
+          <span data-pk="<%= category.id %>" class="pointer get_serve_category_info" tooltip="<%= __what %>" flow="up">
+            <%= t_category.name %> <%= __from %> <%= category.name %>
           </span>
         </th>
-        <th>Цена</th>
-        <th>Часы</th>
-        <th>Инфо</th>
+        <th><%= __price %></th>
+        <th><%= __hours %></th>
+        <th><%= __info %></th>
       </tr>
 
       <% for serve in category.get_serves().iter() { %>
@@ -21,21 +41,21 @@
             <tr class="is_default open_child_serves hover pointer" parent-pk="<%= serve.id %>">
               <% include!("first_child.stpl"); %>
               <td class="action_text border-top" style="width:15%">
-                <a flow="up" tooltip="Опция выбрана" class="icon_check">✔</a>
+                <a flow="up" tooltip="<%= __selected %>" class="icon_check">✔</a>
                 &nbsp;
-                <a flow="up" tooltip="Опция имеет несколько вариантов" class="icon_parent">▼</a>
+                <a flow="up" tooltip="<%= __many %>" class="icon_parent">▼</a>
                 &nbsp;
-                <a flow="up" tooltip="Опция обязательна" class="icon_default">*</a>
+                <a flow="up" tooltip="<%= __require %>" class="icon_default">*</a>
               </td>
-            </tr>
+            </tr> 
 
           <% } else if object_serve_ids.iter().any(|i| i==&first_child.id) { %>
             <tr class="open_child_serves hover pointer" parent-pk="<%= serve.id %>">
               <% include!("first_child.stpl"); %>
               <td class="action_text border-top" style="width:12%">
-                <a flow="up" tooltip="Опция выбрана" class="icon_check">✔</a>
+                <a flow="up" tooltip="<%= __selected %>" class="icon_check">✔</a>
                 &nbsp;
-                <a flow="up" tooltip="Опция имеет несколько вариантов" class="icon_parent">▼</a>
+                <a flow="up" tooltip="<%= __many %>" class="icon_parent">▼</a>
               </td>
             </tr>
 
@@ -43,15 +63,15 @@
             <tr class="open_child_serves no_select_parent pointer" parent-pk="<%= serve.id %>">
               <td class="border-top" style="width:55%">
                 <a class="get_serve_info pointer" data-pk="<%= object.id %>">
-                  <%= serve.name %> → Не выбрано
+                  <%= serve.name %> → <%= __no_selected %>
                 </a>
               </td>
               <td class="border-top price_td" style="width:15%"><span class="price">-</span></td>
               <td class="border-top hours" style="width:15%">-</td>
               <td class="border-top action_text border-top" style="width:12%">
-                <a flow="up" tooltip="Опция выбрана" class="icon_check"></a>
+                <a flow="up" tooltip="<%= __selected %>" class="icon_check"></a>
                 &nbsp;
-                <a flow="up" tooltip="Опция имеет несколько вариантов" class="icon_parent">▼</a>
+                <a flow="up" tooltip="<%= __many %>" class="icon_parent">▼</a>
               </td>
             </tr>
           <% } %>
@@ -63,7 +83,7 @@
             <tr class="select_child_serve hide pointer" style="font-size: 12px;<% if (i + 1) == childs_count { %>padding-bottom: 30px;<% } %>" serve-pk="<%= serve.id %>">
               <% include!("child.stpl"); %>
               <td class="action_text solid_right <% if i == 0 { %>border-top<% } %> <% if (i + 1) == childs_count { %>solid_bottom<% } %>" style="width:12%">
-                <span flow="up" tooltip="Опция не выбрана" class="icon_check">+</span>
+                <span flow="up" tooltip="<%= __not_selected %>" class="icon_check">+</span>
               </td>
             </tr>
           <% } %>
@@ -74,23 +94,23 @@
             <tr class="is_default hover">
               <% include!("serve.stpl"); %>
               <td class="action_text" style="width:15%">
-                <span flow="up" tooltip="Опция выбрана" class="icon_check">+</span>
+                <span flow="up" tooltip="<%= __selected %>" class="icon_check">+</span>
                 &nbsp;
-                <span flow="up" tooltip="Опция обязательна" class="icon_default">*</span>
+                <span flow="up" tooltip="<%= __require %>" class="icon_default">*</span>
               </td>
             </tr>
           <% } else if object_serve_ids.iter().any(|i| i==&serve.id) { %>
             <tr class="select_serve hover pointer">
               <% include!("serve.stpl"); %>
               <td class="action_text" style="width:12%">
-                <span flow="up" tooltip="Опция выбрана" class="icon_check">&nbsp;✔&nbsp;</span>
+                <span flow="up" tooltip="<%= __selected %>" class="icon_check">&nbsp;✔&nbsp;</span>
               </td>
             </tr>
           <% } else { %>
             <tr class="select_serve pointer">
               <% include!("serve.stpl"); %>
               <td class="action_text border-top" style="width:12%">
-                <span flow="up" tooltip="Опция не выбрана" class="icon_check">&nbsp;+&nbsp;</span>
+                <span flow="up" tooltip="<%= __not_selected %>" class="icon_check">&nbsp;+&nbsp;</span>
               </td>
             </tr>
           <% } %>

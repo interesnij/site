@@ -1,11 +1,17 @@
+<% let (__hours, __price) = match linguage {
+        2 => ("h.", "<span class='price'>".to_string() + &(child.price / 100).to_string() + &"</span> $".to_string()), 
+        1 | _ => ("ч.", "<span class='price'>".to_string() + &&object.price.to_string() + &"</span> ₽".to_string()),
+    };
+%>
+
 <td style="width:55%" class="solid_left <% if i == 0 { %>solid_top<% } %> <% if (i + 1) == childs_count { %>solid_bottom<% } %>">
   <a class="get_serve_info pointer" data-pk="<%= child.id %>">
     <%= serve.name %> → <%= child.name %>
   </a>
   <br />
   <span style="font-size:80%">
-    <span class="price_td"><span class="price"><%= child.price %></span> ₽</span>
+    <span class="price_td"><%- __price %></span>
     &nbsp;&nbsp;
-    <span class="hours"><%= child.man_hours %> ч.</span>
+    <span class="hours"><%= child.man_hours %> <%= __hours %></span>
   </span>
 </td>
