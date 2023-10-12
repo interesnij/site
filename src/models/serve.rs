@@ -567,7 +567,7 @@ impl ServeVar {
                     schema::serve::man_hours,
                     schema::serve::is_default,
                 ))
-                .load::<ServeVar>(&_connection)
+                .first::<ServeVar>(&_connection)
                 .expect("E");
             _serve.price = i.price = "<span class='price'>".to_string() + &(i.price / 100).to_string() + &"</span> $".to_string();
             _serve
@@ -583,7 +583,7 @@ impl ServeVar {
                     schema::serve::man_hours,
                     schema::serve::is_default,
                 ))
-                .load::<ServeVar>(&_connection)
+                .first::<ServeVar>(&_connection)
                 .expect("E");
             _serve.price = "<span class='price'>".to_string() + &(i.price / 100).to_string() + &"</span> $".to_string();
             _serve

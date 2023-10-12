@@ -21,7 +21,7 @@
           <% if object.is_parent() { %>
             <option></option>
             <option><%= object.name %> ↓↓↓ </option>
-            <% for child in object.get_variables().iter() { %>
+            <% for child in object.get_variables(linguage).iter() { %>
               <option value="<%= child.id %>">
                 <%= child.name %> <% if child.is_default { %>- по умолчанию<% } %>
               </option>
