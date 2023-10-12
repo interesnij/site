@@ -6,20 +6,14 @@ use actix_web::{
     web,
     web::Json,
 };
-use crate::schema;
 use crate::models::{
-    CookieUser,
     Categories,
     Item,
     CookieStat,
 };
-use crate::diesel::{
-    RunQueryDsl,
-};
 use serde::{Deserialize, Serialize};
 
 use crate::utils::{
-    establish_connection,
     is_signed_in,
     get_request_user_data,
     HistoryData,

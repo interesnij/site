@@ -4,10 +4,8 @@ use actix_web::{
   http::header::CONTENT_TYPE,
   HttpRequest,
 };
-//use crate::schema;
 use crate::{errors::AuthError, vars};
 use crate::models::SessionUser;
-use actix_web::dev::ConnectionInfo;
 
 
 pub fn hash_password(password: &str) -> String {
