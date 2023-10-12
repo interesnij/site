@@ -655,7 +655,7 @@ pub async fn history_page(conn: ConnectionInfo, conn: ConnectionInfo, req: HttpR
         use crate::models::{CookieUser, CookieStat};
         use crate::utils::{get_page, get_or_create_cookie_user_id};
 
-        let user_id = get_or_create_cookie_user_id(conn, &req).await;
+        let user_id = get_or_create_cookie_user_id(&conn, &req).await;
         let _cookie_user = CookieUser::get(user_id);
         let object_list: Vec<CookieStat>;
         let next_page_number: i32; 
@@ -1535,7 +1535,7 @@ pub async fn unical_object_form_page(conn: ConnectionInfo, session: Session, _id
 
 pub async fn create_category_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
 
     let title: String;
     let description: String;

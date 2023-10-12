@@ -1036,7 +1036,7 @@ pub async fn search_wikis_page(conn: ConnectionInfo, session: Session, req: Http
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let _q = q.clone();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
 
     let title: String;
     let description: String;

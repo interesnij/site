@@ -134,7 +134,7 @@ pub async fn create_category(req: HttpRequest, session: Session, mut payload: Mu
         if _request_user.perm == 60 {
             let form = crate::utils::category_form(payload.borrow_mut(), _request_user.id).await;
             let l = crate::utils::get_c_user_l(&req);
-            Categories::create(req, form, l);
+            Categories::create(form, l);
         }
     }
     return HttpResponse::Ok();
@@ -145,7 +145,7 @@ pub async fn edit_category(req: HttpRequest, session: Session, mut payload: Mult
         let _request_user = get_request_user_data(&session);
         let form = crate::utils::category_form(payload.borrow_mut(), _request_user.id).await;
         let l = crate::utils::get_c_user_l(&req);
-        Categories::update_category_with_id(req, _request_user, *_id, form, l);
+        Categories::update_category_with_id(_request_user, *_id, form, l);
     }
     HttpResponse::Ok()
 }

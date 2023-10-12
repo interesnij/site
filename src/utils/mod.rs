@@ -443,10 +443,10 @@ pub fn get_count_for_ru(count: i16, word1: String, word2: String, word3: String)
     }
 }
 
-pub async fn get_or_create_cookie_user_id(conn: ConnectionInfo, req: &HttpRequest) -> i32 {
+pub async fn get_or_create_cookie_user_id(conn: &ConnectionInfo, req: &HttpRequest) -> i32 {
     let user_id = get_cookie_user_id(&req);
     if user_id != 0 {
-        let user = get_or_create_c_user_return_object(conn, user_id, &req).await;
+        let user = get_or_create_c_user_return_object(conn, &req).await;
         return user.id;
     }
     else {

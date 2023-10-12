@@ -504,7 +504,7 @@ pub async fn create_order_page(conn: ConnectionInfo, req: HttpRequest) -> actix_
 }
 
 pub async fn create_order(conn: ConnectionInfo, req: HttpRequest, mut payload: Multipart) -> impl Responder { 
-    let user_id = get_or_create_cookie_user_id(conn, &req).await;
+    let user_id = get_or_create_cookie_user_id(&conn, &req).await;
     if user_id != 0 {
         let form = crate::utils::order_form(payload.borrow_mut(), user_id).await;
         let l = crate::utils::get_c_user_l(&req);
