@@ -327,7 +327,7 @@ impl ServeCategories {
     pub fn get_serves(&self, l: i16) -> Vec<ServeVar> {
         let _connection = establish_connection();
         if l == 1 {
-            let mut list = schema::serve::table
+            return schema::serve::table
                 .filter(schema::serve::category_id.eq(self.id))
                 .filter(schema::serve::serve_id.is_null())
                 .order(schema::serve::position)
@@ -340,10 +340,6 @@ impl ServeCategories {
                 ))
                 .load::<ServeVar>(&_connection)
                 .expect("E");
-            for i in &mut list {
-                i.price = "<span class='price'>".to_string() + &i.price.to_string() + &"</span> ₽".to_string();
-            }
-            return list;
         }
         else if l == 2 {
             let mut list = schema::serve::table
@@ -360,7 +356,7 @@ impl ServeCategories {
                 .load::<ServeVar>(&_connection)
                 .expect("E");
             for i in &mut list {
-                i.price = "<span class='price'>".to_string() + &(i.price / 100).to_string() + &"</span> $".to_string();
+                i.price = i.price / 100;
             }
             return list;
         }
@@ -471,7 +467,7 @@ impl ServeVar {
 
         let _connection = establish_connection();
         if l == 1 {
-            let mut list = serve 
+            return serve 
                 .filter(schema::serve::serve_id.eq(self.id))
                 .order(schema::serve::position)
                 .select((
@@ -483,10 +479,6 @@ impl ServeVar {
                 ))
                 .load::<ServeVar>(&_connection)
                 .expect("E");
-            for i in &mut list {
-                i.price = "<span class='price'>".to_string() + &i.price.to_string() + &"</span> ₽".to_string();
-            }
-            return list;
         }
         else if l == 2 {
             let mut list = serve 
@@ -502,7 +494,7 @@ impl ServeVar {
                 .load::<ServeVar>(&_connection)
                 .expect("E");
             for i in &mut list {
-                i.price = "<span class='price'>".to_string() + &i.price.to_string() + &"</span> ₽".to_string();
+                i.price = i.price / 100;
             }
             return list;
         }
@@ -513,7 +505,7 @@ impl ServeVar {
 
         let _connection = establish_connection();
         if l == 1 {
-            let mut list = serve
+            return serve
                 .filter(schema::serve::serve_id.eq(self.id))
                 .filter(schema::serve::id.ne(id))
                 .order(schema::serve::position)
@@ -526,10 +518,6 @@ impl ServeVar {
                 ))
                 .load::<ServeVar>(&_connection)
                 .expect("E");
-            for i in &mut list {
-                i.price = "<span class='price'>".to_string() + &(i.price / 100).to_string() + &"</span> $".to_string();
-            }
-            return list;
         }
         else if l == 2 {
             let mut list = serve
@@ -546,7 +534,7 @@ impl ServeVar {
                 .load::<ServeVar>(&_connection)
                 .expect("E");
             for i in &mut list {
-                i.price = "<span class='price'>".to_string() + &(i.price / 100).to_string() + &"</span> $".to_string();
+                i.price = i.price / 100;
             }
             return list;
         }
@@ -568,8 +556,7 @@ impl ServeVar {
                     schema::serve::is_default,
                 ))
                 .first::<ServeVar>(&_connection)
-                .expect("E");
-            _serve.price = i.price = "<span class='price'>".to_string() + &(i.price / 100).to_string() + &"</span> $".to_string();
+                .expect("E");            
             _serve
         }
         else {
@@ -585,7 +572,7 @@ impl ServeVar {
                 ))
                 .first::<ServeVar>(&_connection)
                 .expect("E");
-            _serve.price = "<span class='price'>".to_string() + &(i.price / 100).to_string() + &"</span> $".to_string();
+            _serve.price = i.price / 100;
             _serve
         }
     }

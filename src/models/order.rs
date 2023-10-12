@@ -271,7 +271,7 @@ impl Order {
             .load::<i32>(&_connection)
             .expect("E");
         if l == 1 {
-            let mut list = serve 
+            return serve 
                 .filter(schema::serve::id.eq_any(_serve_items))
                 .order(schema::serve::position)
                 .select((
@@ -283,10 +283,6 @@ impl Order {
                 ))
                 .load::<ServeVar>(&_connection)
                 .expect("E");
-            for i in &mut list {
-                i.price = "<span class='price'>".to_string() + &i.price.to_string() + &"</span> ₽".to_string();
-            }
-            return list;
         }
         else if l == 2 {
             let mut list = serve 
@@ -302,7 +298,7 @@ impl Order {
                 .load::<ServeVar>(&_connection)
                 .expect("E");
             for i in &mut list {
-                i.price = "<span class='price'>".to_string() + &(i.price / 100).to_string() + &"</span> $".to_string();
+                i.price = i.price / 100;
             }
             return list;
         }
