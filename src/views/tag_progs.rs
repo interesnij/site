@@ -20,7 +20,6 @@ use crate::utils::{
     establish_connection,
     is_signed_in,
     get_request_user_data,
-    get_all_storage,
 };
 use crate::schema;
 use crate::models::{
@@ -50,9 +49,9 @@ pub fn tag_routes(config: &mut web::ServiceConfig) {
     config.route("/delete_tag/", web::post().to(delete_tag));
 }
 
-pub async fn create_tag_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
+pub async fn create_tag_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -90,8 +89,8 @@ pub async fn create_tag_page(session: Session, req: HttpRequest) -> actix_web::R
                     request_user:   User,
                     all_tags:       Vec<Tag>,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -118,8 +117,8 @@ pub async fn create_tag_page(session: Session, req: HttpRequest) -> actix_web::R
                 struct Template {
                     all_tags:       Vec<Tag>,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -146,19 +145,8 @@ pub async fn create_tag_page(session: Session, req: HttpRequest) -> actix_web::R
     }
 }
 
-pub async fn create_tag(session: Session, mut payload: Multipart) -> impl Responder {
-    if is_signed_in(&session) {
-        let _request_user = get_request_user_data(&session);
-        if _request_user.is_superuser() {
-            let form = crate::utils::category_form(payload.borrow_mut(), _request_user.id).await;
-            Tag::create(_request_user, form);
-        }
-    }
-    return HttpResponse::Ok();
-}
-
-pub async fn tag_page(req: HttpRequest, session: Session, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
-    let (t, l) = get_all_storage();
+pub async fn tag_page(conn: ConnectionInfo, req: HttpRequest, session: Session, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let slug = _id.to_string();
     let _tag = Tag::get_tag_with_slug(&slug);
@@ -221,8 +209,8 @@ pub async fn tag_page(req: HttpRequest, session: Session, _id: web::Path<String>
                     stores_count:   usize,
                     helps_count:    usize,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -275,8 +263,8 @@ pub async fn tag_page(req: HttpRequest, session: Session, _id: web::Path<String>
                     stores_count:   usize,
                     helps_count:    usize,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -337,8 +325,8 @@ pub async fn tag_page(req: HttpRequest, session: Session, _id: web::Path<String>
                     stores_count:   usize,
                     helps_count:    usize,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -390,8 +378,8 @@ pub async fn tag_page(req: HttpRequest, session: Session, _id: web::Path<String>
                     stores_count:   usize,
                     helps_count:    usize,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -428,10 +416,10 @@ pub async fn tag_page(req: HttpRequest, session: Session, _id: web::Path<String>
     }
 }
 
-pub async fn tag_blogs_page(session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
+pub async fn tag_blogs_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let _connection = establish_connection();
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let slug = _id.to_string();
     let _tag = Tag::get_tag_with_slug(&slug);
     
@@ -490,8 +478,8 @@ pub async fn tag_blogs_page(session: Session, req: HttpRequest, _id: web::Path<S
                     blogs_count:      usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -524,8 +512,8 @@ pub async fn tag_blogs_page(session: Session, req: HttpRequest, _id: web::Path<S
                     blogs_count:      usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -563,8 +551,8 @@ pub async fn tag_blogs_page(session: Session, req: HttpRequest, _id: web::Path<S
                     blogs_count:      usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -596,8 +584,8 @@ pub async fn tag_blogs_page(session: Session, req: HttpRequest, _id: web::Path<S
                     blogs_count:      usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -624,11 +612,11 @@ pub async fn tag_blogs_page(session: Session, req: HttpRequest, _id: web::Path<S
     }
 }
 
-pub async fn tag_services_page(session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
+pub async fn tag_services_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
     let _connection = establish_connection();
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let slug = _id.to_string();
     let _tag = Tag::get_tag_with_slug(&slug); 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
@@ -686,8 +674,8 @@ pub async fn tag_services_page(session: Session, req: HttpRequest, _id: web::Pat
                     services_count:   usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -720,8 +708,8 @@ pub async fn tag_services_page(session: Session, req: HttpRequest, _id: web::Pat
                     services_count:   usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -759,8 +747,8 @@ pub async fn tag_services_page(session: Session, req: HttpRequest, _id: web::Pat
                     services_count:   usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -792,8 +780,8 @@ pub async fn tag_services_page(session: Session, req: HttpRequest, _id: web::Pat
                     services_count:   usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -820,11 +808,11 @@ pub async fn tag_services_page(session: Session, req: HttpRequest, _id: web::Pat
     }
 }
 
-pub async fn tag_stores_page(session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
+pub async fn tag_stores_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
     let _connection = establish_connection();
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let slug = _id.to_string();
     let _tag = Tag::get_tag_with_slug(&slug); 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
@@ -883,8 +871,8 @@ pub async fn tag_stores_page(session: Session, req: HttpRequest, _id: web::Path<
                     stores_count:     usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -917,8 +905,8 @@ pub async fn tag_stores_page(session: Session, req: HttpRequest, _id: web::Path<
                     stores_count:     usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -956,8 +944,8 @@ pub async fn tag_stores_page(session: Session, req: HttpRequest, _id: web::Path<
                     stores_count:     usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -989,8 +977,8 @@ pub async fn tag_stores_page(session: Session, req: HttpRequest, _id: web::Path<
                     stores_count:     usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1017,11 +1005,11 @@ pub async fn tag_stores_page(session: Session, req: HttpRequest, _id: web::Path<
     }
 }
 
-pub async fn tag_wikis_page(session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
+pub async fn tag_wikis_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
     let _connection = establish_connection();
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let slug = _id.to_string();
     let _tag = Tag::get_tag_with_slug(&slug); 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
@@ -1080,8 +1068,8 @@ pub async fn tag_wikis_page(session: Session, req: HttpRequest, _id: web::Path<S
                     wikis_count:      usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1114,8 +1102,8 @@ pub async fn tag_wikis_page(session: Session, req: HttpRequest, _id: web::Path<S
                     wikis_count:      usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1153,8 +1141,8 @@ pub async fn tag_wikis_page(session: Session, req: HttpRequest, _id: web::Path<S
                     wikis_count:      usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1186,8 +1174,8 @@ pub async fn tag_wikis_page(session: Session, req: HttpRequest, _id: web::Path<S
                     wikis_count:      usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1214,11 +1202,11 @@ pub async fn tag_wikis_page(session: Session, req: HttpRequest, _id: web::Path<S
     }
 }
 
-pub async fn tag_works_page(session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
+pub async fn tag_works_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
     let _connection = establish_connection();
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let slug = _id.to_string();
     let _tag = Tag::get_tag_with_slug(&slug); 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
@@ -1277,8 +1265,8 @@ pub async fn tag_works_page(session: Session, req: HttpRequest, _id: web::Path<S
                     works_count:      usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1311,8 +1299,8 @@ pub async fn tag_works_page(session: Session, req: HttpRequest, _id: web::Path<S
                     works_count:      usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1351,8 +1339,8 @@ pub async fn tag_works_page(session: Session, req: HttpRequest, _id: web::Path<S
                     works_count:      usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1384,8 +1372,8 @@ pub async fn tag_works_page(session: Session, req: HttpRequest, _id: web::Path<S
                     works_count:      usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1412,9 +1400,9 @@ pub async fn tag_works_page(session: Session, req: HttpRequest, _id: web::Path<S
     }
 }
 
-pub async fn tag_helps_page(session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
+pub async fn tag_helps_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
     let _connection = establish_connection();
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let slug = _id.to_string();
     let _tag = Tag::get_tag_with_slug(&slug); 
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
@@ -1473,8 +1461,8 @@ pub async fn tag_helps_page(session: Session, req: HttpRequest, _id: web::Path<S
                     helps_count:      usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1507,8 +1495,8 @@ pub async fn tag_helps_page(session: Session, req: HttpRequest, _id: web::Path<S
                     helps_count:      usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1546,8 +1534,8 @@ pub async fn tag_helps_page(session: Session, req: HttpRequest, _id: web::Path<S
                     helps_count:      usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1579,8 +1567,8 @@ pub async fn tag_helps_page(session: Session, req: HttpRequest, _id: web::Path<S
                     helps_count:      usize,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1607,11 +1595,11 @@ pub async fn tag_helps_page(session: Session, req: HttpRequest, _id: web::Path<S
     }
 }
 
-pub async fn tags_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
+pub async fn tags_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -1656,8 +1644,8 @@ pub async fn tags_page(session: Session, req: HttpRequest) -> actix_web::Result<
                     next_page_number: i32,
                     is_ajax:          i32,
                     stat:             StatPage,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1690,8 +1678,8 @@ pub async fn tags_page(session: Session, req: HttpRequest) -> actix_web::Result<
                     next_page_number: i32,
                     is_ajax:          i32,
                     stat:             StatPage,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1725,8 +1713,8 @@ pub async fn tags_page(session: Session, req: HttpRequest) -> actix_web::Result<
                     next_page_number: i32,
                     is_ajax:          i32,
                     stat:             StatPage,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1758,8 +1746,8 @@ pub async fn tags_page(session: Session, req: HttpRequest) -> actix_web::Result<
                     next_page_number: i32,
                     is_ajax:          i32,
                     stat:             StatPage,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1786,12 +1774,12 @@ pub async fn tags_page(session: Session, req: HttpRequest) -> actix_web::Result<
     }
 }
 
-pub async fn edit_tag_page(session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
+pub async fn edit_tag_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
     use schema::tags::dsl::tags;
 
     let _tag_id: i32 = *_id;
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let _connection = establish_connection();
     let _tag = tags
         .filter(schema::tags::id.eq(&_tag_id))
@@ -1834,8 +1822,8 @@ pub async fn edit_tag_page(session: Session, req: HttpRequest, _id: web::Path<i3
                     request_user:   User,
                     tag:            Tag,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -1862,8 +1850,8 @@ pub async fn edit_tag_page(session: Session, req: HttpRequest, _id: web::Path<i3
                 struct Template {
                     tag:            Tag,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -1893,12 +1881,25 @@ pub async fn edit_tag_page(session: Session, req: HttpRequest, _id: web::Path<i3
     }
 }
 
-pub async fn edit_tag(session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
+pub async fn create_tag(req: HttpRequest, session: Session, mut payload: Multipart) -> impl Responder {
+    if is_signed_in(&session) {
+        let _request_user = get_request_user_data(&session);
+        if _request_user.is_superuser() {
+            let form = crate::utils::category_form(payload.borrow_mut(), _request_user.id).await;
+            let l = crate::utils::get_c_user_l(&req);
+            Tag::create(_request_user, form, l);
+        }
+    }
+    return HttpResponse::Ok();
+}
+
+pub async fn edit_tag(req: HttpRequest, session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         if _request_user.perm == 60 {
             let form = crate::utils::category_form(payload.borrow_mut(), _request_user.id).await;
-            Tag::update_tag_with_id(*_id, form);
+            let l = crate::utils::get_c_user_l(&req);
+            Tag::update_tag_with_id(*_id, form, l);
         }
     }
 

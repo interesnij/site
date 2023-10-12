@@ -92,6 +92,8 @@ CREATE TABLE cookie_users (
     id         SERIAL PRIMARY KEY,
     ip         VARCHAR(100) NOT NULL, -- ip адрес пользователя
     device     SMALLINT NOT NULL,     -- комп - смартфон - планшет
+    linguage   SMALLINT NOT NULL,     -- язык
+    template   SMALLINT NOT NULL,     -- шаблон
     city_ru    VARCHAR(150),          -- город по русски
     city_en    VARCHAR(150),          -- город по английски
     region_ru  VARCHAR(150),          -- регион по русски

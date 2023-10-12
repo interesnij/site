@@ -10,7 +10,6 @@ use actix_web::{
 use crate::utils::{
     is_signed_in,
     get_request_user_data,
-    get_all_storage,
 };
 use actix_session::Session;
 use crate::models::{
@@ -31,9 +30,9 @@ pub fn work_routes(config: &mut web::ServiceConfig) {
 }
 
 
-pub async fn get_work_page(session: Session, req: HttpRequest, param: web::Path<(String,String)>) -> actix_web::Result<HttpResponse> {
+pub async fn get_work_page(conn: ConnectionInfo, session: Session, req: HttpRequest, param: web::Path<(String,String)>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let _item_id: String = param.1.clone();
     let _cat_id: String = param.0.clone();
 
@@ -98,8 +97,8 @@ pub async fn get_work_page(session: Session, req: HttpRequest, param: web::Path<
                     prev:           Option<FeaturedItem>,
                     next:           Option<FeaturedItem>,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -137,8 +136,8 @@ pub async fn get_work_page(session: Session, req: HttpRequest, param: web::Path<
                     prev:           Option<FeaturedItem>,
                     next:           Option<FeaturedItem>,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -189,8 +188,8 @@ pub async fn get_work_page(session: Session, req: HttpRequest, param: web::Path<
                     prev:           Option<FeaturedItem>,
                     next:           Option<FeaturedItem>,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -226,8 +225,8 @@ pub async fn get_work_page(session: Session, req: HttpRequest, param: web::Path<
                     prev:           Option<FeaturedItem>,
                     next:           Option<FeaturedItem>,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -257,8 +256,8 @@ pub async fn get_work_page(session: Session, req: HttpRequest, param: web::Path<
     }
 }
 
-pub async fn work_category_page(session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
-    let (t, l) = get_all_storage();
+pub async fn work_category_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let _category = Categories::get_detail(_id.clone(), 5, l);
 
     let title: String;
@@ -314,8 +313,8 @@ pub async fn work_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     help_cats:        Vec<Cat>,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -351,8 +350,8 @@ pub async fn work_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     help_cats:        Vec<Cat>,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -395,8 +394,8 @@ pub async fn work_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     help_cats:        Vec<Cat>,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -431,8 +430,8 @@ pub async fn work_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     help_cats:        Vec<Cat>,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -461,9 +460,9 @@ pub async fn work_category_page(session: Session, req: HttpRequest, _id: web::Pa
     }
 }
 
-pub async fn work_categories_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
+pub async fn work_categories_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -506,8 +505,8 @@ pub async fn work_categories_page(session: Session, req: HttpRequest) -> actix_w
                     cats:           Vec<Cat>,
                     help_cats:      Vec<Cat>,
                     stat:           StatPage,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -539,8 +538,8 @@ pub async fn work_categories_page(session: Session, req: HttpRequest) -> actix_w
                     help_cats:      Vec<Cat>,
                     all_tags:       Vec<SmallTag>,
                     stat:           StatPage,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -573,8 +572,8 @@ pub async fn work_categories_page(session: Session, req: HttpRequest) -> actix_w
                     cats:           Vec<Cat>,
                     help_cats:      Vec<Cat>,
                     stat:           StatPage,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -605,8 +604,8 @@ pub async fn work_categories_page(session: Session, req: HttpRequest) -> actix_w
                     help_cats:      Vec<Cat>,
                     all_tags:       Vec<SmallTag>,
                     stat:           StatPage,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,

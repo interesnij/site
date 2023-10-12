@@ -105,6 +105,8 @@ pub struct CookieUser {
     pub id:         i32,
     pub ip:         String,
     pub device:     i16,
+    pub linguage:   i16,
+    pub template:   i16,
     pub city_ru:    Option<String>,
     pub city_en:    Option<String>,
     pub region_ru:  Option<String>,
@@ -116,6 +118,22 @@ pub struct CookieUser {
     pub created:    chrono::NaiveDateTime,
 }
 impl CookieUser {
+    pub fn update_l(id: i32, l: i16) -> i16 {
+        let _connection = establish_connection();
+        let _item = CookieUser::get(id);
+        diesel::update(&_item)
+            .set(schema::cookie_users::linguage.eq(l))
+            .execute(&_connection)
+            .expect("E");
+    }
+    pub fn update_t(id: i32, t: i16) -> i16 {
+        let _connection = establish_connection();
+        let _item = CookieUser::get(id);
+        diesel::update(&_item)
+            .set(schema::cookie_users::template.eq(t))
+            .execute(&_connection)
+            .expect("E");
+    }
     pub fn get(user_id: i32) -> CookieUser {
         let _connection = establish_connection();
         return schema::cookie_users::table
@@ -127,7 +145,21 @@ impl CookieUser {
         let _connection = establish_connection();
         return Ok(schema::cookie_users::table
             .filter(schema::cookie_users::id.eq(user_id))
-            .first::<CookieUser>(&_connection)?); 
+            .first::<CookieUser>(&_connection)?);
+    }
+    pub fn get_res_lt(user_id: i32) -> Result<(i16, i16), Error> {
+        let _connection = establish_connection();
+        return Ok(schema::cookie_users::table
+            .filter(schema::cookie_users::id.eq(user_id))
+            .select((schema::cookie_users::linguage, schema::cookie_users::template))
+            .first::<(i16, i16)>(&_connection)?);
+    }
+    pub fn get_res_l(user_id: i32) -> Result<i16, Error> {
+        let _connection = establish_connection();
+        return Ok(schema::cookie_users::table
+            .filter(schema::cookie_users::id.eq(user_id))
+            .select(schema::cookie_users::linguage)
+            .first::<i16>(&_connection)?);
     }
     pub fn get_users_list(page: i32, limit: i32) -> (Vec<CookieUser>, i32) {
         let mut next_page_number = 0;
@@ -169,6 +201,8 @@ impl CookieUser {
 pub struct NewCookieUser {
     pub ip:         String,
     pub device:     i16,
+    pub linguage:   i16,
+    pub template:   i16,
     pub city_ru:    Option<String>,
     pub city_en:    Option<String>,
     pub region_ru:  Option<String>,
@@ -300,8 +334,7 @@ impl CookieStat {
     }
     pub fn create (
         data: Json<crate::utils::HistoryData>,
-        user: CookieUser, 
-        l:    u8,
+        user: CookieUser,
     ) -> Result<CookieStat, Error> {
         use chrono::Duration;
 
@@ -315,7 +348,6 @@ impl CookieStat {
         }
         let p_link = data.link.clone();
         let p_title = data.title.clone();
-        let p_template = data.template.clone();
 
         let _connection = establish_connection();
         let is_cookie_stats_exists = schema::cookie_stats::table
@@ -388,7 +420,7 @@ impl CookieStat {
             height:   p_height,
             seconds:  p_seconds,
             created:  chrono::Local::now().naive_utc() + Duration::hours(3),
-            template: p_template,
+            template: user.template,
         };
         let new = diesel::insert_into(schema::cookie_stats::table)
             .values(&_h)

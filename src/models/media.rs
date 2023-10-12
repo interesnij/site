@@ -10,7 +10,6 @@ use serde::{Serialize, Deserialize};
 use crate::schema::files;
 use crate::utils::{
     establish_connection,
-    get_linguage_storage,
 };
 use crate::models::User;
 
@@ -66,9 +65,8 @@ impl File {
             .first::<File>(&_connection)
             .expect("E.");
     }
-    pub fn update_file_with_id(user: User, file_id: i32, form: crate::utils::CategoriesForm) -> i16 {
+    pub fn update_file_with_id(user: User, file_id: i32, form: crate::utils::CategoriesForm, l: i16) -> i16 {
         let _connection = establish_connection();
-        let l = get_linguage_storage();
         let _file = schema::files::table
             .filter(schema::files::id.eq(file_id))
             .first::<File>(&_connection)

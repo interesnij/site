@@ -12,8 +12,6 @@ use crate::utils::{
     get_request_user_data,
     get_or_create_cookie_user_id,
     get_cookie_user_id,
-    get_all_storage,
-    get_linguage_storage,
 };
 use crate::models::{
     Order,
@@ -41,9 +39,9 @@ pub fn order_routes(config: &mut web::ServiceConfig) {
     config.route("/delete_order/", web::post().to(delete_order));
 }
 
-pub async fn get_orders_page(req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
+pub async fn get_orders_page(conn: ConnectionInfo, req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -87,8 +85,8 @@ pub async fn get_orders_page(req: HttpRequest, session: Session) -> actix_web::R
                 is_ajax:          i32,
                 object_list:      Vec<Order>,
                 next_page_number: i32,
-                template_types:   u8,
-                linguage:         u8,
+                template_types:   i16,
+                linguage:         i16,
                 title:            String,
                 description:      String,
                 link:             String,
@@ -117,8 +115,8 @@ pub async fn get_orders_page(req: HttpRequest, session: Session) -> actix_web::R
                 is_ajax:          i32,
                 object_list:      Vec<Order>,
                 next_page_number: i32,
-                template_types:   u8,
-                linguage:         u8,
+                template_types:   i16,
+                linguage:         i16,
                 title:            String,
                 description:      String,
                 link:             String,
@@ -142,9 +140,9 @@ pub async fn get_orders_page(req: HttpRequest, session: Session) -> actix_web::R
     }
 }
 
-pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
+pub async fn get_user_orders_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -186,8 +184,8 @@ pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_w
                     object_list:      Vec<Order>,
                     is_ajax:          i32,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -216,8 +214,8 @@ pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_w
                     object_list:      Vec<Order>,
                     is_ajax:          i32,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -247,8 +245,8 @@ pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_w
                     object_list:      Vec<Order>,
                     is_ajax:          i32,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -276,8 +274,8 @@ pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_w
                     object_list:      Vec<Order>,
                     is_ajax:          i32,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -303,9 +301,9 @@ pub async fn get_user_orders_page(session: Session, req: HttpRequest) -> actix_w
 }
 
 
-pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
+pub async fn get_order_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let user_id = get_cookie_user_id(&req);
 
     let _order = Order::get(*_id); 
@@ -350,8 +348,8 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
                     object:         Order,
                     files:          Vec<OrderFile>,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -380,8 +378,8 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
                     object:         Order,
                     files:          Vec<OrderFile>,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -411,8 +409,8 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
                     object:         Order,
                     files:          Vec<OrderFile>,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -440,8 +438,8 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
                     object:         Order,
                     files:          Vec<OrderFile>,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -466,8 +464,8 @@ pub async fn get_order_page(session: Session, req: HttpRequest, _id: web::Path<i
     }
 }
 
-pub async fn create_order_page() -> actix_web::Result<HttpResponse> {
-    let (t, l) = get_all_storage();
+pub async fn create_order_page(conn: ConnectionInfo, req: HttpRequest) -> actix_web::Result<HttpResponse> {
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -485,8 +483,8 @@ pub async fn create_order_page() -> actix_web::Result<HttpResponse> {
     #[derive(TemplateOnce)]
     #[template(path = "desctop/pages/create_order.stpl")]
     struct Template {
-        template_types: u8,
-        linguage:       u8,
+        template_types: i16,
+        linguage:       i16,
         title:          String,
         description:    String,
         link:           String,
@@ -509,7 +507,8 @@ pub async fn create_order(conn: ConnectionInfo, req: HttpRequest, mut payload: M
     let user_id = get_or_create_cookie_user_id(conn, &req).await;
     if user_id != 0 {
         let form = crate::utils::order_form(payload.borrow_mut(), user_id).await;
-        Order::create(user_id, form, get_linguage_storage()); 
+        let l = crate::utils::get_c_user_l(&req);
+        Order::create(user_id, form, l);
     }
     HttpResponse::Ok() 
 }

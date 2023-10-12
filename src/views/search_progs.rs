@@ -10,7 +10,6 @@ use actix_session::Session;
 use crate::utils::{
     is_signed_in,
     get_request_user_data,
-    get_all_storage,
 };
 
 use sailfish::TemplateOnce;
@@ -29,9 +28,9 @@ pub fn search_routes(config: &mut web::ServiceConfig) {
 }
 
 
-pub async fn empty_search_page(req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
+pub async fn empty_search_page(conn: ConnectionInfo, req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -65,8 +64,8 @@ pub async fn empty_search_page(req: HttpRequest, session: Session) -> actix_web:
             struct Template {
                 request_user:   User,
                 is_ajax:        i32,
-                template_types: u8,
-                linguage:       u8,
+                template_types: i16,
+                linguage:       i16,
                 title:          String,
                 description:    String,
                 link:           String,
@@ -91,8 +90,8 @@ pub async fn empty_search_page(req: HttpRequest, session: Session) -> actix_web:
             #[template(path = "mobile/search/empty_search.stpl")]
             struct Template {
                 is_ajax:        i32,
-                template_types: u8,
-                linguage:       u8,
+                template_types: i16,
+                linguage:       i16,
                 title:          String,
                 description:    String,
                 link:           String,
@@ -118,8 +117,8 @@ pub async fn empty_search_page(req: HttpRequest, session: Session) -> actix_web:
             #[template(path = "desctop/search/anon_empty_search.stpl")]
             struct Template {
                 is_ajax:        i32,
-                template_types: u8,
-                linguage:       u8,
+                template_types: i16,
+                linguage:       i16,
                 title:          String,
                 description:    String,
                 link:           String,
@@ -143,8 +142,8 @@ pub async fn empty_search_page(req: HttpRequest, session: Session) -> actix_web:
             #[template(path = "mobile/search/anon_empty_search.stpl")]
             struct Template {
                 is_ajax:        i32,
-                template_types: u8,
-                linguage:       u8,
+                template_types: i16,
+                linguage:       i16,
                 title:          String,
                 description:    String,
                 link:           String,
@@ -166,13 +165,13 @@ pub async fn empty_search_page(req: HttpRequest, session: Session) -> actix_web:
     }
 }
 
-pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
+pub async fn search_page(conn: ConnectionInfo, session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let _q = q.clone();
     let _q_standalone = "%".to_owned() + &_q + "%";
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -228,8 +227,8 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
                     stores_count:   usize,
                     is_ajax:        i32,
                     q:              String,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -278,8 +277,8 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
                     stores_count:   usize,
                     is_ajax:        i32,
                     q:              String,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -335,8 +334,8 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
                     stores_count:   usize,
                     is_ajax:        i32,
                     q:              String,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -384,8 +383,8 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
                     stores_count:   usize,
                     is_ajax:        i32,
                     q:              String,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -420,10 +419,10 @@ pub async fn search_page(session: Session, req: HttpRequest, q: web::Path<String
     }
 }
 
-pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
+pub async fn search_blogs_page(conn: ConnectionInfo, session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let _q = q.clone();
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -486,8 +485,8 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -521,8 +520,8 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -562,8 +561,8 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -595,8 +594,8 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -623,10 +622,10 @@ pub async fn search_blogs_page(session: Session, req: HttpRequest, q: web::Path<
     }
 }
 
-pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
+pub async fn search_services_page(conn: ConnectionInfo, session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let _q = q.clone();
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -688,8 +687,8 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -722,8 +721,8 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -764,8 +763,8 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -797,8 +796,8 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -825,12 +824,12 @@ pub async fn search_services_page(session: Session, req: HttpRequest, q: web::Pa
     }
 }
 
-pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
+pub async fn search_stores_page(conn: ConnectionInfo, session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
     use crate::utils::{get_device_and_ajax, get_page};
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let _q = q.clone();
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -894,8 +893,8 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -928,8 +927,8 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -969,8 +968,8 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1003,8 +1002,8 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1031,12 +1030,12 @@ pub async fn search_stores_page(session: Session, req: HttpRequest, q: web::Path
     }
 }
 
-pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
+pub async fn search_wikis_page(conn: ConnectionInfo, session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
     use crate::utils::{get_device_and_ajax, get_page};
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let _q = q.clone();
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -1099,8 +1098,8 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1133,8 +1132,8 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1174,8 +1173,8 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1207,8 +1206,8 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1235,12 +1234,12 @@ pub async fn search_wikis_page(session: Session, req: HttpRequest, q: web::Path<
     }
 }
 
-pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
+pub async fn search_works_page(conn: ConnectionInfo, session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
     use crate::utils::{get_device_and_ajax, get_page};
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let _q = q.clone();
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -1304,8 +1303,8 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1338,8 +1337,8 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1379,8 +1378,8 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1412,8 +1411,8 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1440,11 +1439,11 @@ pub async fn search_works_page(session: Session, req: HttpRequest, q: web::Path<
     }
 }
 
-pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
+pub async fn search_help_page(conn: ConnectionInfo, session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
     use crate::utils::{get_device_and_ajax, get_page};
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let _q = q.clone();
 
     let title: String;
@@ -1507,8 +1506,8 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1541,8 +1540,8 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1580,8 +1579,8 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1613,8 +1612,8 @@ pub async fn search_help_page(session: Session, req: HttpRequest, q: web::Path<S
                     is_ajax:          i32,
                     q:                String,
                     next_page_number: i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,

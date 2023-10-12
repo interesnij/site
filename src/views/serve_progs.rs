@@ -11,9 +11,7 @@ use std::borrow::BorrowMut;
 use crate::utils::{
     is_signed_in,
     get_request_user_data,
-    get_all_storage,
     establish_connection,
-    get_linguage_storage,
 };
 use crate::models::{
     ServeCategories,
@@ -61,9 +59,9 @@ pub fn serve_routes(config: &mut web::ServiceConfig) {
     config.route("/delete_tech_category/", web::post().to(delete_tech_category));
 }
 
-pub async fn serve_categories_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
+pub async fn serve_categories_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -107,8 +105,8 @@ pub async fn serve_categories_page(session: Session, req: HttpRequest) -> actix_
                     request_user:   User,
                     serve_cats:     Vec<ServeCategories>,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -135,8 +133,8 @@ pub async fn serve_categories_page(session: Session, req: HttpRequest) -> actix_
                 struct Template {
                     serve_cats:     Vec<ServeCategories>,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -160,9 +158,9 @@ pub async fn serve_categories_page(session: Session, req: HttpRequest) -> actix_
     }
 }
 
-pub async fn get_serve_page(session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
+pub async fn get_serve_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let _serve = Serve::get(*_id);
 
     let title: String;
@@ -208,8 +206,8 @@ pub async fn get_serve_page(session: Session, req: HttpRequest, _id: web::Path<i
                     category:       ServeCategories,
                     object:         Serve,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -238,8 +236,8 @@ pub async fn get_serve_page(session: Session, req: HttpRequest, _id: web::Path<i
                     category:       ServeCategories,
                     object:         Serve,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -264,11 +262,11 @@ pub async fn get_serve_page(session: Session, req: HttpRequest, _id: web::Path<i
     }
 }
 
-pub async fn create_tech_categories_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
+pub async fn create_tech_categories_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -312,8 +310,8 @@ pub async fn create_tech_categories_page(session: Session, req: HttpRequest) -> 
                     request_user:   User,
                     tech_cats:      Vec<TechCategories>,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -340,8 +338,8 @@ pub async fn create_tech_categories_page(session: Session, req: HttpRequest) -> 
                 struct Template {
                     tech_cats:      Vec<TechCategories>,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -364,11 +362,11 @@ pub async fn create_tech_categories_page(session: Session, req: HttpRequest) -> 
         }
     }
 }
-pub async fn create_serve_categories_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
+pub async fn create_serve_categories_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -411,8 +409,8 @@ pub async fn create_serve_categories_page(session: Session, req: HttpRequest) ->
                     request_user:   User,
                     tech_cats:      Vec<TechCategories>,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -439,8 +437,8 @@ pub async fn create_serve_categories_page(session: Session, req: HttpRequest) ->
                 struct Template {
                     tech_cats:      Vec<TechCategories>,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -464,12 +462,12 @@ pub async fn create_serve_categories_page(session: Session, req: HttpRequest) ->
     }
 }
 
-pub async fn load_serve_categories_from_level(session: Session, level: web::Path<i16>) -> actix_web::Result<HttpResponse> {
+pub async fn load_serve_categories_from_level(conn: ConnectionInfo, session: Session, level: web::Path<i16>) -> actix_web::Result<HttpResponse> {
     if !is_signed_in(&session) {
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
     }
     else {
-        let (t, l) = get_all_storage();
+        let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
         let _request_user = get_request_user_data(&session);
         if _request_user.perm != 60 {
             Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
@@ -479,8 +477,8 @@ pub async fn load_serve_categories_from_level(session: Session, level: web::Path
             #[template(path = "desctop/serve/load_serve_categories.stpl")]
             struct Template {
                 serve_cats:     Vec<ServeCategories>,
-                template_types: u8,
-                linguage:       u8,
+                template_types: i16,
+                linguage:       i16,
             }
             let body = Template {
                 serve_cats:     ServeCategories::get_categories_from_level(&*level),
@@ -493,7 +491,7 @@ pub async fn load_serve_categories_from_level(session: Session, level: web::Path
         }
     }
 }
-pub async fn load_form_from_level(session: Session, level: web::Path<i16>) -> actix_web::Result<HttpResponse> {
+pub async fn load_form_from_level(conn: ConnectionInfo, session: Session, level: web::Path<i16>) -> actix_web::Result<HttpResponse> {
     if !is_signed_in(&session) {
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
     }
@@ -503,15 +501,15 @@ pub async fn load_form_from_level(session: Session, level: web::Path<i16>) -> ac
             Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
         }
         else {
-            let (t, l) = get_all_storage();
+            let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
             let _tech_categories = TechCategories::get_with_level(*level);
 
             #[derive(TemplateOnce)]
             #[template(path = "desctop/serve/load_serve_form.stpl")]
             struct Template {
                 tech_cats:      Vec<TechCategories>,
-                template_types: u8,
-                linguage:       u8,
+                template_types: i16,
+                linguage:       i16,
             }
             let body = Template {
                 tech_cats:      _tech_categories,
@@ -525,11 +523,11 @@ pub async fn load_form_from_level(session: Session, level: web::Path<i16>) -> ac
     }
 }
 
-pub async fn create_serve_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
+pub async fn create_serve_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
     let title: String;
     let description: String;
@@ -572,8 +570,8 @@ pub async fn create_serve_page(session: Session, req: HttpRequest) -> actix_web:
                 struct Template {
                     request_user:   User,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -598,8 +596,8 @@ pub async fn create_serve_page(session: Session, req: HttpRequest) -> actix_web:
                 #[template(path = "mobile/serve/create_serve.stpl")]
                 struct Template {
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -622,10 +620,10 @@ pub async fn create_serve_page(session: Session, req: HttpRequest) -> actix_web:
     }
 }
 
-pub async fn edit_tech_category_page(session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
+pub async fn edit_tech_category_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let _category = TechCategories::get(*_id);
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
 
@@ -672,8 +670,8 @@ pub async fn edit_tech_category_page(session: Session, req: HttpRequest, _id: we
                     tech_cats:      Vec<TechCategories>,
                     category:       TechCategories,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -702,8 +700,8 @@ pub async fn edit_tech_category_page(session: Session, req: HttpRequest, _id: we
                     tech_cats:      Vec<TechCategories>,
                     category:       TechCategories,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -728,10 +726,10 @@ pub async fn edit_tech_category_page(session: Session, req: HttpRequest, _id: we
     }
 }
 
-pub async fn edit_serve_category_page(session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
+pub async fn edit_serve_category_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let _category = ServeCategories::get(*_id);
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
 
@@ -778,8 +776,8 @@ pub async fn edit_serve_category_page(session: Session, req: HttpRequest, _id: w
                     tech_cats:      Vec<TechCategories>,
                     category:       ServeCategories,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -808,8 +806,8 @@ pub async fn edit_serve_category_page(session: Session, req: HttpRequest, _id: w
                     tech_cats:      Vec<TechCategories>,
                     category:       ServeCategories,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -834,11 +832,11 @@ pub async fn edit_serve_category_page(session: Session, req: HttpRequest, _id: w
     }
 }
 
-pub async fn edit_serve_page(session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
+pub async fn edit_serve_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (t, l) = get_all_storage();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let _serve = Serve::get(*_id);
 
     let title: String;
@@ -887,8 +885,8 @@ pub async fn edit_serve_page(session: Session, req: HttpRequest, _id: web::Path<
                     serve_cats:     Vec<ServeCategories>,
                     object:         Serve,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -919,8 +917,8 @@ pub async fn edit_serve_page(session: Session, req: HttpRequest, _id: web::Path<
                     serve_cats:     Vec<ServeCategories>,
                     object:         Serve,
                     is_ajax:        i32,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -946,61 +944,67 @@ pub async fn edit_serve_page(session: Session, req: HttpRequest, _id: web::Path<
     }
 }
 
-pub async fn create_tech_categories(session: Session, mut payload: Multipart) -> impl Responder {
+pub async fn create_tech_categories(req: HttpRequest, session: Session, mut payload: Multipart) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         if _request_user.perm == 60 {
             let _connection = establish_connection();
             let form = crate::utils::category_form(payload.borrow_mut(), _request_user.id).await;
-            TechCategories::create(_request_user.id, form);
+            let l = crate::utils::get_c_user_l(&req);
+            TechCategories::create(_request_user.id, form, l);
         }
     }
     return HttpResponse::Ok();
 }
 
-pub async fn create_serve_categories(session: Session, mut payload: Multipart) -> impl Responder {
+pub async fn create_serve_categories(req: HttpRequest, session: Session, mut payload: Multipart) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         if _request_user.perm == 60 {
             let form = crate::utils::serve_category_form(payload.borrow_mut(), _request_user.id).await;
-            ServeCategories::create(_request_user.id, form);
+            let l = crate::utils::get_c_user_l(&req);
+            ServeCategories::create(_request_user.id, form, l);
         }
     }
     return HttpResponse::Ok();
 }
 
-pub async fn edit_tech_category(session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
+pub async fn edit_tech_category(req: HttpRequest, session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session); 
         let form = crate::utils::category_form(payload.borrow_mut(), _request_user.id).await;
-        TechCategories::update_category_with_id(_request_user, *_id, form);
+        let l = crate::utils::get_c_user_l(&req);
+        TechCategories::update_category_with_id(req, _request_user, *_id, form, l);
     }
     return HttpResponse::Ok();
 }
 
-pub async fn edit_serve_category(session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
+pub async fn edit_serve_category(req: HttpRequest, session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         let form = crate::utils::serve_category_form(payload.borrow_mut(), _request_user.id).await;
-        ServeCategories::update_category_with_id(_request_user, *_id, form);
+        let l = crate::utils::get_c_user_l(&req);
+        ServeCategories::update_category_with_id(_request_user, *_id, form, l);
     }
     return HttpResponse::Ok();
 }
 
-pub async fn create_serve(session: Session, mut payload: Multipart) -> impl Responder {
+pub async fn create_serve(req: HttpRequest, session: Session, mut payload: Multipart) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         let form = crate::utils::serve_split_payload(payload.borrow_mut()).await;
-        Serve::create(_request_user, form);
+        let l = crate::utils::get_c_user_l(&req);
+        Serve::create(_request_user, form, l);
     }
     return HttpResponse::Ok();
 }
 
-pub async fn edit_serve(session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
+pub async fn edit_serve(req: HttpRequest, session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         let form = crate::utils::serve_split_payload(payload.borrow_mut()).await;
-        Serve::update_serve_with_id(_request_user, *_id, form, get_linguage_storage());
+        let l = crate::utils::get_c_user_l(&req);
+        Serve::update_serve_with_id(_request_user, *_id, form, l);
     }
     return HttpResponse::Ok();
 }

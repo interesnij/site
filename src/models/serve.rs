@@ -16,7 +16,6 @@ use crate::schema::{
 };
 use crate::utils::{
     establish_connection,
-    get_linguage_storage,
     CategoriesForm
 };
 use crate::models::User;
@@ -73,9 +72,8 @@ impl TechCategories {
             .load::<TechCategories>(&_connection)
             .expect("E")
     }
-    pub fn update_category_with_id(user: User, cat_id: i32, form: CategoriesForm) -> i16 {
+    pub fn update_category_with_id(user: User, cat_id: i32, form: CategoriesForm, l: i16) -> i16 {
         let _connection = establish_connection();
-        let l = get_linguage_storage();
         let cat = schema::tech_categories::table
             .filter(schema::tech_categories::id.eq(cat_id))
             .first::<TechCategories>(&_connection)
@@ -109,9 +107,8 @@ impl TechCategories {
         }
         return 1;
     }
-    pub fn create(user_id: i32, form: CategoriesForm) -> i16 {
+    pub fn create(user_id: i32, form: CategoriesForm, l: i16) -> i16 {
         let _connection = establish_connection();
-        let l = get_linguage_storage();
         if l == 1 {
             let new_cat = NewTechCategories {
                 name:           form.name.clone(),
@@ -234,9 +231,8 @@ impl ServeCategories {
             .first::<ServeCategories>(&_connection)
             .expect("E")
     }
-    pub fn update_category_with_id(user: User, cat_id: i32, form: crate::utils::ServeCategoriesForm) -> i16 {
+    pub fn update_category_with_id(user: User, cat_id: i32, form: crate::utils::ServeCategoriesForm, l: i16) -> i16 {
         let _connection = establish_connection();
-        let l = get_linguage_storage();
         let cat = ServeCategories::get(cat_id);
         if user.perm < 60 && cat.user_id != user.id {
             return 0;
@@ -265,9 +261,8 @@ impl ServeCategories {
         }
         return 1;
     }
-    pub fn create(user_id: i32, form: crate::utils::ServeCategoriesForm) -> i16 {
+    pub fn create(user_id: i32, form: crate::utils::ServeCategoriesForm, l: i16) -> i16 {
         let _connection = establish_connection();
-        let l = get_linguage_storage();
         if l == 1 {
             let new_cat = NewServeCategories {  
                 name:           form.name.clone(),
@@ -409,9 +404,8 @@ pub struct ServeVar {
 }
 
 impl Serve {
-    pub fn create(user: User, form: crate::utils::ServeForm) -> i16 {
+    pub fn create(user: User, form: crate::utils::ServeForm, l: i16) -> i16 {
         let _connection = establish_connection(); 
-        let l = get_linguage_storage();
         let _category = ServeCategories::get(form.category_id);
         if user.perm < 60 && _category.user_id != user.id {
             return 0;
@@ -476,12 +470,11 @@ impl Serve {
             .expect("E.");
         return 1;
     }
-    pub fn update_serve_with_id(user: User, serve_id: i32, form: crate::utils::ServeForm, l: u8) -> i16 {
+    pub fn update_serve_with_id(user: User, serve_id: i32, form: crate::utils::ServeForm, l: i16) -> i16 {
         if l > 2 {
             return 0;
         }
         let _connection = establish_connection();
-        let l = get_linguage_storage();
         let _serve = Serve::get(serve_id);
         let _category = ServeCategories::get(_serve.category_id);
         if user.perm < 60 && _serve.user_id != user.id {
@@ -675,7 +668,7 @@ impl Serve {
             .first::<ServeCategories>(&_connection)
             .expect("E");
     } 
-    pub fn get_100_description(&self, l: u8) -> String {
+    pub fn get_100_description(&self, l: i16) -> String {
         if l == 1 {
             if self.description.is_some() {
                 let _content = self.description.as_deref().unwrap();

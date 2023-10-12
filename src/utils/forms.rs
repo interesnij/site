@@ -468,8 +468,6 @@ pub struct FileForm {
     pub files:      Vec<String>,
 }
 pub async fn files_form(payload: &mut Multipart, owner_id: i32) -> FileForm {
-    let mut _files: Vec<UploadedFiles> = Vec::new();
-
     let mut form: FileForm = FileForm {
         item_types: 0,
         types:      0,
@@ -494,7 +492,6 @@ pub async fn files_form(payload: &mut Multipart, owner_id: i32) -> FileForm {
                         .unwrap()
                         .expect("E");
                 };
-                _files.push(file.clone());
                 form.files.push(file.path.clone().replace("./","/"));
             }
         }

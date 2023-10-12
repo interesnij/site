@@ -63,33 +63,3 @@ pub fn get_current_user(session: &Session) -> Result<SessionUser, AuthError> {
           |user| serde_json::from_str(&user).or_else(|_| Err(AuthError::AuthenticationError(String::from(msg))))
         )
 }
-
-
-pub fn get_cookie_user_id(req: &HttpRequest) -> i32 {
-    let _cookie = req.headers().get("cookie").expect("E.").to_str().ok();
-    println!("_cookie {:?}", _cookie);
-    let mut user_id = 0;
-    if _cookie.is_some() {
-        for c in _cookie.unwrap().split("; ").collect::<Vec<&str>>().iter() {
-            let split_c: Vec<&str> = c.split("=").collect();
-            println!("split_c[0] {:?}", split_c[0]);
-            println!("split_c[1] {:?}", split_c[1]);
-            if split_c[0] == "user" {
-                user_id = split_c[1].parse().unwrap();
-            }
-        }
-    }
-    user_id
-}
-
-pub async fn get_or_create_cookie_user_id(conn: ConnectionInfo, req: &HttpRequest) -> i32 {
-    let user_id = get_cookie_user_id(&req);
-    if user_id != 0 {
-        let user = crate::views::get_c_user(conn, user_id, &req).await;
-        return user.id;
-    }
-    else {
-        let user = crate::views::create_c_user(conn, &req).await;
-        return user.id;
-    }
-}

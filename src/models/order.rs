@@ -36,7 +36,7 @@ pub struct Order {
 }
 
 impl Order {
-    pub fn create(user_id: i32, form: crate::utils::OrderForms, l: u8) -> i16 {
+    pub fn create(user_id: i32, form: crate::utils::OrderForms, l: i16) -> i16 {
         use crate::schema::serve::dsl::serve;
         use crate::models::{
             NewTechCategoriesItem,
@@ -418,7 +418,7 @@ impl OrderFile {
         }
         return 0;
     }
-    pub fn create(user_id: i32, form: crate::utils::OrderForms, l: u8) -> i16 {
+    pub fn create(user_id: i32, form: crate::utils::OrderForms, l: i16) -> i16 {
         use crate::models::{
             NewTechCategoriesItem,
             NewServeItems,

@@ -104,14 +104,14 @@ on('body', 'input', '.smile_supported', function() {
     this.previousElementSibling.innerHTML = this.innerHTML.length
 });
 
-function get_and_change_btn(_this, url, hide) {
+function get_and_change_btn(_this, url, is_hide) {
   form_data = new FormData(form);
   form_data.append("id", _this.getAttribute("data-pk"));
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'POST', url, true );
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    if (hide) {
+    if (is_hide) { 
       _this.innerHTML = "👁";
       _this.classList.add("publish_item");
       _this.classList.remove("hide_item");

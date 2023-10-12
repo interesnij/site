@@ -10,7 +10,6 @@ use actix_web::{
 use crate::utils::{
     is_signed_in,
     get_request_user_data,
-    get_all_storage,
 };
 use actix_session::Session;
 use crate::models::{
@@ -31,8 +30,8 @@ pub fn help_routes(config: &mut web::ServiceConfig) {
 }
 
 
-pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
-    let (t, l) = get_all_storage();
+pub async fn help_category_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
     let _category = Categories::get_detail(_id.clone(), 6, l);
 
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
@@ -88,8 +87,8 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     object_list:      Vec<Help>,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -125,8 +124,8 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     object_list:      Vec<Help>,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -169,8 +168,8 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     object_list:      Vec<Help>,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -204,8 +203,8 @@ pub async fn help_category_page(session: Session, req: HttpRequest, _id: web::Pa
                     object_list:      Vec<Help>,
                     next_page_number: i32,
                     is_ajax:          i32,
-                    template_types:   u8,
-                    linguage:         u8,
+                    template_types:   i16,
+                    linguage:         i16,
                     title:            String,
                     description:      String,
                     link:             String,

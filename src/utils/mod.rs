@@ -21,6 +21,7 @@ use crate::models::{
     Categories,
     User,
     Cat,
+    CookieUser,
 };
 use crate::diesel::{
     Connection,
@@ -93,44 +94,6 @@ pub fn establish_connection() -> PgConnection {
         .expect(&format!("Error connecting to {}", database_url))
 }
 
-pub fn get_template_storage() -> u8 {
-    let template_res = web_local_storage_api::get_item("template");
-    if template_res.is_ok() {
-        let template_some = template_res.expect("E.");
-        if template_some.is_some() {
-            return template_some.unwrap().parse().unwrap();
-        }
-    }
-    return 1;
-}
-pub fn get_linguage_storage() -> u8 {
-    let linguage_res = web_local_storage_api::get_item("linguage");
-    if linguage_res.is_ok() {
-        let linguage_some = linguage_res.expect("E.");
-        if linguage_some.is_some() {
-            return linguage_some.unwrap().parse().unwrap();
-        }
-    }
-    return 1;
-}
-
-pub fn get_all_storage() -> (u8, u8) {
-    (
-        get_template_storage(),
-        get_linguage_storage()
-    )
-}
-
-pub fn set_template(types: u8) -> () {
-    let _f = web_local_storage_api::set_item("template", types.to_string().as_str());
-    println!("set template {:?}", types);
-}
-pub fn set_linguage(types: u8) -> () {
-    let _f = web_local_storage_api::set_item("linguage", types.to_string().as_str());
-    println!("set linguage {:?}", types);
-}
-
-
 fn get_content_type<'a>(req: &'a HttpRequest) -> Option<&'a str> {
     return req.headers().get("user-agent")?.to_str().ok();
 }
@@ -160,7 +123,7 @@ pub fn is_desctop(req: &HttpRequest) -> bool {
         (is_desctop(req), is_ajax)
     }
 
-    pub fn get_categories_2(l: u8) -> (
+    pub fn get_categories_2(l: i16) -> (
         Vec<Cat>,
         Vec<Cat>,
         Vec<Cat>,
@@ -241,7 +204,7 @@ pub async fn get_first_load_page (
     description: &String,
     uri:         &String,
     image:       &String,
-    t:           u8,
+    t:           i16,
 ) -> actix_web::Result<HttpResponse> {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
@@ -254,7 +217,7 @@ pub async fn get_first_load_page (
                 description:    &'a String,
                 image:          &'a String,
                 uri:            &'a String,
-                template_types: u8,
+                template_types: i16,
             }
             let body = Template {
                 request_user:   _request_user,
@@ -277,7 +240,7 @@ pub async fn get_first_load_page (
                 description:    &'a String,
                 image:          &'a String,
                 uri:            &'a String,
-                template_types: u8,
+                template_types: i16,
             }
             let body = Template {
                 request_user:   _request_user,
@@ -301,7 +264,7 @@ pub async fn get_first_load_page (
                 description:    &'a String,
                 image:          &'a String,
                 uri:            &'a String,
-                template_types: u8,
+                template_types: i16,
             }
             let body = Template {
                 title:          title,
@@ -322,7 +285,7 @@ pub async fn get_first_load_page (
                 description:    &'a String,
                 image:          &'a String,
                 uri:            &'a String,
-                template_types: u8,
+                template_types: i16,
             }
             let body = Template {
                 title:          title,
@@ -346,8 +309,8 @@ pub async fn get_private_page (
     description: &String,
     link:        &String,
     image:       &String,
-    t:           u8,
-    l:           u8,
+    t:           i16,
+    l:           i16,
 ) -> actix_web::Result<HttpResponse> {
     if is_desctop {
         #[derive(TemplateOnce)]
@@ -359,8 +322,8 @@ pub async fn get_private_page (
             description:    &'a String,
             image:          &'a String,
             link:           &'a String,
-            template_types: u8,
-            linguage:       u8,
+            template_types: i16,
+            linguage:       i16,
         }
         let body = Template {
             is_ajax:        is_ajax,
@@ -385,8 +348,8 @@ pub async fn get_private_page (
             description:    &'a String,
             image:          &'a String,
             link:           &'a String,
-            template_types: u8,
-            linguage:       u8,
+            template_types: i16,
+            linguage:       i16,
         }
         let body = Template {
             is_ajax:        is_ajax,
@@ -410,8 +373,8 @@ pub async fn get_anon_private_page (
     description: &String,
     link:        &String,
     image:       &String,
-    t:           u8,
-    l:           u8,
+    t:           i16,
+    l:           i16,
 ) -> actix_web::Result<HttpResponse> {
     if is_desctop {
         #[derive(TemplateOnce)]
@@ -422,8 +385,8 @@ pub async fn get_anon_private_page (
             description:    &'a String,
             image:          &'a String,
             link:           &'a String,
-            template_types: u8,
-            linguage:       u8,
+            template_types: i16,
+            linguage:       i16,
         }
         let body = Template {
             is_ajax:        is_ajax,
@@ -447,8 +410,8 @@ pub async fn get_anon_private_page (
             description:    &'a String,
             image:          &'a String,
             link:           &'a String,
-            template_types: u8,
-            linguage:       u8,
+            template_types: i16,
+            linguage:       i16,
         }
         let body = Template {
             is_ajax:        is_ajax,
@@ -479,3 +442,231 @@ pub fn get_count_for_ru(count: i16, word1: String, word2: String, word3: String)
         return count_str + &word3;
     }
 }
+
+pub async fn get_or_create_cookie_user_id(conn: ConnectionInfo, req: &HttpRequest) -> i32 {
+    let user_id = get_cookie_user_id(&req);
+    if user_id != 0 {
+        let user = get_or_create_c_user_return_object(conn, user_id, &req).await;
+        return user.id;
+    }
+    else {
+        let user = create_c_user_return_object(conn, &req).await;
+        return user.id;
+    }
+}
+
+async fn create_c_user_return_object(conn: ConnectionInfo, req: &HttpRequest) -> CookieUser {
+    let device: i16;
+    if is_desctop(&req) {
+        device = 1;
+    }
+    else {
+        device = 2;
+    }
+
+    let ipaddr: String;
+    let ip = conn.realip_remote_addr();
+    if ip.is_some() {
+        ipaddr = ip.unwrap().to_string();
+    }
+    else if let Some(val) = &req.peer_addr() {
+        ipaddr = val.ip().to_string();
+    }
+    else {
+        ipaddr = String::new();
+    };
+    #[derive(Deserialize)] 
+        pub struct UserLoc {
+            pub city:    CityLoc,
+            pub region:  RegionLoc,
+            pub country: CountryLoc,
+        }
+        #[derive(Deserialize)]
+        pub struct CityLoc {
+            pub name_ru: String,
+            pub name_en: String,
+        }
+        #[derive(Deserialize)]
+        pub struct RegionLoc {
+            pub name_ru: String,
+            pub name_en: String,
+        }
+        #[derive(Deserialize)]
+        pub struct CountryLoc {
+            pub name_ru: String,
+            pub name_en: String,
+            pub iso:     String,
+        }
+
+        let _connection = establish_connection();
+        let _geo_url = "http://api.sypexgeo.net/J5O6d/json/".to_string() + &ipaddr;
+        let _geo_request = reqwest::get(_geo_url).await.expect("E.");
+        let new_request = _geo_request.text().await.unwrap();
+        //println!("request {:?}", new_request);
+    
+        let location200: UserLoc = serde_json::from_str(&new_request).unwrap();
+        let linguage: i16;
+        if location200.country.iso == "Ru".to_string() {
+            linguage = 1;
+        }
+        else {
+            linguage = 2;
+        }
+        let _user = crate::models::NewCookieUser { 
+            ip:         ipaddr,
+            device:     device,
+            linguage:   linguage,
+            template:   1,
+            city_ru:    Some(location200.city.name_ru),
+            city_en:    Some(location200.city.name_en),
+            region_ru:  Some(location200.region.name_ru),
+            region_en:  Some(location200.region.name_en),
+            country_ru: Some(location200.country.name_ru),
+            country_en: Some(location200.country.name_en),
+            height:     0.0,
+            seconds:    0,
+            created:    chrono::Local::now().naive_utc() + chrono::Duration::hours(3),
+        };
+        let _new_user = diesel::insert_into(schema::cookie_users::table)
+            .values(&_user)
+            .get_result::<CookieUser>(&_connection)
+            .expect("Error.");
+    return _new_user;
+}
+
+async fn create_c_user_return_lt(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16) {
+    let device: i16;
+    if is_desctop(&req) {
+        device = 1;
+    }
+    else {
+        device = 2;
+    }
+
+    let ipaddr: String;
+    let ip = conn.realip_remote_addr();
+    if ip.is_some() {
+        ipaddr = ip.unwrap().to_string();
+    }
+    else if let Some(val) = &req.peer_addr() {
+        ipaddr = val.ip().to_string();
+    }
+    else {
+        ipaddr = String::new();
+    };
+    #[derive(Deserialize)] 
+        pub struct UserLoc {
+            pub city:    CityLoc,
+            pub region:  RegionLoc,
+            pub country: CountryLoc,
+        }
+        #[derive(Deserialize)]
+        pub struct CityLoc {
+            pub name_ru: String,
+            pub name_en: String,
+        }
+        #[derive(Deserialize)]
+        pub struct RegionLoc {
+            pub name_ru: String,
+            pub name_en: String,
+        }
+        #[derive(Deserialize)]
+        pub struct CountryLoc {
+            pub name_ru: String,
+            pub name_en: String,
+            pub iso:     String,
+        }
+
+        let _connection = establish_connection();
+        let _geo_url = "http://api.sypexgeo.net/J5O6d/json/".to_string() + &ipaddr;
+        let _geo_request = reqwest::get(_geo_url).await.expect("E.");
+        let new_request = _geo_request.text().await.unwrap();
+        //println!("request {:?}", new_request);
+    
+        let location200: UserLoc = serde_json::from_str(&new_request).unwrap();
+        let linguage: i16;
+        if location200.country.iso == "Ru".to_string() {
+            linguage = 1;
+        }
+        else {
+            linguage = 2;
+        }
+        let _user = crate::models::NewCookieUser { 
+            ip:         ipaddr,
+            device:     device,
+            linguage:   linguage,
+            template:   1,
+            city_ru:    Some(location200.city.name_ru),
+            city_en:    Some(location200.city.name_en),
+            region_ru:  Some(location200.region.name_ru),
+            region_en:  Some(location200.region.name_en),
+            country_ru: Some(location200.country.name_ru),
+            country_en: Some(location200.country.name_en),
+            height:     0.0,
+            seconds:    0,
+            created:    chrono::Local::now().naive_utc() + chrono::Duration::hours(3),
+        };
+        let _new_user = diesel::insert_into(schema::cookie_users::table)
+            .values(&_user)
+            .execute(&_connection)
+            .expect("Error.");
+    return (linguage, 1);
+}
+
+pub async fn get_or_create_c_user_with_id_return_object(id: i32, conn: ConnectionInfo, req: &HttpRequest) -> CookieUser {
+    if id > 0 { 
+        let res = CookieUser::get_res(id);
+        if res.is_ok() {
+            return res.expect("E.");
+        }
+        else {
+            return create_c_user_return_object(conn, req).await;
+        }
+    } 
+    return create_c_user_return_object(conn, &req).await;
+}
+pub async fn get_or_create_c_user_return_object(conn: ConnectionInfo, req: &HttpRequest) -> CookieUser {
+    if id > 0 { 
+        let res = CookieUser::get_res(get_cookie_user_id(req));
+        if res.is_ok() {
+            return res.expect("E.");
+        }
+        else {
+            return create_c_user_return_object(conn, &req).await;
+        }
+    } 
+    return create_c_user_return_object(conn, &req).await;
+}
+pub async fn get_or_create_c_user_return_lt(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16) {
+    if id > 0 { 
+        let res = CookieUser::get_res_lt(get_cookie_user_id(req));
+        if res.is_ok() {
+            return res.expect("E.");
+        }
+        else {
+            return create_c_user_return_lt(conn, req).await;
+        }
+    }
+    return create_c_user_return_lt(conn, req).await;
+}
+
+pub fn get_cookie_user_id(req: &HttpRequest) -> i32 {
+    let _cookie = req.headers().get("cookie").expect("E.").to_str().ok();
+    let mut user_id = 0;
+    if _cookie.is_some() {
+        for c in _cookie.unwrap().split("; ").collect::<Vec<&str>>().iter() {
+            let split_c: Vec<&str> = c.split("=").collect();
+            if split_c[0] == "user" {
+                user_id = split_c[1].parse().unwrap();
+            }
+        }
+    }
+    user_id
+}  
+ 
+pub fn get_c_user_lt(req: &HttpRequest) -> (i16, i16) {
+    return CookieUser::get_res_lt(get_cookie_user_id(req)).expect("E.");
+} 
+pub fn get_c_user_l(req: &HttpRequest) -> i16 {
+    return CookieUser::get_res_l(get_cookie_user_id(req)).expect("E.");
+} 

@@ -23,7 +23,6 @@ use crate::utils::{
     is_signed_in,
     get_request_user_data,
     HistoryData,
-    get_linguage_storage,
 }; 
 use actix_session::Session;
 use actix_multipart::Multipart;
@@ -62,96 +61,13 @@ pub fn progs_routes(config: &mut web::ServiceConfig) {
     config.route("/change_t/", web::post().to(change_t));
 }
 
-pub async fn create_c_user(conn: ConnectionInfo, req: &HttpRequest) -> CookieUser {
-    let device: i16;
-    if crate::utils::is_desctop(&req) {
-        device = 1;
-    }
-    else {
-        device = 2;
-    }
-
-    let ipaddr: String;
-    let ip = conn.realip_remote_addr();
-    if ip.is_some() {
-        ipaddr = ip.unwrap().to_string();
-    }
-    else if let Some(val) = &req.peer_addr() {
-        ipaddr = val.ip().to_string();
-    }
-    else {
-        ipaddr = String::new();
-    };
-    #[derive(Deserialize)] 
-        pub struct UserLoc {
-            pub city:    CityLoc,
-            pub region:  RegionLoc,
-            pub country: CountryLoc,
-        }
-        #[derive(Deserialize)]
-        pub struct CityLoc {
-            pub name_ru: String,
-            pub name_en: String,
-        }
-        #[derive(Deserialize)]
-        pub struct RegionLoc {
-            pub name_ru: String,
-            pub name_en: String,
-        }
-        #[derive(Deserialize)]
-        pub struct CountryLoc {
-            pub name_ru: String,
-            pub name_en: String,
-        }
-
-        let _connection = establish_connection();
-        let _geo_url = "http://api.sypexgeo.net/J5O6d/json/".to_string() + &ipaddr;
-        let _geo_request = reqwest::get(_geo_url).await.expect("E.");
-        let new_request = _geo_request.text().await.unwrap();
-        //println!("request {:?}", new_request);
-    
-        let location200: UserLoc = serde_json::from_str(&new_request).unwrap();
-        let _user = crate::models::NewCookieUser { 
-            ip:         ipaddr,
-            device:     device,
-            city_ru:    Some(location200.city.name_ru),
-            city_en:    Some(location200.city.name_en),
-            region_ru:  Some(location200.region.name_ru),
-            region_en:  Some(location200.region.name_en),
-            country_ru: Some(location200.country.name_ru),
-            country_en: Some(location200.country.name_en),
-            height:     0.0,
-            seconds:    0,
-            created:    chrono::Local::now().naive_utc() + chrono::Duration::hours(3),
-        };
-        let _new_user = diesel::insert_into(schema::cookie_users::table)
-            .values(&_user)
-            .get_result::<crate::models::CookieUser>(&_connection)
-            .expect("Error.");
-    return _new_user;
-}
-
-pub async fn get_c_user(conn: ConnectionInfo, id: i32, req: &HttpRequest) -> CookieUser {
-    if id > 0 { 
-        let res = crate::models::CookieUser::get_res(id);
-        if res.is_ok() {
-            return res.expect("E.");
-        }
-        else {
-            return create_c_user(conn, &req).await;
-        }
-    } 
-    return create_c_user(conn, &req).await;
-}
-
 pub async fn create_history (
     conn: ConnectionInfo,
     data: Json<HistoryData>,
     req: HttpRequest,
 ) -> Result<Json<CookieStat>, Error> {
-    let p_id = data.user_id;
-    let user = crate::views::get_c_user(conn, p_id, &req).await;
-    return Ok(Json(CookieStat::create(data, user, get_linguage_storage())?));
+    let user = crate::views::get_or_create_c_user_object(conn, &req).await;
+    return Ok(Json(CookieStat::create(data, user)?));
 } 
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -167,8 +83,8 @@ pub struct ObjectResponse {
     pub country_en: Option<String>,
 }
 pub async fn object_history(conn: ConnectionInfo, req: HttpRequest, id: web::Path<i32>) -> web::Json<ObjectResponse> {
-    let _user = get_c_user(conn, *id, &req).await;
-    return web::Json( ObjectResponse {
+    let _user = crate::utils::get_or_create_c_user_with_id_return_object(*id, conn, &req).await;
+    return web::Json( ObjectResponse { 
         id:         _user.id,
         ip:         _user.ip,
         device:     _user.device,
@@ -188,53 +104,58 @@ pub async fn create_feedback(mut payload: actix_multipart::Multipart) -> impl Re
 }
 
 
-pub async fn create_item(session: Session, mut payload: Multipart) -> impl Responder {
+pub async fn create_item(req: HttpRequest, session: Session, mut payload: Multipart) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         if _request_user.perm == 60 {
             let form = crate::utils::item_form(payload.borrow_mut(), _request_user.id).await;
-            Item::create(_request_user.id, form);
+            let l = crate::utils::get_c_user_l(&req);
+            Item::create(_request_user.id, form, l);
         } 
     };
     HttpResponse::Ok()
 }
 
-pub async fn edit_item(session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
+pub async fn edit_item(req: HttpRequest, session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         if _request_user.perm == 60 {
             let form = crate::utils::item_form(payload.borrow_mut(), _request_user.id).await;
-            Item::update_item_with_id(*_id, form); 
+            let l = crate::utils::get_c_user_l(&req);
+            Item::update_item_with_id(*_id, form), l; 
         }
     };
     HttpResponse::Ok()
 }
 
-pub async fn create_category(session: Session, mut payload: Multipart) -> impl Responder {
+pub async fn create_category(req: HttpRequest, session: Session, mut payload: Multipart) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         if _request_user.perm == 60 {
             let form = crate::utils::category_form(payload.borrow_mut(), _request_user.id).await;
-            Categories::create(form);
+            let l = crate::utils::get_c_user_l(&req);
+            Categories::create(req, form, l);
         }
     }
     return HttpResponse::Ok();
 }
 
-pub async fn edit_category(session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
+pub async fn edit_category(req: HttpRequest, session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         let form = crate::utils::category_form(payload.borrow_mut(), _request_user.id).await;
-        Categories::update_category_with_id(_request_user, *_id, form);
+        let l = crate::utils::get_c_user_l(&req);
+        Categories::update_category_with_id(req, _request_user, *_id, form, l);
     }
     HttpResponse::Ok()
 }
 
-pub async fn edit_content_item(session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
+pub async fn edit_content_item(req: HttpRequest, session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
     if is_signed_in(&session) { 
         let _request_user = get_request_user_data(&session);
         let form = crate::utils::content_form(payload.borrow_mut()).await;
-        Item::update_content_with_id(_request_user, *_id, form);
+        let l = crate::utils::get_c_user_l(&req);
+        Item::update_content_with_id(_request_user, *_id, form, l);
     }
     HttpResponse::Ok().body("")
 }
@@ -266,11 +187,12 @@ pub async fn create_files(session: Session, mut payload: Multipart, id: web::Pat
     HttpResponse::Ok()
 }
 
-pub async fn edit_file(session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
+pub async fn edit_file(req: HttpRequest, session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
     if is_signed_in(&session) { 
         let _request_user = get_request_user_data(&session);
+        let l = crate::utils::get_c_user_l(&req);
         let form = crate::utils::category_form(payload.borrow_mut(), _request_user.id).await;
-        crate::models::File::update_file_with_id(_request_user, *_id, form);
+        crate::models::File::update_file_with_id(_request_user, *_id, form, l);
     } 
     HttpResponse::Ok()
 }
@@ -301,13 +223,15 @@ pub async fn hide_item(session: Session, mut payload: Multipart) -> impl Respond
     HttpResponse::Ok()
 }
 
-pub async fn change_l(mut payload: Multipart) -> impl Responder {
+pub async fn change_l(req: HttpRequest, mut payload: Multipart) -> impl Responder {
     let form = crate::utils::id_form(payload.borrow_mut()).await;
-    crate::utils::set_linguage(form.id as u8);
+    let l = crate::utils::get_c_user_l(&req);
+    crate::models::CookieUser::update_l(form.id, l);
     HttpResponse::Ok()
 }
-pub async fn change_t(mut payload: Multipart) -> impl Responder {
+pub async fn change_t(req: HttpRequest, mut payload: Multipart) -> impl Responder {
     let form = crate::utils::id_form(payload.borrow_mut()).await;
-    crate::utils::set_template(form.id as u8);
+    let t = crate::utils::get_c_user_l(&req);
+    crate::models::CookieUser::update_t(form.id, t);
     HttpResponse::Ok()
 } 

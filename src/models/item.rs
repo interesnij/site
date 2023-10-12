@@ -22,7 +22,6 @@ use crate::schema::{
 };
 use crate::utils::{
     establish_connection,
-    get_linguage_storage,
     CategoriesForm
 };
 use crate::errors::Error;
@@ -104,7 +103,7 @@ impl Blog {
             return "/static/images/img.jpg".to_string();
         }
     }
-    pub fn get_tags(&self, l: u8) -> Vec<SmallTag> {
+    pub fn get_tags(&self, l: i16) -> Vec<SmallTag> {
         let _connection = establish_connection();
         let _tag_items = schema::tags_items::table
             .filter(schema::tags_items::item_id.eq(self.id))
@@ -134,7 +133,7 @@ impl Service {
             return "/static/images/img.jpg".to_string();
         }
     }
-    pub fn get_tags(&self, l: u8) -> Vec<SmallTag> {
+    pub fn get_tags(&self, l: i16) -> Vec<SmallTag> {
         let _connection = establish_connection();
 
         let _tag_items = schema::tags_items::table
@@ -167,7 +166,7 @@ impl Store {
             return "/static/images/img.jpg".to_string();
         }
     }
-    pub fn get_tags(&self, l: u8) -> Vec<SmallTag> {
+    pub fn get_tags(&self, l: i16) -> Vec<SmallTag> {
         let _connection = establish_connection();
 
         let _tag_items = schema::tags_items::table
@@ -199,7 +198,7 @@ impl Wiki {
             return "/static/images/img.jpg".to_string();
         }
     }
-    pub fn get_tags(&self, l: u8) -> Vec<SmallTag> {
+    pub fn get_tags(&self, l: i16) -> Vec<SmallTag> {
         let _connection = establish_connection();
 
         let _tag_items = schema::tags_items::table
@@ -230,7 +229,7 @@ impl Work {
             return "/static/images/img.jpg".to_string();
         }
     }
-    pub fn get_tags(&self, l: u8) -> Vec<SmallTag> {
+    pub fn get_tags(&self, l: i16) -> Vec<SmallTag> {
         let _connection = establish_connection();
 
         let _tag_items = schema::tags_items::table
@@ -275,7 +274,7 @@ impl Help {
             .expect("E");
         return _category;
     }
-    pub fn get_tags(&self, l: u8) -> Vec<SmallTag> {
+    pub fn get_tags(&self, l: i16) -> Vec<SmallTag> {
         let _connection = establish_connection();
 
         let _tag_items = schema::tags_items::table
@@ -354,10 +353,9 @@ impl Categories {
             .filter(schema::categories::id.eq(id)) 
             .first::<Categories>(&_connection)
             .expect("E.");
-    }
-    pub fn update_category_with_id(user: User, id: i32, form: CategoriesForm) -> i16 {
+    } 
+    pub fn update_category_with_id(user: User, id: i32, form: CategoriesForm, l: i16) -> i16 {
         let _connection = establish_connection();
-        let l = get_linguage_storage();
         let cat = schema::categories::table
             .filter(schema::categories::id.eq(id))
             .first::<Categories>(&_connection)
@@ -391,9 +389,8 @@ impl Categories {
         }
         return 1;
     }
-    pub fn create(form: CategoriesForm) -> i16 {
+    pub fn create(form: CategoriesForm, l: i16) -> i16 {
         let _connection = establish_connection();
-        let l = get_linguage_storage();
         if l == 1 {
             let new_cat = NewCategories {
                 name:           form.name.clone(),
@@ -436,7 +433,7 @@ impl Categories {
         }
         return 1;
     }
-    pub fn get_tags(types: i16, l: u8) -> Vec<SmallTag> {
+    pub fn get_tags(types: i16, l: i16) -> Vec<SmallTag> {
         let _connection = establish_connection();
 
         let _tag_items = schema::tags_items::table
@@ -450,7 +447,7 @@ impl Categories {
         &self,
         item_id:    i32,
         item_types: i16,
-        l:          u8,
+        l:          i16,
     ) -> (Option<FeaturedItem>, Option<FeaturedItem>) {
         use crate::schema::items::dsl::items;
 
@@ -544,7 +541,7 @@ impl Categories {
         page:     i32,
         limit:    i32,
         is_admin: bool,
-        l:        u8,
+        l:        i16,
     ) -> Result<(Vec<Blog>, i32), Error> {
         let mut next_page_number = 0;
         let have_next: i32;
@@ -570,7 +567,7 @@ impl Categories {
         limit:    i64,
         offset:   i64,
         is_admin: bool,
-        l:        u8,
+        l:        i16,
     ) -> Result<Vec<Blog>, Error> {
         let _connection = establish_connection();
         let ids = schema::category::table
@@ -663,7 +660,7 @@ impl Categories {
         page:     i32,
         limit:    i32,
         is_admin: bool,
-        l:        u8,
+        l:        i16,
     ) -> Result<(Vec<Service>, i32), Error> {
         let mut next_page_number = 0;
         let have_next: i32;
@@ -689,7 +686,7 @@ impl Categories {
         limit:    i64,
         offset:   i64,
         is_admin: bool,
-        l:        u8,
+        l:        i16,
     ) -> Result<Vec<Service>, Error> {
         use crate::schema::{
             items::dsl::items,
@@ -784,7 +781,7 @@ impl Categories {
         page:     i32,
         limit:    i32,
         is_admin: bool,
-        l:        u8,
+        l:        i16,
     ) -> Result<(Vec<Store>, i32), Error> {
         let mut next_page_number = 0;
         let have_next: i32;
@@ -810,7 +807,7 @@ impl Categories {
         limit:    i64,
         offset:   i64,
         is_admin: bool,
-        l:        u8,
+        l:        i16,
     ) -> Result<Vec<Store>, Error> {
         use crate::schema::{
             items::dsl::items,
@@ -913,7 +910,7 @@ impl Categories {
         page:     i32,
         limit:    i32,
         is_admin: bool,
-        l:        u8,
+        l:        i16,
     ) -> Result<(Vec<Wiki>, i32), Error> {
         let mut next_page_number = 0;
         let have_next: i32;
@@ -939,7 +936,7 @@ impl Categories {
         limit:    i64,
         offset:   i64,
         is_admin: bool,
-        l:        u8,
+        l:        i16,
     ) -> Result<Vec<Wiki>, Error> {
         use crate::schema::{
             items::dsl::items,
@@ -1038,7 +1035,7 @@ impl Categories {
         page:     i32,
         limit:    i32,
         is_admin: bool,
-        l:        u8,
+        l:        i16,
     ) -> Result<(Vec<Work>, i32), Error> {
         let mut next_page_number = 0;
         let have_next: i32;
@@ -1064,7 +1061,7 @@ impl Categories {
         limit:    i64,
         offset:   i64,
         is_admin: bool,
-        l:        u8,
+        l:        i16,
     ) -> Result<Vec<Work>, Error> {
         use crate::schema::{
             items::dsl::items,
@@ -1159,7 +1156,7 @@ impl Categories {
         page:     i32,
         limit:    i32,
         is_admin: bool,
-        l:        u8,
+        l:        i16,
     ) -> Result<(Vec<Help>, i32), Error> {
         let mut next_page_number = 0;
         let have_next: i32;
@@ -1185,7 +1182,7 @@ impl Categories {
         limit:    i64,
         offset:   i64,
         is_admin: bool,
-        l:        u8,
+        l:        i16,
     ) -> Result<Vec<Help>, Error> {
         use crate::schema::{
             items::dsl::items,
@@ -1276,7 +1273,7 @@ impl Categories {
             return "/static/images/img.jpg".to_string();
         }
     }
-    pub fn get_detail(slug: String, types: i16, l: u8) -> CatDetail {
+    pub fn get_detail(slug: String, types: i16, l: i16) -> CatDetail {
         let _connection = establish_connection();
         if l == 1 { 
             return schema::categories::table
@@ -1323,7 +1320,7 @@ impl Categories {
             seconds: 0,
         }
     }
-    pub fn get_categories_for_types(types: i16, l: u8) -> Vec<Cat> {
+    pub fn get_categories_for_types(types: i16, l: i16) -> Vec<Cat> {
         let _connection = establish_connection();
         if l == 1 {
             return schema::categories::table
@@ -1463,15 +1460,14 @@ impl Item {
         }
         return 1;
     }
-    pub fn create(user_id: i32, form: crate::utils::ItemForms) -> i16 {
+    pub fn create(user_id: i32, form: crate::utils::ItemForms, l: i16) -> i16 {
         use crate::models::{
             NewTechCategoriesItem,
             NewServeItems,
             NewTagItems,
-        }; 
+        };
 
         let _connection = establish_connection();
-        let l = get_linguage_storage();
         let types = form.types;
         let _item: Item;
         if l == 1 {
@@ -1613,8 +1609,7 @@ impl Item {
         
         return 1;
     }
-    pub fn update_content_with_id(user: User, item_id: i32, form: crate::utils::ContentForm) -> i16 {
-        let l = get_linguage_storage();
+    pub fn update_content_with_id(user: User, item_id: i32, form: crate::utils::ContentForm, l: i16) -> i16 {
         let _connection = establish_connection();
         let _item = schema::items::table
             .filter(schema::items::id.eq(item_id))
@@ -1637,8 +1632,7 @@ impl Item {
         }
         return 0;
     }
-    pub fn update_item_with_id(id: i32, form: crate::utils::ItemForms) -> i16 {
-        let l = get_linguage_storage();
+    pub fn update_item_with_id(id: i32, form: crate::utils::ItemForms, l: i16) -> i16 {
         let _connection = establish_connection();
 
         let _item = items
@@ -1967,7 +1961,7 @@ impl Item {
             .load::<i32>(&_connection)
             .expect("E");
     }
-    pub fn get_100_description(&self, l: u8) -> String {
+    pub fn get_100_description(&self, l: i16) -> String {
         if l == 1 {
             if self.description.is_some() {
                 let _content = self.description.as_deref().unwrap();
@@ -2034,7 +2028,7 @@ impl Item {
         return _categories;
     }
 
-    pub fn get_tags(&self, l: u8) -> Vec<SmallTag> {
+    pub fn get_tags(&self, l: i16) -> Vec<SmallTag> {
         let _connection = establish_connection();
         let _tag_items = schema::tags_items::table
             .filter(schema::tags_items::item_id.eq(&self.id))
@@ -2082,7 +2076,7 @@ impl Item {
             .expect("E.")
             .len();
     }
-    pub fn get_count_for_types_and_q(q: &String, types: i16, is_admin: bool, l: u8) -> usize {
+    pub fn get_count_for_types_and_q(q: &String, types: i16, is_admin: bool, l: i16) -> usize {
         let _connection = establish_connection();
         if is_admin {
             if l == 1 {
@@ -2141,7 +2135,7 @@ impl Item {
         limit:    i64,
         offset:   i64,
         is_admin: bool,
-        l:        u8,
+        l:        i16,
     ) -> (Vec<Blog>, usize) {
         use crate::schema::items::dsl::items;
 
@@ -2231,7 +2225,7 @@ impl Item {
         limit:    i64,
         offset:   i64,
         is_admin: bool,
-        l:        u8
+        l:        i16
     ) -> (Vec<Blog>, usize) {
         use crate::schema::items::dsl::items;
         
@@ -2333,7 +2327,7 @@ impl Item {
         limit:    i64,
         offset:   i64,
         is_admin: bool,
-        l:        u8
+        l:        i16
     ) -> (Vec<Service>, usize) {
         use crate::schema::items::dsl::items;
 
@@ -2419,7 +2413,7 @@ impl Item {
         limit:    i64,
         offset:   i64,
         is_admin: bool,
-        l:        u8
+        l:        i16
     ) -> (Vec<Service>, usize) {
         use crate::schema::items::dsl::items;
 
@@ -2517,7 +2511,7 @@ impl Item {
           limit:    i64,
           offset:   i64,
           is_admin: bool,
-          l:        u8
+          l:        i16
     ) -> (Vec<Store>, usize) {
         use crate::schema::items::dsl::items;
 
@@ -2611,7 +2605,7 @@ impl Item {
           limit:    i64,
           offset:   i64,
           is_admin: bool,
-          l:        u8
+          l:        i16
       ) -> (Vec<Store>, usize) {
         use crate::schema::items::dsl::items;
 
@@ -2717,7 +2711,7 @@ impl Item {
           limit:    i64,
           offset:   i64,
           is_admin: bool,
-          l:        u8
+          l:        i16
       ) -> (Vec<Work>, usize) {
         use crate::schema::items::dsl::items;
 
@@ -2803,7 +2797,7 @@ impl Item {
           limit:    i64,
           offset:   i64,
           is_admin: bool,
-          l:        u8
+          l:        i16
       ) -> (Vec<Work>, usize) {
         use crate::schema::items::dsl::items;
 
@@ -2901,7 +2895,7 @@ impl Item {
           limit:    i64,
           offset:   i64,
           is_admin: bool,
-          l:        u8
+          l:        i16
     ) -> (Vec<Wiki>, usize) {
         use crate::schema::items::dsl::items;
 
@@ -2991,7 +2985,7 @@ impl Item {
           limit:    i64,
           offset:   i64,
           is_admin: bool,
-          l:        u8
+          l:        i16
     ) -> (Vec<Wiki>, usize) {
         use crate::schema::items::dsl::items;
 
@@ -3095,7 +3089,7 @@ impl Item {
         limit:    i64,
         offset:   i64,
         is_admin: bool,
-        l:        u8
+        l:        i16
     ) -> (Vec<Help>, usize) {
         use crate::schema::items::dsl::items;
 
@@ -3174,7 +3168,7 @@ impl Item {
         limit:    i64,
         offset:   i64,
         is_admin: bool,
-        l:        u8 
+        l:        i16 
     ) -> (Vec<Help>, usize) {
         use crate::schema::items::dsl::items;
 
@@ -3263,7 +3257,7 @@ impl Item {
         limit:    i32,
         ids:      Vec<i32>,
         is_admin: bool,
-        l:        u8
+        l:        i16
     ) -> ((Vec<Blog>, usize), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
@@ -3289,7 +3283,7 @@ impl Item {
         offset:   i64,
         ids:      Vec<i32>,
         is_admin: bool,
-        l:        u8
+        l:        i16
     ) -> (Vec<Blog>, usize) {
         use crate::schema::items::dsl::items;
 
@@ -3381,7 +3375,7 @@ impl Item {
         limit:    i32,
         ids:      Vec<i32>,
         is_admin: bool,
-        l:        u8
+        l:        i16
     ) -> ((Vec<Service>, usize), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
@@ -3407,7 +3401,7 @@ impl Item {
         offset:   i64,
         ids:      Vec<i32>,
         is_admin: bool,
-        l:        u8
+        l:        i16
     ) -> (Vec<Service>, usize) {
         use crate::schema::items::dsl::items;
 
@@ -3495,7 +3489,7 @@ impl Item {
         limit:    i32,
         ids:      Vec<i32>,
         is_admin: bool,
-        l:        u8
+        l:        i16
     ) -> ((Vec<Store>, usize), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
@@ -3521,7 +3515,7 @@ impl Item {
         offset:   i64,
         ids:      Vec<i32>,
         is_admin: bool,
-        l:        u8
+        l:        i16
     ) -> (Vec<Store>, usize) {
         use crate::schema::items::dsl::items;
 
@@ -3617,7 +3611,7 @@ impl Item {
         limit:    i32,
         ids:      Vec<i32>,
         is_admin: bool,
-        l:        u8
+        l:        i16
     ) -> ((Vec<Wiki>, usize), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
@@ -3643,7 +3637,7 @@ impl Item {
         offset:   i64,
         ids:      Vec<i32>,
         is_admin: bool,
-        l:        u8
+        l:        i16
     ) -> (Vec<Wiki>, usize) {
         use crate::schema::items::dsl::items;
 
@@ -3735,7 +3729,7 @@ impl Item {
         limit:    i32,
         ids:      Vec<i32>,
         is_admin: bool,
-        l:        u8
+        l:        i16
     ) -> ((Vec<Work>, usize), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
@@ -3761,7 +3755,7 @@ impl Item {
         offset:   i64,
         ids:      Vec<i32>,
         is_admin: bool,
-        l:        u8
+        l:        i16
     ) -> (Vec<Work>, usize) {
         use crate::schema::items::dsl::items;
 
@@ -3849,7 +3843,7 @@ impl Item {
         limit:    i32,
         ids:      Vec<i32>,
         is_admin: bool,
-        l:        u8
+        l:        i16
     ) -> ((Vec<Help>, usize), i32) {
         let mut next_page_number = 0;
         let have_next: i32;
@@ -3894,7 +3888,7 @@ impl Item {
         offset:   i64,
         ids:      Vec<i32>,
         is_admin: bool,
-        l:        u8
+        l:        i16
     ) -> (Vec<Help>, usize) {
         use crate::schema::items::dsl::items;
 

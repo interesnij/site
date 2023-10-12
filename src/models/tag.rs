@@ -13,7 +13,6 @@ use crate::schema::{
 };
 use crate::utils::{
     establish_connection,
-    get_linguage_storage,
     CategoriesForm
 };
 use crate::models::User;
@@ -45,7 +44,7 @@ impl Tag {
             .load::<Tag>(&_connection)
             .expect("E");
     }
-    pub fn get_tags_with_ids(_tag_items: Vec<i32>, l: u8) -> Vec<SmallTag> {
+    pub fn get_tags_with_ids(_tag_items: Vec<i32>, l: i16) -> Vec<SmallTag> {
         let _connection = establish_connection();
         if l == 1 {
             return schema::tags::table
@@ -108,9 +107,8 @@ impl Tag {
             .first::<Tag>(&_connection)
             .expect("E.");
     }
-    pub fn update_tag_with_id(id: i32, form: CategoriesForm) -> i16 {
+    pub fn update_tag_with_id(id: i32, form: CategoriesForm, l: i16) -> i16 {
         let _connection = establish_connection();
-        let l = get_linguage_storage();
         let _tag = schema::tags::table
             .filter(schema::tags::id.eq(id))
             .first::<Tag>(&_connection)
@@ -135,9 +133,8 @@ impl Tag {
         }
         return 1;
     }
-    pub fn create(user: User, form: CategoriesForm) -> i16 {
+    pub fn create(user: User, form: CategoriesForm, l: i16) -> i16 {
         let _connection = establish_connection();
-        let l = get_linguage_storage();
         if l == 1 { 
             let new_tag = NewTag {
                 name:     form.name.clone(),

@@ -10,7 +10,6 @@ use serde::{Deserialize, Serialize};
 use crate::utils::{
     is_signed_in,
     verify,
-    get_all_storage,
     NewUserForm,
 };
 use futures::StreamExt;
@@ -41,7 +40,7 @@ pub async fn signup_page(req: HttpRequest, session: Session) -> actix_web::Resul
     }
     else {
         let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-        let (t, l) = get_all_storage();
+        let (l, t) = crate::utils::get_c_user_lt(&req);  
 
         let title: String;
         let description: String;
@@ -75,8 +74,8 @@ pub async fn signup_page(req: HttpRequest, session: Session) -> actix_web::Resul
                 struct Template {
                     is_ajax:        i32,
                     stat:           StatPage,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -102,8 +101,8 @@ pub async fn signup_page(req: HttpRequest, session: Session) -> actix_web::Resul
                 struct Template {
                     is_ajax:        i32,
                     stat:           StatPage,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -126,13 +125,13 @@ pub async fn signup_page(req: HttpRequest, session: Session) -> actix_web::Resul
         }
     }
 }
-pub async fn login_page(req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
+pub async fn login_page(conn: ConnectionInfo, req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
     if is_signed_in(&session) {
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
     }
     else {
         let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-        let (t, l) = get_all_storage();
+        let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
 
         let title: String;
         let description: String;
@@ -167,8 +166,8 @@ pub async fn login_page(req: HttpRequest, session: Session) -> actix_web::Result
                 struct Template {
                     is_ajax:        i32,
                     stat:           StatPage,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -194,8 +193,8 @@ pub async fn login_page(req: HttpRequest, session: Session) -> actix_web::Result
                 struct Template {
                     is_ajax:        i32,
                     stat:           StatPage,
-                    template_types: u8,
-                    linguage:       u8,
+                    template_types: i16,
+                    linguage:       i16,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -226,7 +225,7 @@ pub async fn logout_page(req: HttpRequest, session: Session) -> actix_web::Resul
     else {
         let _stat = crate::models::StatPage::get_or_create(8);
         session.clear();
-        let (t, l) = get_all_storage();
+        let (l, t) = crate::utils::get_c_user_lt(&req);
 
         let title: String;
         let description: String;
@@ -247,8 +246,8 @@ pub async fn logout_page(req: HttpRequest, session: Session) -> actix_web::Resul
             struct Template {
                 is_ajax:        i32,
                 stat:           StatPage,
-                template_types: u8,
-                linguage:       u8,
+                template_types: i16,
+                linguage:       i16,
                 title:          String,
                 description:    String,
                 link:           String,
@@ -274,8 +273,8 @@ pub async fn logout_page(req: HttpRequest, session: Session) -> actix_web::Resul
             struct Template {
                 is_ajax:        i32,
                 stat:           StatPage,
-                template_types: u8,
-                linguage:       u8,
+                template_types: i16,
+                linguage:       i16,
                 title:          String,
                 description:    String,
                 link:           String,
