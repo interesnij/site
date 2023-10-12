@@ -62,7 +62,7 @@ pub fn serve_routes(config: &mut web::ServiceConfig) {
 
 pub async fn serve_categories_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -161,7 +161,7 @@ pub async fn serve_categories_page(conn: ConnectionInfo, session: Session, req: 
 
 pub async fn get_serve_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
     let _serve = Serve::get(*_id);
 
     let title: String;
@@ -267,7 +267,7 @@ pub async fn create_tech_categories_page(conn: ConnectionInfo, session: Session,
     use crate::utils::get_device_and_ajax;
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -367,7 +367,7 @@ pub async fn create_serve_categories_page(conn: ConnectionInfo, session: Session
     use crate::utils::get_device_and_ajax;
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -468,7 +468,7 @@ pub async fn load_serve_categories_from_level(conn: ConnectionInfo, session: Ses
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
     }
     else {
-        let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+        let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
         let _request_user = get_request_user_data(&session);
         if _request_user.perm != 60 {
             Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
@@ -502,7 +502,7 @@ pub async fn load_form_from_level(conn: ConnectionInfo, session: Session, level:
             Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
         }
         else {
-            let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+            let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
             let _tech_categories = TechCategories::get_with_level(*level);
 
             #[derive(TemplateOnce)]
@@ -528,7 +528,7 @@ pub async fn create_serve_page(conn: ConnectionInfo, session: Session, req: Http
     use crate::utils::get_device_and_ajax;
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -624,7 +624,7 @@ pub async fn create_serve_page(conn: ConnectionInfo, session: Session, req: Http
 pub async fn edit_tech_category_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
     let _category = TechCategories::get(*_id);
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
 
@@ -730,7 +730,7 @@ pub async fn edit_tech_category_page(conn: ConnectionInfo, session: Session, req
 pub async fn edit_serve_category_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
     let _category = ServeCategories::get(*_id);
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
 
@@ -837,7 +837,7 @@ pub async fn edit_serve_page(conn: ConnectionInfo, session: Session, req: HttpRe
     use crate::utils::get_device_and_ajax;
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
     let _serve = Serve::get(*_id);
 
     let title: String;

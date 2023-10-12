@@ -125,6 +125,7 @@ impl CookieUser {
             .set(schema::cookie_users::linguage.eq(l))
             .execute(&_connection)
             .expect("E");
+        return 1;
     }
     pub fn update_t(id: i32, t: i16) -> i16 {
         let _connection = establish_connection();
@@ -133,6 +134,7 @@ impl CookieUser {
             .set(schema::cookie_users::template.eq(t))
             .execute(&_connection)
             .expect("E");
+        return 1;
     }
     pub fn get(user_id: i32) -> CookieUser {
         let _connection = establish_connection();
@@ -412,6 +414,13 @@ impl CookieStat {
         }
 
         let _connection = establish_connection();
+        let _t = String:
+        if user.template == 1 {
+            _t = "Rhythm";
+        }
+        else {
+            _t = "Eremia";
+        }
         let _h = NewCookieStat {
             user_id:  user.id,
             page:     p_page_id,
@@ -420,7 +429,7 @@ impl CookieStat {
             height:   p_height,
             seconds:  p_seconds,
             created:  chrono::Local::now().naive_utc() + Duration::hours(3),
-            template: user.template,
+            template: _t,
         };
         let new = diesel::insert_into(schema::cookie_stats::table)
             .values(&_h)

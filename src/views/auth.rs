@@ -132,7 +132,7 @@ pub async fn login_page(conn: ConnectionInfo, req: HttpRequest, session: Session
     }
     else {
         let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-        let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+        let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
 
         let title: String;
         let description: String;

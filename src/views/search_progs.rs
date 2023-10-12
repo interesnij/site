@@ -31,7 +31,7 @@ pub fn search_routes(config: &mut web::ServiceConfig) {
 
 pub async fn empty_search_page(conn: ConnectionInfo, req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -172,7 +172,7 @@ pub async fn search_page(conn: ConnectionInfo, session: Session, req: HttpReques
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let _q = q.clone();
     let _q_standalone = "%".to_owned() + &_q + "%";
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -423,7 +423,7 @@ pub async fn search_page(conn: ConnectionInfo, session: Session, req: HttpReques
 pub async fn search_blogs_page(conn: ConnectionInfo, session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let _q = q.clone();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -626,7 +626,7 @@ pub async fn search_blogs_page(conn: ConnectionInfo, session: Session, req: Http
 pub async fn search_services_page(conn: ConnectionInfo, session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let _q = q.clone();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -830,7 +830,7 @@ pub async fn search_stores_page(conn: ConnectionInfo, session: Session, req: Htt
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let _q = q.clone();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -1240,7 +1240,7 @@ pub async fn search_works_page(conn: ConnectionInfo, session: Session, req: Http
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let _q = q.clone();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -1444,7 +1444,7 @@ pub async fn search_help_page(conn: ConnectionInfo, session: Session, req: HttpR
     use crate::utils::{get_device_and_ajax, get_page};
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
     let _q = q.clone();
 
     let title: String;

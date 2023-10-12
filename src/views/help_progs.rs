@@ -32,7 +32,7 @@ pub fn help_routes(config: &mut web::ServiceConfig) {
 
 
 pub async fn help_category_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req);
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
     let _category = Categories::get_detail(_id.clone(), 6, l);
 
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
