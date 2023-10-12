@@ -622,7 +622,7 @@ pub async fn info_page(conn: ConnectionInfo, req: HttpRequest, session: Session)
     }
 }
 
-pub async fn history_page(conn: ConnectionInfo, conn: ConnectionInfo, req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
+pub async fn history_page(conn: ConnectionInfo, req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     
     let (l, t, user_id) = crate::utils::get_or_create_c_user_return_lti(conn, &req).await;

@@ -722,7 +722,7 @@ pub async fn get_or_create_c_user_return_lt(conn: ConnectionInfo, req: &HttpRequ
         return create_c_user_return_lt(conn, req).await;
     }
 }
-pub async fn get_or_create_c_user_return_lti(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16) {
+pub async fn get_or_create_c_user_return_lti(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16, i32) {
     let res = CookieUser::get_res_lti(get_cookie_user_id(req));
     if res.is_ok() {
         return res.expect("E.");
