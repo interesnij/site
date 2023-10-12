@@ -2,19 +2,19 @@
   __from, __what, __price, 
   __hours, __info, __no_selected,
   __selected, __not_selected, __require, 
-  __many, __h
+  __many, __h, __p
 ) = match linguage {
         2 => (
           "in", "what is it?", "Price",
           "Hours", "Info", "Not selected",
           "Option selected", "Option not selected", "The option is required",
-          "The option has several options", "h."
+          "The option has several options", "h.", "$"
         ), 
         1 | _ => (
           "на", "что это?", "Цена",
           "Часы", "Инфо", "Не выбрано",
           "Опция выбрана", "Опция не выбрана", "Опция обязательна",
-          "Опция имеет несколько вариантов", "ч."
+          "Опция имеет несколько вариантов", "ч.", "₽"
         ),
     };
 %> 
