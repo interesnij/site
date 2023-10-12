@@ -1,4 +1,4 @@
-<td class="border-top" style="width:70%">
+<td style="width:70%">
   <a class="get_serve_info pointer" data-pk="<%= serve.id %>">
     <%= serve.name %>
   </a>

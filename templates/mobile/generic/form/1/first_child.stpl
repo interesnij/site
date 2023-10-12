@@ -4,7 +4,7 @@
     };
 %>
 
-<td class="border-top" style="width:70%">
+<td style="width:70%">
   <a class="get_serve_info pointer" parent-pk="<%= serve.id %>" data-pk="<%= first_child.id %>">
     <%= serve.name %> → <%= first_child.name %>
   </a>
