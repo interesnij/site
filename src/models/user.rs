@@ -165,7 +165,7 @@ impl CookieUser {
                 schema::cookie_users::template,
                 schema::cookie_users::id
             ))
-            .first::<(i16, i16)>(&_connection)?);
+            .first::<(i16, i16, i32)>(&_connection)?);
     }
     pub fn get_res_l(user_id: i32) -> Result<i16, Error> {
         let _connection = establish_connection();

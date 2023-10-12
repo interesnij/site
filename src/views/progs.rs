@@ -66,7 +66,7 @@ pub async fn create_history (
     data: Json<HistoryData>,
     req: HttpRequest,
 ) -> Result<Json<CookieStat>, Error> {
-    let user = crate::utils::get_or_create_c_user_object(conn, &req).await;
+    let user = crate::utils::get_or_create_c_user_return_object(conn, &req).await;
     return Ok(Json(CookieStat::create(data, user)?));
 } 
 
