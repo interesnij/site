@@ -5,6 +5,7 @@ use actix_web::{
     error::InternalError,
     http::StatusCode,
     Responder,
+    dev::ConnectionInfo,
 };
 use crate::models::User;
 use std::borrow::BorrowMut;

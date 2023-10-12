@@ -5,6 +5,7 @@ use actix_web::{
     web,
     error::InternalError,
     http::StatusCode,
+    dev::ConnectionInfo,
 };
 use serde::{Deserialize, Serialize};
 use crate::utils::{

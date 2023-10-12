@@ -5,6 +5,7 @@ use actix_web::{
     HttpResponse,
     error::InternalError,
     http::StatusCode,
+    dev::ConnectionInfo,
 };
 
 use crate::utils::{

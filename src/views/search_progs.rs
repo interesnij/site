@@ -4,6 +4,7 @@ use actix_web::{
     web,
     error::InternalError,
     http::StatusCode,
+    dev::ConnectionInfo,
 };
 
 use actix_session::Session;
