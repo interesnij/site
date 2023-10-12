@@ -11,7 +11,7 @@ use crate::diesel::{
 use serde::{Serialize,Deserialize};
 use crate::models::{
     Tag, TechCategories, Serve,
-    SmallTag, SmallFile, User, ServeVar,
+    SmallTag, SmallFile, User,
 };
 
 use crate::schema::{

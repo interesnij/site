@@ -12,9 +12,7 @@ use crate::utils::{
     is_signed_in,
     get_request_user_data,
 };
-
 use sailfish::TemplateOnce;
-use crate::models::User;
 
 
 pub fn search_routes(config: &mut web::ServiceConfig) {

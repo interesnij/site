@@ -86,7 +86,7 @@ pub async fn create_tag_page(conn: ConnectionInfo, session: Session, req: HttpRe
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/tags/create_tag.stpl")]
                 struct Template {
-                    request_user:   User,
+                    //request_user:   User,
                     all_tags:       Vec<Tag>,
                     is_ajax:        i32,
                     template_types: i16,
@@ -97,7 +97,7 @@ pub async fn create_tag_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     image:          String,
                 }
                 let body = Template {
-                    request_user:   _request_user,
+                    //request_user:   _request_user,
                     all_tags:       all_tags,
                     is_ajax:        is_ajax,
                     template_types: t,
