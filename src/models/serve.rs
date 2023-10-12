@@ -560,7 +560,7 @@ impl ServeVar {
             _serve
         }
         else {
-            let _serve = serve
+            let mut _serve = serve
                 .filter(schema::serve::serve_id.eq(self.id))
                 .filter(schema::serve::is_default.eq(true))
                 .select((
