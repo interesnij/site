@@ -4015,6 +4015,7 @@ impl Item {
                 i.price = "<span class='price'>".to_string() + &i.price.to_string() + &"</span> ₽".to_string();
             }
             return list;
+        }
         else if l == 2 {
             let mut list = serve 
                 .filter(schema::serve::id.eq_any(_items))
