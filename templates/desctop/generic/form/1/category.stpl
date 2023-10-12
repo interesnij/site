@@ -2,19 +2,19 @@
   __from, __what, __price, 
   __hours, __info, __no_selected,
   __selected, __not_selected, __require, 
-  __many
+  __many, __h
 ) = match linguage {
         2 => (
           "in", "what is it?", "Price",
           "Hours", "Info", "Not selected",
           "Option selected", "Option not selected", "The option is required",
-          "The option has several options"
+          "The option has several options", "h."
         ), 
         1 | _ => (
           "на", "что это?", "Цена",
           "Часы", "Инфо", "Не выбрано",
           "Опция выбрана", "Опция не выбрана", "Опция обязательна",
-          "Опция имеет несколько вариантов"
+          "Опция имеет несколько вариантов", "ч."
         ),
     };
 %> 
@@ -33,10 +33,10 @@
         <th><%= __info %></th>
       </tr>
 
-      <% for serve in category.get_serves().iter() { %>
+      <% for serve in category.get_serves(linguage).iter() { %>
 
-        <% if serve.is_parent() { %>
-          <% let first_child = serve.get_first_variable(); %>
+        <% if serve.is_parent() { %>  
+          <% let first_child = serve.get_first_variable(linguage); %>
           <% if serve.is_default { %> 
             <tr class="is_default open_child_serves hover pointer" parent-pk="<%= serve.id %>">
               <% include!("first_child.stpl"); %>
@@ -76,7 +76,7 @@
             </tr>
           <% } %>
 
-          <% let childs = serve.get_variables_exclude_id(first_child.id); %>
+          <% let childs = serve.get_variables_exclude_id(first_child.id, linguage); %>
           <% let childs_count = childs.len(); %>
 
           <% for (i, child) in childs.iter().enumerate() { %>

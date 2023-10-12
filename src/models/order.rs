@@ -7,7 +7,7 @@ use crate::diesel::{
     ExpressionMethods,
 };
 use serde::{Serialize, Deserialize};
-use crate::models::{Serve, TechCategories};
+use crate::models::{Serve, TechCategories, ServeVar};
 use crate::schema::{
     orders,
     order_files,
@@ -259,7 +259,7 @@ impl Order {
             .load::<Order>(&_connection)
             .expect("E.");
     }
-    pub fn get_serves(&self) -> Vec<Serve> {
+    pub fn get_serves(&self, l: i16) -> Vec<ServeVar> {
         use schema::serve_items::dsl::serve_items;
         use schema::serve::dsl::serve;
 
@@ -270,12 +270,42 @@ impl Order {
             .select(schema::serve_items::serve_id)
             .load::<i32>(&_connection)
             .expect("E");
-
-        return serve
-            .filter(schema::serve::id.eq_any(_serve_items))
-            .order(schema::serve::position.desc())
-            .load::<Serve>(&_connection)
-            .expect("E");
+        if l == 1 {
+            let mut list = serve 
+                .filter(schema::serve::id.eq_any(_items))
+                .order(schema::serve::position)
+                .select((
+                    schema::serve::id,
+                    schema::serve::name,
+                    schema::serve::price,
+                    schema::serve::man_hours,
+                    schema::serve::is_default,
+                ))
+                .load::<ServeVar>(&_connection)
+                .expect("E");
+            for i in &mut list {
+                i.price = "<span class='price'>".to_string() + &i.price.to_string() + &"</span> ₽".to_string();
+            }
+            return list;
+        else if l == 2 {
+            let mut list = serve 
+                .filter(schema::serve::id.eq_any(_items))
+                .order(schema::serve::position)
+                .select((
+                    schema::serve::id,
+                    schema::serve::name_en,
+                    schema::serve::price,
+                    schema::serve::man_hours,
+                    schema::serve::is_default,
+                ))
+                .load::<ServeVar>(&_connection)
+                .expect("E");
+            for i in &mut list {
+                i.price = "<span class='price'>".to_string() + &(i.price / 100).to_string() + &"</span> $".to_string();
+            }
+            return list;
+        }
+        return Vec::new();
     }
     pub fn get_serves_ids(&self) -> Vec<i32> {
         use schema::serve_items::dsl::serve_items;

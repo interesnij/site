@@ -11,7 +11,7 @@ use crate::diesel::{
 use serde::{Serialize,Deserialize};
 use crate::models::{
     Tag, TechCategories, Serve,
-    SmallTag, SmallFile, User,
+    SmallTag, SmallFile, User, ServeVar,
 };
 
 use crate::schema::{
@@ -26,6 +26,16 @@ use crate::utils::{
 };
 use crate::errors::Error;
 
+
+#[derive(Queryable)]
+pub struct ServeVar2 {
+    pub id:          i32,
+    pub name:        String,
+    pub price:       i32,
+    pub man_hours:   i16,
+    pub is_default:  bool,
+    pub tech_cat_id: i32,
+}
 
 ///////////
 // types:
@@ -3974,7 +3984,7 @@ impl Item {
             .load::<i32>(&_connection)
             .expect("E");
     }
-    pub fn get_serves(&self) -> Vec<Serve> {
+    pub fn get_serves(&self, l: i16) -> Vec<ServeVar2> {
         use schema::{
             serve_items::dsl::serve_items,
             serve::dsl::serve,
@@ -3987,11 +3997,44 @@ impl Item {
             .select(schema::serve_items::serve_id)
             .load::<i32>(&_connection)
             .expect("E");
-
-        return serve
-            .filter(schema::serve::id.eq_any(_items))
-            .load::<Serve>(&_connection)
-            .expect("E");
+        if l == 1 {
+            let mut list = serve 
+                .filter(schema::serve::id.eq_any(_items))
+                .order(schema::serve::position)
+                .select((
+                    schema::serve::id,
+                    schema::serve::name,
+                    schema::serve::price,
+                    schema::serve::man_hours,
+                    schema::serve::is_default,
+                    schema::serve::tech_cat_id,
+                ))
+                .load::<ServeVar>(&_connection)
+                .expect("E");
+            for i in &mut list {
+                i.price = "<span class='price'>".to_string() + &i.price.to_string() + &"</span> ₽".to_string();
+            }
+            return list;
+        else if l == 2 {
+            let mut list = serve 
+                .filter(schema::serve::id.eq_any(_items))
+                .order(schema::serve::position)
+                .select((
+                    schema::serve::id,
+                    schema::serve::name_en,
+                    schema::serve::price,
+                    schema::serve::man_hours,
+                    schema::serve::is_default,
+                    schema::serve::tech_cat_id,
+                ))
+                .load::<ServeVar>(&_connection)
+                .expect("E");
+            for i in &mut list {
+                i.price = "<span class='price'>".to_string() + &(i.price / 100).to_string() + &"</span> $".to_string();
+            }
+            return list;
+        }
+        return Vec::new();
     }
     pub fn get_open_tech_categories(&self, types: i16) -> Vec<TechCategories> {
         // получаем открытые тех.категории элемента

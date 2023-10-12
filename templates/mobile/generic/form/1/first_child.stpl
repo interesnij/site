@@ -1,17 +1,11 @@
-<% let (__hours, __price) = match linguage {
-        2 => ("h.", "<span class='price'>".to_string() + &(first_child.price / 100).to_string() + &"</span> $".to_string()), 
-        1 | _ => ("ч.", "<span class='price'>".to_string() + &first_child.price.to_string() + &"</span> ₽".to_string()),
-    };
-%>
-
 <td style="width:70%">
   <a class="get_serve_info pointer" parent-pk="<%= serve.id %>" data-pk="<%= first_child.id %>">
     <%= serve.name %> → <%= first_child.name %>
   </a>
   <br />
   <span style="font-size:80%">
-    <span class="price_td"><%= __price %></span>
+    <span class="price_td"><%= first_child.price %></span>
     &nbsp;&nbsp;
-    <span class="hours"><%= first_child.man_hours %> <%= __hours %></span>
+    <span class="hours"><%= first_child.man_hours %> <%= __h %></span>
   </span>
 </td>

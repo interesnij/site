@@ -23,7 +23,7 @@
       </a>
     </span>
     <ul style="margin-left: 2%">
-      <% for object in category.get_serves().iter() { %>
+      <% for object in category.get_serves(linguage).iter() { %>
       <li>
 
         <% if object.is_parent() { %>

@@ -1878,7 +1878,7 @@ pub async fn edit_item_page(conn: ConnectionInfo, session: Session, req: HttpReq
 
             let mut level: i16 = 0;
             let mut _tech_categories: Vec<TechCategories> = Vec::new();
-            let _serve = _item.get_serves();
+            let _serve = _item.get_serves(l);
             if _serve.len() > 0 {
                 let tech_id = _serve[0].tech_cat_id;
                 let _tech_categories = TechCategories::get(tech_id);

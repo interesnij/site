@@ -324,14 +324,47 @@ impl ServeCategories {
             .expect("E");
     }
 
-    pub fn get_serves(&self) -> Vec<Serve> {
+    pub fn get_serves(&self, l: i16) -> Vec<ServeVar> {
         let _connection = establish_connection();
-        return schema::serve::table
-            .filter(schema::serve::category_id.eq(self.id))
-            .filter(schema::serve::serve_id.is_null())
-            .order(schema::serve::position)
-            .load::<Serve>(&_connection)
-            .expect("E");
+        if l == 1 {
+            let mut list = serve 
+                .filter(schema::serve::category_id.eq(self.id))
+                .filter(schema::serve::serve_id.is_null())
+                .order(schema::serve::position)
+                .select((
+                    schema::serve::id,
+                    schema::serve::name,
+                    schema::serve::price,
+                    schema::serve::man_hours,
+                    schema::serve::is_default,
+                ))
+                .load::<ServeVar>(&_connection)
+                .expect("E");
+            for i in &mut list {
+                i.price = "<span class='price'>".to_string() + &i.price.to_string() + &"</span> ₽".to_string();
+            }
+            return list;
+        }
+        else if == 1 {
+            let mut list = serve 
+                .filter(schema::serve::category_id.eq(self.id))
+                .filter(schema::serve::serve_id.is_null())
+                .order(schema::serve::position)
+                .select((
+                    schema::serve::id,
+                    schema::serve::name_en,
+                    schema::serve::price,
+                    schema::serve::man_hours,
+                    schema::serve::is_default,
+                ))
+                .load::<ServeVar>(&_connection)
+                .expect("E");
+            for i in &mut list {
+                i.price = "<span class='price'>".to_string() + &(i.price / 100).to_string() + &"</span> $".to_string();
+            }
+            return list;
+        }
+        return Vec::new();
     }
     pub fn get_serves_2(&self) -> Vec<Serve> {
         let _connection = establish_connection();
@@ -394,13 +427,26 @@ pub struct Serve {
     pub serve_id:       Option<i32>,
     pub view:           i32,
 }
-#[derive(Serialize, Queryable)]
+#[derive(Queryable)]
 pub struct ServeVar {
     pub id:         i32,
     pub name:       String,
     pub price:      i32,
     pub man_hours:  i16,
     pub is_default: bool,
+    pub price:      i32,
+}
+impl ServeVar {
+    pub fn is_parent(&self) -> bool {
+        use crate::schema::serve::dsl::serve;
+
+        let _connection = establish_connection();
+        return serve
+            .filter(schema::serve::serve_id.eq(self.id))
+            .select(schema::serve::id)
+            .first::<i32>(&_connection)
+            .is_ok();
+    }
 }
 
 impl Serve {
@@ -588,42 +634,91 @@ impl Serve {
             " часов".to_string(),
         );
     }
-    pub fn get_variables(&self) -> Vec<ServeVar> {
+    pub fn get_variables(&self, l: i16) -> Vec<ServeVar> { 
         use crate::schema::serve::dsl::serve;
 
         let _connection = establish_connection();
-        return serve
-            .filter(schema::serve::serve_id.eq(self.id))
-            .order(schema::serve::position)
-            .select((
-                schema::serve::id,
-                schema::serve::name,
-                schema::serve::price,
-                schema::serve::man_hours,
-                schema::serve::is_default,
-            ))
-            .load::<ServeVar>(&_connection)
-            .expect("E");
+        if l == 1 {
+            let mut list = serve 
+                .filter(schema::serve::serve_id.eq(self.id))
+                .order(schema::serve::position)
+                .select((
+                    schema::serve::id,
+                    schema::serve::name,
+                    schema::serve::price,
+                    schema::serve::man_hours,
+                    schema::serve::is_default,
+                ))
+                .load::<ServeVar>(&_connection)
+                .expect("E");
+            for i in &mut list {
+                i.price = "<span class='price'>".to_string() + &i.price.to_string() + &"</span> ₽".to_string();
+            }
+            return list;
+        else if == 2 {
+            let mut list = serve 
+                .filter(schema::serve::serve_id.eq(self.id))
+                .order(schema::serve::position)
+                .select((
+                    schema::serve::id,
+                    schema::serve::name,
+                    schema::serve::price,
+                    schema::serve::man_hours,
+                    schema::serve::is_default,
+                ))
+                .load::<ServeVar>(&_connection)
+                .expect("E");
+            for i in &mut list {
+                i.price = "<span class='price'>".to_string() + &i.price.to_string() + &"</span> ₽".to_string();
+            }
+            return list;
+        }
+        return Vec::new();
     }
-    pub fn get_variables_exclude_id(&self, id: i32) -> Vec<ServeVar> {
+    pub fn get_variables_exclude_id(&self, id: i32, l: i16) -> Vec<ServeVar> {
         use crate::schema::serve::dsl::serve;
 
         let _connection = establish_connection();
-        return serve
-            .filter(schema::serve::serve_id.eq(self.id))
-            .filter(schema::serve::id.ne(id))
-            .order(schema::serve::position)
-            .select((
-                schema::serve::id,
-                schema::serve::name,
-                schema::serve::price,
-                schema::serve::man_hours,
-                schema::serve::is_default,
-            ))
-            .load::<ServeVar>(&_connection)
-            .expect("E");
+        if l == 1 {
+            let mut list = serve
+                .filter(schema::serve::serve_id.eq(self.id))
+                .filter(schema::serve::id.ne(id))
+                .order(schema::serve::position)
+                .select((
+                    schema::serve::id,
+                    schema::serve::name,
+                    schema::serve::price,
+                    schema::serve::man_hours,
+                    schema::serve::is_default,
+                ))
+                .load::<ServeVar>(&_connection)
+                .expect("E");
+            for i in &mut list {
+                i.price = "<span class='price'>".to_string() + &(i.price / 100).to_string() + &"</span> $".to_string();
+            }
+            return list;
+        else if == 2 {
+            let mut list = serve
+                .filter(schema::serve::serve_id.eq(self.id))
+                .filter(schema::serve::id.ne(id))
+                .order(schema::serve::position)
+                .select((
+                    schema::serve::id,
+                    schema::serve::name_en,
+                    schema::serve::price,
+                    schema::serve::man_hours,
+                    schema::serve::is_default,
+                ))
+                .load::<ServeVar>(&_connection)
+                .expect("E");
+            for i in &mut list {
+                i.price = "<span class='price'>".to_string() + &(i.price / 100).to_string() + &"</span> $".to_string();
+            }
+            return list;
+        }
+        return Vec::new();
     }
-    pub fn get_first_variable(&self) -> Serve {
+    pub fn get_first_variable(&self, l: i16) -> Serve {
         use crate::schema::serve::dsl::serve;
 
         let _connection = establish_connection();

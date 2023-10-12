@@ -1,6 +1,6 @@
-<% let (__from, __no_selected) = match linguage {
-        2 => ("in", "Not selected"), 
-        1 | _ => ("на", "Не выбрано"),
+<% let (__from, __no_selected, __h) = match linguage {
+        2 => ("in", "Not selected", "h."), 
+        1 | _ => ("на", "Не выбрано", "ч."),
     };
 %>
 
@@ -10,10 +10,10 @@
   </p>
   <table class="table">
     <tbody>
-      <% for serve in category.get_serves().iter() { %>
+      <% for serve in category.get_serves(linguage).iter() { %>
 
         <% if serve.is_parent() { %>
-          <% let first_child = serve.get_first_variable(); %>
+          <% let first_child = serve.get_first_variable(linguage); %>
           <% if serve.is_default { %>
             <tr class="is_default open_child_serves hover pointer" parent-pk="<%= serve.id %>">
               <% include!("first_child.stpl"); %>
@@ -57,7 +57,7 @@
             </tr>
           <% } %>
 
-          <% let childs = serve.get_variables_exclude_id(first_child.id); %>
+          <% let childs = serve.get_variables_exclude_id(first_child.id, linguage); %>
           <% for child in childs.iter() { %>
             <tr class="select_child_serve hide pointer" style="font-size: 12px;" serve-pk="<%= serve.id %>">
               <% include!("child.stpl"); %>

@@ -17,7 +17,7 @@
     <div class="mb-20 mb-md-10">
       <label><%= category.name %></label>
       <select class="form-control" name="serve_list[]" multiple="" style="height:200px">
-        <% for object in category.get_serves().iter() { %>
+        <% for object in category.get_serves(linguage).iter() { %>
           <% if object.is_parent() { %>
             <option></option>
             <option><%= object.name %> ↓↓↓ </option>

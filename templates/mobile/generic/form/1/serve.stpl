@@ -1,11 +1,12 @@
+
 <td style="width:70%">
   <a class="get_serve_info pointer" data-pk="<%= serve.id %>">
     <%= serve.name %>
   </a>
   <br />
   <span style="font-size:80%">
-    <span class="price_td"><span class="price"><%= serve.price %></span> ₽</span>
+    <span class="price_td"><%= serve.price %></span>
     &nbsp;&nbsp;
-    <span class="hours"><%= serve.man_hours %> ч.</span>
+    <span class="hours"><%= serve.man_hours %><%= __h %></span>
   </span>
 </td>
