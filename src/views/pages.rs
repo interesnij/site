@@ -266,7 +266,7 @@ pub async fn index_page (
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/main/mainpage.stpl")]
                 struct Template {
-                    request_user:   User,
+                    //request_user:   User,
                     last_works:     Vec<Work>,
                     last_services:  Vec<Service>,
                     last_wikis:     Vec<Wiki>,
@@ -287,7 +287,7 @@ pub async fn index_page (
                     image:          String,
                 }
                 let body = Template {
-                    request_user:   _request_user,
+                    //request_user:   _request_user,
                     last_works:     _last_works,
                     last_services:  _last_services,
                     last_wikis:     _last_wikis,
@@ -315,7 +315,7 @@ pub async fn index_page (
                 #[derive(TemplateOnce)]
                 #[template(path = "mobile/main/mainpage.stpl")]
                 struct Template {
-                    request_user:   User,
+                    //request_user:   User,
                     last_works:     Vec<Work>,
                     last_services:  Vec<Service>,
                     last_wikis:     Vec<Wiki>,
@@ -336,7 +336,7 @@ pub async fn index_page (
                     image:          String,
                 }
                 let body = Template {
-                    request_user:   _request_user,
+                    //request_user:   _request_user,
                     last_works:     _last_works,
                     last_services:  _last_services,
                     last_wikis:     _last_wikis,
