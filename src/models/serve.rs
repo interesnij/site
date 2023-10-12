@@ -345,7 +345,7 @@ impl ServeCategories {
             }
             return list;
         }
-        else if == 1 {
+        else if l == 2 {
             let mut list = serve 
                 .filter(schema::serve::category_id.eq(self.id))
                 .filter(schema::serve::serve_id.is_null())
@@ -656,7 +656,7 @@ impl Serve {
             }
             return list;
         }
-        else if == 2 {
+        else if l == 2 {
             let mut list = serve 
                 .filter(schema::serve::serve_id.eq(self.id))
                 .order(schema::serve::position)
@@ -699,7 +699,7 @@ impl Serve {
             }
             return list;
         }
-        else if == 2 {
+        else if l == 2 {
             let mut list = serve
                 .filter(schema::serve::serve_id.eq(self.id))
                 .filter(schema::serve::id.ne(id))
