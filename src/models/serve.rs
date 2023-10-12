@@ -655,6 +655,7 @@ impl Serve {
                 i.price = "<span class='price'>".to_string() + &i.price.to_string() + &"</span> ₽".to_string();
             }
             return list;
+        }
         else if == 2 {
             let mut list = serve 
                 .filter(schema::serve::serve_id.eq(self.id))
@@ -697,6 +698,7 @@ impl Serve {
                 i.price = "<span class='price'>".to_string() + &(i.price / 100).to_string() + &"</span> $".to_string();
             }
             return list;
+        }
         else if == 2 {
             let mut list = serve
                 .filter(schema::serve::serve_id.eq(self.id))
