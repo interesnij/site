@@ -433,6 +433,7 @@ pub struct ServeVar {
     pub name:       String,
     pub price:      i32,
     pub man_hours:  i16,
+    pub is_default: bool,
 }
 impl ServeVar {
     pub fn is_parent(&self) -> bool {
