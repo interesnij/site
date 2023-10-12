@@ -664,7 +664,7 @@ async fn create_c_user_return_lti(conn: ConnectionInfo, req: &HttpRequest) -> (i
     
         let location200: UserLoc = serde_json::from_str(&new_request).unwrap();
         let linguage: i16;
-        if location200.country.iso == "Ru".to_string() {
+        if location200.country.iso == "RU".to_string() {
             linguage = 1;
         }
         else {
