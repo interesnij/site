@@ -156,6 +156,17 @@ impl CookieUser {
             .select((schema::cookie_users::linguage, schema::cookie_users::template))
             .first::<(i16, i16)>(&_connection)?);
     }
+    pub fn get_res_lti(user_id: i32) -> Result<(i16, i16, i32), Error> {
+        let _connection = establish_connection();
+        return Ok(schema::cookie_users::table
+            .filter(schema::cookie_users::id.eq(user_id))
+            .select((
+                schema::cookie_users::linguage, 
+                schema::cookie_users::template,
+                schema::cookie_users::id
+            ))
+            .first::<(i16, i16)>(&_connection)?);
+    }
     pub fn get_res_l(user_id: i32) -> Result<i16, Error> {
         let _connection = establish_connection();
         return Ok(schema::cookie_users::table
@@ -416,10 +427,10 @@ impl CookieStat {
         let _connection = establish_connection();
         let _t: String;
         if user.template == 1 {
-            _t = "Rhythm";
+            _t = "Rhythm".to_string();
         }
         else {
-            _t = "Eremia";
+            _t = "Eremia".to_string();
         }
         let _h = NewCookieStat {
             user_id:  user.id,

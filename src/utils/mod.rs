@@ -13,8 +13,8 @@ use actix_web::{
     web,
     error::InternalError,
     http::StatusCode,
+    dev::ConnectionInfo,
 };
-
 use crate::schema;
 use serde::{Deserialize, Serialize};
 use crate::models::{
@@ -613,6 +613,85 @@ async fn create_c_user_return_lt(conn: ConnectionInfo, req: &HttpRequest) -> (i1
     return (linguage, 1);
 }
 
+async fn create_c_user_return_lti(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16, i32) {
+    let device: i16;
+    if is_desctop(&req) {
+        device = 1;
+    }
+    else {
+        device = 2;
+    }
+
+    let ipaddr: String;
+    let ip = conn.realip_remote_addr();
+    if ip.is_some() {
+        ipaddr = ip.unwrap().to_string();
+    }
+    else if let Some(val) = &req.peer_addr() {
+        ipaddr = val.ip().to_string();
+    }
+    else {
+        ipaddr = String::new();
+    };
+    #[derive(Deserialize)] 
+        pub struct UserLoc {
+            pub city:    CityLoc,
+            pub region:  RegionLoc,
+            pub country: CountryLoc,
+        }
+        #[derive(Deserialize)]
+        pub struct CityLoc {
+            pub name_ru: String,
+            pub name_en: String,
+        }
+        #[derive(Deserialize)]
+        pub struct RegionLoc {
+            pub name_ru: String,
+            pub name_en: String,
+        }
+        #[derive(Deserialize)]
+        pub struct CountryLoc {
+            pub name_ru: String,
+            pub name_en: String,
+            pub iso:     String,
+        }
+
+        let _connection = establish_connection();
+        let _geo_url = "http://api.sypexgeo.net/J5O6d/json/".to_string() + &ipaddr;
+        let _geo_request = reqwest::get(_geo_url).await.expect("E.");
+        let new_request = _geo_request.text().await.unwrap();
+        //println!("request {:?}", new_request);
+    
+        let location200: UserLoc = serde_json::from_str(&new_request).unwrap();
+        let linguage: i16;
+        if location200.country.iso == "Ru".to_string() {
+            linguage = 1;
+        }
+        else {
+            linguage = 2;
+        }
+        let _user = crate::models::NewCookieUser { 
+            ip:         ipaddr,
+            device:     device,
+            linguage:   linguage,
+            template:   1,
+            city_ru:    Some(location200.city.name_ru),
+            city_en:    Some(location200.city.name_en),
+            region_ru:  Some(location200.region.name_ru),
+            region_en:  Some(location200.region.name_en),
+            country_ru: Some(location200.country.name_ru),
+            country_en: Some(location200.country.name_en),
+            height:     0.0,
+            seconds:    0,
+            created:    chrono::Local::now().naive_utc() + chrono::Duration::hours(3),
+        };
+        let _new_user = diesel::insert_into(schema::cookie_users::table)
+            .values(&_user)
+            .get_result::<CookieUser>(&_connection)
+            .expect("Error.");
+    return (linguage, 1, _new_user.id);
+}
+
 pub async fn get_or_create_c_user_with_id_return_object(id: i32, conn: ConnectionInfo, req: &HttpRequest) -> CookieUser {
     if id > 0 { 
         let res = CookieUser::get_res(id);
@@ -641,6 +720,15 @@ pub async fn get_or_create_c_user_return_lt(conn: ConnectionInfo, req: &HttpRequ
     }
     else {
         return create_c_user_return_lt(conn, req).await;
+    }
+}
+pub async fn get_or_create_c_user_return_lti(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16) {
+    let res = CookieUser::get_res_lti(get_cookie_user_id(req));
+    if res.is_ok() {
+        return res.expect("E.");
+    }
+    else {
+        return create_c_user_return_lti(conn, req).await;
     }
 }
 

@@ -625,8 +625,7 @@ pub async fn info_page(conn: ConnectionInfo, req: HttpRequest, session: Session)
 pub async fn history_page(conn: ConnectionInfo, conn: ConnectionInfo, req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     
-    let user_id = crate::utils::get_or_create_cookie_user_id(&conn, &req).await;
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, user_id) = crate::utils::get_or_create_c_user_return_lti(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -1126,7 +1125,7 @@ pub async fn get_serve_category_page(req: HttpRequest, conn: ConnectionInfo, _id
     Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
 }
 
-pub async fn get_serve_page(conn: ConnectionInfo, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
+pub async fn get_serve_page(req: HttpRequest, conn: ConnectionInfo, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     use crate::models::Serve;
 
     let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
