@@ -272,7 +272,7 @@ impl Order {
             .expect("E");
         if l == 1 {
             let mut list = serve 
-                .filter(schema::serve::id.eq_any(_items))
+                .filter(schema::serve::id.eq_any(_serve_items))
                 .order(schema::serve::position)
                 .select((
                     schema::serve::id,
@@ -290,7 +290,7 @@ impl Order {
         }
         else if l == 2 {
             let mut list = serve 
-                .filter(schema::serve::id.eq_any(_items))
+                .filter(schema::serve::id.eq_any(_serve_items))
                 .order(schema::serve::position)
                 .select((
                     schema::serve::id,

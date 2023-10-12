@@ -327,7 +327,7 @@ impl ServeCategories {
     pub fn get_serves(&self, l: i16) -> Vec<ServeVar> {
         let _connection = establish_connection();
         if l == 1 {
-            let mut list = serve 
+            let mut list = schema::serve::table
                 .filter(schema::serve::category_id.eq(self.id))
                 .filter(schema::serve::serve_id.is_null())
                 .order(schema::serve::position)
@@ -346,7 +346,7 @@ impl ServeCategories {
             return list;
         }
         else if l == 2 {
-            let mut list = serve 
+            let mut list = schema::serve::table
                 .filter(schema::serve::category_id.eq(self.id))
                 .filter(schema::serve::serve_id.is_null())
                 .order(schema::serve::position)
@@ -433,8 +433,6 @@ pub struct ServeVar {
     pub name:       String,
     pub price:      i32,
     pub man_hours:  i16,
-    pub is_default: bool,
-    pub price:      i32,
 }
 impl ServeVar {
     pub fn is_parent(&self) -> bool {
