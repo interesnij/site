@@ -1,8 +1,8 @@
-<% let __read = match linguage {
-        2 => "More detailed", 
-        1 | _ => "Подробнее",
+<% let (__desc, __read) = match linguage {
+        2 => (object.get_en_description(), "More detailed"), 
+        1 | _ => (object.get_ru_description(), "Подробнее"),
     };
-%>
+%> 
 
 <% if i % 2 == 0 { %>
   <div class="container relative">
@@ -21,9 +21,7 @@
                 <%= object.title %>
               </h3>
               <p>
-                <% if object.description.is_some() { %>
-                  <%= object.description.as_deref().unwrap() %>
-                <% } %>
+                <%= __desc %>
               </p>
               <div class="mt-40">
                 <a class="btn btn-medium btn-mod border btn-round ajax" href="/service/<%= category.slug %>/<%= object.slug %>/">
@@ -46,9 +44,7 @@
             <%= object.title %>
           </h3>
             <p>
-              <% if object.description.is_some() { %>
-                <%= object.description.as_deref().unwrap() %>
-              <% } %>
+              <%= __desc %>
             </p>
             <div class="mt-40">
               <a class="btn btn-medium btn-mod border btn-round ajax" href="/service/<%= category.slug %>/<%= object.slug %>/">

@@ -1471,8 +1471,8 @@ pub async fn get_tech_objects_page(req: HttpRequest, conn: ConnectionInfo, sessi
         is_admin:       bool,
         template_types: i16,
         linguage:       i16,
-        title:          String,
-        description:    String,
+        //title:          String,
+        //description:    String,
         //link:           String,
         //image:          String,
     }
@@ -1481,8 +1481,8 @@ pub async fn get_tech_objects_page(req: HttpRequest, conn: ConnectionInfo, sessi
         is_admin:       is_admin,
         template_types: t,
         linguage:       l,
-        title:          title,
-        description:    description,
+        //title:          title,
+        //description:    description,
         //link:           link,
         //image:          image,
     }

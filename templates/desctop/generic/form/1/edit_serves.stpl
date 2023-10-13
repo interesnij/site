@@ -14,6 +14,16 @@
 </div>
 
 <div class="mb-20 mb-md-10">
+<% if linguage == 2 { %>
+  <label>Difficulty level</label>
+  <select class="input-md form-control load_serve_from_level" data-live-search="true" tabindex="-1" aria-hidden="true">
+  <option <% if level == 0 { %>selected=""<% } %> value="0">Budget</option>
+  <option <% if level == 1 { %>selected=""<% } %> value="1">Usually</option>
+  <option <% if level == 2 { %>selected=""<% } %> value="2">Medium</option>
+  <option <% if level == 3 { %>selected=""<% } %> value="3">Difficult</option>
+  <option <% if level == 4 { %>selected=""<% } %> value="4">Expert</option>
+  </select>
+  <% } else if linguage == 1 { %>
   <label>Уровень сложности</label>
   <select class="input-md form-control load_serve_from_level" data-live-search="true" tabindex="-1" aria-hidden="true">
   <option <% if level == 0 { %>selected=""<% } %> value="0">Бюджетно</option>
@@ -22,19 +32,30 @@
   <option <% if level == 3 { %>selected=""<% } %> value="3">Сложно</option>
   <option <% if level == 4 { %>selected=""<% } %> value="4">Экспертно</option>
   </select>
+  <% } %>
 </div>
 
+<% let (__close, __default, __tech_level) = match linguage {
+        2 => ("Closed tech. categories", "by default", tech_category.get_level_en()), 
+        1 | _ => ("Закрытые тех. категории", "по умолчанию", tech_category.get_level_ru()),
+    };
+%>
 <div class="">
 <div class="mb-20 mb-md-10">
-    <label>Закрытые тех. категории</label>
+    <label><%= __close %></label>
     <select class="form-control close_tech_categories" name="close_tech_cats_list[]" multiple="">
       <% for cat in tech_cats.iter() { %>
+        <% let __cat_level = match linguage {
+            2 => cat.get_level_en(), 
+            1 | _ => cat.get_level_ru(),
+          };
+        %>
         <option
           <% if tech_cats_ids.iter().any(|i| i==&cat.id) { %>
             selected=""
           <% } %>
           value="<%= cat.id %>">
-            <%= cat.name %> (<%= cat.get_level_ru() %>)
+            <%= cat.name %> (<%= __cat_level %>)
         </option>
       <% } %>
     </select>
@@ -42,16 +63,16 @@
 <div class="">
 <% for tech_category in tech_cats.iter() { %>
 <div class="open_tech_category <% if tech_cats_ids.iter().any(|i| i==&tech_category.id) { %>hidden<% } %>" data-pk="<%= tech_category.id %>">
-  <h4 class="show_next_element pointer"><%= tech_category.name %> (<%= tech_category.get_level_ru() %>)</h4>
+  <h4 class="show_next_element pointer"><%= tech_category.name %> (<%= __tech_level %>)</h4>
   <div class="hidden">
-  <% for category in tech_category.get_serve_categories().iter() { %>
+  <% for category in tech_category.get_serve_categories().iter() { %> 
 
     <div class="mb-20 mb-md-10">
       <label><%= category.name %></label>
       <select class="form-control" name="serve_list[]" multiple="">
         <% for object in category.get_serves(linguage).iter() { %>
           <option <% if serves_ids.iter().any(|i| i==&object.id) { %>selected=""<% } %> value="<%= object.id %>">
-            <%= object.name %> <% if object.is_default { %>- по умолчанию<% } %>
+            <%= object.name %> <% if object.is_default { %>- <%= __default %><% } %>
           </option>
         <% } %>
       </select>

@@ -43,8 +43,8 @@
                   <%= serve.name %> → <%= __no_selected %>
                 </a>
                 <br />
-                <span style="font-size:80%">
-                  <span class="price_td"><span class="price">-</span> ₽</span>
+                <span style="font-size:80%"> 
+                  <span class="price_td"><span class="price">-</span> <%= __p %></span>
                   &nbsp;&nbsp;
                   <span class="hours">-</span>
                 </span>

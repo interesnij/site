@@ -169,6 +169,16 @@ impl TechCategories {
             _ => "Непонятно".to_string(),
         };
     }
+    pub fn get_level_en(&self) -> String {
+        return match self.level {
+            0 => "Budget".to_string(),
+            1 => "Usually".to_string(),
+            2 => "Medium".to_string(),
+            3 => "Difficult".to_string(),
+            4 => "Expert".to_string(),
+            _ => "error".to_string(),
+        };
+    }
 }
 #[derive(Insertable,AsChangeset)]
 #[table_name="tech_categories"]

@@ -1,3 +1,9 @@
+<% let __desc = match linguage {
+      2 => object.get_en_description(), 
+      1 | _ => object.get_ru_description(),
+  };
+%>
+
 <div class="blog-post-prev-small clearfix">
     <a class="ajax" href="/store/all-stores/<%= object.slug %>/">
         <img src="<%= object.get_image() %>" alt="img" class="image_fit_100 widget-posts-img">
@@ -10,9 +16,7 @@
           <%= object.title %>
         </a>
         <span>
-          <p><% if object.description.is_some() { %>
-            <%= object.description.as_deref().unwrap() %>
-          <% } %></p>
+          <p><%= __desc %></p>
         </span>
     </div>
 </div>

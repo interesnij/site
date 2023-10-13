@@ -406,7 +406,7 @@ impl Categories {
                 name:           form.name.clone(),
                 name_en:        "".to_string(),
                 description:    Some(form.description.clone()),
-                description_en: Some("".to_string()),
+                description_en: None,
                 position:       form.position,
                 image:          Some(form.image.clone()),
                 count:          0,
@@ -425,7 +425,7 @@ impl Categories {
             let new_cat = NewCategories {
                 name:           "".to_string(),
                 name_en:        form.name.clone(),
-                description:    Some("".to_string()),
+                description:    None,
                 description_en: Some(form.description.clone()),
                 position:       form.position,
                 image:          Some(form.image.clone()),
@@ -852,7 +852,7 @@ impl Categories {
                     .expect("E."));
             }
             else if l == 2 {
-                return Ok(items
+                let mut list = items
                     .filter(schema::items::id.eq_any(ids))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -868,7 +868,11 @@ impl Categories {
                         schema::items::price_acc.nullable(),
                     ))
                     .load::<Store>(&_connection)
-                    .expect("E."));
+                    .expect("E.");
+                for i in &mut list {
+                    i.price = i.price / 100;
+                }
+                return Ok(list);
             }
         } else {
             if l == 1 {
@@ -892,7 +896,7 @@ impl Categories {
                     .expect("E."));
             }
             else if l == 2 {
-                return Ok(items
+                let mut list = items
                     .filter(schema::items::id.eq_any(ids))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
@@ -909,7 +913,12 @@ impl Categories {
                         schema::items::price_acc.nullable(),
                     ))
                     .load::<Store>(&_connection)
-                    .expect("E."));
+                    .expect("E.");
+                for i in &mut list {
+                    i.price = i.price / 100;
+                }
+                return Ok(list);
+
             }
         }
         return Ok(Vec::new());
@@ -1379,18 +1388,6 @@ pub struct NewCategories {
     pub slug:           String,
 }
 
-#[derive(Queryable, Serialize, Deserialize, AsChangeset, Debug)]
-#[table_name="categories"]
-pub struct EditCategories {
-    pub name:           String,
-    pub name_en:        String,
-    pub description:    Option<String>,
-    pub description_en: Option<String>,
-    pub position:       i16,
-    pub image:          Option<String>,
-    pub slug:           String,
-}
-
 #[derive(Debug, Serialize, Clone, Queryable, Identifiable)]
 pub struct Item {
     pub id:             i32,
@@ -1651,15 +1648,13 @@ impl Item {
             .expect("E");
 
         if l == 1 {
-            let _new_item = EditItem {
-                title:          form.title.clone(),
-                title_en:       form.title.clone(),
-                description:    form.description.clone(),
-                description_en: form.description.clone(),
-                link:           form.link.clone(),
-                image:          form.main_image.clone(),
-                position:       form.position,
-                slug:           form.slug.clone(),
+            let _new_item = EditRuItem {
+                title:       form.title.clone(),
+                description: form.description.clone(),
+                link:        form.link.clone(),
+                image:       form.main_image.clone(),
+                position:    form.position,
+                slug:        form.slug.clone(),
             };
 
             diesel::update(&_item)
@@ -1668,10 +1663,8 @@ impl Item {
                 .expect("E");
         }
         else if l == 2 {
-            let _new_item = EditItem {
-                title:          form.title.clone(),
+            let _new_item = EditEnItem {
                 title_en:       form.title.clone(),
-                description:    form.description.clone(),
                 description_en: form.description.clone(),
                 link:           form.link.clone(),
                 image:          form.main_image.clone(),
@@ -1993,7 +1986,7 @@ impl Item {
         return "".to_string();
     }
 
-    pub fn get_categories(&self) -> Vec<SmallCat> {
+    pub fn get_categories(&self, l: i16) -> Vec<SmallCat> {
         use crate::schema::{
             category::dsl::category,
             categories::dsl::categories,
@@ -2005,17 +1998,29 @@ impl Item {
             .select(schema::category::category_id)
             .load::<i32>(&_connection)
             .expect("E");
-
-        let _categories = categories
-            .filter(schema::categories::id.eq_any(ids))
-            .select((
-                schema::categories::name,
-                schema::categories::slug,
-                schema::categories::count
-            ))
-            .load::<SmallCat>(&_connection)
-            .expect("E");
-        return _categories;
+        if l == 1 {
+            return categories
+                .filter(schema::categories::id.eq_any(ids))
+                .select((
+                    schema::categories::name,
+                    schema::categories::slug,
+                    schema::categories::count
+                ))
+                .load::<SmallCat>(&_connection)
+                .expect("E");
+        }
+        else if l == 2 {
+            return categories
+                .filter(schema::categories::id.eq_any(ids))
+                .select((
+                    schema::categories::name_en,
+                    schema::categories::slug,
+                    schema::categories::count
+                ))
+                .load::<SmallCat>(&_connection)
+                .expect("E");
+        }
+        return Vec:new();
     }
     pub fn get_categories_obj(&self) -> Vec<Categories> {
         use crate::schema::{
@@ -2548,7 +2553,7 @@ impl Item {
                     .expect("E."), count);
             }
             else if l == 2 {
-                return (items
+                let mut list = items
                     .filter(schema::items::types.eq(3))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -2564,7 +2569,11 @@ impl Item {
                         schema::items::price_acc.nullable(),
                     ))
                     .load::<Store>(&_connection)
-                    .expect("E."), count);
+                    .expect("E.");
+                for i in &mut list {
+                    i.price = i.price / 100;
+                }
+                return (list, count);
             }
         } else {
                 if l == 1 {
@@ -2588,7 +2597,7 @@ impl Item {
                         .expect("E."), count);
                 }
                 else if l == 2 {
-                    return (items
+                    let mut list = items
                         .filter(schema::items::types.eq(3))
                         .filter(schema::items::is_active.eq(true))
                         .order(schema::items::created.desc())
@@ -2605,7 +2614,11 @@ impl Item {
                             schema::items::price_acc.nullable(),
                         ))
                         .load::<Store>(&_connection)
-                        .expect("E."), count);
+                        .expect("E.");
+                    for i in &mut list {
+                        i.price = i.price / 100;
+                    }
+                    return (list, count);
                 }
         }
         return (Vec::new(), 0);
@@ -2645,7 +2658,7 @@ impl Item {
                     .expect("E."), count);
             }
             else if l == 2 {
-                return (items
+                let mut list = items
                     .filter(schema::items::title_en.ilike(&q))
                     .or_filter(schema::items::description_en.ilike(&q))
                     .or_filter(schema::items::content_en.ilike(&q))
@@ -2664,7 +2677,11 @@ impl Item {
                         schema::items::price_acc.nullable(),
                     ))
                     .load::<Store>(&_connection)
-                    .expect("E."), count);
+                    .expect("E.");
+                for i in &mut list {
+                    i.price = i.price / 100;
+                }
+                return (list, count);
             }
         } else {
             if l == 1 {
@@ -2691,7 +2708,7 @@ impl Item {
                     .expect("E."), count);
             }
             else if l == 2 {
-                return (items
+                let mut list = items
                     .filter(schema::items::title_en.ilike(&q))
                     .or_filter(schema::items::description_en.ilike(&q))
                     .or_filter(schema::items::content_en.ilike(&q))
@@ -2711,7 +2728,11 @@ impl Item {
                         schema::items::price_acc.nullable(),
                     ))
                     .load::<Store>(&_connection)
-                    .expect("E."), count);
+                    .expect("E.");
+                for i in &mut list {
+                    i.price = i.price / 100;
+                }
+                return list;
             }
         }
         return (Vec::new(), 0);
@@ -3552,7 +3573,7 @@ impl Item {
                     .expect("E."), count);
             }
             else if l == 2 {
-                return (items
+                let mut list = items
                     .filter(schema::items::id.eq_any(ids))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3568,7 +3589,11 @@ impl Item {
                         schema::items::price_acc.nullable()
                     ))
                     .load::<Store>(&_connection)
-                    .expect("E."), count);
+                    .expect("E.");
+                for i in &mut list {
+                    i.price = i.price / 100;
+                }
+                return list;
             }
         }
         else {
@@ -3593,7 +3618,7 @@ impl Item {
                     .expect("E."), count);
             }
             else if l == 2 {
-                return (items
+                let mut list = items
                     .filter(schema::items::id.eq_any(ids))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
@@ -3610,7 +3635,11 @@ impl Item {
                         schema::items::price_acc.nullable()
                     ))
                     .load::<Store>(&_connection)
-                    .expect("E."), count);
+                    .expect("E.");
+                for i in &mut list {
+                    i.price = i.price / 100;
+                }
+                return list;
             }
         }
         return (Vec::new(), 0);
@@ -4155,6 +4184,18 @@ impl Item {
         
         return 1;
     }
+    pub fn get_ru_description(&self) -> String {
+        if self.description.is_some() {
+            return self.description.as_deref().unwrap().to_string();
+        }
+        return "".to_string();
+    }
+    pub fn get_en_description(&self) -> String {
+        if self.description_en.is_some() {
+            return self.description_en.as_deref().unwrap().to_string();
+        }
+        return "".to_string();
+    }
 }
 
 #[derive(Serialize, Insertable)]
@@ -4222,10 +4263,18 @@ impl NewItem {
 
 #[derive(Queryable, Serialize, Deserialize, AsChangeset, Debug)]
 #[table_name="items"]
-pub struct EditItem {
-    pub title:          String,
+pub struct EditRuItem {
+    pub title:       String,
+    pub description: Option<String>,
+    pub link:        Option<String>,
+    pub image:       Option<String>,
+    pub position:    i16,
+    pub slug:        String,
+}
+#[derive(Queryable, Serialize, Deserialize, AsChangeset, Debug)]
+#[table_name="items"]
+pub struct EditEnItem {
     pub title_en:       String,
-    pub description:    Option<String>,
     pub description_en: Option<String>,
     pub link:           Option<String>,
     pub image:          Option<String>,

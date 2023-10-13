@@ -1,7 +1,7 @@
-<% let __read = match linguage {
-        2 => "Read", 
-        1 | _ => "Читать",
-    };
+<% let (__desc, __read) = match linguage {
+      2 => (object.get_en_description(), "Read"), 
+      1 | _ => (object.get_ru_description(), "Читать"),
+  };
 %>
 <div class="col-lg-4 col-md-6 mb-md-50">
     <div class="post-prev-img">
@@ -23,9 +23,7 @@
       <%= object.created.format("%d-%m-%Y в %H:%M").to_string() %>
     </div>
     <div class="post-prev-text">
-      <% if object.description.is_some() { %>
-        <%= object.description.as_deref().unwrap() %>
-      <% } %>
+      <%= __desc %>
     </div>
     <div class="post-prev-more">
         <a href="/blog/<%= category.slug %>/<%= object.slug %>/" class="btn btn-mod border btn-round ajax"><%= __read %></a>

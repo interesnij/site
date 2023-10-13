@@ -1,4 +1,16 @@
+
 <div class="mb-20 mb-md-10">
+<% if linguage == 2 { %>
+  <label>Difficulty level</label>
+  <select class="input-md form-control load_serve_from_level" data-live-search="true" tabindex="-1" aria-hidden="true">
+    <option value="">Not selected</option>
+    <option value="0">Budget</option>
+    <option value="1">Usually</option>
+    <option value="2">Medium</option>
+    <option value="3">Difficult</option>
+    <option value="4">Expert</option>
+  </select> 
+  <% } else if linguage == 1 { %>
   <label>Уровень сложности</label>
   <select class="input-md form-control load_serve_from_level" data-live-search="true" tabindex="-1" aria-hidden="true">
     <option value="">Не выбрано</option>
@@ -8,6 +20,7 @@
     <option value="3">Сложно</option>
     <option value="4">Экспертно</option>
   </select>
+  <% } %>
 </div>
 <div class="mb-20 mb-md-10 hidden">
 
