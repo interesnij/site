@@ -24,7 +24,7 @@
     </a> 
   </div>
   <div class="post-prev-text align-center">
-    <strong><%= __price %></strong>
+    <strong><%= object.title %></strong>
   </div>
   <div class="post-prev-more align-center">
     <a href="/store/all-stores/<%= object.slug %>/" class="btn border btn-mod ajax btn-round">
