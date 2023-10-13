@@ -474,7 +474,7 @@ impl ServeVar {
                 .expect("E");
             return _serve;
         }
-        else if l == 2 {
+        else {
             let _serve = serve
                 .filter(schema::serve::serve_id.eq(self.id))
                 .select((
