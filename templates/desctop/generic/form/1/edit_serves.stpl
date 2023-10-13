@@ -35,9 +35,9 @@
   <% } %>
 </div>
 
-<% let (__close, __default, __tech_level) = match linguage {
-        2 => ("Closed tech. categories", "by default", tech_category.get_level_en()), 
-        1 | _ => ("Закрытые тех. категории", "по умолчанию", tech_category.get_level_ru()),
+<% let (__close, __default) = match linguage {
+        2 => ("Closed tech. categories", "by default"), 
+        1 | _ => ("Закрытые тех. категории", "по умолчанию"),
     };
 %>
 <div class="">
@@ -62,6 +62,12 @@
 </div>
 <div class="">
 <% for tech_category in tech_cats.iter() { %>
+<% let __tech_level = match linguage {
+   2 => tech_category.get_level_en(), 
+   1 | _ => tech_category.get_level_ru(),
+  };
+%>
+
 <div class="open_tech_category <% if tech_cats_ids.iter().any(|i| i==&tech_category.id) { %>hidden<% } %>" data-pk="<%= tech_category.id %>">
   <h4 class="show_next_element pointer"><%= tech_category.name %> (<%= __tech_level %>)</h4>
   <div class="hidden">
