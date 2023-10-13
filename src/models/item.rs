@@ -2020,7 +2020,7 @@ impl Item {
                 .load::<SmallCat>(&_connection)
                 .expect("E");
         }
-        return Vec:new();
+        return Vec::new();
     }
     pub fn get_categories_obj(&self) -> Vec<Categories> {
         use crate::schema::{
