@@ -486,11 +486,7 @@ impl ServeVar {
                 ))
                 .first::<ServeVar>(&_connection)
                 .expect("E");
-        }
-        return serve
-            .filter(schema::serve::id.eq(self.serve_id.unwrap()))
-            .first::<Serve>(&_connection)
-            .expect("E");  
+        } 
     }
     pub fn get_hours(&self, l: i16) -> String {
         use crate::utils::get_count_for_ru;
