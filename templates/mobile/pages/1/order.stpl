@@ -1,8 +1,27 @@
+<% let (
+  __home, __orders, __delete,
+  __from, __what, __price, 
+  __hours, __p, __parent
+) = match linguage {
+        2 => (
+          "Home", "You orders", "Delete",
+          "in", "what is it?", "Price",
+          "Hours" , "$", "Order Parent"
+        ), 
+        1 | _ => (
+          "Главная", "Ваши заказы", "Удалить",
+          "на", "что это?", "Цена",
+          "Часы", "₽", "Родитель заказа"
+        ),
+    };
+%> 
 
 <section page-id="63" data-id="<%= object.id %>" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
-            <a class="ajax" href="/user_orders/">Мои заказы</a>
+            <a class="ajax" href="/"><%= __home %></a>
+            &nbsp;/&nbsp;
+            <a class="ajax" href="/user_orders/"><%= __orders %></a>
             &nbsp;/&nbsp;
             <a> <%= object.title %></a>
         </div>
@@ -14,27 +33,25 @@
         <div class="row">
             <div class="col-sm-8">
               <div class="row search_result"></div>
-              <div class="content">
+              <div class="content_block content">
                 <div class="blog-item-body">
                   <h1 class="mt-0 font-alt object_data" data-type="1" data-pk="<%= object.id %>"><%= object.title %></h1>
                   <div class="blog-item-data">
                     <a data-pk="<%= object.id %>" class="pointer remove_order">
-                      Удалить
+                      <%= __delete %>
                     </a>
                     |
                     <% if object.types == 2 { %>
-                      <a href="/service/1/<%= object.object_id %>/" class="ajax">Родитель заказа</a>
+                      <a href="/service/1/<%= object.object_id %>/" class="ajax"><%= __parent %></a>
                     <% } else if object.types == 3 { %>
-                      <a href="/store/1/<%= object.object_id %>/" class="ajax">Родитель заказа</a>
+                      <a href="/store/1/<%= object.object_id %>/" class="ajax"><%= __parent %></a>
                     <% } else if object.types == 5 { %>
-                      <a href="/work/1/<%= object.object_id %>/" class="ajax">Родитель заказа</a>
+                      <a href="/work/1/<%= object.object_id %>/" class="ajax"><%= __parent %></a>
                     <% } %>
                   </div>
                 </div>
                 <% if object.description.is_some() { %>
                   <%- object.description.as_deref().unwrap() %>
-                <% } else { %>
-                  Описание отсутствует.
                 <% } %>
 
                 <% let object_serve_ids = object.get_serves_ids(); %>
@@ -55,29 +72,29 @@
                                 <tbody>
                                   <tr>
                                     <th class="hidden-xs">
-                                      <span data-pk="<%= category.id %>" class="pointer get_serve_category_info" tooltip="Справка" flow="up">
-                                        <%= t_category.name %> на <%= category.name %>
+                                      <span data-pk="<%= category.id %>" class="pointer get_serve_category_info" tooltip="<%= __what %>" flow="up">
+                                        <%= t_category.name %> <%= __from %> <%= category.name %>
                                       </span>
                                     </th>
-                                    <th>Цена</th>
-                                    <th>Часы</th>
+                                    <th><%= __price %></th>
+                                    <th><%= __hours %></th>
                                   </tr>
 
-                                  <% for serve in category.get_serves_2().iter() { %>
+                                  <% for serve in category.get_serves(linguage).iter() { %>
                                     <% if object_serve_ids.iter().any(|&i| i ==serve.id) { %>
                                         <tr>
                                           <td class="border-top" style="width:55%">
                                             <a class="get_serve_info pointer" data-pk="<%= serve.id %>">
-                                            <% if serve.serve_id.is_some() { %>
-                                              <% let parent = serve.get_parent(); %>
+                                            <% if serve.is_parent() { %>
+                                              <% let parent = serve.get_parent(linguage); %>
                                               <%= parent.name %> → <%= serve.name %>
-                                            <% } else { %>
+                                            <% } else { %> 
                                               <%= serve.name %>
                                             <% } %>
                                             </a>
                                           </td>
-                                          <td class="price_td border-top" style="width:15%"><span class="price"><%= serve.price %></span> ₽</td>
-                                          <td class="hours border-top" style="width:15%"><%= serve.man_hours %></td>
+                                          <td class="price_td border-top" style="width:15%"><span class="price"><%= serve.price %></span> <%= __p %></td>
+                                          <td class="hours border-top" style="width:15%"><%= serve.get_hours(linguage) %></td>
                                         </tr>
                                     <% } %>
                                   <% } %>
@@ -114,11 +131,12 @@
     </div>
     <section class="border price_section_block card_fullscreen" style="position: fixed;z-index:99;bottom: 10px;width: 100%;">
     <h3 style="text-align: center;">
-        Сумма <%= object.price %> ₽.
+      <% if linguage == 2 { %>
+        The amount <%= object.price / 100 %> $
+      <% } else if linguage == 1 { %>
+          Сумма <%= object.price %> ₽
+      <% } %>
     </h3>
     </section>
-</section>
-<div class="sidebar hidden">
-    <% include!("sidebar.stpl"); %>
-</div>
+</section> 
 

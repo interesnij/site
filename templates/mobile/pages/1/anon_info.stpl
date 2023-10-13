@@ -1,31 +1,281 @@
+<% if linguage == 2 { %>
 
 <section page-id="10" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
+            <a class="ajax" href="/">Home</a>
+            &nbsp;/&nbsp;
+            <a>Info</a>
+            <% include!("../../generic/items/1/page_stat.stpl"); %>
+        </div>
+    </div>
+</section>
+<section class="page-section">
+    <div class="container relative">
+        <ul class="nav nav-tabs tpl-alt-tabs font-alt pt-30 pt-sm-0 pb-30 pb-sm-0">
+            <li class="yy s_1 active">
+              <a>
+                <div class="alt-tabs-icon">
+                  <span class="icon-heart"></span>
+                </div>
+                About us
+              </a>
+            </li>
+            <li class="yy s_2 pointer">
+              <a>
+                <div class="alt-tabs-icon">
+                  <span class="icon-envelope"></span>
+                </div>
+                Contacts
+              </a>
+            </li>
+
+            <li class="yy s_3 pointer">
+              <a>
+                <div class="alt-tabs-icon">
+                  <span class="icon-desktop"></span>
+                </div>
+                About the site
+              </a>
+            </li>
+            <li class="yy s_4 pointer">
+                <div class="alt-tabs-icon">
+                  <span class="icon-lifesaver"></span>
+                </div>
+                Help
+            </li>
+            <li>
+              <a class="ajax" href="/cookie_users_list/">
+                <div class="alt-tabs-icon">
+                  <span class="icon-globe"></span>
+                </div>
+                Statistics
+              </a>
+            </li>
+        </ul>
+
+        <div class="tab-content tpl-tabs-cont">
+            <div class="tab_1 fade tab-pane in active">
+                <div class="section-text">
+                    <div class="row">
+                        <div class="mb-sm-50">
+                          <blockquote style="margin-bottom: 10px">
+                            <p>About us</p>
+                          </blockquote>
+                          <p>
+                          <strong>Dear visitor!</strong> Let me say a few words about us.<br><br>
+                          We have opened a company for the development and support of web services of any complexity.
+                          This topic is popular, but not filled to the end by harsh professionals. <strong>
+                          <br/>
+                          That's why</strong>:
+                          <ul class="my_ul">
+                              <li>
+                                The customer cannot independently deal with the nuances and difficulties in this area.
+                                Here on the sites for buying real estate, cars, renting hotel rooms, etc. -
+                                You will be given the necessary tools so that you understand "what's what" in all the details.
+                                In the end, who suffers? You, the managers of the company, the process of negotiations and briefings.
+                              </li>
+                              <li>
+                                The overwhelming number of companies hesitate to disclose the details of their professional
+                                skills. The technologies used, the course of the process, the variability of the use of skills, and much more are
+                                completely hidden. It is believed that the customer does not understand anything about the topic, therefore
+                                you don't have to try. And the matter is important, expensive, responsible!
+                              </li>
+                          </ul>
+                          <hr class="mt-0 mb-0 " />
+                          We want to correct this situation, which of course is the fault of both sides.
+                          People should be able to easily understand the web. So many
+                          hack companies will be closed, customers of web resources will be able to receive goods
+                          decent quality. And it will be fine.
+                          </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab_2 fade tab-pane in">
+                <div class="section-text">
+                    <div class="row">
+                      <div class="mb-sm-50">
+                        <blockquote style="margin-bottom: 10px">
+                          <p>Contacts</p>
+                        </blockquote>
+                        <p>
+                        <a class="pointer underline create_feedback_form">Write us a message!</a>:
+                        <ul class="my_ul">
+                            <li>
+                              Do you have questions about the site, the information on it is unclear or incorrect -
+                              <a class="pointer create_feedback_form">give us a chance to improve!</a>
+                            </li>
+                            <li>
+                              You are a decent, charged programmer / manager / designer /
+                              tester / mobile developer / techleader / advertiser /
+                              promoter / etc. - <a class="pointer create_feedback_form">let's unite!</a>
+                            </li>
+                            <li>
+                              Do you know someone who needs a large-scale project? Make him feel
+                              I feel grateful to you, and to us - to lay out a good partner percentage of the order - <a class="pointer create_feedback_form">what are you waiting for?!</a>
+                            </li>
+                            <li>
+                              You have a project of social significance, but there are no millions to create it -
+                              <a class="pointer create_feedback_form">let's discuss :-)</a>
+                            </li>
+                        </ul>
+                        <hr class="mt-0 mb-0" />
+                        Do you have a situation that does not fall under the above? It doesn't matter, we are happy to any
+                        feedback. <a class="pointer create_feedback_form">Write strongly</a>.
+                        </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab_3 fade tab-pane in">
+                <div class="section-text">
+                    <div class="row">
+                      <div class="mb-sm-50">
+                        <blockquote style="margin-bottom: 10px">
+                          <p>About the site</p>
+                        </blockquote>
+                        <p>
+                            The site has the following features:
+                            <ul class="my_ul">
+                            <li>
+                              It is written in the rust language using the Sailfish template engine, thanks to which
+                              runs on the crappiest server with the speed of a jet fighter.
+                            </li>
+                            <li>
+                              It is conceived as a technically powerful service, and not as a mega-colorful dummy,
+                              as it usually happens. That is, a lot of data is assumed. The goal is
+                              to contain absolutely all the nuances on the topic of creating huge projects.
+                              The site even has an extremely simple tutorial on programming web services.
+                            </li>
+                            <li>
+                              Mob. the view is completely separate from the desktop version. The site also carries an innovation - in the mobile form of a sidebar (informative panel)
+                              it is hidden and details related to the open page are loaded into it.
+                            </li>
+                            <li>
+                              The site's information is hidden following the example of user interface technologies.
+                            </li>
+                            <li>
+                              There are two types of search: general in the header of the site or mobile sidebar, with further
+                              divided by sections, and private, each section has its own. The search is lively and extremely fast.
+                              On rust after all.
+                            </li>
+                            <li>
+                              The site collects statistics and reflects its collective part in the public domain, keeping
+                              the history of the cookie record. We know about you: Your ip, geolocation country-region-city,
+                              Your equipment, the history of visits, the total number of scrolled tape in meters,
+                              the number of seconds spent and views.
+                            </li>
+                            <li>
+                              Your profile is created without registration, but partners register with mail.
+                              Partners can create their own content, even their own services, a blog, and so on.
+                            </li>
+                            <li>
+                              A CRM system for customers is attached to the site according to the same principle:
+                              so that he can independently deal with the process and make edits without our direct participation.
+                               Customers will register by phone number and use the section
+                               using sessions. Using b2b technology.
+                            </li>
+                            <li>
+                              An exhibition section is attached to the site. Since we've done a lot of great
+                              projects that have ceased to exist.
+                            </li>
+                        </ul>
+                        <hr class="mt-0 mb-0 " />
+                         Why try so hard, since they usually do it with the words "and so it will do"?
+                         Because, firstly, we don't like and don't want to do it any other way, and secondly,
+                         web developers are literate people and are evaluated by such actions.
+                         Otherwise, it turns out a shoemaker without boots.
+                        </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab_4 fade tab-pane in">
+                <div class="section-text">
+                    <div class="row">
+                      <div class="mb-sm-50">
+                        <blockquote style="margin-bottom: 10px">
+                          <p>Help</p>
+                        </blockquote>
+                        <p>
+                        <strong>The section</strong> is devoted to a brief description <strong>of our services and options</strong>
+                        for potential customers. The information is intended to provide answers to the most important questions,
+                        which may occur when planning to order web resources.
+                        <br><br>
+                        <strong>Categories</strong>:
+                        <ul class="my_ul">
+                          <% for object in help_cats.iter() { %>
+                            <li>
+                              <a href="/helps/<%= object.slug %>/" class="ajax">
+                                <%= object.name %>
+                              </a>
+                            </li>
+                          <% } %>
+                        </ul>
+                        </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<% } else if linguage == 1 { %>
+<section page-id="10" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
+    <div class="relative container align-left">
+        <div class="hs-line-4 font-alt">
+            <a class="ajax" href="/">Главная</a>
+            &nbsp;/&nbsp;
             <a>Информация</a>
             <% include!("../../generic/items/1/page_stat.stpl"); %>
         </div>
     </div>
 </section>
-
 <section class="page-section">
     <div class="container relative">
         <ul class="nav nav-tabs tpl-alt-tabs font-alt pt-30 pt-sm-0 pb-30 pb-sm-0">
-            <li class="yy s_1 active border">
-              <a>О нас</a>
+            <li class="yy s_1 active">
+              <a>
+                <div class="alt-tabs-icon">
+                  <span class="icon-heart"></span>
+                </div>
+                О нас
+              </a>
             </li>
-            <li class="yy s_2 pointer border">
-              <a>Контакты</a>
+            <li class="yy s_2 pointer">
+              <a>
+                <div class="alt-tabs-icon">
+                  <span class="icon-envelope"></span>
+                </div>
+                Контакты
+              </a>
             </li>
 
-            <li class="yy s_3 pointer border">
-              <a>О сайте</a>
+            <li class="yy s_3 pointer">
+              <a>
+                <div class="alt-tabs-icon">
+                  <span class="icon-desktop"></span>
+                </div>
+                О сайте
+              </a>
             </li>
-            <li class="yy s_4 pointer border">
-                <a>Помощь</a>
+            <li class="yy s_4 pointer">
+                <div class="alt-tabs-icon">
+                  <span class="icon-lifesaver"></span>
+                </div>
+                Помощь
             </li>
-            <li class="border">
-              <a class="ajax" href="/cookie_users_list/">Статистика</a>
+            <li>
+              <a class="ajax" href="/cookie_users_list/">
+                <div class="alt-tabs-icon">
+                  <span class="icon-globe"></span>
+                </div>
+                Статистика
+              </a>
             </li>
         </ul>
 
@@ -187,7 +437,7 @@
                             <li>
                               <a href="/helps/<%= object.slug %>/" class="ajax">
                                 <%= object.name %>
-                              </a> 
+                              </a>
                             </li>
                           <% } %>
                         </ul>
@@ -199,7 +449,5 @@
         </div>
     </div>
 </section>
+<% } %>
 
-<div class="sidebar hidden">
-    <% include!("sidebar.stpl"); %>
-</div>

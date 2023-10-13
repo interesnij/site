@@ -124,8 +124,8 @@
       <p>Linguage: <span data-l="2" class="linguage underline pointer">En</span> &nbsp;&nbsp; <a data-l="1" class="change_l linguage pointer">Ru</a></p>
       <p>Template: <span class="underline template pointer">Rhythm</span> &nbsp;&nbsp; <a data-t="2" class="change_t template pointer">Eremia</a></p>
   <% } else if linguage == 1 { %> 
-      <p>Девайс:  <span class="device_en"></span></p> 
-      <p>Локация: <span class="city_en"></span></p> 
+      <p>Девайс:  <span class="device_ru"></span></p> 
+      <p>Локация: <span class="city_ru"></span></p> 
       <p>Язык:    <span class="underline pointer" data-l="2">Ru</span> &nbsp;&nbsp; <a data-l="1" class="change_l pointer">En</a></p>
       <p>Шаблон:  <span class="underline pointer">Rhythm</span> &nbsp;&nbsp; <a data-t="2" class="change_t pointer">Eremia</a></p>
   <% } %>

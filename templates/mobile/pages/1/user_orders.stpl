@@ -1,8 +1,26 @@
+<% let (
+  __home, __orders, __history, __open,
+  __empty, __services, __stores, __works
+) = match linguage {
+        2 => (
+          "Home", "Orders", "History", "Open",
+          "There are no orders yet. You can order web services from our pages", 
+          "services", "products", "works"
+        ), 
+        1 | _ => (
+          "Главная", "Ваши заказы", "История", "Открыть",
+          "Заказов пока нет. Вы можете заказывать у нас веб-сервисы состраниц", 
+          "услуг", "товаров", "работ"
+        ),
+    };
+%>
 
 <section page-id="12" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
-            <a>Ваши заказы</a>
+            <a class="ajax" href="/"><%= __home %></a>
+            &nbsp;/&nbsp;
+            <a><%= __orders %></a>
         </div>
     </div>
 </section>
@@ -15,7 +33,7 @@
                 <div class="alt-tabs-icon">
                   <span class="icon-document"></span>
                 </div>
-                История
+                <%= __history %>
               </a>
             </li>
             <li class="yy active">
@@ -23,7 +41,7 @@
                 <div class="alt-tabs-icon">
                   <span class="icon-briefcase"></span>
                 </div>
-                Заказы
+                <%= __orders %>
               </a>
             </li>
         </ul>
@@ -46,14 +64,12 @@
                 <p>
                   <% if object.description.is_some() { %>
                     <%= object.description.as_deref().unwrap() %>
-                  <% } else { %>
-                    Без описания
                   <% } %>
                 </p>
               </div>
               <div class="blog-item-foot">
                 <a href="/order/<%= object.id %>/" class="btn btn-mod btn-round ajax btn-small border">
-                  Открыть
+                  <%= __open %>
                 </a>
               </div>
             </div>
@@ -66,22 +82,17 @@
         </div>
       <% } else { %>
         <div style="margin-top: 40px;">
-          <div class="border align-center">
-            <span style="padding: 10px 15px;">
-              Заказов пока нет. Вы можете заказывать у нас веб-сервисы со
-              страниц
-              <a href="/service_categories/" class="ajax underline">услуг</a>
+          <div class="align-center">
+            <span class="border" style="padding: 10px 15px;">
+              <%= __empty %>
+              <a href="/service_categories/" class="ajax underline"><%= __services %></a>
               ,
-              <a href="/store_categories/" class="ajax underline">товаров</a>
-              и
-              <a href="/work_categories/" class="ajax underline">работ</a>.
+              <a href="/store_categories/" class="ajax underline"><%= __stores %></a>
+              ,
+              <a href="/work_categories/" class="ajax underline"><%= __works %></a>.
             </span>
           </div>
         </div>
       <% } %>
     </div>
 </section>
-<div class="sidebar hidden">
-    <% include!("sidebar.stpl"); %>
-</div>
-
