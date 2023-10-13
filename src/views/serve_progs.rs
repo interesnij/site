@@ -308,7 +308,7 @@ pub async fn create_tech_categories_page(conn: ConnectionInfo, session: Session,
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/serve/create_tech_categories.stpl")]
                 struct Template {
-                    request_user:   User,
+                    //request_user:   User,
                     tech_cats:      Vec<TechCategories>,
                     is_ajax:        i32,
                     template_types: i16,
@@ -319,7 +319,7 @@ pub async fn create_tech_categories_page(conn: ConnectionInfo, session: Session,
                     image:          String,
                 }
                 let body = Template {
-                    request_user:   _request_user,
+                    //request_user:   _request_user,
                     tech_cats:      _categories,
                     is_ajax:        is_ajax,
                     template_types: t,
@@ -407,7 +407,7 @@ pub async fn create_serve_categories_page(conn: ConnectionInfo, session: Session
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/serve/create_serve_categories.stpl")]
                 struct Template {
-                    request_user:   User,
+                    //request_user:   User,
                     tech_cats:      Vec<TechCategories>,
                     is_ajax:        i32,
                     template_types: i16,
@@ -418,7 +418,7 @@ pub async fn create_serve_categories_page(conn: ConnectionInfo, session: Session
                     image:          String,
                 }
                 let body = Template {
-                    request_user:   _request_user,
+                    //request_user:   _request_user,
                     tech_cats:      _tech_categories,
                     is_ajax:        is_ajax,
                     template_types: t,
@@ -667,7 +667,7 @@ pub async fn edit_tech_category_page(conn: ConnectionInfo, session: Session, req
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/serve/edit_tech_category.stpl")]
                 struct Template {
-                    request_user:   User,
+                    //request_user:   User,
                     tech_cats:      Vec<TechCategories>,
                     category:       TechCategories,
                     is_ajax:        i32,
@@ -679,7 +679,7 @@ pub async fn edit_tech_category_page(conn: ConnectionInfo, session: Session, req
                     image:          String,
                 }
                 let body = Template {
-                    request_user:   _request_user,
+                    //request_user:   _request_user,
                     tech_cats:      _tech_categories,
                     category:       _category,
                     is_ajax:        is_ajax,
@@ -773,7 +773,7 @@ pub async fn edit_serve_category_page(conn: ConnectionInfo, session: Session, re
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/serve/edit_serve_category.stpl")]
                 struct Template {
-                    request_user:   User,
+                    //request_user:   User,
                     tech_cats:      Vec<TechCategories>,
                     category:       ServeCategories,
                     is_ajax:        i32,
@@ -785,7 +785,7 @@ pub async fn edit_serve_category_page(conn: ConnectionInfo, session: Session, re
                     image:          String,
                 }
                 let body = Template {
-                    request_user:   _request_user,
+                    //request_user:   _request_user,
                     tech_cats:      _tech_categories,
                     category:       _category,
                     is_ajax:        is_ajax,
@@ -881,7 +881,7 @@ pub async fn edit_serve_page(conn: ConnectionInfo, session: Session, req: HttpRe
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/serve/edit_serve.stpl")]
                 struct Template {
-                    request_user:   User,
+                    //request_user:   User,
                     level:          i16,
                     serve_cats:     Vec<ServeCategories>,
                     object:         Serve,
@@ -894,7 +894,7 @@ pub async fn edit_serve_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     image:          String,
                 }
                 let body = Template {
-                    request_user:   _request_user,
+                    //request_user:   _request_user,
                     level:          _level,
                     serve_cats:     _serve_cats,
                     object:         _serve,

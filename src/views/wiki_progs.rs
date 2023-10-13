@@ -309,7 +309,7 @@ pub async fn wiki_category_page(conn: ConnectionInfo, session: Session, req: Htt
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/wikis/category.stpl")]
                 struct Template {
-                    request_user:     User,
+                    //request_user:     User,
                     all_tags:         Vec<SmallTag>,
                     category:         CatDetail,
                     cats:             Vec<Cat>,
@@ -324,7 +324,7 @@ pub async fn wiki_category_page(conn: ConnectionInfo, session: Session, req: Htt
                     image:            String,
                 }
                 let body = Template {
-                    request_user:     _request_user,
+                    //request_user:     _request_user,
                     all_tags:         _tags,
                     category:         _category,
                     cats:             _cats,
@@ -498,7 +498,7 @@ pub async fn wiki_categories_page(conn: ConnectionInfo, session: Session, req: H
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/wikis/categories.stpl")]
                 struct Template {
-                    request_user:   User,
+                    //request_user:   User,
                     is_ajax:        i32,
                     cats:           Vec<Cat>,
                     stat:           StatPage,
@@ -510,7 +510,7 @@ pub async fn wiki_categories_page(conn: ConnectionInfo, session: Session, req: H
                     image:          String,
                 }
                 let body = Template {
-                    request_user:   _request_user,
+                    //request_user:   _request_user,
                     is_ajax:        is_ajax,
                     cats:           _cats,
                     stat:           _stat,

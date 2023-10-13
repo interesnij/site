@@ -4,7 +4,7 @@
         1 | _ => ("Услуги", "ещё"),
     };
 %>
-<section class="page-section">
+<section class="page-section"> 
     <div class="container relative">
         <h5 class="section-title font-alt align-left">
             <%= __a %> 

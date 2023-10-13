@@ -9,6 +9,8 @@
     <% include!("sections_ru.stpl"); %>
 <% } %>
 
+<% include!("service.stpl"); %>
+
 <% include!("work.stpl"); %>
 
 <% include!("store.stpl"); %>

@@ -94,7 +94,7 @@ pub async fn get_store_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     request_user:   User,
                     object:         Item,
                     category:       Categories,
-                    help_cats:      Vec<Cat>,
+                    //help_cats:      Vec<Cat>,
                     prev:           Option<FeaturedItem>,
                     next:           Option<FeaturedItem>,
                     is_ajax:        i32,
@@ -109,7 +109,7 @@ pub async fn get_store_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     request_user:   _request_user,
                     object:         _item,
                     category:       _category,
-                    help_cats:      _help_cats,
+                    //help_cats:      _help_cats,
                     prev:           prev,
                     next:           next,
                     is_ajax:        is_ajax,
@@ -185,7 +185,7 @@ pub async fn get_store_page(conn: ConnectionInfo, session: Session, req: HttpReq
                 struct Template {
                     object:         Item,
                     category:       Categories,
-                    help_cats:      Vec<Cat>,
+                    //help_cats:      Vec<Cat>,
                     prev:           Option<FeaturedItem>,
                     next:           Option<FeaturedItem>,
                     is_ajax:        i32,
@@ -199,7 +199,7 @@ pub async fn get_store_page(conn: ConnectionInfo, session: Session, req: HttpReq
                 let body = Template {
                     object:         _item,
                     category:       _category,
-                    help_cats:      _help_cats,
+                    //help_cats:      _help_cats,
                     prev:           prev,
                     next:           next,
                     is_ajax:        is_ajax,
@@ -308,7 +308,7 @@ pub async fn store_category_page(conn: ConnectionInfo, session: Session, req: Ht
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/stores/category.stpl")]
                 struct Template {
-                    request_user:     User,
+                    //request_user:     User,
                     all_tags:         Vec<SmallTag>,
                     category:         CatDetail,
                     cats:             Vec<Cat>,
@@ -324,7 +324,7 @@ pub async fn store_category_page(conn: ConnectionInfo, session: Session, req: Ht
                     image:            String,
                 }
                 let body = Template {
-                    request_user:     _request_user,
+                    //request_user:     _request_user,
                     all_tags:         _tags,
                     category:         _category,
                     cats:             _cats,

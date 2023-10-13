@@ -81,7 +81,7 @@ pub async fn get_orders_page(conn: ConnectionInfo, req: HttpRequest, session: Se
             #[derive(TemplateOnce)]
             #[template(path = "desctop/pages/orders_list.stpl")]
             struct Template {
-                request_user:     User,
+                //request_user:     User,
                 is_ajax:          i32,
                 object_list:      Vec<Order>,
                 next_page_number: i32,
@@ -93,7 +93,7 @@ pub async fn get_orders_page(conn: ConnectionInfo, req: HttpRequest, session: Se
                 image:            String,
             }
             let body = Template {
-                request_user:     _request_user,
+                //request_user:     _request_user,
                 is_ajax:          is_ajax,
                 object_list:      _orders,
                 next_page_number: next_page_number,
@@ -180,7 +180,7 @@ pub async fn get_user_orders_page(conn: ConnectionInfo, session: Session, req: H
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/pages/user_orders.stpl")]
                 struct Template {
-                    request_user:     User,
+                    //request_user:     User,
                     object_list:      Vec<Order>,
                     is_ajax:          i32,
                     next_page_number: i32,
@@ -192,7 +192,7 @@ pub async fn get_user_orders_page(conn: ConnectionInfo, session: Session, req: H
                     image:            String,
                 }
                 let body = Template {
-                    request_user:     _request_user,
+                    //request_user:     _request_user,
                     object_list:      _orders,
                     is_ajax:          is_ajax,
                     next_page_number: next_page_number,
@@ -344,7 +344,7 @@ pub async fn get_order_page(conn: ConnectionInfo, session: Session, req: HttpReq
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/pages/order.stpl")]
                 struct Template {
-                    request_user:   User,
+                    //request_user:   User,
                     object:         Order,
                     files:          Vec<OrderFile>,
                     is_ajax:        i32,
@@ -356,7 +356,7 @@ pub async fn get_order_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     image:          String,
                 }
                 let body = Template {
-                    request_user:   _request_user,
+                    //request_user:   _request_user,
                     object:         _order,
                     files:          _files,
                     is_ajax:        is_ajax,
