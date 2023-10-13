@@ -472,6 +472,7 @@ impl ServeVar {
                 ))
                 .first::<ServeVar>(&_connection)
                 .expect("E");
+            return _serve;
         }
         else if l == 2 {
             let _serve = serve
@@ -486,6 +487,7 @@ impl ServeVar {
                 ))
                 .first::<ServeVar>(&_connection)
                 .expect("E");
+            return _serve;
         } 
     }
     pub fn get_hours(&self, l: i16) -> String {
