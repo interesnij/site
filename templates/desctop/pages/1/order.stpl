@@ -86,7 +86,7 @@
                                           <td class="border-top" style="width:55%">
                                             <a class="get_serve_info pointer" data-pk="<%= serve.id %>">
                                             <% if serve.is_parent() { %>
-                                              <% let parent = serve.get_parent(); %>
+                                              <% let parent = serve.get_parent(l); %>
                                               <%= parent.name %> → <%= serve.name %>
                                             <% } else { %> 
                                               <%= serve.name %>
@@ -94,7 +94,7 @@
                                             </a>
                                           </td>
                                           <td class="price_td border-top" style="width:15%"><span class="price"><%= serve.price %></span> <%= __p %></td>
-                                          <td class="hours border-top" style="width:15%"><%= serve.get_hours() %></td>
+                                          <td class="hours border-top" style="width:15%"><%= serve.get_hours(l) %></td>
                                         </tr>
                                     <% } %>
                                   <% } %>

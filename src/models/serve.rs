@@ -452,6 +452,41 @@ impl ServeVar {
             .first::<i32>(&_connection)
             .is_ok();
     }
+    pub fn get_parent(&self, l: i16) -> ServeVar {
+        use crate::schema::serve::dsl::serve;
+
+        let _connection = establish_connection();
+        if l == 1 {
+            let _serve = serve
+                .filter(schema::serve::id.eq(self.serve_id.unwrap()))
+                .select((
+                    schema::serve::id,
+                    schema::serve::name,
+                    schema::serve::price,
+                    schema::serve::man_hours,
+                    schema::serve::is_default,
+                ))
+                .first::<ServeVar>(&_connection)
+                .expect("E");
+        }
+        else if l == 2 {
+            let _serve = serve
+                .filter(schema::serve::id.eq(self.serve_id.unwrap()))
+                .select((
+                    schema::serve::id,
+                    schema::serve::name,
+                    schema::serve::price,
+                    schema::serve::man_hours,
+                    schema::serve::is_default,
+                ))
+                .first::<ServeVar>(&_connection)
+                .expect("E");
+        }
+        return serve
+            .filter(schema::serve::id.eq(self.serve_id.unwrap()))
+            .first::<Serve>(&_connection)
+            .expect("E");  
+    }
     pub fn get_hours(&self, l: i16) -> String {
         use crate::utils::get_count_for_ru;
         if l == 1 {
