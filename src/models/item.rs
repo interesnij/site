@@ -2732,7 +2732,7 @@ impl Item {
                 for i in &mut list {
                     i.price = i.price / 100;
                 }
-                return list;
+                return (list, count);
             }
         }
         return (Vec::new(), 0);
@@ -3593,7 +3593,7 @@ impl Item {
                 for i in &mut list {
                     i.price = i.price / 100;
                 }
-                return list;
+                return (list, count);
             }
         }
         else {
@@ -3639,7 +3639,7 @@ impl Item {
                 for i in &mut list {
                     i.price = i.price / 100;
                 }
-                return list;
+                return (list, count);
             }
         }
         return (Vec::new(), 0);
