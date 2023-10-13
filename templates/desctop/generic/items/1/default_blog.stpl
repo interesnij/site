@@ -1,4 +1,4 @@
-<% let __read) = match linguage {
+<% let __read = match linguage {
       2 => "Read", 
       1 | _ => "Читать",
   };
