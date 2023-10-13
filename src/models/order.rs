@@ -280,6 +280,7 @@ impl Order {
                     schema::serve::price,
                     schema::serve::man_hours,
                     schema::serve::is_default,
+                    schema::serve::serve_id,
                 ))
                 .load::<ServeVar>(&_connection)
                 .expect("E");
@@ -294,6 +295,7 @@ impl Order {
                     schema::serve::price,
                     schema::serve::man_hours,
                     schema::serve::is_default,
+                    schema::serve::serve_id,
                 ))
                 .load::<ServeVar>(&_connection)
                 .expect("E");

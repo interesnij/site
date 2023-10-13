@@ -347,6 +347,7 @@ impl ServeCategories {
                     schema::serve::price,
                     schema::serve::man_hours,
                     schema::serve::is_default,
+                    schema::serve::serve_id,
                 ))
                 .load::<ServeVar>(&_connection)
                 .expect("E");
@@ -362,6 +363,7 @@ impl ServeCategories {
                     schema::serve::price,
                     schema::serve::man_hours,
                     schema::serve::is_default,
+                    schema::serve::serve_id,
                 ))
                 .load::<ServeVar>(&_connection)
                 .expect("E");
@@ -440,6 +442,7 @@ pub struct ServeVar {
     pub price:      i32,
     pub man_hours:  i16,
     pub is_default: bool,
+    pub serve_id:   Option<i32>,
 }
 impl ServeVar {
     pub fn is_parent(&self) -> bool {
@@ -458,26 +461,28 @@ impl ServeVar {
         let _connection = establish_connection();
         if l == 1 {
             let _serve = serve
-                .filter(schema::serve::id.eq(self.serve_id.unwrap()))
+                .filter(schema::serve::serve_id.eq(self.serve_id.unwrap()))
                 .select((
                     schema::serve::id,
                     schema::serve::name,
                     schema::serve::price,
                     schema::serve::man_hours,
                     schema::serve::is_default,
+                    schema::serve::serve_id,
                 ))
                 .first::<ServeVar>(&_connection)
                 .expect("E");
         }
         else if l == 2 {
             let _serve = serve
-                .filter(schema::serve::id.eq(self.serve_id.unwrap()))
+                .filter(schema::serve::serve_id.eq(self.id))
                 .select((
                     schema::serve::id,
                     schema::serve::name,
                     schema::serve::price,
                     schema::serve::man_hours,
                     schema::serve::is_default,
+                    schema::serve::serve_id,
                 ))
                 .first::<ServeVar>(&_connection)
                 .expect("E");
@@ -521,6 +526,7 @@ impl ServeVar {
                     schema::serve::price,
                     schema::serve::man_hours,
                     schema::serve::is_default,
+                    schema::serve::serve_id,
                 ))
                 .load::<ServeVar>(&_connection)
                 .expect("E");
@@ -535,6 +541,7 @@ impl ServeVar {
                     schema::serve::price,
                     schema::serve::man_hours,
                     schema::serve::is_default,
+                    schema::serve::serve_id,
                 ))
                 .load::<ServeVar>(&_connection)
                 .expect("E");
@@ -560,6 +567,7 @@ impl ServeVar {
                     schema::serve::price,
                     schema::serve::man_hours,
                     schema::serve::is_default,
+                    schema::serve::serve_id,
                 ))
                 .load::<ServeVar>(&_connection)
                 .expect("E");
@@ -575,6 +583,7 @@ impl ServeVar {
                     schema::serve::price,
                     schema::serve::man_hours,
                     schema::serve::is_default,
+                    schema::serve::serve_id,
                 ))
                 .load::<ServeVar>(&_connection)
                 .expect("E");
@@ -599,6 +608,7 @@ impl ServeVar {
                     schema::serve::price,
                     schema::serve::man_hours,
                     schema::serve::is_default,
+                    schema::serve::serve_id,
                 ))
                 .first::<ServeVar>(&_connection)
                 .expect("E");            
@@ -614,6 +624,7 @@ impl ServeVar {
                     schema::serve::price,
                     schema::serve::man_hours,
                     schema::serve::is_default,
+                    schema::serve::serve_id,
                 ))
                 .first::<ServeVar>(&_connection)
                 .expect("E");
