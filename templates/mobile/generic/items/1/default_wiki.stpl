@@ -1,8 +1,3 @@
-<% let __desc = match linguage {
-      2 => object.get_en_description(), 
-      1 | _ => object.get_ru_description(),
-  };
-%>
 
 <div class="blog-post-prev-small clearfix">
     <a class="ajax" href="/wiki/all-articles/<%= object.slug %>/">
@@ -16,7 +11,9 @@
           <%= object.title %>
         </a>
         <span>
-          <p><%= __desc %></p>
+          <p><% if object.description.is_some() { %>
+        <%= object.description.as_deref().unwrap() %>
+      <% } %></p>
         </span>
     </div>
 </div>

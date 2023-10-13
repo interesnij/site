@@ -1,8 +1,3 @@
-<% let __desc = match linguage {
-        2 => object.get_en_description(), 
-        1 | _ => object.get_ru_description(),
-    };
-%>
 
 <li class="work-item">
   <a href="/work/<%= category.slug %>/<%= object.slug %>/" class="ajax mfp-image">
@@ -19,7 +14,9 @@
         <%= object.title %>
       </h3>
       <div class="work-descr">
-        <%= __desc %>
+        <% if object.description.is_some() { %>
+          <%= object.description.as_deref().unwrap() %>
+        <% } %>
       </div>
     </div>
   </a>
