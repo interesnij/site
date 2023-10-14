@@ -28,13 +28,13 @@
 <h4 class="show_next_element pointer"><%= __n %> (<%= __l %>)</h4>
 <div class="hidden">
   <% for category in tech_category.get_serve_categories().iter() { %>
-<% let __n = match linguage {
+<% let __nn = match linguage {
         2 => category.name_en, 
         1 | _ => category.name,
       };
 %>
     <div class="mb-20 mb-md-10">
-      <label><%= __n %></label>
+      <label><%= __nn %></label>
       <select class="form-control" name="serve_list[]" multiple="" style="height:200px">
         <% for object in category.get_serves(linguage).iter() { %>
           <% if object.is_parent() { %>
