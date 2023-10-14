@@ -1,15 +1,15 @@
 <% let (__close, __default, __p) = match linguage {
-        2 => ("Closed web-serices", "by default"), 
-        1 | _ => ("Закрытые веб-сервисы", "по умолчанию"),
-    };
+        2 => ("Closed web-serices", "by default", "$"), 
+        1 | _ => ("Закрытые веб-сервисы", "по умолчанию", "₽"),
+    }; 
 %>
 <div class="mb-20 mb-md-10">
     <label><%= __close %></label>
     <select class="form-control close_tech_categories" name="close_tech_cats_list[]" multiple="">
       <% for cat in tech_cats.iter() { %>
       <% let (__n, __l) = match linguage {
-        2 => (cat.name_en, cat.get_level_en()), 
-        1 | _ => (cat.name, cat.get_level_ru()),
+        2 => (cat.name_en, cat.get_level_en()
+        1 | _ => (cat.name, cat.get_level_ru())
       };
       %>
         <option value="<%= cat.id %>"><%= __n %> (<%= __l %>)</option>
