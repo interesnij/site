@@ -1,11 +1,11 @@
 <% let (
-    __home, __search, __sect,  __empty
+    __home, __search, __sect,  __empty, __place
   ) = match linguage {
         2 => (
-          "Home", "General search", "Search for articles", "Nothing was found for the query '<%= q%>'..."
+          "Home", "General search", "Search for articles", "Nothing was found for the query '<%= q%>'...", "Search from 3 letters"
         ), 
         1 | _ => (
-          "Главная", "Общий поиск", "Поиск статей", "По запросу '<%= q %>' ничего не найдено..."
+          "Главная", "Общий поиск", "Поиск статей", "По запросу '<%= q %>' ничего не найдено...", "Поиск от 3х букв"
         ),
     };
 %>

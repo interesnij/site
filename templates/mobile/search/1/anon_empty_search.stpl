@@ -1,8 +1,20 @@
-
+<% let (
+    __home, __search, __empty, __place
+  ) = match linguage {
+        2 => (
+          "Home", "Search", "Start a general search...", "Search from 3 letters"
+        ), 
+        1 | _ => (
+          "Главная", "Поиск", "Начните общий поиск...", "Поиск от 3х букв"
+        ),
+    };
+%>
 <section page-id="21" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
-            <a>Поиск</a>
+            <a class="ajax" href="/"><%= __home %></a>
+            &nbsp;/&nbsp;
+            <a><%= __search %></a>
         </div>
     </div>
 </section>
@@ -14,13 +26,10 @@
     <div class="search_section">
       <div class="text-center">
         <span class="widget-title font-alt">
-          Начните общий поиск...
+          <%= __empty %>
         </span>
       </div>
     </div>
   </div>
 </section>
-<div class="sidebar hidden">
-    <% include!("sidebar.stpl"); %>
-</div>
 
