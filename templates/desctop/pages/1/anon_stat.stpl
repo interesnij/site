@@ -26,19 +26,10 @@
           </div>
       </div>
       <div class="is_paginate">
-      <% 
-        let action_style: &str;
-        if request_user.is_superuser() {
-          action_style = "pointer show_user_history";
-        }
-        else {
-          action_style = "";
-        }
-      %>
       
       <% for object in object_list.iter() { %>
         <div class="row solid_bottom" style="padding: 8px 0;">
-          <div class="col-md-6 <%= action_style %>">
+          <div class="col-md-6">
             <% if object.country_en.is_some() { %>
               <%= object.country_en.as_deref().unwrap() %>,
             <% } %>
