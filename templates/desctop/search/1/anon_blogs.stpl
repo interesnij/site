@@ -1,10 +1,22 @@
-
+<% let (
+    __home, __search, __sect,  __empty, __place
+  ) = match linguage {
+        2 => (
+          "Home", "General search", "Search for articles", "Nothing was found for the query '<%= q%>'..."
+        ), 
+        1 | _ => (
+          "Главная", "Общий поиск", "Поиск статей", "По запросу '<%= q %>' ничего не найдено..."
+        ),
+    };
+%>
 <section page-id="22" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
-            <a class="ajax" href="/">Главная</a>
+            <a class="ajax" href="/"><%= __home %></a>
             &nbsp;/&nbsp;
-            <a href="/search/<%= q %>/" class="ajax">Общий поиск</a>
+            <a href="/search/<%= q %>/" class="ajax"><%= __search %></a>
+            &nbsp;/&nbsp;
+            <span><%= __sect %></span>
         </div>
     </div>
 </section>
@@ -33,7 +45,7 @@
       <% } else { %>
           <div class="text-center">
             <span class="widget-title font-alt">
-              По запросу "<%= q %>" статей блога не найдено...
+              <%= __empty %>
             </span>
           </div>
         <% } %>

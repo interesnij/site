@@ -1,15 +1,29 @@
-
+<% let (
+    __home, __search, __sect,  __empty
+  ) = match linguage {
+        2 => (
+          "Home", "General search", "Search for articles", "Nothing was found for the query '<%= q%>'..."
+        ), 
+        1 | _ => (
+          "Главная", "Общий поиск", "Поиск статей", "По запросу '<%= q %>' ничего не найдено..."
+        ),
+    };
+%>
 <section page-id="22" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
-            <a href="/search/<%= q %>/" class="ajax">Общий поиск</a>
+            <a class="ajax" href="/"><%= __home %></a>
+            &nbsp;/&nbsp;
+            <a href="/search/<%= q %>/" class="ajax"><%= __search %></a>
+            &nbsp;/&nbsp;
+            <span><%= __sect %></span>
         </div>
     </div>
 </section>
 <section class="page-section">
     <div class="container relative">
       <form class="form mb-20" role="form">
-          <input data-folder="_blogs" value="<%= q %>" type="text" class="input-md form-control general_search search_page" placeholder="Поиск от 3х букв">
+          <input data-folder="_blogs" value="<%= q %>" type="text" class="input-md form-control general_search search_page" placeholder="<%= __place %>">
       </form>
     <div class="search_section">
       <% if blogs_count > 0 { %>
@@ -31,13 +45,11 @@
       <% } else { %>
           <div class="text-center">
             <span class="widget-title font-alt">
-              По запросу "<%= q %>" статей блога не найдено...
+              <%= __empty %>
             </span>
           </div>
         <% } %>
     </div>
   </div>
 </section>
-<div class="sidebar hidden">
-    <% include!("sidebar.stpl"); %>
-</div>
+

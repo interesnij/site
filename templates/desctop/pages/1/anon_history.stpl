@@ -42,9 +42,9 @@
                   <p style="display: flex;">
                       <strong>Equipment:</strong>
                       <% if user.device == 1 { %>
-                        <span style="margin-left: auto;margin-right: 10px">Компьютер</span>
+                        <span style="margin-left: auto;margin-right: 10px">Desctop</span>
                       <% } else { %>
-                        <span style="margin-left: auto;margin-right: 10px">Телефон</span>
+                        <span style="margin-left: auto;margin-right: 10px">Phone</span>
                       <% } %>
                   </p>
                   <p style="display: flex;">

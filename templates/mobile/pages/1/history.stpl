@@ -1,4 +1,99 @@
+<% if linguage == 2 { %>
+<section page-id="13" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
+    <div class="relative container align-left">
+        <div class="hs-line-4 font-alt">
+            <a>Browsing history</a>
+        </div>
+    </div>
+</section>
 
+<section class="page-section">
+    <div class="container relative">
+        <ul class="nav nav-tabs tpl-alt-tabs font-alt pt-30 pt-sm-0 pb-30 pb-sm-0">
+            <li class="yy active">
+              <a>
+                <div class="alt-tabs-icon">
+                  <span class="icon-document"></span>
+                </div>
+                History
+              </a>
+            </li>
+            <li class="yy pointer">
+              <a href="/user_orders/" class="ajax">
+                <div class="alt-tabs-icon">
+                  <span class="icon-briefcase"></span>
+                </div>
+                Orders
+              </a>
+            </li>
+        </ul>
+
+    </div>
+    <div class="container relative">
+    <div class="border work-detail mt-20 mb-20" style="padding-left: 10px;">
+        <h5 class="font-alt mb-20">Information about you</h5>
+          <div class="work-full-detail">
+            <p style="display: flex;">
+                <strong>Equipment:</strong>
+                <% if user.device == 1 { %>
+                  <span style="margin-left: auto;margin-right: 10px">Desctop</span>
+                <% } else { %>
+                  <span style="margin-left: auto;margin-right: 10px">Phone</span>
+                <% } %>
+            </p>
+            <p style="display: flex;">
+                <strong>Wound meters:</strong>
+                <span style="margin-left: auto;margin-right: 10px"><%= user.height %></span>
+            </p>
+            <p style="display: flex;">
+                <strong>Seconds spent:</strong>
+                <span style="margin-left: auto;margin-right: 10px"><%= user.seconds %></span>
+            </p>
+            <p style="display: flex;">
+                <strong>Profile created:</strong>
+                <span style="margin-left: auto;margin-right: 10px"><%= user.created.format("%d-%m-%Y в %H:%M").to_string() %></span>
+            </p>
+          <p style="display: flex;">
+            <strong>IP address:</strong>
+            <span style="margin-left: auto;margin-right: 10px"><%= user.ip %></span>
+          </p>
+          <% if user.country_en.is_some() { %>
+          <p style="display: flex;">
+            <strong>Country:</strong>
+            <span style="margin-left: auto;margin-right: 10px">
+                <%= user.country_en.unwrap() %>
+            </span>
+          </p>
+          <% } %>
+          <% if user.region_en.is_some() { %>
+          <p style="display: flex;">
+            <strong>Region:</strong>
+            <span style="margin-left: auto;margin-right: 10px">
+                <%= user.region_en.unwrap() %>
+            </span>
+          </p>
+          <% } %>
+          <% if user.city_en.is_some() { %>
+          <p style="display: flex">
+            <strong>City:</strong>
+            <span style="margin-left: auto;margin-right: 10px">
+                <%= user.city_en.unwrap() %>
+            </span>
+          </p>
+          <% } %>
+        </div>
+      </div>
+
+    <hr class="mt-0 mb-0 " />
+    <h5 class="font-alt mb-20">Browsing history</h5>
+      <span style="padding: 5px 0;">
+        <span style="font-weight: bold;">Page</span>
+        <br />
+        <span style="font-weight: bold;font-size:80%">
+        meters, seconds, device, template
+        </span>
+      </span> 
+<% } else if linguage == 1 { %>
 <section page-id="13" data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
@@ -101,15 +196,17 @@
 
     <hr class="mt-0 mb-0 " />
     <h5 class="font-alt mb-20">История просмотров</h5>
-
-      <% if object_list.len() > 0 { %>
       <span style="padding: 5px 0;">
         <span style="font-weight: bold;">Страница</span>
         <br />
         <span style="font-weight: bold;font-size:80%">
         метры, секунды, девайс, шаблон
         </span>
-      </span>
+      </span> 
+<% } %>
+
+
+      <% if object_list.len() > 0 { %>
       <div class="is_paginate">
         <% for (i, object) in object_list.iter().enumerate() { %>
           <div class="row <% if i % 2 == 0 { %>hover<% } %>" style="padding: 5px 0;">
@@ -149,7 +246,9 @@
           </div>
         </div>
       <% } %>
+    </div>
 </section>
 <div class="sidebar hidden">
     <% include!("sidebar.stpl"); %>
 </div>
+

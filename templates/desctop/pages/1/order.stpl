@@ -1,17 +1,17 @@
 <% let (
   __home, __orders, __delete,
   __from, __what, __price, 
-  __hours, __p, __parent
+  __hours, __p, __parent, __files
 ) = match linguage {
         2 => (
           "Home", "You orders", "Delete",
           "in", "what is it?", "Price",
-          "Hours" , "$", "Order Parent"
+          "Hours" , "$", "Order Parent", "Files"
         ), 
         1 | _ => (
           "Главная", "Ваши заказы", "Удалить",
           "на", "что это?", "Цена",
-          "Часы", "₽", "Родитель заказа"
+          "Часы", "₽", "Родитель заказа", "Файлы"
         ),
     };
 %> 
@@ -109,7 +109,7 @@
 
 
                 <% if files.len() > 0 { %>
-                <h6 class="mt-20">Файлы</h6>
+                <h6 class="mt-20"><%= __files %></h6>
                 <div class="row multi-columns-row mb-30 mb-xs-10">
                     <% for img in files.iter() { %>
                     <div class="col-md-6 col-lg-6 mb-md-10">
