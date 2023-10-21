@@ -247,7 +247,6 @@ window.onbeforeunload = function() {
 ///////////////
 function get_or_create_cookie_user() {
   user = getCookie("user");
-  var id;
   if (user != "") {
     id = user;
   }
