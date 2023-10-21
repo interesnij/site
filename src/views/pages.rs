@@ -204,15 +204,17 @@ pub async fn not_found(conn: ConnectionInfo, req: HttpRequest, session: Session)
     }
 }
 
-pub async fn test_page(state: web::Data<AppState>) -> Result<web::Json<IndexResponse>> {
+pub async fn test_page(req: HttpRequest, conn: ConnectionInfo, state: web::Data<AppState>) -> Result<web::Json<IndexResponse>> {
     let request_count = state.request_count.get() + 1;
     state.request_count.set(request_count);
     let ms = state.messages.lock().unwrap();
+    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
 
     Ok(web::Json(IndexResponse {
         server_id: state.server_id,
         request_count,
         messages: ms.clone(),
+        linguage: l,
     }))
 }
 

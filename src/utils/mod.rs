@@ -47,6 +47,7 @@ pub struct IndexResponse {
     pub server_id: usize,
     pub request_count: usize,
     pub messages: Vec<String>,
+    pub linguage: i16,
 }
 
 #[derive(Deserialize, Serialize)]
