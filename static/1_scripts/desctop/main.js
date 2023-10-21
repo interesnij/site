@@ -263,16 +263,16 @@ else {
 }
 
 on('body', 'click', '.change_t', function() {
-  id = this.getAttribute("data-t")*1;
+  types = this.getAttribute("data-t")*1;
   form_data = new FormData();
-  if (id == 1) {
-    new_id = 2;
+  if (types == 1) {
+    new_types = 2;
   }
-  else if (id == 2) {
-    new_id = 1;
+  else if (types == 2) {
+    new_types = 1;
   }
 
-  form_data.append("id", id);
+  form_data.append("types", types);
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'POST', "/change_t/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -284,24 +284,24 @@ on('body', 'click', '.change_t', function() {
 }); 
 on('body', 'click', '.change_l', function() {
   obj = this;
-  id = obj.getAttribute("data-l")*1;
+  types = obj.getAttribute("data-l")*1;
   form_data = new FormData();
-  if (id == 1) {
-    new_id = 2;
+  if (types == 1) {
+    new_types = 2;
     new_title = "En";
   }
-  else if (id == 2) {
-    new_id = 1;
+  else if (types == 2) {
+    new_types = 1;
     new_title = "Ru";
   }
 
-  form_data.append("id", id);
+  form_data.append("types", types);
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'POST', "/change_l/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    obj.setAttribute("data-l", new_id);
+    obj.setAttribute("data-l", new_types);
     obj.innerHTML = new_title;
     ajax_get_reload(document.location.href);
   }};
