@@ -48,6 +48,7 @@ pub struct IndexResponse {
     pub request_count: usize,
     pub messages: Vec<String>,
     pub linguage: i16,
+    pub template: i16,
 }
 
 #[derive(Deserialize, Serialize)]
@@ -713,12 +714,12 @@ pub async fn get_or_create_c_user_return_object(conn: ConnectionInfo, req: &Http
     else {
         return create_c_user_return_object(conn, &req).await;
     }
-}
+} 
 pub async fn get_or_create_c_user_return_lt(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16) {
     let res = CookieUser::get_res_lt(get_cookie_user_id(req));
     if res.is_ok() {
         return res.expect("E.");
-    }
+    } 
     else {
         return create_c_user_return_lt(conn, req).await;
     }
