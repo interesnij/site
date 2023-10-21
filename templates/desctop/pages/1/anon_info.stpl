@@ -35,7 +35,7 @@
                 <div class="alt-tabs-icon">
                   <span class="icon-desktop"></span>
                 </div>
-                About the site
+                About site
               </a>
             </li>
             <li class="yy s_4 pointer">
@@ -104,7 +104,7 @@
                         <a class="pointer underline create_feedback_form">Write us a message!</a>:
                         <ul class="my_ul">
                             <li>
-                              Do you have questions about the site, the information on it is unclear or incorrect -
+                              Do you have questions about this site, the information on it is unclear or incorrect -
                               <a class="pointer create_feedback_form">give us a chance to improve!</a>
                             </li>
                             <li>
