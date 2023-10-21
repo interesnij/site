@@ -75,6 +75,8 @@ pub struct ObjectResponse {
     pub region_en:  Option<String>,
     pub country_ru: Option<String>,
     pub country_en: Option<String>,
+    pub linguage:   i16,
+    pub template:   i16,
 }
 pub async fn object_history(conn: ConnectionInfo, req: HttpRequest, id: web::Path<i32>) -> web::Json<ObjectResponse> {
     let _user = crate::utils::get_or_create_c_user_with_id_return_object(*id, conn, &req).await;
@@ -88,6 +90,8 @@ pub async fn object_history(conn: ConnectionInfo, req: HttpRequest, id: web::Pat
         region_en:  _user.region_en,
         country_ru: _user.country_ru,
         country_en: _user.country_en,
+        linguage:   _user.linguage,
+        template:   _user.template,
     })
 }
 
