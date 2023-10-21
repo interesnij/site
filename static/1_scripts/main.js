@@ -264,26 +264,29 @@ function get_or_create_cookie_user() {
       data = JSON.parse(ajax_link.responseText);
       let linguage = document.getElementById("top").getAttribute("data-l")*1;
       stat_meta = document.body.querySelector(".stat_meta");
-      if (linguage == 1) {
-        if (data.device == 1) {
-          _device = "Компьютер";
+
+      try {
+        if (linguage == 1) {
+          if (data.device == 1) {
+            _device = "Компьютер";
+          }
+          else {
+            _device = "Телефон";
+          }
+          stat_meta.querySelector(".device_ru").innerHTML = "<span class='ip_span'>" +  data.ip + "</span> (" + _device + ") ";
+          stat_meta.querySelector(".city_ru").innerHTML = data.city_ru + " (" + data.country_ru + ") ";
         }
         else {
-          _device = "Телефон";
+          if (data.device == 1) {
+            _device = "Desctop";
+          }
+          else {
+            _device = "Phone";
+          }
+          stat_meta.querySelector(".device_en").innerHTML = "<span class='ip_span'>" +  data.ip + "</span> (" + _device + ") ";
+          stat_meta.querySelector(".city_en").innerHTML = data.city_en + " (" + data.country_en + ") ";
         }
-        stat_meta.querySelector(".device_ru").innerHTML = "<span class='ip_span'>" +  data.ip + "</span> (" + _device + ") ";
-        stat_meta.querySelector(".city_ru").innerHTML = data.city_ru + " (" + data.country_ru + ") ";
-      }
-      else {
-        if (data.device == 1) {
-          _device = "Desctop";
-        }
-        else {
-          _device = "Phone";
-        }
-        stat_meta.querySelector(".device_en").innerHTML = "<span class='ip_span'>" +  data.ip + "</span> (" + _device + ") ";
-        stat_meta.querySelector(".city_en").innerHTML = data.city_en + " (" + data.country_en + ") ";
-      }
+      } catch { null }
 
       setCookie("user", data.id, 120);
       $user_id = data.id;
