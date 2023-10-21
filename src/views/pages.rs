@@ -212,8 +212,6 @@ pub async fn test_page(req: HttpRequest, conn: ConnectionInfo, state: web::Data<
     println!("_user.id {:?}", _user.id);
     println!("_user.linguage {:?}", _user.linguage);
     println!("_user.template {:?}", _user.template);
-    println!("l {:?}", l);
-    println!("t {:?}", t);
 
     Ok(web::Json(IndexResponse {
         server_id: state.server_id,
