@@ -735,9 +735,10 @@ pub async fn get_or_create_c_user_return_lti(conn: ConnectionInfo, req: &HttpReq
 pub fn get_cookie_user_id(req: &HttpRequest) -> i32 {
     let mut user_id = 0;
     let _cookie_res = req.headers().get("cookie");
-    if _cookie_res.is_err() {
-        return user_id;
-    }
+    
+    //if _cookie_res.is_err() {
+    //    return user_id;
+    //}
     let _cookie = _cookie_res.expect("E.").to_str().ok();
     if _cookie.is_some() {
         for c in _cookie.unwrap().split("; ").collect::<Vec<&str>>().iter() {
