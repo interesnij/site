@@ -733,8 +733,12 @@ pub async fn get_or_create_c_user_return_lti(conn: ConnectionInfo, req: &HttpReq
 }
 
 pub fn get_cookie_user_id(req: &HttpRequest) -> i32 {
-    let _cookie = req.headers().get("cookie").expect("E.").to_str().ok();
     let mut user_id = 0;
+    let _cookie_res = req.headers().get("cookie");
+    if _cookie_res.is_err() {
+        return user_id;
+    }
+    let _cookie = _cookie_res.expect("E.").to_str().ok();
     if _cookie.is_some() {
         for c in _cookie.unwrap().split("; ").collect::<Vec<&str>>().iter() {
             let split_c: Vec<&str> = c.split("=").collect();
@@ -742,7 +746,7 @@ pub fn get_cookie_user_id(req: &HttpRequest) -> i32 {
                 user_id = split_c[1].parse().unwrap();
             }
         }
-    }
+    } 
     user_id
 }  
  
