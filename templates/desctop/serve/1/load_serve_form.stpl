@@ -21,8 +21,8 @@
 <div class="">
 <% for tech_category in tech_cats.iter() { %>
 <% let (__l2, __n2) = match linguage {
-          2 => (tech_category.get_level_en(), cat.name_en), 
-          1 | _ => (tech_category.get_level_ru(), cat.name),
+          2 => (tech_category.get_level_en(), tech_category.name_en), 
+          1 | _ => (tech_category.get_level_ru(), tech_category.name),
       };
 %>
 <div class="open_tech_category" data-pk="<%= tech_category.id %>">
