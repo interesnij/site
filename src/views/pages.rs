@@ -208,7 +208,6 @@ pub async fn test_page(req: HttpRequest, conn: ConnectionInfo, state: web::Data<
     let request_count = state.request_count.get() + 1;
     state.request_count.set(request_count);
     let ms = state.messages.lock().unwrap();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn.clone(), &req).await;
     let _user = crate::utils::get_or_create_c_user_return_object(conn, &req).await;
     println!("_user.id {:?}", _user.id);
     println!("_user.linguage {:?}", _user.linguage);
@@ -220,8 +219,8 @@ pub async fn test_page(req: HttpRequest, conn: ConnectionInfo, state: web::Data<
         server_id: state.server_id,
         request_count,
         messages: ms.clone(),
-        linguage: l,
-        template: t,
+        linguage: _user.linguage,
+        template: _user.linguage,
     }))
 }
 
