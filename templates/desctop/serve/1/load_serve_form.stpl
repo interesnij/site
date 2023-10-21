@@ -8,9 +8,9 @@
     <select class="form-control close_tech_categories" name="close_tech_cats_list[]" multiple="">
       <% for cat in tech_cats.iter() { %>
 
-        <% let (__n, __l) = match linguage {
-          2 => (cat.name_en, cat.get_level_en()), 
-          1 | _ => (cat.name, cat.get_level_ru()),
+        <% let (__l, __n) = match linguage {
+          2 => (cat.get_level_en(), cat.name_en), 
+          1 | _ => (cat.get_level_ru(), cat.name),
         }; %>
 
         <option value="<%= cat.id %>"><%= __n %> (<%= __l %>)</option>
@@ -18,3 +18,47 @@
     </select>
 </div> 
 
+<div class="">
+<% for tech_category in tech_cats.iter() { %>
+<% let (__l2, __n2) = match linguage {
+          2 => (tech_category.get_level_en(), cat.name_en), 
+          1 | _ => (tech_category.get_level_ru(), cat.name),
+      };
+%>
+<div class="open_tech_category" data-pk="<%= tech_category.id %>">
+<h4 class="show_next_element pointer"><%= __n2 %> (<%= __l2 %>)</h4>
+<div class="hidden">
+  <% for category in tech_category.get_serve_categories().iter() { %>
+<% let __nn = match linguage {
+        2 => category.name_en, 
+        1 | _ => category.name,
+      };
+%>
+    <div class="mb-20 mb-md-10">
+      <label><%= __nn %></label>
+      <select class="form-control" name="serve_list[]" multiple="" style="height:200px">
+        <% for object in category.get_serves(linguage).iter() { %>
+          <% if object.is_parent() { %>
+            <option></option>
+            <option><%= object.name %> ↓↓↓ </option>
+            <% for child in object.get_variables(linguage).iter() { %>
+              <option value="<%= child.id %>">
+                <%= child.name %> <% if child.is_default { %>- <%= __default %><% } %>
+              </option>
+            <% } %>
+            <option></option>
+          <% } else { %>
+            <option value="<%= object.id %>">
+              <%= object.name %> <% if object.is_default { %>- <%= __default %><% } %>
+            </option>
+          <% } %>
+        <% } %>
+      </select>
+    </div>
+  <% } %>
+  </div>
+  </div>
+<% } %>
+</div>
+<hr class="mt-0 mb-0 " />
+</div>
