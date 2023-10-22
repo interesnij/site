@@ -94,7 +94,7 @@ pub async fn object_history(conn: ConnectionInfo, req: HttpRequest, id: web::Pat
         country_ru: _user.country_ru,
         country_en: _user.country_en,
         linguage:   _user.linguage,
-        carrency:   _user.carrency,
+        currency:   _user.currency,
         template:   _user.template,
     })
 }
