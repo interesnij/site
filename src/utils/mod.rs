@@ -801,12 +801,12 @@ pub fn get_c_user_l(req: &HttpRequest) -> i16 {
 pub fn check_last_currencies() -> () {
     use crate::models::PriceCorrect;
 
-    let usd_ratio = web_local_storage_api::get_item("usd_ratio").is_some();
-    let usd_adder = web_local_storage_api::get_item("usd_adder").is_some();
+    let usd_ratio = web_local_storage_api::get_item("usd_ratio").is_ok();
+    let usd_adder = web_local_storage_api::get_item("usd_adder").is_ok();
     if !usd_ratio || !usd_adder {
         let (ratio, adder) = PriceCorrect::get_info_with_currency("USD");
-        web_local_storage_api::set_item("usd_ratio", ratio.to_string());
-        web_local_storage_api::set_item("usd_adder", adder.to_string());
+        web_local_storage_api::set_item("usd_ratio", &ratio.to_string());
+        web_local_storage_api::set_item("usd_adder", &adder.to_string());
     }
     let eur_ratio = web_local_storage_api::get_item("eur_ratio").is_ok();
     let eur_adder = web_local_storage_api::get_item("eur_adder").is_ok();
