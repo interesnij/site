@@ -19,9 +19,9 @@
     <div class="container relative">
     <% if is_admin { %>
       <div class="container align-center">
-        <a href="/create_tech_categories/" target="_blank" rel="nofollow">+ веб-сервис</a>
+        <a href="/create_web_service/" target="_blank" rel="nofollow">+ веб-сервис</a>
           &nbsp;
-        <a href="/create_serve_categories/" target="_blank" rel="nofollow">+ технология</a>
+        <a href="/create_serve_category/" target="_blank" rel="nofollow">+ технология</a>
           &nbsp;
         <a href="/create_serve/" target="_blank" rel="nofollow">+ опция</a>
       </div>
@@ -29,18 +29,18 @@
     <% } %>
     <div class="css-treeview">
       <ul>
-        <% for (i, tech_category) in tech_cats.iter().enumerate() { %>
+        <% for (i, web_service) in _web_services.iter().enumerate() { %>
           <li>
-            <input class="load_tech_objects" data-pk="<%= tech_category.id %>" type="checkbox" id="tech<%= tech_category.id %>" />
-            <label class="font-alt" for="tech<%= tech_category.id %>">
-              <%= tech_category.name %> <span style="font-size:80%;text-transform:lowercase;">(<%= tech_category.get_level_ru() %>)</span>
+            <input class="load_web_objects" data-pk="<%= web_service.id %>" type="checkbox" id="web<%= web_service.id %>" />
+            <label class="font-alt" for="web<%= web_service.id %>">
+              <%= web_service.name %> <span style="font-size:80%;text-transform:lowercase;">(<%= web_service.get_level_ru() %>)</span>
             </label>
             <% if is_admin { %>
-              <a target="_blank" rel="nofollow" href="/edit_tech_category/<%= tech_category.id %>/">~</a>
-              <a class="pointer remove_tech_category" data-pk="<%= tech_category.id %>">x</a>
+              <a target="_blank" rel="nofollow" href="/edit_web_service/<%= web_service.id %>/">~</a>
+              <a class="pointer remove_web_service" data-pk="<%= web_service.id %>">x</a>
               &nbsp;
             <% } %>
-            <a class="pointer get_tech_category_info" data-pk="<%= tech_category.id %>">
+            <a class="pointer get_web_service_info" data-pk="<%= web_service.id %>">
               <svg fill="currentColor" style="vertical-align: text-bottom;width:17px" viewBox="0 0 24 24">
                 <path d="M0 0h24v24H0V0z" fill="none"/><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/>
               </svg>

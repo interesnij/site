@@ -53,6 +53,8 @@ pub fn progs_routes(config: &mut web::ServiceConfig) {
     config.route("/delete_file/", web::post().to(delete_file));
     config.route("/change_l/", web::post().to(change_l));
     config.route("/change_t/", web::post().to(change_t));
+    config.route("/change_c/", web::post().to(change_c));
+    config.route("/update_money_rate/", web::get().to(update_money_rate));
 }
 
 pub async fn create_history (
@@ -76,6 +78,7 @@ pub struct ObjectResponse {
     pub country_ru: Option<String>,
     pub country_en: Option<String>,
     pub linguage:   i16,
+    pub currency:   String,
     pub template:   i16,
 }
 pub async fn object_history(conn: ConnectionInfo, req: HttpRequest, id: web::Path<i32>) -> web::Json<ObjectResponse> {
@@ -91,6 +94,7 @@ pub async fn object_history(conn: ConnectionInfo, req: HttpRequest, id: web::Pat
         country_ru: _user.country_ru,
         country_en: _user.country_en,
         linguage:   _user.linguage,
+        carrency:   _user.carrency,
         template:   _user.template,
     })
 }
@@ -232,4 +236,24 @@ pub async fn change_t(req: HttpRequest, mut payload: Multipart) -> impl Responde
     let user_id = crate::utils::get_cookie_user_id(&req);
     crate::models::CookieUser::update_t(user_id, form.types);
     HttpResponse::Ok()
-} 
+}
+pub async fn change_c(req: HttpRequest, mut payload: Multipart) -> impl Responder {
+    let form = crate::utils::string_form(payload.borrow_mut()).await;
+    let user_id = crate::utils::get_cookie_user_id(&req);
+    crate::models::CookieUser::update_c(user_id, form.string);
+    HttpResponse::Ok()
+}
+
+
+#[derive(Deserialize)] 
+pub struct RateData {
+    pub rates: Rates,
+}
+
+pub async fn update_money_rate() -> impl Responder {
+    let _request = reqwest::get("https://www.cbr-xml-daily.ru/latest.js").await.expect("E.");
+    let new_request = _request.text().await.unwrap();
+    println!("request {:?}", new_request);
+    let request200: RateData = serde_json::from_str(&new_request).unwrap();
+    println!("rub {:?}", request200.rates);
+}

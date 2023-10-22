@@ -1,5 +1,0 @@
-<% match template_types {
-    1 => include!("1/tech_category.stpl"),
-    2 => include!("2/tech_category.stpl"),
-    _ => include!("1/tech_category.stpl"),
-}; %>

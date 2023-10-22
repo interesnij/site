@@ -107,6 +107,7 @@ pub struct CookieUser {
     pub device:     i16,
     pub linguage:   i16,
     pub template:   i16,
+    pub currency:   String,
     pub city_ru:    Option<String>,
     pub city_en:    Option<String>,
     pub region_ru:  Option<String>,
@@ -136,6 +137,15 @@ impl CookieUser {
             .expect("E");
         return 1;
     }
+    pub fn update_c(id: i32, c: String) -> i16 {
+        let _connection = establish_connection();
+        let _item = CookieUser::get(id);
+        diesel::update(&_item)
+            .set(schema::cookie_users::currency.eq(c))
+            .execute(&_connection)
+            .expect("E");
+        return 1;
+    }
     pub fn get(user_id: i32) -> CookieUser {
         let _connection = establish_connection();
         return schema::cookie_users::table
@@ -149,12 +159,16 @@ impl CookieUser {
             .filter(schema::cookie_users::id.eq(user_id))
             .first::<CookieUser>(&_connection)?);
     }
-    pub fn get_res_lt(user_id: i32) -> Result<(i16, i16), Error> {
+    pub fn get_res_ltc(user_id: i32) -> Result<(i16, i16, String), Error> {
         let _connection = establish_connection();
         return Ok(schema::cookie_users::table
             .filter(schema::cookie_users::id.eq(user_id))
-            .select((schema::cookie_users::linguage, schema::cookie_users::template))
-            .first::<(i16, i16)>(&_connection)?);
+            .select((
+                schema::cookie_users::linguage,
+                schema::cookie_users::template,
+                schema::cookie_users::currency,
+            ))
+            .first::<(i16, i16, String)>(&_connection)?);
     }
     pub fn get_res_lti(user_id: i32) -> Result<(i16, i16, i32), Error> {
         let _connection = establish_connection();
@@ -216,6 +230,7 @@ pub struct NewCookieUser {
     pub device:     i16,
     pub linguage:   i16,
     pub template:   i16,
+    pub currency:   String,
     pub city_ru:    Option<String>,
     pub city_en:    Option<String>,
     pub region_ru:  Option<String>,
@@ -547,4 +562,62 @@ pub struct NewStatPage {
     pub view:    i32,
     pub height:  f64,
     pub seconds: i32,
+}
+
+
+#[derive(Debug, Queryable, Serialize, Identifiable)]
+pub struct PriceCorrect {
+    pub id:       i32,
+    pub currency: String,
+    pub ratio:    f64,
+    pub adder:    i32,
+    pub created:  chrono::NaiveDateTime,
+}
+impl PriceCorrect {
+    pub fn get_info_with_currency(currency: String) -> (f64, i32) {
+        use schema::price_corrects::dsl::price_corrects;
+
+        let _connection = establish_connection();
+        return price_corrects
+            .filter(schema::price_corrects::currency.eq(currency))
+            .order(schema::price_corrects::created.desc())
+            .first::<(f64, i32)>(&_connection)
+            .expect("E");
+    }
+    pub fn get_all() -> Vec<PriceCorrect> {
+        use schema::price_corrects::dsl::price_corrects;
+
+        let _connection = establish_connection();
+        return price_corrects
+            .order(schema::price_corrects::created.desc())
+            .load::<PriceCorrect>(&_connection)
+            .expect("E");
+    }
+    pub fn create (
+        currency: String,
+        ratio:    f64,
+        adder:    i32,
+    ) -> i16 {
+        let _connection = establish_connection();
+        let form = NewPriceCorrect {
+            currency: currency,
+            ratio:    ratio,
+            adder:    adder,
+            created:  chrono::Local::now().naive_utc() + Duration::hours(3),
+        };
+        diesel::insert_into(schema::price_corrects::table)
+            .values(&form)
+            .execute(&_connection)
+            .expect("Error.");
+        return 1;
+    }
+}
+
+#[derive(Debug, Deserialize, Insertable)]
+#[table_name="price_corrects"]
+pub struct NewPriceCorrect {
+    pub currency: String,
+    pub ratio:    f64,
+    pub adder:    i32,
+    pub created:  chrono::NaiveDateTime,
 }

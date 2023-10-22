@@ -1,8 +1,8 @@
-<% let tech_cats_ids = object.get_close_tech_cats_ids(object.types); %>
+<% let _web_services_ids = object.get_close_web_services_ids(object.types); %>
 <% let serves_ids = object.get_serves_ids(); %>
 <div class="meta">
-  <p class="tech_ids hidden">
-    <% for id in tech_cats_ids.iter() { %>
+  <p class="web_ids hidden">
+    <% for id in _web_services_ids.iter() { %>
       <span><%= id %></span>
     <% } %>
   </p>
@@ -36,22 +36,22 @@
 </div>
 
 <% let (__close, __default) = match linguage {
-        2 => ("Closed tech. categories", "by default"), 
-        1 | _ => ("Закрытые тех. категории", "по умолчанию"),
+        2 => ("Closed web-services", "by default"), 
+        1 | _ => ("Закрытые веб-сервисы", "по умолчанию"),
     };
 %>
 <div class="">
 <div class="mb-20 mb-md-10">
     <label><%= __close %></label>
-    <select class="form-control close_tech_categories" name="close_tech_cats_list[]" multiple="">
-      <% for cat in tech_cats.iter() { %>
+    <select class="form-control close_web_services" name="close_web_services_list[]" multiple="">
+      <% for cat in _web_services.iter() { %>
         <% let __cat_level = match linguage {
             2 => cat.get_level_en(), 
             1 | _ => cat.get_level_ru(),
           };
         %>
         <option
-          <% if tech_cats_ids.iter().any(|i| i==&cat.id) { %>
+          <% if _web_services_ids.iter().any(|i| i==&cat.id) { %>
             selected=""
           <% } %>
           value="<%= cat.id %>">
@@ -61,16 +61,16 @@
     </select>
 </div>
 <div class="">
-<% for tech_category in tech_cats.iter() { %>
-<% let __tech_level = match linguage {
-   2 => tech_category.get_level_en(), 
-   1 | _ => tech_category.get_level_ru(),
+<% for web_service in _web_services.iter() { %>
+<% let __web_level = match linguage {
+   2 => web_service.get_level_en(), 
+   1 | _ => web_service.get_level_ru(),
   };
 %>
-<div class="open_tech_category <% if tech_cats_ids.iter().any(|i| i==&tech_category.id) { %>hidden<% } %>" data-pk="<%= tech_category.id %>">
-  <h4 class="show_next_element pointer"><%= tech_category.name %> (<%= __tech_level %>)</h4>
+<div class="open_web_service <% if _web_services_ids.iter().any(|i| i==&web_service.id) { %>hidden<% } %>" data-pk="<%= web_service.id %>">
+  <h4 class="show_next_element pointer"><%= web_service.name %> (<%= __web_level %>)</h4>
   <div class="hidden">
-  <% for category in tech_category.get_serve_categories().iter() { %> 
+  <% for category in web_service.get_serve_categories().iter() { %> 
 
     <div class="mb-20 mb-md-10">
       <label><%= category.name %></label>

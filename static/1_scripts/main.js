@@ -984,8 +984,8 @@ on('body', 'click', '.get_page_window', function() {
   create_fullscreen(this.getAttribute("data-href") + "?ajax=2", "photo_fullscreen");
 });
 
-on('body', 'click', '.get_tech_category_info', function() {
-  create_fullscreen("/load_tech_category/" + this.getAttribute("data-pk") + "/", "worker_fullscreen");
+on('body', 'click', '.get_web_service_info', function() {
+  create_fullscreen("/load_web_service/" + this.getAttribute("data-pk") + "/", "worker_fullscreen");
 });
 on('body', 'click', '.get_serve_category_info', function() {
   create_fullscreen("/load_serve_category/" + this.getAttribute("data-pk") + "/", "worker_fullscreen");
@@ -1051,7 +1051,7 @@ on('body', 'input', '.general_search', function() {
   }
 });
 
-on('body', 'click', '.show_tech_category', function() {
+on('body', 'click', '.show_web_service', function() {
   next_div = this.nextElementSibling;
   this.parentElement.classList.toggle("open_cat");
   counter = document.body.querySelector(".total_price_counter")
@@ -1268,7 +1268,7 @@ on('body', 'click', '#create_feedback_btn', function() {
   link.send(form_data);
 });
 
-on('body', 'change', '.load_tech_objects', function() {
+on('body', 'change', '.load_web_objects', function() {
   _this = this;
   block = _this.parentElement.querySelector(".loader_ul");
   if (_this.checked == false || block.querySelector("li")) {
@@ -1276,7 +1276,7 @@ on('body', 'change', '.load_tech_objects', function() {
   };
 
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', "/load_tech_objects/" + _this.getAttribute("data-pk") + "/", true );
+  link.open( 'GET', "/load_web_objects/" + _this.getAttribute("data-pk") + "/", true );
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
       elem_ = document.createElement('span');

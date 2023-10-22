@@ -1,0 +1,9 @@
+<% include!("../header.stpl"); %>
+
+<% match template_types {
+    1 => include!("1/create_web_service.stpl"),
+    2 => include!("2/create_web_service.stpl"),
+    _ => include!("1/create_web_service.stpl"),
+}; %>
+
+<% include!("../footer.stpl"); %>

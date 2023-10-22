@@ -326,6 +326,7 @@ pub async fn get_private_page (
             link:           &'a String,
             template_types: i16,
             linguage:       i16,
+            currency:       String,
         }
         let body = Template {
             is_ajax:        is_ajax,
@@ -336,6 +337,7 @@ pub async fn get_private_page (
             link:           link,
             template_types: t,
             linguage:       l,
+            currency:       c,
         }
         .render_once()
         .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -352,6 +354,7 @@ pub async fn get_private_page (
             link:           &'a String,
             template_types: i16,
             linguage:       i16,
+            currency:       String,
         }
         let body = Template {
             is_ajax:        is_ajax,
@@ -361,6 +364,7 @@ pub async fn get_private_page (
             link:           link,
             template_types: t,
             linguage:       l,
+            currency:       c,
         }
         .render_once()
         .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -389,6 +393,7 @@ pub async fn get_anon_private_page (
             link:           &'a String,
             template_types: i16,
             linguage:       i16,
+            currency:       String,
         }
         let body = Template {
             is_ajax:        is_ajax,
@@ -398,6 +403,7 @@ pub async fn get_anon_private_page (
             link:           link,
             template_types: t,
             linguage:       l,
+            currency:       c,
         }
         .render_once()
         .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -414,6 +420,7 @@ pub async fn get_anon_private_page (
             link:           &'a String,
             template_types: i16,
             linguage:       i16,
+            currency:       String,
         }
         let body = Template {
             is_ajax:        is_ajax,
@@ -423,6 +430,7 @@ pub async fn get_anon_private_page (
             link:           link,
             template_types: t,
             linguage:       l,
+            currency:       c,
         }
         .render_once()
         .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -477,7 +485,7 @@ async fn create_c_user_return_object(conn: ConnectionInfo, req: &HttpRequest) ->
     else {
         ipaddr = String::new();
     };
-    #[derive(Deserialize)] 
+        #[derive(Deserialize)] 
         pub struct UserLoc {
             pub city:    CityLoc,
             pub region:  RegionLoc,
@@ -495,9 +503,10 @@ async fn create_c_user_return_object(conn: ConnectionInfo, req: &HttpRequest) ->
         }
         #[derive(Deserialize)]
         pub struct CountryLoc {
-            pub name_ru: String,
-            pub name_en: String,
-            pub iso:     String,
+            pub name_ru:   String,
+            pub name_en:   String,
+            pub iso:       String,
+            pub continent: String,
         }
 
         let _connection = establish_connection();
@@ -508,8 +517,18 @@ async fn create_c_user_return_object(conn: ConnectionInfo, req: &HttpRequest) ->
     
         let location200: UserLoc = serde_json::from_str(&new_request).unwrap();
         let linguage: i16;
+        let mut currency: String;
+
+        if location200.country.continent == "EU".to_string() {
+            currency = "EUR".to_string();
+        }
+        else {
+            currency = "USD".to_string();
+        }
+
         if location200.country.iso == "RU".to_string() {
             linguage = 1;
+            currency = "RUB".to_string();
         }
         else {
             linguage = 2;
@@ -519,6 +538,7 @@ async fn create_c_user_return_object(conn: ConnectionInfo, req: &HttpRequest) ->
             device:     device,
             linguage:   linguage,
             template:   1,
+            currency:   currency,
             city_ru:    Some(location200.city.name_ru),
             city_en:    Some(location200.city.name_en),
             region_ru:  Some(location200.region.name_ru),
@@ -536,7 +556,7 @@ async fn create_c_user_return_object(conn: ConnectionInfo, req: &HttpRequest) ->
     return _new_user;
 }
 
-async fn create_c_user_return_lt(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16) {
+async fn create_c_user_return_ltc(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16, String) {
     let device: i16;
     if is_desctop(&req) {
         device = 1;
@@ -574,9 +594,10 @@ async fn create_c_user_return_lt(conn: ConnectionInfo, req: &HttpRequest) -> (i1
         }
         #[derive(Deserialize)]
         pub struct CountryLoc {
-            pub name_ru: String,
-            pub name_en: String,
-            pub iso:     String,
+            pub name_ru:   String,
+            pub name_en:   String,
+            pub iso:       String,
+            pub continent: String,
         }
 
         let _connection = establish_connection();
@@ -587,8 +608,18 @@ async fn create_c_user_return_lt(conn: ConnectionInfo, req: &HttpRequest) -> (i1
     
         let location200: UserLoc = serde_json::from_str(&new_request).unwrap();
         let linguage: i16;
+        let mut currency: String;
+
+        if location200.country.continent == "EU".to_string() {
+            currency = "EUR".to_string();
+        }
+        else {
+            currency = "USD".to_string();
+        }
+
         if location200.country.iso == "RU".to_string() {
             linguage = 1;
+            currency = "RUB".to_string();
         }
         else {
             linguage = 2;
@@ -598,6 +629,7 @@ async fn create_c_user_return_lt(conn: ConnectionInfo, req: &HttpRequest) -> (i1
             device:     device,
             linguage:   linguage,
             template:   1,
+            currency:   currency,
             city_ru:    Some(location200.city.name_ru),
             city_en:    Some(location200.city.name_en),
             region_ru:  Some(location200.region.name_ru),
@@ -653,9 +685,10 @@ async fn create_c_user_return_lti(conn: ConnectionInfo, req: &HttpRequest) -> (i
         }
         #[derive(Deserialize)]
         pub struct CountryLoc {
-            pub name_ru: String,
-            pub name_en: String,
-            pub iso:     String,
+            pub name_ru:   String,
+            pub name_en:   String,
+            pub iso:       String,
+            pub continent: String,
         }
 
         let _connection = establish_connection();
@@ -666,17 +699,29 @@ async fn create_c_user_return_lti(conn: ConnectionInfo, req: &HttpRequest) -> (i
     
         let location200: UserLoc = serde_json::from_str(&new_request).unwrap();
         let linguage: i16;
+        let mut currency: String;
+
+        if location200.country.continent == "EU".to_string() {
+            currency = "EUR".to_string();
+        }
+        else {
+            currency = "USD".to_string();
+        }
+
         if location200.country.iso == "RU".to_string() {
             linguage = 1;
+            currency = "RUB".to_string();
         }
         else {
             linguage = 2;
         }
+
         let _user = crate::models::NewCookieUser { 
             ip:         ipaddr,
             device:     device,
             linguage:   linguage,
             template:   1,
+            currency:   currency,
             city_ru:    Some(location200.city.name_ru),
             city_en:    Some(location200.city.name_en),
             region_ru:  Some(location200.region.name_ru),
@@ -715,13 +760,13 @@ pub async fn get_or_create_c_user_return_object(conn: ConnectionInfo, req: &Http
         return create_c_user_return_object(conn, &req).await;
     }
 } 
-pub async fn get_or_create_c_user_return_lt(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16) {
-    let res = CookieUser::get_res_lt(get_cookie_user_id(req));
+pub async fn get_or_create_c_user_return_ltc(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16, String) {
+    let res = CookieUser::get_res_ltc(get_cookie_user_id(req));
     if res.is_ok() {
         return res.expect("E.");
     } 
     else {
-        return create_c_user_return_lt(conn, req).await;
+        return create_c_user_return_ltc(conn, req).await;
     }
 }
 pub async fn get_or_create_c_user_return_lti(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16, i32) {

@@ -29,7 +29,7 @@ pub fn search_routes(config: &mut web::ServiceConfig) {
 
 pub async fn empty_search_page(conn: ConnectionInfo, req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -65,6 +65,7 @@ pub async fn empty_search_page(conn: ConnectionInfo, req: HttpRequest, session: 
                 is_ajax:        i32,
                 template_types: i16,
                 linguage:       i16,
+                currency:       String,
                 title:          String,
                 description:    String,
                 link:           String,
@@ -75,6 +76,7 @@ pub async fn empty_search_page(conn: ConnectionInfo, req: HttpRequest, session: 
                 is_ajax:        is_ajax,
                 template_types: t,
                 linguage:       l,
+                currency:       c,
                 title:          title,
                 description:    description,
                 link:           link,
@@ -91,6 +93,7 @@ pub async fn empty_search_page(conn: ConnectionInfo, req: HttpRequest, session: 
                 is_ajax:        i32,
                 template_types: i16,
                 linguage:       i16,
+                currency:       String,
                 title:          String,
                 description:    String,
                 link:           String,
@@ -100,6 +103,7 @@ pub async fn empty_search_page(conn: ConnectionInfo, req: HttpRequest, session: 
                 is_ajax:        is_ajax,
                 template_types: t,
                 linguage:       l,
+                currency:       c,
                 title:          title,
                 description:    description,
                 link:           link,
@@ -118,6 +122,7 @@ pub async fn empty_search_page(conn: ConnectionInfo, req: HttpRequest, session: 
                 is_ajax:        i32,
                 template_types: i16,
                 linguage:       i16,
+                currency:       String,
                 title:          String,
                 description:    String,
                 link:           String,
@@ -127,6 +132,7 @@ pub async fn empty_search_page(conn: ConnectionInfo, req: HttpRequest, session: 
                 is_ajax:        is_ajax,
                 template_types: t,
                 linguage:       l,
+                currency:       c,
                 title:          title,
                 description:    description,
                 link:           link,
@@ -143,6 +149,7 @@ pub async fn empty_search_page(conn: ConnectionInfo, req: HttpRequest, session: 
                 is_ajax:        i32,
                 template_types: i16,
                 linguage:       i16,
+                currency:       String,
                 title:          String,
                 description:    String,
                 link:           String,
@@ -152,6 +159,7 @@ pub async fn empty_search_page(conn: ConnectionInfo, req: HttpRequest, session: 
                 is_ajax:        is_ajax,
                 template_types: t,
                 linguage:       l,
+                currency:       c,
                 title:          title,
                 description:    description,
                 link:           link,
@@ -170,7 +178,7 @@ pub async fn search_page(conn: ConnectionInfo, session: Session, req: HttpReques
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let _q = q.clone();
     let _q_standalone = "%".to_owned() + &_q + "%";
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -228,6 +236,7 @@ pub async fn search_page(conn: ConnectionInfo, session: Session, req: HttpReques
                     q:              String,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -250,6 +259,7 @@ pub async fn search_page(conn: ConnectionInfo, session: Session, req: HttpReques
                     q:              _q,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -278,6 +288,7 @@ pub async fn search_page(conn: ConnectionInfo, session: Session, req: HttpReques
                     q:              String,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -299,6 +310,7 @@ pub async fn search_page(conn: ConnectionInfo, session: Session, req: HttpReques
                     q:              _q,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -335,6 +347,7 @@ pub async fn search_page(conn: ConnectionInfo, session: Session, req: HttpReques
                     q:              String,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -356,6 +369,7 @@ pub async fn search_page(conn: ConnectionInfo, session: Session, req: HttpReques
                     q:              _q,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -384,6 +398,7 @@ pub async fn search_page(conn: ConnectionInfo, session: Session, req: HttpReques
                     q:              String,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -405,6 +420,7 @@ pub async fn search_page(conn: ConnectionInfo, session: Session, req: HttpReques
                     q:              _q,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -421,7 +437,7 @@ pub async fn search_page(conn: ConnectionInfo, session: Session, req: HttpReques
 pub async fn search_blogs_page(conn: ConnectionInfo, session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let _q = q.clone();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -486,6 +502,7 @@ pub async fn search_blogs_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -500,6 +517,7 @@ pub async fn search_blogs_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -521,6 +539,7 @@ pub async fn search_blogs_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -534,6 +553,7 @@ pub async fn search_blogs_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -562,6 +582,7 @@ pub async fn search_blogs_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -575,6 +596,7 @@ pub async fn search_blogs_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -595,6 +617,7 @@ pub async fn search_blogs_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -608,6 +631,7 @@ pub async fn search_blogs_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -624,7 +648,7 @@ pub async fn search_blogs_page(conn: ConnectionInfo, session: Session, req: Http
 pub async fn search_services_page(conn: ConnectionInfo, session: Session, req: HttpRequest, q: web::Path<String>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let _q = q.clone();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -688,6 +712,7 @@ pub async fn search_services_page(conn: ConnectionInfo, session: Session, req: H
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -702,6 +727,7 @@ pub async fn search_services_page(conn: ConnectionInfo, session: Session, req: H
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -722,6 +748,7 @@ pub async fn search_services_page(conn: ConnectionInfo, session: Session, req: H
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -736,6 +763,7 @@ pub async fn search_services_page(conn: ConnectionInfo, session: Session, req: H
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -764,6 +792,7 @@ pub async fn search_services_page(conn: ConnectionInfo, session: Session, req: H
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -777,6 +806,7 @@ pub async fn search_services_page(conn: ConnectionInfo, session: Session, req: H
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -797,6 +827,7 @@ pub async fn search_services_page(conn: ConnectionInfo, session: Session, req: H
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -810,6 +841,7 @@ pub async fn search_services_page(conn: ConnectionInfo, session: Session, req: H
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -828,7 +860,7 @@ pub async fn search_stores_page(conn: ConnectionInfo, session: Session, req: Htt
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let _q = q.clone();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -894,6 +926,7 @@ pub async fn search_stores_page(conn: ConnectionInfo, session: Session, req: Htt
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -908,6 +941,7 @@ pub async fn search_stores_page(conn: ConnectionInfo, session: Session, req: Htt
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -928,6 +962,7 @@ pub async fn search_stores_page(conn: ConnectionInfo, session: Session, req: Htt
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -941,6 +976,7 @@ pub async fn search_stores_page(conn: ConnectionInfo, session: Session, req: Htt
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -969,6 +1005,7 @@ pub async fn search_stores_page(conn: ConnectionInfo, session: Session, req: Htt
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -983,6 +1020,7 @@ pub async fn search_stores_page(conn: ConnectionInfo, session: Session, req: Htt
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1003,6 +1041,7 @@ pub async fn search_stores_page(conn: ConnectionInfo, session: Session, req: Htt
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1016,6 +1055,7 @@ pub async fn search_stores_page(conn: ConnectionInfo, session: Session, req: Htt
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1034,7 +1074,7 @@ pub async fn search_wikis_page(conn: ConnectionInfo, session: Session, req: Http
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let _q = q.clone();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -1099,6 +1139,7 @@ pub async fn search_wikis_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1113,6 +1154,7 @@ pub async fn search_wikis_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1133,6 +1175,7 @@ pub async fn search_wikis_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1146,6 +1189,7 @@ pub async fn search_wikis_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1174,6 +1218,7 @@ pub async fn search_wikis_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1187,6 +1232,7 @@ pub async fn search_wikis_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1207,6 +1253,7 @@ pub async fn search_wikis_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1220,6 +1267,7 @@ pub async fn search_wikis_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1238,7 +1286,7 @@ pub async fn search_works_page(conn: ConnectionInfo, session: Session, req: Http
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
     let _q = q.clone();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -1304,6 +1352,7 @@ pub async fn search_works_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1318,6 +1367,7 @@ pub async fn search_works_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1338,6 +1388,7 @@ pub async fn search_works_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1351,6 +1402,7 @@ pub async fn search_works_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1379,6 +1431,7 @@ pub async fn search_works_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1392,6 +1445,7 @@ pub async fn search_works_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1412,6 +1466,7 @@ pub async fn search_works_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1425,6 +1480,7 @@ pub async fn search_works_page(conn: ConnectionInfo, session: Session, req: Http
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1442,7 +1498,7 @@ pub async fn search_help_page(conn: ConnectionInfo, session: Session, req: HttpR
     use crate::utils::{get_device_and_ajax, get_page};
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
     let _q = q.clone();
 
     let title: String;
@@ -1507,6 +1563,7 @@ pub async fn search_help_page(conn: ConnectionInfo, session: Session, req: HttpR
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1521,6 +1578,7 @@ pub async fn search_help_page(conn: ConnectionInfo, session: Session, req: HttpR
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1541,6 +1599,7 @@ pub async fn search_help_page(conn: ConnectionInfo, session: Session, req: HttpR
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1554,6 +1613,7 @@ pub async fn search_help_page(conn: ConnectionInfo, session: Session, req: HttpR
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1580,6 +1640,7 @@ pub async fn search_help_page(conn: ConnectionInfo, session: Session, req: HttpR
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1593,6 +1654,7 @@ pub async fn search_help_page(conn: ConnectionInfo, session: Session, req: HttpR
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1613,6 +1675,7 @@ pub async fn search_help_page(conn: ConnectionInfo, session: Session, req: HttpR
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1626,6 +1689,7 @@ pub async fn search_help_page(conn: ConnectionInfo, session: Session, req: HttpR
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,

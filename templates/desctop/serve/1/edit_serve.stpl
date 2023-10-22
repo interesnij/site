@@ -42,7 +42,7 @@
 
             <div class="mb-20 mb-md-10">
               <label>Уровень сложности</label>
-              <select data-level="<%= level %>" class="input-md form-control load_tech_categories_from_level" data-live-search="true" tabindex="-1" aria-hidden="true">
+              <select data-level="<%= level %>" class="input-md form-control load_web_services_from_level" data-live-search="true" tabindex="-1" aria-hidden="true">
                 <option <% if level == 0 { %>selected=""<% } %> value="0">Бюджетно</option>
                 <option <% if level == 1 { %>selected=""<% } %> value="1">Обычно</option>
                 <option <% if level == 2 { %>selected=""<% } %> value="2">Средне</option>

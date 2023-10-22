@@ -1,0 +1,9 @@
+<% include!("../header.stpl"); %>
+
+<% match template_types {
+    1 => include!("1/create_serve_category.stpl"),
+    2 => include!("2/create_serve_category.stpl"),
+    _ => include!("1/create_serve_category.stpl"),
+}; %>
+
+<% include!("../footer.stpl"); %>

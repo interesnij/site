@@ -19,7 +19,7 @@
 
     <p class="solid_bottom" style="font-size: 80%;">
       <%= __t %>:
-      <span class="pointer get_tech_category_info underline" data-pk="<%= t_cat.id %>">
+      <span class="pointer get_web_service_info underline" data-pk="<%= t_cat.id %>">
         <%= t_cat.name %> (<%= __l %>: <%= t_cat.get_level_ru() %>)
       </span>
       <br />

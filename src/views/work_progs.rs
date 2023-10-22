@@ -33,7 +33,7 @@ pub fn work_routes(config: &mut web::ServiceConfig) {
 
 pub async fn get_work_page(conn: ConnectionInfo, session: Session, req: HttpRequest, param: web::Path<(String,String)>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
     let _item_id: String = param.1.clone();
     let _cat_id: String = param.0.clone();
 
@@ -100,6 +100,7 @@ pub async fn get_work_page(conn: ConnectionInfo, session: Session, req: HttpRequ
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -115,6 +116,7 @@ pub async fn get_work_page(conn: ConnectionInfo, session: Session, req: HttpRequ
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -139,6 +141,7 @@ pub async fn get_work_page(conn: ConnectionInfo, session: Session, req: HttpRequ
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -156,6 +159,7 @@ pub async fn get_work_page(conn: ConnectionInfo, session: Session, req: HttpRequ
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -191,6 +195,7 @@ pub async fn get_work_page(conn: ConnectionInfo, session: Session, req: HttpRequ
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -205,6 +210,7 @@ pub async fn get_work_page(conn: ConnectionInfo, session: Session, req: HttpRequ
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -228,6 +234,7 @@ pub async fn get_work_page(conn: ConnectionInfo, session: Session, req: HttpRequ
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -244,6 +251,7 @@ pub async fn get_work_page(conn: ConnectionInfo, session: Session, req: HttpRequ
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -258,7 +266,7 @@ pub async fn get_work_page(conn: ConnectionInfo, session: Session, req: HttpRequ
 }
 
 pub async fn work_category_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
     let _category = Categories::get_detail(_id.clone(), 5, l);
 
     let title: String;
@@ -316,6 +324,7 @@ pub async fn work_category_page(conn: ConnectionInfo, session: Session, req: Htt
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -331,6 +340,7 @@ pub async fn work_category_page(conn: ConnectionInfo, session: Session, req: Htt
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -353,6 +363,7 @@ pub async fn work_category_page(conn: ConnectionInfo, session: Session, req: Htt
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -368,6 +379,7 @@ pub async fn work_category_page(conn: ConnectionInfo, session: Session, req: Htt
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -397,6 +409,7 @@ pub async fn work_category_page(conn: ConnectionInfo, session: Session, req: Htt
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -411,6 +424,7 @@ pub async fn work_category_page(conn: ConnectionInfo, session: Session, req: Htt
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -433,6 +447,7 @@ pub async fn work_category_page(conn: ConnectionInfo, session: Session, req: Htt
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -448,6 +463,7 @@ pub async fn work_category_page(conn: ConnectionInfo, session: Session, req: Htt
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -463,7 +479,7 @@ pub async fn work_category_page(conn: ConnectionInfo, session: Session, req: Htt
 
 pub async fn work_categories_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -508,6 +524,7 @@ pub async fn work_categories_page(conn: ConnectionInfo, session: Session, req: H
                     stat:           StatPage,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -521,6 +538,7 @@ pub async fn work_categories_page(conn: ConnectionInfo, session: Session, req: H
                     stat:           _stat,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -541,6 +559,7 @@ pub async fn work_categories_page(conn: ConnectionInfo, session: Session, req: H
                     stat:           StatPage,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -554,6 +573,7 @@ pub async fn work_categories_page(conn: ConnectionInfo, session: Session, req: H
                     stat:           _stat,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -575,6 +595,7 @@ pub async fn work_categories_page(conn: ConnectionInfo, session: Session, req: H
                     stat:           StatPage,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -587,6 +608,7 @@ pub async fn work_categories_page(conn: ConnectionInfo, session: Session, req: H
                     stat:           _stat,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -607,6 +629,7 @@ pub async fn work_categories_page(conn: ConnectionInfo, session: Session, req: H
                     stat:           StatPage,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -620,6 +643,7 @@ pub async fn work_categories_page(conn: ConnectionInfo, session: Session, req: H
                     stat:           _stat,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,

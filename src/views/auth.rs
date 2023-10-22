@@ -41,7 +41,7 @@ pub async fn signup_page(req: HttpRequest, session: Session) -> actix_web::Resul
     }
     else {
         let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-        let (l, t) = crate::utils::get_c_user_lt(&req);  
+        let (l, t, c) = crate::utils::get_c_user_ltc(&req);  
 
         let title: String;
         let description: String;
@@ -77,6 +77,7 @@ pub async fn signup_page(req: HttpRequest, session: Session) -> actix_web::Resul
                     stat:           StatPage,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -87,6 +88,7 @@ pub async fn signup_page(req: HttpRequest, session: Session) -> actix_web::Resul
                     stat:           _stat,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -104,6 +106,7 @@ pub async fn signup_page(req: HttpRequest, session: Session) -> actix_web::Resul
                     stat:           StatPage,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -114,6 +117,7 @@ pub async fn signup_page(req: HttpRequest, session: Session) -> actix_web::Resul
                     stat:           _stat,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -132,7 +136,7 @@ pub async fn login_page(conn: ConnectionInfo, req: HttpRequest, session: Session
     }
     else {
         let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-        let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+        let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
         let title: String;
         let description: String;
@@ -169,6 +173,7 @@ pub async fn login_page(conn: ConnectionInfo, req: HttpRequest, session: Session
                     stat:           StatPage,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -179,6 +184,7 @@ pub async fn login_page(conn: ConnectionInfo, req: HttpRequest, session: Session
                     stat:           _stat,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -196,6 +202,7 @@ pub async fn login_page(conn: ConnectionInfo, req: HttpRequest, session: Session
                     stat:           StatPage,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -206,6 +213,7 @@ pub async fn login_page(conn: ConnectionInfo, req: HttpRequest, session: Session
                     stat:           _stat,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -249,6 +257,7 @@ pub async fn logout_page(req: HttpRequest, session: Session) -> actix_web::Resul
                 stat:           StatPage,
                 template_types: i16,
                 linguage:       i16,
+                currency:       String,
                 title:          String,
                 description:    String,
                 link:           String,
@@ -259,6 +268,7 @@ pub async fn logout_page(req: HttpRequest, session: Session) -> actix_web::Resul
                 stat:           _stat,
                 template_types: t,
                 linguage:       l,
+                currency:       c,
                 title:          title,
                 description:    description,
                 link:           link,
@@ -276,6 +286,7 @@ pub async fn logout_page(req: HttpRequest, session: Session) -> actix_web::Resul
                 stat:           StatPage,
                 template_types: i16,
                 linguage:       i16,
+                currency:       String,
                 title:          String,
                 description:    String,
                 link:           String,
@@ -286,6 +297,7 @@ pub async fn logout_page(req: HttpRequest, session: Session) -> actix_web::Resul
                 stat:           _stat,
                 template_types: t,
                 linguage:       l,
+                currency:       c,
                 title:          title,
                 description:    description,
                 link:           link,

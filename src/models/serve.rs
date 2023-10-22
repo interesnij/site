@@ -8,11 +8,11 @@ use crate::diesel::{
 };
 use serde::{Serialize, Deserialize};
 use crate::schema::{
-    tech_categories,
+    web_services,
     serve_categories,
     serve,
     serve_items,
-    tech_categories_items,
+    web_services_items,
 };
 use crate::utils::{
     establish_connection,
@@ -21,10 +21,10 @@ use crate::utils::{
 use crate::models::User;
 
 
-/////// TechCategories //////
+/////// WebService //////
 #[derive(Debug, Serialize, Identifiable, Queryable)]
-#[table_name="tech_categories"]
-pub struct TechCategories {
+#[table_name="web_services"]
+pub struct WebService {
     pub id:             i32,
     pub name:           String,
     pub name_en:        String,
@@ -39,44 +39,44 @@ pub struct TechCategories {
     pub seconds:        i32,
 }
 
-impl TechCategories {
+impl WebService {
     pub fn delete(user: User, item_id: i32) -> i16 {
         let _connection = establish_connection();
-        let tech_cat = TechCategories::get(item_id);
-        if user.perm < 60 && tech_cat.user_id != user.id {
+        let _web_service = WebService::get(item_id);
+        if user.perm < 60 && _web_service.user_id != user.id {
             return 0;
         }
-        schema::tech_categories::table
-            .filter(schema::tech_categories::id.eq(item_id))
+        schema::web_services::table
+            .filter(schema::web_services::id.eq(item_id))
             .execute(&_connection)
             .expect("E");
         return 1;
     }
-    pub fn get_all() -> Vec<TechCategories> {
+    pub fn get_all() -> Vec<WebService> {
         let _connection = establish_connection();
-        return schema::tech_categories::table
-            .load::<TechCategories>(&_connection)
+        return schema::web_services::table
+            .load::<WebService>(&_connection)
             .expect("E");
     }
-    pub fn get(id: i32) -> TechCategories {
+    pub fn get(id: i32) -> WebService {
         let _connection = establish_connection();
-        return schema::tech_categories::table
-            .filter(schema::tech_categories::id.eq(id))
-            .first::<TechCategories>(&_connection)
+        return schema::web_services::table
+            .filter(schema::web_services::id.eq(id))
+            .first::<WebService>(&_connection)
             .expect("E")
     }
-    pub fn get_with_level(level: i16) -> Vec<TechCategories> {
+    pub fn get_with_level(level: i16) -> Vec<WebService> {
         let _connection = establish_connection();
-        return schema::tech_categories::table
-            .filter(schema::tech_categories::level.eq(level))
-            .load::<TechCategories>(&_connection)
+        return schema::web_services::table
+            .filter(schema::web_services::level.eq(level))
+            .load::<WebService>(&_connection)
             .expect("E")
     }
     pub fn update_category_with_id(user: User, cat_id: i32, form: CategoriesForm, l: i16) -> i16 {
         let _connection = establish_connection();
-        let cat = schema::tech_categories::table
-            .filter(schema::tech_categories::id.eq(cat_id))
-            .first::<TechCategories>(&_connection)
+        let cat = schema::web_services::table
+            .filter(schema::web_services::id.eq(cat_id))
+            .first::<WebService>(&_connection)
             .expect("E.");
         if user.perm < 60 && cat.user_id != user.id {
             return 0;
@@ -84,11 +84,11 @@ impl TechCategories {
         if l == 1 { 
             diesel::update(&cat)
                 .set((
-                    schema::tech_categories::name.eq(&form.name),
-                    schema::tech_categories::description.eq(&form.description),
-                    schema::tech_categories::position.eq(form.position),
-                    //schema::tech_categories::image.eq(&form.image),
-                    schema::tech_categories::level.eq(form.level),
+                    schema::web_services::name.eq(&form.name),
+                    schema::web_services::description.eq(&form.description),
+                    schema::web_services::position.eq(form.position),
+                    //schema::web_services::image.eq(&form.image),
+                    schema::web_services::level.eq(form.level),
                 ))
                 .execute(&_connection)
                 .expect("E");
@@ -96,11 +96,11 @@ impl TechCategories {
         else if l == 2 {
             diesel::update(&cat)
                 .set((
-                    schema::tech_categories::name_en.eq(&form.name),
-                    schema::tech_categories::description_en.eq(&form.description),
-                    schema::tech_categories::position.eq(form.position),
-                    //schema::tech_categories::image.eq(&form.image),
-                    schema::tech_categories::level.eq(form.level),
+                    schema::web_services::name_en.eq(&form.name),
+                    schema::web_services::description_en.eq(&form.description),
+                    schema::web_services::position.eq(form.position),
+                    //schema::web_services::image.eq(&form.image),
+                    schema::web_services::level.eq(form.level),
                 ))
                 .execute(&_connection)
                 .expect("E");
@@ -110,7 +110,7 @@ impl TechCategories {
     pub fn create(user_id: i32, form: CategoriesForm, l: i16) -> i16 {
         let _connection = establish_connection();
         if l == 1 {
-            let new_cat = NewTechCategories {
+            let new_cat = NewWebService {
                 name:           form.name.clone(),
                 name_en:        "".to_string(),
                 description:    Some(form.description.clone()),
@@ -123,13 +123,13 @@ impl TechCategories {
                 height:         0.0,
                 seconds:        0,
             };
-            let _new_tech = diesel::insert_into(tech_categories::table)
+            diesel::insert_into(web_services::table)
                 .values(&new_cat)
                 .execute(&_connection)
                 .expect("E.");
         }
         else if l == 2 {
-            let new_cat = NewTechCategories {
+            let new_cat = NewWebService {
                 name:           "".to_string(),
                 name_en:        form.name.clone(),
                 description:    None,
@@ -142,7 +142,7 @@ impl TechCategories {
                 height:         0.0,
                 seconds:        0,
             };
-            let _new_tech = diesel::insert_into(tech_categories::table)
+            diesel::insert_into(web_services::table)
                 .values(&new_cat)
                 .execute(&_connection)
                 .expect("E.");
@@ -181,8 +181,8 @@ impl TechCategories {
     }
 }
 #[derive(Insertable,AsChangeset)]
-#[table_name="tech_categories"]
-pub struct NewTechCategories {
+#[table_name="web_services"]
+pub struct NewWebService {
     pub name:           String,
     pub name_en:        String,
     pub description:    Option<String>,
@@ -218,12 +218,12 @@ impl ServeCategories {
     pub fn delete(user: User, item_id: i32) -> i16 {
         let _connection = establish_connection();
         let serve_cat = ServeCategories::get(item_id);
-        let tech_cat = TechCategories::get(serve_cat.category_id);
+        let _web_service = WebService::get(serve_cat.category_id);
         if user.perm < 60 && serve_cat.user_id != user.id {
             return 0;
         }
-        diesel::update(&tech_cat)
-            .set(schema::tech_categories::count.eq(tech_cat.count - 1))
+        diesel::update(&_web_service)
+            .set(schema::web_services::count.eq(_web_service.count - 1))
             .execute(&_connection)
             .expect("E");
         diesel::delete(
@@ -318,18 +318,18 @@ impl ServeCategories {
     pub fn get_categories_from_level(level: &i16) -> Vec<ServeCategories> {
         use crate::schema::{
             serve_categories::dsl::serve_categories,
-            tech_categories::dsl::tech_categories,
+            web_services::dsl::web_services,
         };
 
         let _connection = establish_connection();
-        let tech_cats_ids = tech_categories
-            .filter(schema::tech_categories::level.eq(level))
-            .select(schema::tech_categories::id)
+        let web_services_ids = web_services
+            .filter(schema::web_services::level.eq(level))
+            .select(schema::web_services::id)
             .load::<i32>(&_connection)
             .expect("E");
 
         return serve_categories
-            .filter(schema::serve_categories::category_id.eq_any(tech_cats_ids))
+            .filter(schema::serve_categories::category_id.eq_any(web_services_ids))
             .load::<ServeCategories>(&_connection)
             .expect("E");
     }
@@ -382,11 +382,11 @@ impl ServeCategories {
             .load::<Serve>(&_connection)
             .expect("E");
     }
-    pub fn get_category(&self) -> TechCategories {
+    pub fn get_category(&self) -> WebService {
         let _connection = establish_connection();
-        return schema::tech_categories::table
-            .filter(schema::tech_categories::id.eq(self.category_id))
-            .first::<TechCategories>(&_connection)
+        return schema::web_services::table
+            .filter(schema::web_services::id.eq(self.category_id))
+            .first::<WebService>(&_connection)
             .expect("E");
     }
     pub fn get_all() -> Vec<ServeCategories> {
@@ -429,7 +429,7 @@ pub struct Serve {
     pub man_hours:      i16, 
     pub is_default:     bool,
     pub user_id:        i32,
-    pub tech_cat_id:    i32,
+    pub web_service_id: i32,
     pub height:         f64,
     pub seconds:        i32,
     pub serve_id:       Option<i32>,
@@ -651,7 +651,7 @@ impl Serve {
                 man_hours:      form.man_hours,
                 is_default:     form.is_default,
                 user_id:        user.id,
-                tech_cat_id:    _category.category_id,
+                web_service_id: _category.category_id,
                 height:         0.0,
                 seconds:        0,
                 serve_id:       form.serve_id,
@@ -675,7 +675,7 @@ impl Serve {
                 man_hours:      form.man_hours,
                 is_default:     form.is_default,
                 user_id:        user.id,
-                tech_cat_id:    _category.category_id,
+                web_service_id: _category.category_id,
                 height:         0.0,
                 seconds:        0,
                 serve_id:       form.serve_id,
@@ -747,7 +747,7 @@ impl Serve {
                 man_hours:      form.man_hours,
                 is_default:     is_default,
                 user_id:        user.id,
-                tech_cat_id:    _category.category_id,
+                web_service_id: _category.category_id,
                 height:         0.0,
                 seconds:        0,
                 serve_id:       form.serve_id,
@@ -771,7 +771,7 @@ impl Serve {
                 man_hours:      form.man_hours,
                 is_default:     is_default,
                 user_id:        user.id,
-                tech_cat_id:    _category.category_id,
+                web_service_id: _category.category_id,
                 height:         0.0,
                 seconds:        0,
                 serve_id:       form.serve_id,
@@ -881,7 +881,7 @@ pub struct NewServe {
     pub man_hours:      i16,
     pub is_default:     bool,
     pub user_id:        i32,
-    pub tech_cat_id:    i32,
+    pub web_service_id: i32,
     pub height:         f64,
     pub seconds:        i32,
     pub serve_id:       Option<i32>,
@@ -930,10 +930,10 @@ pub struct NewServeItems {
     pub types:    i16,
 }
 
-/////// TechCategoriesItem //////
+/////// WebServicesItem //////
 #[derive(Identifiable, Queryable)]
-#[table_name="tech_categories_items"]
-pub struct TechCategoriesItem {
+#[table_name="web_services_items"]
+pub struct WebServicesItem {
     pub id:          i32,
     pub category_id: i32,
     pub item_id:     i32,
@@ -941,8 +941,8 @@ pub struct TechCategoriesItem {
     pub is_active:   i16,
 }
 #[derive(Insertable)]
-#[table_name="tech_categories_items"]
-pub struct NewTechCategoriesItem {
+#[table_name="web_services_items"]
+pub struct NewWebServicesItem {
     pub category_id: i32,
     pub item_id:     i32,
     pub types:       i16,

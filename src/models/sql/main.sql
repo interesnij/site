@@ -1,7 +1,3 @@
-
--- feedback -------
----------------
----------------
 CREATE TABLE feedbacks (
     id       SERIAL PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
@@ -9,9 +5,36 @@ CREATE TABLE feedbacks (
     message  VARCHAR(1000) NOT NULL
 );
 
--- orders -------
----------------
----------------
+/*
+Как айти компании корректировать все цены своих услуг, товаров и опций, исходя из меняющейся картины экономики в странах.
+учтем: 
+1. курс валют на мировом рынке (будем парсить и сохранять в local storage сервера)
+2. корректировку исходя из инфляции: ratio - умножитель
+3. корректировку исходя из прочих причин: adder - плюс/минус
+
+В итоге эти корректировщики сохранятся в local storage сервера и будут доступны во всех вьюхах
+для рассчета цены. При создании объекта работаем с рублями. Если пользователь в Европе, работаем с евро.
+В других случаях пока остается доллар. В будущем нужно и другие добавить.
+
+Получаем последний объект price_corrects, оттуда считываем и сохраняем в local storage нужную
+валюту currency, ratio и adder.
+
+Цена такая для рубля: object.price * ratio + adder.
+Например, стоит 10_000 рублей, а ratio 1.1, adder 250, получаем 10_000 * 1.1 + 250 = 11250
+Для евро: (10_000 * 0,00985943 (курс к рублю) * 1.1) + (250 * 0,00985943) = 101,0543
+
+Также записи в таблице price_corrects имеют время создания изменения для отражения и этого момента пользователям. 
+Иможно так даже выводить список изменений цен по времени.
+*/
+CREATE TABLE price_corrects (
+    id       SERIAL PRIMARY KEY,
+    currency VARCHAR(10) NOT NULL,  -- валюта корректировки
+    ratio    FLOAT NOT NULL,        -- коэффициент валюты (множитель)
+    adder    INT NOT NULL,          -- сумматор валюты
+    created  TIMESTAMP NOT NULL     -- время создания 
+); 
+
+
 CREATE TABLE orders (
     id             SERIAL PRIMARY KEY,
     title          VARCHAR(100) NOT NULL,
@@ -39,10 +62,6 @@ CREATE TABLE order_files (
 );
 CREATE INDEX order_files_id_idx ON order_files (order_id);
 
-
--- users -------
----------------
----------------
 CREATE TABLE users (
     id       SERIAL PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
@@ -55,10 +74,6 @@ CREATE TABLE users (
     UNIQUE(username),
     UNIQUE(email)
 );
-
--- chat -------
----------------
----------------
 
 CREATE TABLE chats (
     id                SERIAL PRIMARY KEY,
@@ -86,14 +101,29 @@ CREATE TABLE messages (
 );
 CREATE INDEX messages_user_id_idx ON messages (user_id);
 
-
-
+/*
+RUB рубль
+USD доллар США
+EUR евро
+GBP Фунт стерлингов
+BYN Белорусский рубль
+GEL Грузинский лари
+JPY Японская йена
+CHF Швейцарский франк
+TRY Турецкая лира
+PLN Польский злотый
+CNY Китайский юань
+CAD Канадский доллар
+KZT Казахстанский тенге
+INR Индийская рупия
+*/ 
 CREATE TABLE cookie_users (
     id         SERIAL PRIMARY KEY,
     ip         VARCHAR(100) NOT NULL, -- ip адрес пользователя
     device     SMALLINT NOT NULL,     -- комп - смартфон - планшет
     linguage   SMALLINT NOT NULL,     -- язык
     template   SMALLINT NOT NULL,     -- шаблон
+    currency   VARCHAR(10),           -- валюта RUB, USD, EUR и тд
     city_ru    VARCHAR(150),          -- город по русски
     city_en    VARCHAR(150),          -- город по английски
     region_ru  VARCHAR(150),          -- регион по русски
@@ -120,9 +150,6 @@ CREATE TABLE cookie_stats (
             REFERENCES cookie_users(id)
 );
 
--- tags -------
----------------
----------------
 CREATE TABLE tags (
     id        SERIAL PRIMARY KEY,
     name      VARCHAR(100) NOT NULL,
@@ -139,7 +166,6 @@ CREATE TABLE tags (
             REFERENCES users(id)
 );
 
-
 CREATE TABLE tags_items (
     id      SERIAL PRIMARY KEY,
     tag_id  INT NOT NULL,
@@ -147,11 +173,6 @@ CREATE TABLE tags_items (
     types   SMALLINT NOT NULL, -- блог, услуга, товар ......
     created TIMESTAMP NOT NULL
 );
-
-
--- categories -------
----------------
----------------
 
 CREATE TABLE categories ( 
     id             SERIAL PRIMARY KEY,
@@ -169,27 +190,27 @@ CREATE TABLE categories (
     slug           VARCHAR(100) NOT NULL,
 
     UNIQUE(slug)
-);  
-INSERT INTO categories (id,name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
-VALUES (1,'Как заказать проект','How to order a project','','',1,'',0,0,0.0,0,6,'how_to_order_a_project') ON CONFLICT DO NOTHING;
-INSERT INTO categories (id,name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
-VALUES (2,'Что мы о Вас знаем','What do we know abou you','','',2,'',0,0,0.0,0,6,'what_do_we_know_abou_you') ON CONFLICT DO NOTHING;
-INSERT INTO categories (id,name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
-VALUES (3,'Этапы создания проектов','Stages of project creation','','',3,'',0,0,0.0,0,6,'stages_of_project_creation') ON CONFLICT DO NOTHING;
-INSERT INTO categories (id,name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
-VALUES (4,'Все услуги','All services','','',1,'',0,0,0.0,0,2,'all-services') ON CONFLICT DO NOTHING;
-INSERT INTO categories (id,name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
-VALUES (5,'Веб-разработка','Service of web','','',2,'',0,0,0.0,0,2,'service-web') ON CONFLICT DO NOTHING;
-INSERT INTO categories (id,name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
-VALUES (6,'Все работы','All works','','',1,'',0,0,0.0,0,5,'all-works') ON CONFLICT DO NOTHING;
-INSERT INTO categories (id,name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
-VALUES (7,'Веб-разработка','Web development','','',2,'',0,0,0.0,0,5,'web-development') ON CONFLICT DO NOTHING;
-INSERT INTO categories (id,name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
-VALUES (8,'Все статьи','All articles','','',1,'',0,0,0.0,0,1,'all-articles') ON CONFLICT DO NOTHING;
-INSERT INTO categories (id,name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
-VALUES (9,'Все статьи','All wikis','','',1,'',0,0,0.0,0,4,'all-wikis') ON CONFLICT DO NOTHING;
-INSERT INTO categories (id,name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
-VALUES (10,'Все товары','All stores','','',1,'',0,0,0.0,0,3,'all-stores') ON CONFLICT DO NOTHING;
+);
+INSERT INTO categories (name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
+VALUES ('Как заказать проект','How to order a project','','',1,'',0,0,0.0,0,6,'how_to_order_a_project') ON CONFLICT DO NOTHING;
+INSERT INTO categories (name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
+VALUES ('Что мы о Вас знаем','What do we know abou you','','',2,'',0,0,0.0,0,6,'what_do_we_know_abou_you') ON CONFLICT DO NOTHING;
+INSERT INTO categories (name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
+VALUES ('Этапы создания проектов','Stages of project creation','','',3,'',0,0,0.0,0,6,'stages_of_project_creation') ON CONFLICT DO NOTHING;
+INSERT INTO categories (name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
+VALUES ('Все услуги','All services','','',1,'',0,0,0.0,0,2,'all-services') ON CONFLICT DO NOTHING;
+INSERT INTO categories (name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
+VALUES ('Веб-разработка','Service of web','','',2,'',0,0,0.0,0,2,'service-web') ON CONFLICT DO NOTHING;
+INSERT INTO categories (name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
+VALUES ('Все работы','All works','','',1,'',0,0,0.0,0,5,'all-works') ON CONFLICT DO NOTHING;
+INSERT INTO categories (name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
+VALUES ('Веб-разработка','Web development','','',2,'',0,0,0.0,0,5,'web-development') ON CONFLICT DO NOTHING;
+INSERT INTO categories (name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
+VALUES ('Все статьи','All articles','','',1,'',0,0,0.0,0,1,'all-articles') ON CONFLICT DO NOTHING;
+INSERT INTO categories (name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
+VALUES ('Все статьи','All wikis','','',1,'',0,0,0.0,0,4,'all-wikis') ON CONFLICT DO NOTHING;
+INSERT INTO categories (name,name_en,description,description_en,position,image,count,view,height,seconds,types,slug)
+VALUES ('Все товары','All stores','','',1,'',0,0,0.0,0,3,'all-stores') ON CONFLICT DO NOTHING;
 
 
 CREATE TABLE items (
@@ -277,11 +298,8 @@ CREATE TABLE files (
     UNIQUE(src)
 );
 
--- serve -------
----------------
----------------
--- это технические категории опций (например, большой магазин или моб приложение ресторана)
-CREATE TABLE tech_categories (
+-- это веб-сервисы (например, большой магазин или моб приложение ресторана)
+CREATE TABLE web_services (
     id             SERIAL PRIMARY KEY,
     name           VARCHAR(100) NOT NULL,
     name_en        VARCHAR(100) NOT NULL,
@@ -312,9 +330,9 @@ CREATE TABLE serve_categories (
     height         FLOAT NOT NULL,
     seconds        INT NOT NULL,
 
-    CONSTRAINT fk_tech_category
+    CONSTRAINT fk_web_services
         FOREIGN KEY(category_id)
-            REFERENCES tech_categories(id)
+            REFERENCES web_services(id)
 );
 
 -- это опции (например, продвинутая админка)
@@ -330,7 +348,7 @@ CREATE TABLE serve (
     man_hours      SMALLINT NOT NULL, 
     is_default     BOOLEAN NOT NULL, -- опция по умолчанию, т.е. без которой работа невозможна (например, админка)
     user_id        INT NOT NULL,
-    tech_cat_id    INT NOT NULL,
+    web_service_id INT NOT NULL,
     height         FLOAT NOT NULL,
     seconds        INT NOT NULL,
     serve_id       INT,
@@ -352,9 +370,9 @@ CREATE TABLE serve_items (
     types    SMALLINT NOT NULL
 );
 
--- это те tech_categories, которые привязываются к объеткам.
+-- это те web_services, которые привязываются к объеткам.
 -- бывают открытые (активные) и дополнительные.
-CREATE TABLE tech_categories_items (
+CREATE TABLE web_services_items (
     id          SERIAL PRIMARY KEY,
     category_id INT NOT NULL,     -- тех. категория (например, создание среднего магазина)
     item_id     INT NOT NULL,

@@ -1,6 +1,6 @@
 <% let (__title, __level, __p) = match linguage {
-        2 => ("List of options", tech_category.get_level_en(), "$"), 
-        1 | _ => ("Список опций", tech_category.get_level_ru(), "₽"),
+        2 => ("List of options", web_service.get_level_en(), "$"), 
+        1 | _ => ("Список опций", web_service.get_level_ru(), "₽"),
     };
 %>
 
@@ -8,19 +8,19 @@
   <h1 class="font-alt"><%= __title %></h1>
 </div>
 <div class="container relative">
-  <% for (i, tech_category) in tech_cats.iter().enumerate() { %>
+  <% for (i, web_service) in _web_services.iter().enumerate() { %>
   <% let __name = match linguage {
-        2 => tech_category.name_en, 
-        1 | _ => tech_category.name,
+        2 => web_service.name_en, 
+        1 | _ => web_service.name,
     };
   %>
   <h4>
-    <a style="padding:5px" class="ajax underline" href="/tech_categories/<%= tech_category.id %>/">
+    <a style="padding:5px" class="ajax underline" href="/web_services/<%= web_service.id %>/">
       <%= __name %> (<%= __level %>)
     </a>
   </h4>
 
-  <% for category in tech_category.get_serve_categories().iter() { %>
+  <% for category in web_service.get_serve_categories().iter() { %>
   <% let __sname = match linguage {
         2 => category.name_en, 
         1 | _ => category.name,

@@ -171,10 +171,10 @@
                                           <a href="/create_tag/" class="ajax">+ тег</a>
                                       </li>
                                       <li>
-                                          <a href="/create_tech_categories/" class="ajax">+ веб-сервис</a>
+                                          <a href="/create_web_service/" class="ajax">+ веб-сервис</a>
                                       </li>
                                       <li>
-                                          <a href="/create_serve_categories/" class="ajax">+ технология опций</a>
+                                          <a href="/create_serve_category/" class="ajax">+ технология опций</a>
                                       </li>
                                       <li>
                                           <a href="/create_serve/" class="ajax">+ опция</a>

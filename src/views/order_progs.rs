@@ -41,7 +41,7 @@ pub fn order_routes(config: &mut web::ServiceConfig) {
 
 pub async fn get_orders_page(conn: ConnectionInfo, req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -87,6 +87,7 @@ pub async fn get_orders_page(conn: ConnectionInfo, req: HttpRequest, session: Se
                 next_page_number: i32,
                 template_types:   i16,
                 linguage:         i16,
+                currency:         String,
                 title:            String,
                 description:      String,
                 link:             String,
@@ -99,10 +100,11 @@ pub async fn get_orders_page(conn: ConnectionInfo, req: HttpRequest, session: Se
                 next_page_number: next_page_number,
                 template_types:   t,
                 linguage:         l,
-                title:          title,
-                description:    description,
-                link:           link,
-                image:          image,
+                currency:         c,
+                title:            title,
+                description:      description,
+                link:             link,
+                image:            image,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -117,6 +119,7 @@ pub async fn get_orders_page(conn: ConnectionInfo, req: HttpRequest, session: Se
                 next_page_number: i32,
                 template_types:   i16,
                 linguage:         i16,
+                currency:         String,
                 title:            String,
                 description:      String,
                 link:             String,
@@ -128,6 +131,7 @@ pub async fn get_orders_page(conn: ConnectionInfo, req: HttpRequest, session: Se
                 next_page_number: next_page_number,
                 template_types:   t,
                 linguage:         l,
+                currency:         c,
                 title:            title,
                 description:      description,
                 link:             link,
@@ -142,7 +146,7 @@ pub async fn get_orders_page(conn: ConnectionInfo, req: HttpRequest, session: Se
 
 pub async fn get_user_orders_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -186,6 +190,7 @@ pub async fn get_user_orders_page(conn: ConnectionInfo, session: Session, req: H
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -198,6 +203,7 @@ pub async fn get_user_orders_page(conn: ConnectionInfo, session: Session, req: H
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -216,6 +222,7 @@ pub async fn get_user_orders_page(conn: ConnectionInfo, session: Session, req: H
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -227,6 +234,7 @@ pub async fn get_user_orders_page(conn: ConnectionInfo, session: Session, req: H
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -247,6 +255,7 @@ pub async fn get_user_orders_page(conn: ConnectionInfo, session: Session, req: H
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -258,6 +267,7 @@ pub async fn get_user_orders_page(conn: ConnectionInfo, session: Session, req: H
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -276,6 +286,7 @@ pub async fn get_user_orders_page(conn: ConnectionInfo, session: Session, req: H
                     next_page_number: i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -287,6 +298,7 @@ pub async fn get_user_orders_page(conn: ConnectionInfo, session: Session, req: H
                     next_page_number: next_page_number,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -303,7 +315,7 @@ pub async fn get_user_orders_page(conn: ConnectionInfo, session: Session, req: H
 
 pub async fn get_order_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
     let user_id = get_cookie_user_id(&req);
 
     let _order = Order::get(*_id); 
@@ -350,6 +362,7 @@ pub async fn get_order_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -362,6 +375,7 @@ pub async fn get_order_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -380,6 +394,7 @@ pub async fn get_order_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -391,6 +406,7 @@ pub async fn get_order_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -411,6 +427,7 @@ pub async fn get_order_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -422,6 +439,7 @@ pub async fn get_order_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -440,6 +458,7 @@ pub async fn get_order_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -451,6 +470,7 @@ pub async fn get_order_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -465,7 +485,7 @@ pub async fn get_order_page(conn: ConnectionInfo, session: Session, req: HttpReq
 }
 
 pub async fn create_order_page(conn: ConnectionInfo, req: HttpRequest) -> actix_web::Result<HttpResponse> {
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -485,6 +505,7 @@ pub async fn create_order_page(conn: ConnectionInfo, req: HttpRequest) -> actix_
     struct Template {
         template_types: i16,
         linguage:       i16,
+        currency:       String,
         title:          String,
         description:    String,
         link:           String,
@@ -493,6 +514,7 @@ pub async fn create_order_page(conn: ConnectionInfo, req: HttpRequest) -> actix_
     let body = Template {
         template_types: t,
         linguage:       l,
+        currency:       c,
         title:          title,
         description:    description,
         link:           link,

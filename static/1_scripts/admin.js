@@ -227,11 +227,11 @@ function delete_item(url, id) {
 on('body', 'click', '#create_serve_btn', function() {
   send_serve_data(this.parentElement, "/create_serve/");
 });
-on('body', 'click', '#create_tech_category_btn', function() {
-  send_category_data(this.parentElement, "/create_tech_categories/");
+on('body', 'click', '#create_web_service_btn', function() {
+  send_category_data(this.parentElement, "/create_web_service/");
 });
 on('body', 'click', '#create_serve_category_btn', function() {
-  send_category_data(this.parentElement, "/create_serve_categories/");
+  send_category_data(this.parentElement, "/create_serve_category/");
 });
 on('body', 'click', '#edit_serve_btn', function() {
   send_serve_data(this.parentElement, "/edit_serve/" + this.getAttribute("data-pk") + "/");
@@ -242,8 +242,8 @@ on('body', 'click', '#edit_object_content_btn', function() {
 on('body', 'click', '#edit_serve_category_btn', function() {
   send_category_data(this.parentElement, "/edit_serve_category/" + this.getAttribute("data-pk") + "/");
 });
-on('body', 'click', '#edit_tech_category_btn', function() {
-  send_category_data(this.parentElement, "/edit_tech_category/" + this.getAttribute("data-pk") + "/");
+on('body', 'click', '#edit_web_service_btn', function() {
+  send_category_data(this.parentElement, "/edit_web_service/" + this.getAttribute("data-pk") + "/");
 });
 on('body', 'click', '.remove_serve', function() {
   delete_item("/delete_serve/", this.getAttribute("data-pk"));
@@ -253,8 +253,8 @@ on('body', 'click', '.remove_serve_category', function() {
   delete_item("/delete_serve_category/", this.getAttribute("data-pk"));
   this.parentElement.remove();
 });
-on('body', 'click', '.remove_tech_category', function() {
-  delete_item("/delete_tech_category/", this.getAttribute("data-pk"));
+on('body', 'click', '.remove_web_service', function() {
+  delete_item("/delete_web_service/", this.getAttribute("data-pk"));
   this.parentElement.remove();
 });
 
@@ -291,7 +291,7 @@ on('body', 'click', '.remove_tag', function() {
   this.parentElement.remove();
 });
 
-on('body', 'change', '.load_tech_categories_from_level', function() {
+on('body', 'change', '.load_web_services_from_level', function() {
   val = this.value;
   next = this.parentElement.nextElementSibling;
   block = next.querySelector(".form-control");
@@ -351,10 +351,10 @@ on('body', 'change', '.load_unical_object_form', function() {
   link.send( null );
 });
 
-on('body', 'change', '.close_tech_categories', function() {
+on('body', 'change', '.close__web_service', function() {
   options = this.querySelectorAll("option");
   next = this.parentElement.nextElementSibling;
-  cats = next.querySelectorAll(".open_tech_category");
+  cats = next.querySelectorAll(".open_web_service");
 
   for (var i = 0; i < options.length; i++) {
     if (options[i].selected) {

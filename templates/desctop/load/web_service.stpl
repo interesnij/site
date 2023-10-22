@@ -1,0 +1,5 @@
+<% match template_types {
+    1 => include!("1/web_service.stpl"),
+    2 => include!("2/web_service.stpl"),
+    _ => include!("1/web_service.stpl"),
+}; %>

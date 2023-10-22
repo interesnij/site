@@ -17,7 +17,7 @@ use crate::utils::{
 use crate::models::{
     ServeCategories,
     Serve,
-    TechCategories,
+    WebService,
 };
 use actix_session::Session;
 use actix_multipart::Multipart;
@@ -28,19 +28,19 @@ pub fn serve_routes(config: &mut web::ServiceConfig) {
     config.route("/serve/{id}/", web::get().to(get_serve_page));
     config.route("/serve_categories/", web::get().to(serve_categories_page));
 
-    config.service(web::resource("/create_tech_categories/")
-        .route(web::get().to(create_tech_categories_page))
-        .route(web::post().to(create_tech_categories))
+    config.service(web::resource("/create_web_services/")
+        .route(web::get().to(create_web_services_page))
+        .route(web::post().to(create_web_services))
     );
     config.route("/load_serve_categories_from_level/{level}/", web::get().to(load_serve_categories_from_level));
     config.route("/load_form_from_level/{level}/", web::get().to(load_form_from_level));
-    config.service(web::resource("/create_serve_categories/")
-        .route(web::get().to(create_serve_categories_page))
-        .route(web::post().to(create_serve_categories))
+    config.service(web::resource("/create_serve_category/")
+        .route(web::get().to(create_serve_category_page))
+        .route(web::post().to(create_serve_category))
     );
-    config.service(web::resource("/edit_tech_category/{id}/")
-        .route(web::get().to(edit_tech_category_page))
-        .route(web::post().to(edit_tech_category))
+    config.service(web::resource("/edit_web_service/{id}/")
+        .route(web::get().to(edit_web_service_page))
+        .route(web::post().to(edit_web_service))
     );
     config.service(web::resource("/edit_serve_category/{id}/")
         .route(web::get().to(edit_serve_category_page))
@@ -57,12 +57,12 @@ pub fn serve_routes(config: &mut web::ServiceConfig) {
     ); 
     config.route("/delete_serve/", web::post().to(delete_serve));
     config.route("/delete_serve_category/", web::post().to(delete_serve_category));
-    config.route("/delete_tech_category/", web::post().to(delete_tech_category));
+    config.route("/delete_web_service/", web::post().to(delete_web_service));
 }
 
 pub async fn serve_categories_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -108,6 +108,7 @@ pub async fn serve_categories_page(conn: ConnectionInfo, session: Session, req: 
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -119,6 +120,7 @@ pub async fn serve_categories_page(conn: ConnectionInfo, session: Session, req: 
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -136,6 +138,7 @@ pub async fn serve_categories_page(conn: ConnectionInfo, session: Session, req: 
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -146,6 +149,7 @@ pub async fn serve_categories_page(conn: ConnectionInfo, session: Session, req: 
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -161,7 +165,7 @@ pub async fn serve_categories_page(conn: ConnectionInfo, session: Session, req: 
 
 pub async fn get_serve_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
     let _serve = Serve::get(*_id);
 
     let title: String;
@@ -209,6 +213,7 @@ pub async fn get_serve_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -221,6 +226,7 @@ pub async fn get_serve_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -239,6 +245,7 @@ pub async fn get_serve_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -250,6 +257,7 @@ pub async fn get_serve_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -263,15 +271,15 @@ pub async fn get_serve_page(conn: ConnectionInfo, session: Session, req: HttpReq
     }
 }
 
-pub async fn create_tech_categories_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
+pub async fn create_web_service_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
-    let link = "/create_tech_categories/".to_string();
+    let link = "/create_web_service/".to_string();
     let image = "/static/images/dark/store.jpg".to_string();
     if l == 2 {
         title = "Creating a web-service".to_string();
@@ -302,17 +310,18 @@ pub async fn create_tech_categories_page(conn: ConnectionInfo, session: Session,
             Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
         }
         else {
-            let _categories = TechCategories::get_all();
+            let _categories = WebService::get_all();
 
             if is_desctop {
                 #[derive(TemplateOnce)]
-                #[template(path = "desctop/serve/create_tech_categories.stpl")]
+                #[template(path = "desctop/serve/create_web_service.stpl")]
                 struct Template {
                     //request_user:   User,
-                    tech_cats:      Vec<TechCategories>,
+                    _web_services:  Vec<WebService>,
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -320,10 +329,11 @@ pub async fn create_tech_categories_page(conn: ConnectionInfo, session: Session,
                 }
                 let body = Template {
                     //request_user:   _request_user,
-                    tech_cats:      _categories,
+                    _web_services:  _categories,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -335,22 +345,24 @@ pub async fn create_tech_categories_page(conn: ConnectionInfo, session: Session,
             }
             else {
                 #[derive(TemplateOnce)]
-                #[template(path = "mobile/serve/create_tech_categories.stpl")]
+                #[template(path = "mobile/serve/create_web_service.stpl")]
                 struct Template {
-                    tech_cats:      Vec<TechCategories>,
+                    _web_services:  Vec<WebService>,
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
                     image:          String,
                 }
                 let body = Template {
-                    tech_cats:      _categories,
+                    _web_services:  _categories,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -363,15 +375,15 @@ pub async fn create_tech_categories_page(conn: ConnectionInfo, session: Session,
         }
     }
 }
-pub async fn create_serve_categories_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
+pub async fn create_serve_category_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
-    let link = "/create_serve_categories/".to_string();
+    let link = "/create_serve_category/".to_string();
     let image = "/static/images/dark/store.jpg".to_string();
     if l == 2 {
         title = "Creation of service technology".to_string();
@@ -402,16 +414,17 @@ pub async fn create_serve_categories_page(conn: ConnectionInfo, session: Session
             Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
         }
         else {
-            let _tech_categories = TechCategories::get_all();
+            let _web_services = WebService::get_all();
             if is_desctop {
                 #[derive(TemplateOnce)]
-                #[template(path = "desctop/serve/create_serve_categories.stpl")]
+                #[template(path = "desctop/serve/create_serve_category.stpl")]
                 struct Template {
                     //request_user:   User,
-                    tech_cats:      Vec<TechCategories>,
+                    _web_services:  Vec<WebService>,
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -419,10 +432,11 @@ pub async fn create_serve_categories_page(conn: ConnectionInfo, session: Session
                 }
                 let body = Template {
                     //request_user:   _request_user,
-                    tech_cats:      _tech_categories,
+                    _web_services:  _web_services,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -434,22 +448,24 @@ pub async fn create_serve_categories_page(conn: ConnectionInfo, session: Session
             }
             else {
                 #[derive(TemplateOnce)]
-                #[template(path = "mobile/serve/create_serve_categories.stpl")]
+                #[template(path = "mobile/serve/create_serve_category.stpl")]
                 struct Template {
-                    tech_cats:      Vec<TechCategories>,
+                    _web_services:  Vec<WebService>,
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
                     image:          String,
                 }
                 let body = Template {
-                    tech_cats:      _tech_categories,
+                    _web_services:  _web_services,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -468,7 +484,7 @@ pub async fn load_serve_categories_from_level(req: HttpRequest, conn: Connection
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
     }
     else {
-        let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+        let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
         let _request_user = get_request_user_data(&session);
         if _request_user.perm != 60 {
             Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
@@ -480,11 +496,13 @@ pub async fn load_serve_categories_from_level(req: HttpRequest, conn: Connection
                 serve_cats:     Vec<ServeCategories>,
                 template_types: i16,
                 linguage:       i16,
+                currency:       String,
             }
             let body = Template {
                 serve_cats:     ServeCategories::get_categories_from_level(&*level),
                 template_types: t,
                 linguage:       l,
+                currency:       c,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -502,20 +520,22 @@ pub async fn load_form_from_level(req: HttpRequest, conn: ConnectionInfo, sessio
             Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
         }
         else {
-            let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
-            let _tech_categories = TechCategories::get_with_level(*level);
+            let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
+            let _web_services = WebService::get_with_level(*level);
 
             #[derive(TemplateOnce)]
             #[template(path = "desctop/serve/load_serve_form.stpl")]
             struct Template {
-                tech_cats:      Vec<TechCategories>,
+                _web_services:  Vec<WebService>,
                 template_types: i16,
                 linguage:       i16,
+                currency:       String,
             }
             let body = Template {
-                tech_cats:      _tech_categories,
+                _web_services:  _web_services,
                 template_types: t,
                 linguage:       l,
+                currency:       c,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -528,7 +548,7 @@ pub async fn create_serve_page(conn: ConnectionInfo, session: Session, req: Http
     use crate::utils::get_device_and_ajax;
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -573,6 +593,7 @@ pub async fn create_serve_page(conn: ConnectionInfo, session: Session, req: Http
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -583,6 +604,7 @@ pub async fn create_serve_page(conn: ConnectionInfo, session: Session, req: Http
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -599,6 +621,7 @@ pub async fn create_serve_page(conn: ConnectionInfo, session: Session, req: Http
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -608,6 +631,7 @@ pub async fn create_serve_page(conn: ConnectionInfo, session: Session, req: Http
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -621,16 +645,16 @@ pub async fn create_serve_page(conn: ConnectionInfo, session: Session, req: Http
     }
 }
 
-pub async fn edit_tech_category_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
+pub async fn edit_web_service_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
-    let _category = TechCategories::get(*_id);
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
+    let _category = WebService::get(*_id);
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
 
     let title: String;
     let description: String;
-    let link = "/edit_tech_category/".to_string() + &_category.id.to_string() + &"/".to_string();
+    let link = "/edit_web_service/".to_string() + &_category.id.to_string() + &"/".to_string();
     let image = "/static/images/dark/store.jpg".to_string();
     if l == 2 {
         title = "Update web-service ".to_string() + &_category.name_en;
@@ -661,18 +685,19 @@ pub async fn edit_tech_category_page(conn: ConnectionInfo, session: Session, req
             Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
         }
         else {
-            let _tech_categories = TechCategories::get_all();
+            let _web_services = WebService::get_all();
 
             if is_desctop {
                 #[derive(TemplateOnce)]
-                #[template(path = "desctop/serve/edit_tech_category.stpl")]
+                #[template(path = "desctop/serve/edit_web_service.stpl")]
                 struct Template {
                     //request_user:   User,
-                    tech_cats:      Vec<TechCategories>,
-                    category:       TechCategories,
+                    _web_services:  Vec<WebService>,
+                    category:       WebService,
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -680,11 +705,12 @@ pub async fn edit_tech_category_page(conn: ConnectionInfo, session: Session, req
                 }
                 let body = Template {
                     //request_user:   _request_user,
-                    tech_cats:      _tech_categories,
+                    _web_services:  _web_services,
                     category:       _category,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -696,24 +722,26 @@ pub async fn edit_tech_category_page(conn: ConnectionInfo, session: Session, req
             }
             else {
                 #[derive(TemplateOnce)]
-                #[template(path = "mobile/serve/edit_tech_category.stpl")]
+                #[template(path = "mobile/serve/edit_web_service.stpl")]
                 struct Template {
-                    tech_cats:      Vec<TechCategories>,
-                    category:       TechCategories,
+                    _web_services:  Vec<WebService>,
+                    category:       WebService,
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
                     image:          String,
                 }
                 let body = Template {
-                    tech_cats:      _tech_categories,
+                    _web_services:  _web_services,
                     category:       _category,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -730,7 +758,7 @@ pub async fn edit_tech_category_page(conn: ConnectionInfo, session: Session, req
 pub async fn edit_serve_category_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_ajax;
 
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
     let _category = ServeCategories::get(*_id);
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
 
@@ -763,7 +791,7 @@ pub async fn edit_serve_category_page(conn: ConnectionInfo, session: Session, re
     }
     else {
         let _request_user = get_request_user_data(&session);
-        let _tech_categories = TechCategories::get_all();
+        let _web_services = WebService::get_all();
 
         if _category.user_id != _request_user.id {
             Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
@@ -774,11 +802,12 @@ pub async fn edit_serve_category_page(conn: ConnectionInfo, session: Session, re
                 #[template(path = "desctop/serve/edit_serve_category.stpl")]
                 struct Template {
                     //request_user:   User,
-                    tech_cats:      Vec<TechCategories>,
+                    _web_services:  Vec<WebService>,
                     category:       ServeCategories,
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -786,11 +815,12 @@ pub async fn edit_serve_category_page(conn: ConnectionInfo, session: Session, re
                 }
                 let body = Template {
                     //request_user:   _request_user,
-                    tech_cats:      _tech_categories,
+                    _web_services:  _web_services,
                     category:       _category,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -804,22 +834,24 @@ pub async fn edit_serve_category_page(conn: ConnectionInfo, session: Session, re
                 #[derive(TemplateOnce)]
                 #[template(path = "mobile/serve/edit_serve_category.stpl")]
                 struct Template {
-                    tech_cats:      Vec<TechCategories>,
+                    _web_services:  Vec<WebService>,
                     category:       ServeCategories,
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
                     image:          String,
                 }
                 let body = Template {
-                    tech_cats:      _tech_categories,
+                    _web_services:  _web_services,
                     category:       _category,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -837,7 +869,7 @@ pub async fn edit_serve_page(conn: ConnectionInfo, session: Session, req: HttpRe
     use crate::utils::get_device_and_ajax;
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
     let _serve = Serve::get(*_id);
 
     let title: String;
@@ -870,7 +902,7 @@ pub async fn edit_serve_page(conn: ConnectionInfo, session: Session, req: HttpRe
     else {
         let _request_user = get_request_user_data(&session);
         let _serve_cat = ServeCategories::get(_serve.category_id);
-        let _level = TechCategories::get(_serve_cat.category_id).level;
+        let _level = WebService::get(_serve_cat.category_id).level;
         let _serve_cats = ServeCategories::get_categories_from_level(&_level);
 
         if _serve.user_id != _request_user.id {
@@ -888,6 +920,7 @@ pub async fn edit_serve_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -901,6 +934,7 @@ pub async fn edit_serve_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -920,6 +954,7 @@ pub async fn edit_serve_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -932,6 +967,7 @@ pub async fn edit_serve_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -945,20 +981,20 @@ pub async fn edit_serve_page(conn: ConnectionInfo, session: Session, req: HttpRe
     }
 }
 
-pub async fn create_tech_categories(req: HttpRequest, session: Session, mut payload: Multipart) -> impl Responder {
+pub async fn create_web_service(req: HttpRequest, session: Session, mut payload: Multipart) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         if _request_user.perm == 60 {
             let _connection = establish_connection();
             let form = crate::utils::category_form(payload.borrow_mut(), _request_user.id).await;
             let l = crate::utils::get_c_user_l(&req);
-            TechCategories::create(_request_user.id, form, l);
+            WebService::create(_request_user.id, form, l);
         }
     }
     return HttpResponse::Ok();
 }
 
-pub async fn create_serve_categories(req: HttpRequest, session: Session, mut payload: Multipart) -> impl Responder {
+pub async fn create_serve_category(req: HttpRequest, session: Session, mut payload: Multipart) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         if _request_user.perm == 60 {
@@ -970,12 +1006,12 @@ pub async fn create_serve_categories(req: HttpRequest, session: Session, mut pay
     return HttpResponse::Ok();
 }
 
-pub async fn edit_tech_category(req: HttpRequest, session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
+pub async fn edit_web_service(req: HttpRequest, session: Session, mut payload: Multipart, _id: web::Path<i32>) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session); 
         let form = crate::utils::category_form(payload.borrow_mut(), _request_user.id).await;
         let l = crate::utils::get_c_user_l(&req);
-        TechCategories::update_category_with_id(_request_user, *_id, form, l);
+        WebService::update_category_with_id(_request_user, *_id, form, l);
     }
     return HttpResponse::Ok();
 }
@@ -1019,11 +1055,11 @@ pub async fn delete_serve(session: Session, mut payload: Multipart) -> impl Resp
     HttpResponse::Ok()
 }
 
-pub async fn delete_tech_category(session: Session, mut payload: Multipart) -> impl Responder {
+pub async fn delete_web_service(session: Session, mut payload: Multipart) -> impl Responder {
     if is_signed_in(&session) {
         let _request_user = get_request_user_data(&session);
         let form = crate::utils::id_form(payload.borrow_mut()).await;
-        TechCategories::delete(_request_user, form.id);
+        WebService::delete(_request_user, form.id);
     }
     HttpResponse::Ok()
 }

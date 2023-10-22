@@ -2,7 +2,7 @@
 <section data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
-            <a class="ajax" href="/tech_categories/">Категории опций</a>
+            <a class="ajax" href="/web_services/">Веб-сервисы</a>
             &nbsp;/&nbsp;
             <a>Создание категории опций</a>
         </div>
@@ -22,9 +22,9 @@
                 <input class="input-md form-control" type="number" name="position" placeholder="Порядок следования" />
             </div>
             <div class="mb-20 mb-md-10">
-              <label>Тех категория</label>
-              <select class="input-md form-control" name="tech_categories" data-live-search="true" tabindex="-1" aria-hidden="true">
-                <% for category in tech_cats.iter() { %>
+              <label>Веб-сервис</label>
+              <select class="input-md form-control" name="web_service" data-live-search="true" tabindex="-1" aria-hidden="true">
+                <% for category in _web_services.iter() { %>
                   <option value="<%= category.id %>">
                     <%= category.name %> (<%= category.get_level_ru() %>)
                   </option>
@@ -35,10 +35,10 @@
         </form>
 
         <section style="padding-top: 50px">
-        <% for category in tech_cats.iter() { %>
+        <% for category in _web_services.iter() { %>
           <h4><%= category.name %> (<%= category.get_level_ru() %>)
-            | <a class="ajax" href="/edit_tech_category/<%= category.id %>/">~</a>
-            | <a class="pointer remove_tech_category" data-pk="<%= category.id %>">x</a>
+            | <a class="ajax" href="/edit_web_service/<%= category.id %>/">~</a>
+            | <a class="pointer remove_web_service" data-pk="<%= category.id %>">x</a>
           </h4>
           <% for object in category.get_serve_categories().iter() { %>
             <p style="margin:0">

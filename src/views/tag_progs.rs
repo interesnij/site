@@ -51,7 +51,7 @@ pub fn tag_routes(config: &mut web::ServiceConfig) {
 
 pub async fn create_tag_page(conn: ConnectionInfo, session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -91,6 +91,7 @@ pub async fn create_tag_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -102,6 +103,7 @@ pub async fn create_tag_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -119,6 +121,7 @@ pub async fn create_tag_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -129,6 +132,7 @@ pub async fn create_tag_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -146,7 +150,7 @@ pub async fn create_tag_page(conn: ConnectionInfo, session: Session, req: HttpRe
 }
 
 pub async fn tag_page(conn: ConnectionInfo, req: HttpRequest, session: Session, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let slug = _id.to_string();
     let _tag = Tag::get_tag_with_slug(&slug);
@@ -211,6 +215,7 @@ pub async fn tag_page(conn: ConnectionInfo, req: HttpRequest, session: Session, 
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -235,6 +240,7 @@ pub async fn tag_page(conn: ConnectionInfo, req: HttpRequest, session: Session, 
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -265,6 +271,7 @@ pub async fn tag_page(conn: ConnectionInfo, req: HttpRequest, session: Session, 
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -288,6 +295,7 @@ pub async fn tag_page(conn: ConnectionInfo, req: HttpRequest, session: Session, 
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -327,6 +335,7 @@ pub async fn tag_page(conn: ConnectionInfo, req: HttpRequest, session: Session, 
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -350,6 +359,7 @@ pub async fn tag_page(conn: ConnectionInfo, req: HttpRequest, session: Session, 
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -380,6 +390,7 @@ pub async fn tag_page(conn: ConnectionInfo, req: HttpRequest, session: Session, 
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -403,6 +414,7 @@ pub async fn tag_page(conn: ConnectionInfo, req: HttpRequest, session: Session, 
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -419,7 +431,7 @@ pub async fn tag_page(conn: ConnectionInfo, req: HttpRequest, session: Session, 
 pub async fn tag_blogs_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
     let _connection = establish_connection();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
     let slug = _id.to_string();
     let _tag = Tag::get_tag_with_slug(&slug);
     
@@ -480,6 +492,7 @@ pub async fn tag_blogs_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -494,6 +507,7 @@ pub async fn tag_blogs_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -514,6 +528,7 @@ pub async fn tag_blogs_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -527,6 +542,7 @@ pub async fn tag_blogs_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -553,6 +569,7 @@ pub async fn tag_blogs_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -566,6 +583,7 @@ pub async fn tag_blogs_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -586,6 +604,7 @@ pub async fn tag_blogs_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -599,6 +618,7 @@ pub async fn tag_blogs_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -616,7 +636,7 @@ pub async fn tag_services_page(conn: ConnectionInfo, session: Session, req: Http
     use crate::utils::get_device_and_ajax;
 
     let _connection = establish_connection();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
     let slug = _id.to_string();
     let _tag = Tag::get_tag_with_slug(&slug); 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
@@ -676,6 +696,7 @@ pub async fn tag_services_page(conn: ConnectionInfo, session: Session, req: Http
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -690,6 +711,7 @@ pub async fn tag_services_page(conn: ConnectionInfo, session: Session, req: Http
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -710,6 +732,7 @@ pub async fn tag_services_page(conn: ConnectionInfo, session: Session, req: Http
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -723,6 +746,7 @@ pub async fn tag_services_page(conn: ConnectionInfo, session: Session, req: Http
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -749,6 +773,7 @@ pub async fn tag_services_page(conn: ConnectionInfo, session: Session, req: Http
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -762,6 +787,7 @@ pub async fn tag_services_page(conn: ConnectionInfo, session: Session, req: Http
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -782,6 +808,7 @@ pub async fn tag_services_page(conn: ConnectionInfo, session: Session, req: Http
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -795,6 +822,7 @@ pub async fn tag_services_page(conn: ConnectionInfo, session: Session, req: Http
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -812,7 +840,7 @@ pub async fn tag_stores_page(conn: ConnectionInfo, session: Session, req: HttpRe
     use crate::utils::get_device_and_ajax;
 
     let _connection = establish_connection();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
     let slug = _id.to_string();
     let _tag = Tag::get_tag_with_slug(&slug); 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
@@ -873,6 +901,7 @@ pub async fn tag_stores_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -887,6 +916,7 @@ pub async fn tag_stores_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -907,6 +937,7 @@ pub async fn tag_stores_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -920,6 +951,7 @@ pub async fn tag_stores_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -946,6 +978,7 @@ pub async fn tag_stores_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -959,6 +992,7 @@ pub async fn tag_stores_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -979,6 +1013,7 @@ pub async fn tag_stores_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -992,6 +1027,7 @@ pub async fn tag_stores_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1009,7 +1045,7 @@ pub async fn tag_wikis_page(conn: ConnectionInfo, session: Session, req: HttpReq
     use crate::utils::get_device_and_ajax;
 
     let _connection = establish_connection();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
     let slug = _id.to_string();
     let _tag = Tag::get_tag_with_slug(&slug); 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
@@ -1070,6 +1106,7 @@ pub async fn tag_wikis_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1084,6 +1121,7 @@ pub async fn tag_wikis_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1104,6 +1142,7 @@ pub async fn tag_wikis_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1117,6 +1156,7 @@ pub async fn tag_wikis_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1143,6 +1183,7 @@ pub async fn tag_wikis_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1156,6 +1197,7 @@ pub async fn tag_wikis_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1176,6 +1218,7 @@ pub async fn tag_wikis_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1189,6 +1232,7 @@ pub async fn tag_wikis_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1206,7 +1250,7 @@ pub async fn tag_works_page(conn: ConnectionInfo, session: Session, req: HttpReq
     use crate::utils::get_device_and_ajax;
 
     let _connection = establish_connection();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
     let slug = _id.to_string();
     let _tag = Tag::get_tag_with_slug(&slug); 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
@@ -1267,6 +1311,7 @@ pub async fn tag_works_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1281,6 +1326,7 @@ pub async fn tag_works_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1301,6 +1347,7 @@ pub async fn tag_works_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1314,6 +1361,7 @@ pub async fn tag_works_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1341,6 +1389,7 @@ pub async fn tag_works_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1354,6 +1403,7 @@ pub async fn tag_works_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1374,6 +1424,7 @@ pub async fn tag_works_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1387,6 +1438,7 @@ pub async fn tag_works_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1402,7 +1454,7 @@ pub async fn tag_works_page(conn: ConnectionInfo, session: Session, req: HttpReq
 
 pub async fn tag_helps_page(conn: ConnectionInfo, session: Session, req: HttpRequest, _id: web::Path<String>) -> actix_web::Result<HttpResponse> {
     let _connection = establish_connection();
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
     let slug = _id.to_string();
     let _tag = Tag::get_tag_with_slug(&slug); 
     let (is_desctop, is_ajax) = crate::utils::get_device_and_ajax(&req);
@@ -1463,6 +1515,7 @@ pub async fn tag_helps_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1477,6 +1530,7 @@ pub async fn tag_helps_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1497,6 +1551,7 @@ pub async fn tag_helps_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1510,6 +1565,7 @@ pub async fn tag_helps_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1536,6 +1592,7 @@ pub async fn tag_helps_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1549,6 +1606,7 @@ pub async fn tag_helps_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1569,6 +1627,7 @@ pub async fn tag_helps_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          i32,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1582,6 +1641,7 @@ pub async fn tag_helps_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     is_ajax:          is_ajax,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1599,7 +1659,7 @@ pub async fn tags_page(conn: ConnectionInfo, session: Session, req: HttpRequest)
     use crate::utils::get_device_and_ajax;
 
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
     let title: String;
     let description: String;
@@ -1646,6 +1706,7 @@ pub async fn tags_page(conn: ConnectionInfo, session: Session, req: HttpRequest)
                     stat:             StatPage,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1660,6 +1721,7 @@ pub async fn tags_page(conn: ConnectionInfo, session: Session, req: HttpRequest)
                     stat:             _stat,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1680,6 +1742,7 @@ pub async fn tags_page(conn: ConnectionInfo, session: Session, req: HttpRequest)
                     stat:             StatPage,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1693,6 +1756,7 @@ pub async fn tags_page(conn: ConnectionInfo, session: Session, req: HttpRequest)
                     stat:             _stat,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1715,6 +1779,7 @@ pub async fn tags_page(conn: ConnectionInfo, session: Session, req: HttpRequest)
                     stat:             StatPage,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1728,6 +1793,7 @@ pub async fn tags_page(conn: ConnectionInfo, session: Session, req: HttpRequest)
                     stat:             _stat,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1748,6 +1814,7 @@ pub async fn tags_page(conn: ConnectionInfo, session: Session, req: HttpRequest)
                     stat:             StatPage,
                     template_types:   i16,
                     linguage:         i16,
+                    currency:         String,
                     title:            String,
                     description:      String,
                     link:             String,
@@ -1761,6 +1828,7 @@ pub async fn tags_page(conn: ConnectionInfo, session: Session, req: HttpRequest)
                     stat:             _stat,
                     template_types:   t,
                     linguage:         l,
+                    currency:         c,
                     title:            title,
                     description:      description,
                     link:             link,
@@ -1779,7 +1847,7 @@ pub async fn edit_tag_page(conn: ConnectionInfo, session: Session, req: HttpRequ
     use schema::tags::dsl::tags;
 
     let _tag_id: i32 = *_id;
-    let (l, t) = crate::utils::get_or_create_c_user_return_lt(conn, &req).await;
+    let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
     let _connection = establish_connection();
     let _tag = tags
         .filter(schema::tags::id.eq(&_tag_id))
@@ -1824,6 +1892,7 @@ pub async fn edit_tag_page(conn: ConnectionInfo, session: Session, req: HttpRequ
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -1835,6 +1904,7 @@ pub async fn edit_tag_page(conn: ConnectionInfo, session: Session, req: HttpRequ
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,
@@ -1852,6 +1922,7 @@ pub async fn edit_tag_page(conn: ConnectionInfo, session: Session, req: HttpRequ
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
+                    currency:       String,
                     title:          String,
                     description:    String,
                     link:           String,
@@ -1862,6 +1933,7 @@ pub async fn edit_tag_page(conn: ConnectionInfo, session: Session, req: HttpRequ
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
+                    currency:       c,
                     title:          title,
                     description:    description,
                     link:           link,

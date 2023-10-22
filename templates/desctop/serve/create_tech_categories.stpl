@@ -1,9 +1,0 @@
-<% include!("../header.stpl"); %>
-
-<% match template_types {
-    1 => include!("1/create_tech_categories.stpl"),
-    2 => include!("2/create_tech_categories.stpl"),
-    _ => include!("1/create_tech_categories.stpl"),
-}; %>
-
-<% include!("../footer.stpl"); %>

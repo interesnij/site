@@ -2,17 +2,15 @@
 <section data-title="<%= title %>" data-description="<%= description %>" data-uri="<%= link %>" data-image="<%= image %>" class="doc_title">
     <div class="relative container align-left">
         <div class="hs-line-4 font-alt">
-            <a class="ajax" href="/">Главная</a>
+            <a class="ajax" href="/web_services/">Веб-сервисы</a>
             &nbsp;/&nbsp;
-            <a class="ajax" href="/tech_categories/">Тех. категории</a>
-            &nbsp;/&nbsp;
-            <a>Создание тех. категории</a>
+            <a>Создание веб-сервиса</a>
         </div>
     </div>
 </section>
 <section class="page-section">
-    <div class="row container relative">
-        <form enctype="multipart/form-data" class="form mb-20 col-md-8">
+    <div class="container relative">
+        <form enctype="multipart/form-data" class="form mb-20 col-md-8 col-md-offset-2">
             <div class="mb-20 mb-md-10">
                 <input class="form_title input-md form-control" type="text" name="name" placeholder="Название" />
             </div>
@@ -26,16 +24,19 @@
             <div class="mb-20 mb-md-10">
                 <input class="input-md form-control" type="number" name="level" placeholder="Уровень сложности" />
             </div>
-            <button class="btn btn-mod btn-border btn-medium btn-round" style="float: right;" type="button" id="create_tech_category_btn">Создать</button>
+            <button class="btn btn-mod btn-border btn-medium btn-round" style="float: right;" type="button" id="create_web_service_btn">Создать</button>
         </form>
-        <section class="col-md-4">
-          <% for category in tech_cats.iter() { %>
+        <section style="padding-top: 50px">
+          <% for category in _web_services.iter() { %>
             <p><%= category.name %> (<%= category.get_level_ru() %>)
-              | <a class="ajax" href="/edit_tech_category/<%= category.id %>/">~</a>
-              | <a class="pointer remove_tech_category" data-pk="<%= category.id %>">x</a>
+              | <a class="ajax" href="/edit_web_service/<%= category.id %>/">~</a>
+              | <a class="pointer remove_web_service" data-pk="<%= category.id %>">x</a>
             </p>
           <% } %>
         </section>
     </div>
 </section>
+<div class="sidebar hidden">
+
+</div>
 

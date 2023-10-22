@@ -166,17 +166,17 @@ pub async fn content_form(payload: &mut Multipart) -> ContentForm {
 
 #[derive(Deserialize, Serialize, Debug)]
 pub struct ItemForms {
-    pub title:          String,
-    pub description:    Option<String>,
-    pub link:           Option<String>,
-    pub main_image:     Option<String>,
-    pub category_list:  Vec<i32>,
-    pub tags_list:      Vec<i32>,
-    pub serve_list:     Vec<i32>,
-    pub close_tech_cats_list: Vec<i32>,
-    pub position:       i16,
-    pub types:          i16,
-    pub slug:           String,
+    pub title:                   String,
+    pub description:             Option<String>,
+    pub link:                    Option<String>,
+    pub main_image:              Option<String>,
+    pub category_list:           Vec<i32>,
+    pub tags_list:               Vec<i32>,
+    pub serve_list:              Vec<i32>,
+    pub close_web_services_list: Vec<i32>,
+    pub position:                i16,
+    pub types:                   i16,
+    pub slug:                    String,
 }
 
 // форма для элементов с опциями / тех категориями
@@ -189,7 +189,7 @@ pub async fn item_form(payload: &mut Multipart, owner_id: i32) -> ItemForms {
         category_list:  Vec::new(),
         tags_list:      Vec::new(),
         serve_list:     Vec::new(),
-        close_tech_cats_list: Vec::new(),
+        close_web_services_list: Vec::new(),
         position:       0,
         types:          0,
         slug:           "".to_string(),
@@ -240,13 +240,13 @@ pub async fn item_form(payload: &mut Multipart, owner_id: i32) -> ItemForms {
                 }
             }
         }
-        else if name == "close_tech_cats_list[]" {
+        else if name == "close_web_services_list[]" {
             while let Some(chunk) = field.next().await {
                 let data = chunk.expect("split_payload err chunk");
                 if let Ok(s) = str::from_utf8(&data) {
                     let data_string = s.to_string();
                     let _int: i32 = data_string.parse().unwrap();
-                    form.close_tech_cats_list.push(_int);
+                    form.close_web_services_list.push(_int);
                 }
             }
         }
@@ -463,7 +463,6 @@ pub async fn id_form(payload: &mut Multipart) -> IdForm {
 pub struct TypesForm {
     pub types: i16,
 }
-// форма для удаления чего-либо по id объекта
 pub async fn types_form(payload: &mut Multipart) -> TypesForm {
     let mut form: TypesForm = TypesForm {
         types: 0,
@@ -477,6 +476,29 @@ pub async fn types_form(payload: &mut Multipart) -> TypesForm {
                 if let Ok(s) = str::from_utf8(&data) {
                     let _int: i16 = s.parse().unwrap();
                     form.types = _int;
+                }
+            }
+        }
+    }
+    form
+}
+
+#[derive(Deserialize, Serialize)]
+pub struct StringForm {
+    pub string: String,
+}
+pub async fn string_form(payload: &mut Multipart) -> StringForm {
+    let mut form: StringForm = StringForm {
+        string: String::new(),
+    };
+
+    while let Some(item) = payload.next().await {
+        let mut field: Field = item.expect("split_payload err");
+        if field.name() == "string" {
+            while let Some(chunk) = field.next().await {
+                let data = chunk.expect("split_payload err chunk");
+                if let Ok(s) = str::from_utf8(&data) {
+                    form.string = s;
                 }
             }
         }

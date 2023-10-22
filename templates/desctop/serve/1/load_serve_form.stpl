@@ -5,8 +5,8 @@
 %>
 <div class="mb-20 mb-md-10">
     <label><%= __close %></label>
-    <select class="form-control close_tech_categories" name="close_tech_cats_list[]" multiple="">
-      <% for cat in tech_cats.iter() { %>
+    <select class="form-control close_web_services" name="close_web_services_list[]" multiple="">
+      <% for cat in _web_services.iter() { %>
 
         <% let (__l, __n) = match linguage {
           2 => (cat.get_level_en(), &cat.name_en), 
@@ -19,16 +19,16 @@
 </div> 
 
 <div class="">
-<% for tech_category in tech_cats.iter() { %>
+<% for web_service in _web_services.iter() { %>
 <% let (__l2, __n2) = match linguage {
-          2 => (tech_category.get_level_en(), &tech_category.name_en), 
-          1 | _ => (tech_category.get_level_ru(), &tech_category.name),
+          2 => (web_service.get_level_en(), &web_service.name_en), 
+          1 | _ => (web_service.get_level_ru(), &web_service.name),
       };
 %>
-<div class="open_tech_category" data-pk="<%= tech_category.id %>">
+<div class="open_web_service" data-pk="<%= web_service.id %>">
 <h4 class="show_next_element pointer"><%= __n2 %> (<%= __l2 %>)</h4>
 <div class="hidden">
-  <% for category in tech_category.get_serve_categories().iter() { %>
+  <% for category in web_service.get_serve_categories().iter() { %>
 <% let __nn = match linguage {
         2 => &category.name_en, 
         1 | _ => &category.name,

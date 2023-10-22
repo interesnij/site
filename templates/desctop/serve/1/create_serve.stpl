@@ -28,7 +28,7 @@
             </div>
             <div class="mb-20 mb-md-10">
               <label>Уровень сложности</label>
-              <select class="input-md form-control load_tech_categories_from_level" data-live-search="true" tabindex="-1" aria-hidden="true">
+              <select class="input-md form-control load_web_services_from_level" data-live-search="true" tabindex="-1" aria-hidden="true">
                 <option value="">Не выбрано</option>
                 <option value="0">Бюджетнo</option>
                 <option value="1">Обычно</option>

@@ -34,13 +34,13 @@
             <div class="mb-20 mb-md-10">
                 <input value="<%= category.level %>" class="input-md form-control" type="number" name="level" placeholder="Уровень сложности" />
             </div>
-            <button data-pk="<%= category.id %>" class="btn btn-mod btn-border btn-medium btn-round" style="float: right;" type="button" id="edit_tech_category_btn">Изменить</button>
+            <button data-pk="<%= category.id %>" class="btn btn-mod btn-border btn-medium btn-round" style="float: right;" type="button" id="edit_web_service_btn">Изменить</button>
         </form>
         <section style="padding-top: 50px">
-          <% for category in tech_cats.iter() { %>
+          <% for category in _web_services.iter() { %>
             <p><%= category.name %> (<%= category.get_level_ru() %>)
-              | <a class="ajax" href="/edit_tech_category/<%= category.id %>/">~</a>
-              | <a class="pointer remove_tech_category" data-pk="<%= category.id %>">x</a>
+              | <a class="ajax" href="/edit_web_service/<%= category.id %>/">~</a>
+              | <a class="pointer remove_web_service" data-pk="<%= category.id %>">x</a>
             </p>
           <% } %>
         </section>

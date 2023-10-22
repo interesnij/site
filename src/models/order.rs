@@ -7,7 +7,7 @@ use crate::diesel::{
     ExpressionMethods,
 };
 use serde::{Serialize, Deserialize};
-use crate::models::{Serve, TechCategories, ServeVar};
+use crate::models::{Serve, WebService, ServeVar};
 use crate::schema::{
     orders,
     order_files,
@@ -39,7 +39,7 @@ impl Order {
     pub fn create(user_id: i32, form: crate::utils::OrderForms, l: i16) -> i16 {
         use crate::schema::serve::dsl::serve;
         use crate::models::{
-            NewTechCategoriesItem,
+            NewWebServicesItem,
             NewServeItems,
         };
 
@@ -115,23 +115,23 @@ impl Order {
                 .load::<Serve>(&_connection)
                 .expect("E");
 
-            let mut tech_cat_ids = Vec::new();
+            let mut web_service_ids = Vec::new();
             let mut order_price = 0;
             for _serve in _serves.iter() {
-                if !tech_cat_ids.iter().any(|&i| i==_serve.tech_cat_id) {
-                    tech_cat_ids.push(_serve.tech_cat_id);
+                if !web_service_ids.iter().any(|&i| i==_serve.web_service_id) {
+                    web_service_ids.push(_serve.web_service_id);
                 }
                 order_price += _serve.price;
             }
 
-            for id in tech_cat_ids.iter() {
-                let new_cat = NewTechCategoriesItem {
+            for id in web_service_ids.iter() {
+                let new_cat = NewWebServicesItem {
                     category_id: *id,
                     item_id:     form.object_id,
                     types:       form.types,
                     is_active:   1,
                 };
-                diesel::insert_into(schema::tech_categories_items::table)
+                diesel::insert_into(schema::web_services_items::table)
                     .values(&new_cat)
                     .execute(&_connection)
                     .expect("Error.");
@@ -168,7 +168,7 @@ impl Order {
         if user_id == _order.user_id {
             use crate::schema::{
                 serve_items::dsl::serve_items,
-                tech_categories_items::dsl::tech_categories_items,
+                web_services_items::dsl::web_services_items,
             };
         
             diesel::delete (
@@ -179,9 +179,9 @@ impl Order {
                 .execute(&_connection)
                 .expect("E");
             diesel::delete(
-                tech_categories_items
-                    .filter(schema::tech_categories_items::item_id.eq(id))
-                    .filter(schema::tech_categories_items::types.eq(7))
+                web_services_items
+                    .filter(schema::web_services_items::item_id.eq(id))
+                    .filter(schema::web_services_items::types.eq(7))
                 )
                 .execute(&_connection)
                 .expect("E");
@@ -317,26 +317,26 @@ impl Order {
             .load::<i32>(&_connection)
             .expect("E");
     }
-    pub fn get_open_tech_categories(&self) -> Vec<TechCategories> {
+    pub fn get_open_web_services(&self) -> Vec<WebService> {
         // получаем открытые тех.категории элемента
         use schema::{
-            tech_categories_items::dsl::tech_categories_items,
-            tech_categories::dsl::tech_categories,
+            web_services_items::dsl::web_services_items,
+            web_services::dsl::web_services,
         };
 
         let _connection = establish_connection();
-        let ids = tech_categories_items
-            .filter(schema::tech_categories_items::item_id.eq(&self.id))
-            .filter(schema::tech_categories_items::types.eq(7))
-            .filter(schema::tech_categories_items::is_active.eq(1))
-            .select(schema::tech_categories_items::category_id)
+        let ids = web_services_items
+            .filter(schema::web_services_items::item_id.eq(&self.id))
+            .filter(schema::web_services_items::types.eq(7))
+            .filter(schema::web_services_items::is_active.eq(1))
+            .select(schema::web_services_items::category_id)
             .load::<i32>(&_connection)
             .expect("E");
 
-        return tech_categories
-            .filter(schema::tech_categories::id.eq_any(ids))
-            .order(schema::tech_categories::position.desc())
-            .load::<TechCategories>(&_connection)
+        return web_services
+            .filter(schema::web_services::id.eq_any(ids))
+            .order(schema::web_services::position.desc())
+            .load::<WebService>(&_connection)
             .expect("E");
     }
 }
@@ -419,7 +419,7 @@ impl OrderFile {
         if user_id == _order.user_id {
             use crate::schema::{
                 serve_items::dsl::serve_items,
-                tech_categories_items::dsl::tech_categories_items,
+                web_services_items::dsl::web_services_items,
             };
         
             diesel::delete (
@@ -430,9 +430,9 @@ impl OrderFile {
                 .execute(&_connection)
                 .expect("E");
             diesel::delete(
-                tech_categories_items
-                    .filter(schema::tech_categories_items::item_id.eq(id))
-                    .filter(schema::tech_categories_items::types.eq(7))
+                web_services_items
+                    .filter(schema::web_services_items::item_id.eq(id))
+                    .filter(schema::web_services_items::types.eq(7))
                 )
                 .execute(&_connection)
                 .expect("E");
@@ -449,7 +449,7 @@ impl OrderFile {
     }
     pub fn create(user_id: i32, form: crate::utils::OrderForms, l: i16) -> i16 {
         use crate::models::{
-            NewTechCategoriesItem,
+            NewWebServicesItem,
             NewServeItems,
         };
 
@@ -526,23 +526,23 @@ impl OrderFile {
             .load::<Serve>(&_connection)
             .expect("E");
 
-        let mut tech_cat_ids = Vec::new();
+        let mut web_service_ids = Vec::new();
         let mut order_price = 0;
         for _serve in _serves.iter() {
-            if !tech_cat_ids.iter().any(|&i| i==_serve.tech_cat_id) {
-                tech_cat_ids.push(_serve.tech_cat_id);
+            if !web_service_ids.iter().any(|&i| i==_serve.web_service_id) {
+                web_service_ids.push(_serve.web_service_id);
             }
             order_price += _serve.price;
         }
 
-        for id in tech_cat_ids.iter() {
-            let new_cat = NewTechCategoriesItem {
+        for id in web_service_ids.iter() {
+            let new_cat = NewWebServiceItem {
                 category_id: *id,
                 item_id:     form.object_id,
                 types:       form.types,
                 is_active:   1,
             };
-            diesel::insert_into(schema::tech_categories_items::table)
+            diesel::insert_into(schema::web_services_items::table)
                 .values(&new_cat)
                 .execute(&_connection)
                 .expect("Error.");

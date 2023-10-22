@@ -10,7 +10,7 @@ use crate::diesel::{
 };
 use serde::{Serialize,Deserialize};
 use crate::models::{
-    Tag, TechCategories, Serve,
+    Tag, WebService, Serve,
     SmallTag, SmallFile, User,
 };
 
@@ -29,12 +29,12 @@ use crate::errors::Error;
 
 #[derive(Queryable)]
 pub struct ServeVar2 {
-    pub id:          i32,
-    pub name:        String,
-    pub price:       i32,
-    pub man_hours:   i16,
-    pub is_default:  bool,
-    pub tech_cat_id: i32,
+    pub id:             i32,
+    pub name:           String,
+    pub price:          i32,
+    pub man_hours:      i16,
+    pub is_default:     bool,
+    pub web_service_id: i32,
 }
 
 ///////////
@@ -1469,7 +1469,7 @@ impl Item {
     }
     pub fn create(user_id: i32, form: crate::utils::ItemForms, l: i16) -> i16 {
         use crate::models::{
-            NewTechCategoriesItem,
+            NewWebServiceItem,
             NewServeItems,
             NewTagItems,
         };
@@ -1545,14 +1545,14 @@ impl Item {
 
         // создаем связь с тех категориями, которые будут
         // расширять списки опций, предлагая доп возможности и услуги
-        for cat_id in form.close_tech_cats_list.into_iter() {
-            let new_cat = NewTechCategoriesItem {
+        for cat_id in form.close_web_services_list.into_iter() {
+            let new_cat = NewWebServiceItem {
                 category_id: cat_id,
                 item_id:     _item.id,
                 types:       types,
                 is_active:   2,
             };
-            diesel::insert_into(schema::tech_categories_items::table)
+            diesel::insert_into(schema::web_services_items::table)
                 .values(&new_cat)
                 .execute(&_connection)
                 .expect("Error.");
@@ -1580,23 +1580,23 @@ impl Item {
             .load::<Serve>(&_connection)
             .expect("E");
 
-        let mut tech_cat_ids = Vec::new();
+        let mut web_service_ids = Vec::new();
         let mut item_price = 0;
         for _serve in _serves.iter() {
-            if !tech_cat_ids.iter().any(|&i| i==_serve.tech_cat_id) {
-                tech_cat_ids.push(_serve.tech_cat_id);
+            if !web_service_ids.iter().any(|&i| i==_serve.web_service_id) {
+                web_service_ids.push(_serve.web_service_id);
             }
             item_price += _serve.price;
         }
 
-        for id in tech_cat_ids.into_iter() {
-            let new_cat = NewTechCategoriesItem {
+        for id in web_service_ids.into_iter() {
+            let new_cat = NewWebServiceItem {
                 category_id: id,
                 item_id:     _item.id,
                 types:       types,
                 is_active:   1,
             };
-            diesel::insert_into(schema::tech_categories_items::table)
+            diesel::insert_into(schema::web_services_items::table)
                 .values(&new_cat)
                 .execute(&_connection)
                 .expect("Error.");
@@ -1688,11 +1688,11 @@ impl Item {
             tags_items::dsl::tags_items,
             categories::dsl::categories,
             category::dsl::category,
-            tech_categories_items::dsl::tech_categories_items,
+            web_services_items::dsl::web_services_items,
             serve::dsl::serve,
         };
         use crate::models::{
-            NewTechCategoriesItem,
+            NewWebServicesItem,
             NewServeItems,
             NewTagItems,
         };
@@ -1730,9 +1730,9 @@ impl Item {
             .execute(&_connection)
             .expect("E");
         diesel::delete (
-            tech_categories_items
-                .filter(schema::tech_categories_items::item_id.eq(id))
-                .filter(schema::tech_categories_items::types.eq(_item.types))
+            web_services_items
+                .filter(schema::web_services_items::item_id.eq(id))
+                .filter(schema::web_services_items::types.eq(_item.types))
             )
             .execute(&_connection)
             .expect("E");
@@ -1794,14 +1794,14 @@ impl Item {
 
         // создаем связь с тех категориями, которые будут
         // расширять списки опций, предлагая доп возможности и услуги
-        for cat_id in form.close_tech_cats_list.into_iter() {
-            let new_cat = NewTechCategoriesItem {
+        for cat_id in form.close_web_services_list.into_iter() {
+            let new_cat = NewWebServicesItem {
                 category_id: cat_id,
                 item_id:     _item.id,
                 types:       _item.types,
                 is_active:   2,
             };
-            diesel::insert_into(schema::tech_categories_items::table)
+            diesel::insert_into(schema::web_services_items::table)
                 .values(&new_cat)
                 .execute(&_connection)
                 .expect("Error.");
@@ -1829,23 +1829,23 @@ impl Item {
             .load::<Serve>(&_connection)
             .expect("E");
 
-        let mut tech_cat_ids = Vec::new();
+        let mut web_service_ids = Vec::new();
         let mut item_price = 0;
         for _serve in _serves.iter() {
-            if !tech_cat_ids.iter().any(|&i| i==_serve.tech_cat_id) {
-                tech_cat_ids.push(_serve.tech_cat_id);
+            if !web_service_ids.iter().any(|&i| i==_serve.web_service_id) {
+                web_service_ids.push(_serve.web_service_id);
             }
             item_price += _serve.price;
         }
 
-        for id in tech_cat_ids.into_iter() {
-            let new_cat = NewTechCategoriesItem {
+        for id in web_service_ids.into_iter() {
+            let new_cat = NewWebServicesItem {
                 category_id: id,
                 item_id:     _item.id,
                 types:       _item.types,
                 is_active:   1,
             };
-            diesel::insert_into(schema::tech_categories_items::table)
+            diesel::insert_into(schema::web_services_items::table)
                 .values(&new_cat)
                 .execute(&_connection)
                 .expect("Error.");
@@ -4036,7 +4036,7 @@ impl Item {
                     schema::serve::price,
                     schema::serve::man_hours,
                     schema::serve::is_default,
-                    schema::serve::tech_cat_id,
+                    schema::serve::web_service_id,
                 ))
                 .load::<ServeVar2>(&_connection)
                 .expect("E");
@@ -4051,7 +4051,7 @@ impl Item {
                     schema::serve::price,
                     schema::serve::man_hours,
                     schema::serve::is_default,
-                    schema::serve::tech_cat_id,
+                    schema::serve::web_service_id,
                 ))
                 .load::<ServeVar2>(&_connection)
                 .expect("E");
@@ -4062,59 +4062,59 @@ impl Item {
         }
         return Vec::new();
     }
-    pub fn get_open_tech_categories(&self, types: i16) -> Vec<TechCategories> {
+    pub fn get_open_web_services(&self, types: i16) -> Vec<WebService> {
         // получаем открытые тех.категории элемента
         use schema::{
-            tech_categories_items::dsl::tech_categories_items,
-            tech_categories::dsl::tech_categories,
+            web_services_items::dsl::web_services_items,
+            web_services::dsl::web_services,
         };
 
         let _connection = establish_connection();
-        let ids = tech_categories_items
-            .filter(schema::tech_categories_items::item_id.eq(&self.id))
-            .filter(schema::tech_categories_items::types.eq(types))
-            .filter(schema::tech_categories_items::is_active.eq(1))
-            .select(schema::tech_categories_items::category_id)
+        let ids = web_services_items
+            .filter(schema::web_services_items::item_id.eq(&self.id))
+            .filter(schema::web_services_items::types.eq(types))
+            .filter(schema::web_services_items::is_active.eq(1))
+            .select(schema::web_services_items::category_id)
             .load::<i32>(&_connection)
             .expect("E");
 
-        return tech_categories
-            .filter(schema::tech_categories::id.eq_any(ids))
-            .order(schema::tech_categories::position.desc())
-            .load::<TechCategories>(&_connection)
+        return web_services
+            .filter(schema::web_services::id.eq_any(ids))
+            .order(schema::web_services::position.desc())
+            .load::<WebService>(&_connection)
             .expect("E");
     }
-    pub fn get_close_tech_categories(&self, types: i16) -> Vec<TechCategories> {
+    pub fn get_close_web_services(&self, types: i16) -> Vec<WebService> {
         // получаем закрытые тех.категории элемента
         use schema::{
-            tech_categories_items::dsl::tech_categories_items,
-            tech_categories::dsl::tech_categories,
+            web_services_items::dsl::web_services_items,
+            web_services::dsl::web_services,
         };
 
         let _connection = establish_connection();
-        let ids = tech_categories_items
-            .filter(schema::tech_categories_items::item_id.eq(&self.id))
-            .filter(schema::tech_categories_items::types.eq(types))
-            .filter(schema::tech_categories_items::is_active.eq(2))
-            .select(schema::tech_categories_items::category_id)
+        let ids = web_services_items
+            .filter(schema::web_services_items::item_id.eq(&self.id))
+            .filter(schema::web_services_items::types.eq(types))
+            .filter(schema::web_services_items::is_active.eq(2))
+            .select(schema::web_services_items::category_id)
             .load::<i32>(&_connection)
             .expect("E");
 
-        return tech_categories
-            .filter(schema::tech_categories::id.eq_any(ids))
-            .order(schema::tech_categories::position.desc())
-            .load::<TechCategories>(&_connection)
+        return web_services
+            .filter(schema::web_services::id.eq_any(ids))
+            .order(schema::web_services::position.desc())
+            .load::<WebService>(&_connection)
             .expect("E");
     }
-    pub fn get_close_tech_cats_ids(&self, types: i16) -> Vec<i32> {
-        use schema::tech_categories_items::dsl::tech_categories_items;
+    pub fn get_close_web_services_ids(&self, types: i16) -> Vec<i32> {
+        use schema::web_services_items::dsl::web_services_items;
 
         let _connection = establish_connection();
-        return tech_categories_items
-            .filter(schema::tech_categories_items::item_id.eq(&self.id))
-            .filter(schema::tech_categories_items::types.eq(types))
-            .filter(schema::tech_categories_items::is_active.eq(2))
-            .select(schema::tech_categories_items::category_id)
+        return web_services_items
+            .filter(schema::web_services_items::item_id.eq(&self.id))
+            .filter(schema::web_services_items::types.eq(types))
+            .filter(schema::web_services_items::is_active.eq(2))
+            .select(schema::web_services_items::category_id)
             .load::<i32>(&_connection)
             .expect("E");
     }
