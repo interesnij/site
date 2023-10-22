@@ -271,19 +271,19 @@ pub async fn update_money_rate() -> impl Responder {
     let _request = reqwest::get("https://www.cbr-xml-daily.ru/latest.js").await.expect("E.");
     let new_request = _request.text().await.unwrap();
     let request200: RateData = serde_json::from_str(&new_request).unwrap();
-    let rates = request200.rates;
-    web_local_storage_api::set_item("USD", &rates.USD.to_string());
-    web_local_storage_api::set_item("EUR", &rates.EUR.to_string());
-    web_local_storage_api::set_item("GBP", &rates.GBP.to_string());
-    web_local_storage_api::set_item("BYN", &rates.BYN.to_string());
-    web_local_storage_api::set_item("GEL", &rates.GEL.to_string());
-    web_local_storage_api::set_item("JPY", &rates.JPY.to_string());
-    web_local_storage_api::set_item("CHF", &rates.CHF.to_string());
-    web_local_storage_api::set_item("TRY", &rates.TRY.to_string());
-    web_local_storage_api::set_item("PLN", &rates.PLN.to_string());
-    web_local_storage_api::set_item("CNY", &rates.CNY.to_string());
-    web_local_storage_api::set_item("CAD", &rates.CAD.to_string());
-    web_local_storage_api::set_item("KZT", &rates.KZT.to_string());
-    web_local_storage_api::set_item("INR", &rates.INR.to_string());
+    let rates = request200.rates; 
+    let _a = web_local_storage_api::set_item("USD", &rates.USD.to_string());
+    let _a = web_local_storage_api::set_item("EUR", &rates.EUR.to_string());
+    let _a = web_local_storage_api::set_item("GBP", &rates.GBP.to_string());
+    let _a = web_local_storage_api::set_item("BYN", &rates.BYN.to_string());
+    let _a = web_local_storage_api::set_item("GEL", &rates.GEL.to_string());
+    let _a = web_local_storage_api::set_item("JPY", &rates.JPY.to_string());
+    let _a = web_local_storage_api::set_item("CHF", &rates.CHF.to_string());
+    let _a = web_local_storage_api::set_item("TRY", &rates.TRY.to_string());
+    let _a = web_local_storage_api::set_item("PLN", &rates.PLN.to_string());
+    let _a = web_local_storage_api::set_item("CNY", &rates.CNY.to_string());
+    let _a = web_local_storage_api::set_item("CAD", &rates.CAD.to_string());
+    let _a = web_local_storage_api::set_item("KZT", &rates.KZT.to_string());
+    let _a = web_local_storage_api::set_item("INR", &rates.INR.to_string());
     HttpResponse::Ok()
 }

@@ -805,31 +805,103 @@ pub fn check_last_currencies() -> () {
     let usd_adder = web_local_storage_api::get_item("usd_adder").is_ok();
     if !usd_ratio || !usd_adder {
         let (ratio, adder) = PriceCorrect::get_info_with_currency("USD".to_string());
-        web_local_storage_api::set_item("usd_ratio", &ratio.to_string());
-        web_local_storage_api::set_item("usd_adder", &adder.to_string());
+        let _a = web_local_storage_api::set_item("usd_ratio", &ratio.to_string());
+        let _a = web_local_storage_api::set_item("usd_adder", &adder.to_string());
     }
+
     let eur_ratio = web_local_storage_api::get_item("eur_ratio").is_ok();
     let eur_adder = web_local_storage_api::get_item("eur_adder").is_ok();
+    if !eur_ratio || !eur_adder {
+        let (ratio, adder) = PriceCorrect::get_info_with_currency("EUR".to_string());
+        let _a = web_local_storage_api::set_item("eur_ratio", &ratio.to_string());
+        let _a = web_local_storage_api::set_item("eur_adder", &adder.to_string());
+    }
+
     let gbr_ratio = web_local_storage_api::get_item("gbr_ratio").is_ok();
     let gbr_adder = web_local_storage_api::get_item("gbr_adder").is_ok();
+    if !gbr_ratio || !gbr_adder {
+        let (ratio, adder) = PriceCorrect::get_info_with_currency("GBR".to_string());
+        let _a = web_local_storage_api::set_item("gbr_ratio", &ratio.to_string());
+        let _a = web_local_storage_api::set_item("gbr_adder", &adder.to_string());
+    }
+
     let byn_ratio = web_local_storage_api::get_item("byn_ratio").is_ok();
     let byn_adder = web_local_storage_api::get_item("byn_adder").is_ok();
+    if !byn_ratio || !byn_adder {
+        let (ratio, adder) = PriceCorrect::get_info_with_currency("BYN".to_string());
+        let _a = web_local_storage_api::set_item("byn_ratio", &ratio.to_string());
+        let _a = web_local_storage_api::set_item("byn_adder", &adder.to_string());
+    }
+
     let gel_ratio = web_local_storage_api::get_item("gel_ratio").is_ok();
     let gel_adder = web_local_storage_api::get_item("gel_adder").is_ok();
+    if !gel_ratio || !gel_adder {
+        let (ratio, adder) = PriceCorrect::get_info_with_currency("GEL".to_string());
+        let _a = web_local_storage_api::set_item("gel_ratio", &ratio.to_string());
+        let _a = web_local_storage_api::set_item("gel_adder", &adder.to_string());
+    }
+
     let jpy_ratio = web_local_storage_api::get_item("jpy_ratio").is_ok();
     let jpy_adder = web_local_storage_api::get_item("jpy_adder").is_ok();
+    if !jpy_ratio || !jpy_adder {
+        let (ratio, adder) = PriceCorrect::get_info_with_currency("JPY".to_string());
+        let _a = web_local_storage_api::set_item("jpy_ratio", &ratio.to_string());
+        let _a = web_local_storage_api::set_item("jpy_adder", &adder.to_string());
+    }
+
     let chf_ratio = web_local_storage_api::get_item("chf_ratio").is_ok();
     let chf_adder = web_local_storage_api::get_item("chf_adder").is_ok();
+    if !chf_ratio || !chf_adder {
+        let (ratio, adder) = PriceCorrect::get_info_with_currency("CHF".to_string());
+        let _a = web_local_storage_api::set_item("chf_ratio", &ratio.to_string());
+        let _a = web_local_storage_api::set_item("chf_adder", &adder.to_string());
+    }
+
     let try_ratio = web_local_storage_api::get_item("try_ratio").is_ok();
     let try_adder = web_local_storage_api::get_item("try_adder").is_ok();
+    if !try_ratio || !try_adder {
+        let (ratio, adder) = PriceCorrect::get_info_with_currency("TRY".to_string());
+        let _a = web_local_storage_api::set_item("try_ratio", &ratio.to_string());
+        let _a = web_local_storage_api::set_item("try_adder", &adder.to_string());
+    }
+
     let pln_ratio = web_local_storage_api::get_item("pln_ratio").is_ok();
     let pln_adder = web_local_storage_api::get_item("pln_adder").is_ok();
+    if !pln_ratio || !pln_adder {
+        let (ratio, adder) = PriceCorrect::get_info_with_currency("PLN".to_string());
+        let _a = web_local_storage_api::set_item("pln_ratio", &ratio.to_string());
+        let _a = web_local_storage_api::set_item("pln_adder", &adder.to_string());
+    }
+
     let cny_ratio = web_local_storage_api::get_item("cny_ratio").is_ok();
     let cny_adder = web_local_storage_api::get_item("cny_adder").is_ok();
+    if !cny_ratio || !cny_adder {
+        let (ratio, adder) = PriceCorrect::get_info_with_currency("CNY".to_string());
+        let _a = web_local_storage_api::set_item("cny_ratio", &ratio.to_string());
+        let _a = web_local_storage_api::set_item("cny_adder", &adder.to_string());
+    }
+
     let cad_ratio = web_local_storage_api::get_item("cad_ratio").is_ok();
     let cad_adder = web_local_storage_api::get_item("cad_adder").is_ok();
+    if !cad_ratio || !cad_adder {
+        let (ratio, adder) = PriceCorrect::get_info_with_currency("CAD".to_string());
+        let _a = web_local_storage_api::set_item("cad_ratio", &ratio.to_string());
+        let _a = web_local_storage_api::set_item("cad_adder", &adder.to_string());
+    }
+
     let kzt_ratio = web_local_storage_api::get_item("kzt_ratio").is_ok();
     let kzt_adder = web_local_storage_api::get_item("kzt_adder").is_ok();
+    if !kzt_ratio || !kzt_adder {
+        let (ratio, adder) = PriceCorrect::get_info_with_currency("KZT".to_string());
+        let _a = web_local_storage_api::set_item("kzt_ratio", &ratio.to_string());
+        let _a = web_local_storage_api::set_item("kzt_adder", &adder.to_string());
+    }
+
     let inr_ratio = web_local_storage_api::get_item("inr_ratio").is_ok();
     let inr_adder = web_local_storage_api::get_item("inr_adder").is_ok();
+    if !inr_ratio || !inr_adder {
+        let (ratio, adder) = PriceCorrect::get_info_with_currency("INR".to_string());
+        let _a = web_local_storage_api::set_item("inr_ratio", &ratio.to_string());
+        let _a = web_local_storage_api::set_item("inr_adder", &adder.to_string());
+    }
 }
