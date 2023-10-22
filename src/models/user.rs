@@ -4,6 +4,7 @@ use crate::schema::{
     cookie_users,
     cookie_stats,
     stat_pages,
+    price_corrects,
 };
 use crate::diesel::{
     Queryable,
@@ -454,7 +455,7 @@ impl CookieStat {
             title:    p_title,
             height:   p_height,
             seconds:  p_seconds,
-            created:  chrono::Local::now().naive_utc() + Duration::hours(3),
+            created:  chrono::Local::now().naive_utc() + chrono::Duration::hours(3),
             template: _t,
         };
         let new = diesel::insert_into(schema::cookie_stats::table)
@@ -604,7 +605,7 @@ impl PriceCorrect {
             currency: currency,
             ratio:    ratio,
             adder:    adder,
-            created:  chrono::Local::now().naive_utc() + Duration::hours(3),
+            created:  chrono::Local::now().naive_utc() + chrono::Duration::hours(3),
         };
         diesel::insert_into(schema::price_corrects::table)
             .values(&form)

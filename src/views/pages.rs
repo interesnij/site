@@ -596,7 +596,7 @@ pub async fn info_page(conn: ConnectionInfo, req: HttpRequest, session: Session)
                 stat:           StatPage,
                 template_types: i16,
                 linguage:       i16,
-                currency:       c,
+                currency:       String,
                 title:          String,
                 description:    String,
                 link:           String,
