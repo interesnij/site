@@ -247,17 +247,18 @@ pub async fn change_c(req: HttpRequest, mut payload: Multipart) -> impl Responde
 #[derive(Debug, Deserialize)] 
 pub struct RateData {
     pub rates: Rates,
-}
+}  
 
 #[derive(Debug, Deserialize)] 
+#[serde(rename_all = "camelCase")]
 pub struct Rates {
-    pub AUD: String,
+    pub aud: String,
 }
 
 pub async fn update_money_rate() -> impl Responder {
     let _request = reqwest::get("https://www.cbr-xml-daily.ru/latest.js").await.expect("E.");
     let new_request = _request.text().await.unwrap();
-    println!("request {:?}", new_request);
+    //println!("request {:?}", new_request);
     let request200: RateData = serde_json::from_str(&new_request).unwrap();
     println!("rub {:?}", request200.rates);
     HttpResponse::Ok()
