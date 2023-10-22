@@ -285,5 +285,6 @@ pub async fn update_money_rate() -> impl Responder {
     let _a = web_local_storage_api::set_item("CAD", &rates.CAD.to_string());
     let _a = web_local_storage_api::set_item("KZT", &rates.KZT.to_string());
     let _a = web_local_storage_api::set_item("INR", &rates.INR.to_string());
+    let _a = web_local_storage_api::set_item("RUB", &"1".to_string());
     HttpResponse::Ok()
 }

@@ -18,6 +18,7 @@
     <div class="container relative">
       <% if stores_count > 0 { %>
       <section class="page-section">
+      <% let (rate, ratio, adder) = crate::utils::get_price_rate_ratio_adder(currency) ;%>
           <div class="container relative">
               <h5 class="section-title font-alt align-left">
                   <%= __list %> (<%= stores_count %>)

@@ -913,6 +913,66 @@ pub fn get_price_rate_ratio_adder(currency: &String) -> (f64, f64, i32) {
             web_local_storage_api::get_item("usd_ratio").expect("E.").unwrap().parse().unwrap(),
             web_local_storage_api::get_item("usd_adder").expect("E.").unwrap().parse().unwrap()
         )},
+        "EUR" => {(
+            web_local_storage_api::get_item("EUR").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("eur_ratio").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("eur_adder").expect("E.").unwrap().parse().unwrap()
+        )},
+        "GBP" => {(
+            web_local_storage_api::get_item("GBP").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("gbr_ratio").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("gbr_adder").expect("E.").unwrap().parse().unwrap()
+        )},
+        "BYN" => {(
+            web_local_storage_api::get_item("BYN").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("byn_ratio").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("byn_adder").expect("E.").unwrap().parse().unwrap()
+        )},
+        "GEL" => {(
+            web_local_storage_api::get_item("GEL").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("gel_ratio").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("gel_adder").expect("E.").unwrap().parse().unwrap()
+        )},
+        "JPY" => {(
+            web_local_storage_api::get_item("JPY").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("jpy_ratio").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("jpy_adder").expect("E.").unwrap().parse().unwrap()
+        )},
+        "CHF" => {(
+            web_local_storage_api::get_item("CHF").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("chf_ratio").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("chf_adder").expect("E.").unwrap().parse().unwrap()
+        )},
+        "TRY" => {(
+            web_local_storage_api::get_item("TRY").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("try_ratio").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("try_adder").expect("E.").unwrap().parse().unwrap()
+        )},
+        "PLN" => {(
+            web_local_storage_api::get_item("PLN").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("pln_ratio").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("pln_adder").expect("E.").unwrap().parse().unwrap()
+        )},
+        "CNY" => {(
+            web_local_storage_api::get_item("CNY").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("cny_ratio").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("cny_adder").expect("E.").unwrap().parse().unwrap()
+        )},
+        "CAD" => {(
+            web_local_storage_api::get_item("CAD").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("cad_ratio").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("cad_adder").expect("E.").unwrap().parse().unwrap()
+        )},
+        "KZT" => {(
+            web_local_storage_api::get_item("KZT").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("kzt_ratio").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("kzt_adder").expect("E.").unwrap().parse().unwrap()
+        )},
+        "INR" => {(
+            web_local_storage_api::get_item("INR").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("inr_ratio").expect("E.").unwrap().parse().unwrap(),
+            web_local_storage_api::get_item("inr_adder").expect("E.").unwrap().parse().unwrap()
+        )},
         _ => (0.0,0.0,0)
     };
 }

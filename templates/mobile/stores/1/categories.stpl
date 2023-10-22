@@ -16,6 +16,8 @@
     </div>
 </section>
 
+<% let (rate, ratio, adder) = crate::utils::get_price_rate_ratio_adder(currency) ;%>
+
 <section class="page-section" style="padding-top: 45px;">
     <div class="container relative">
         <% for category in cats.iter() { %>
