@@ -270,13 +270,12 @@ pub struct Rates {
 pub async fn update_money_rate() -> impl Responder {
     let _request = reqwest::get("https://www.cbr-xml-daily.ru/latest.js").await.expect("E.");
     let new_request = _request.text().await.unwrap();
-    //println!("request {:?}", new_request);
     let request200: RateData = serde_json::from_str(&new_request).unwrap();
     let rates = request200.rates;
-    println!("USD {:?}", rates.USD.round(2));
-    println!("EUR {:?}", rates.EUR.round(2));
-    web_local_storage_api::set_item("USD", rates.USD.as_str());
-    web_local_storage_api::set_item("EUR", rates.EUR.as_str());
+    let _usd: &str = rates.USD.as_str();
+    let _eur: &str = rates.EUR.as_str();
+    web_local_storage_api::set_item("USD", _usd);
+    web_local_storage_api::set_item("EUR", _eur);
 
     HttpResponse::Ok()
 }
