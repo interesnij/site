@@ -272,8 +272,8 @@ pub async fn update_money_rate() -> impl Responder {
     let new_request = _request.text().await.unwrap();
     let request200: RateData = serde_json::from_str(&new_request).unwrap();
     let rates = request200.rates;
-    let _usd: &str = rates.USD.as_str();
-    let _eur: &str = rates.EUR.as_str();
+    let _usd: &str = rates.USD.to_string().as_str();
+    let _eur: &str = rates.EUR.to_string().as_str();
     web_local_storage_api::set_item("USD", _usd);
     web_local_storage_api::set_item("EUR", _eur);
 
