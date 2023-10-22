@@ -250,7 +250,7 @@ pub struct RateData {
 }  
 
 #[derive(Debug, Deserialize)] 
-#[serde(rename_all = "camelCase")]
+//#[serde(rename_all = "camelCase")]
 pub struct Rates {
     pub AUD: String,
 }
