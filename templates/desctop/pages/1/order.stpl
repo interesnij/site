@@ -56,7 +56,7 @@
 
                 <% let object_serve_ids = object.get_serves_ids(); %>
 
-                <% for t_category in object.get_open_web_service().iter() { %>
+                <% for t_category in object.get_open_web_services().iter() { %>
                   <% let s_cats = t_category.get_serve_categories(); %>
 
                 <section class="banner_block mb-20 mt-20 border open_cat" style="width:100%;">

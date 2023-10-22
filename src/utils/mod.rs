@@ -798,8 +798,8 @@ pub fn get_cookie_user_id(req: &HttpRequest) -> i32 {
     user_id
 }  
  
-pub fn get_c_user_lt(req: &HttpRequest) -> (i16, i16) {
-    return CookieUser::get_res_lt(get_cookie_user_id(req)).expect("E.");
+pub fn get_c_user_ltc(req: &HttpRequest) -> (i16, i16, String) {
+    return CookieUser::get_res_ltc(get_cookie_user_id(req)).expect("E.");
 } 
 pub fn get_c_user_l(req: &HttpRequest) -> i16 {
     return CookieUser::get_res_l(get_cookie_user_id(req)).expect("E.");

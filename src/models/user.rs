@@ -581,6 +581,7 @@ impl PriceCorrect {
         return price_corrects
             .filter(schema::price_corrects::currency.eq(currency))
             .order(schema::price_corrects::created.desc())
+            
             .first::<(f64, i32)>(&_connection)
             .expect("E");
     }

@@ -234,7 +234,7 @@ pub async fn logout_page(req: HttpRequest, session: Session) -> actix_web::Resul
     else {
         let _stat = crate::models::StatPage::get_or_create(8);
         session.clear();
-        let (l, t) = crate::utils::get_c_user_lt(&req);
+        let (l, t, c) = crate::utils::get_c_user_ltc(&req);
 
         let title: String;
         let description: String;
