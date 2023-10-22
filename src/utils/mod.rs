@@ -804,7 +804,7 @@ pub fn check_last_currencies() -> () {
     let usd_ratio = web_local_storage_api::get_item("usd_ratio").is_ok();
     let usd_adder = web_local_storage_api::get_item("usd_adder").is_ok();
     if !usd_ratio || !usd_adder {
-        let (ratio, adder) = PriceCorrect::get_info_with_currency("USD");
+        let (ratio, adder) = PriceCorrect::get_info_with_currency("USD".to_string());
         web_local_storage_api::set_item("usd_ratio", &ratio.to_string());
         web_local_storage_api::set_item("usd_adder", &adder.to_string());
     }
