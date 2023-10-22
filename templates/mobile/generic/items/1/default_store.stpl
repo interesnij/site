@@ -8,7 +8,7 @@
           <% if !object.is_active { %>
             <span style="color: red">🛇</span>
           <% } %>
-          <%= object.title %> (<%= object.price * rate * ratio + adder * rate %>)
+          <%= object.title %> (<%= object.price as f64 * rate * ratio + adder as f64 * rate %>)
         </a>
         <span>
           <p><% if object.description.is_some() { %>
