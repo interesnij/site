@@ -123,7 +123,7 @@ CREATE TABLE cookie_users (
     device     SMALLINT NOT NULL,     -- комп - смартфон - планшет
     linguage   SMALLINT NOT NULL,     -- язык
     template   SMALLINT NOT NULL,     -- шаблон
-    currency   VARCHAR(10),           -- валюта RUB, USD, EUR и тд
+    currency   VARCHAR(10)  NOT NULL, -- валюта RUB, USD, EUR и тд
     city_ru    VARCHAR(150),          -- город по русски
     city_en    VARCHAR(150),          -- город по английски
     region_ru  VARCHAR(150),          -- регион по русски
