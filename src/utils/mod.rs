@@ -629,7 +629,7 @@ async fn create_c_user_return_ltc(conn: ConnectionInfo, req: &HttpRequest) -> (i
             device:     device,
             linguage:   linguage,
             template:   1,
-            currency:   currency,
+            currency:   currency.clone(),
             city_ru:    Some(location200.city.name_ru),
             city_en:    Some(location200.city.name_en),
             region_ru:  Some(location200.region.name_ru),
@@ -644,10 +644,10 @@ async fn create_c_user_return_ltc(conn: ConnectionInfo, req: &HttpRequest) -> (i
             .values(&_user)
             .execute(&_connection)
             .expect("Error.");
-    return (linguage, 1);
+    return (linguage, 1, currency);
 }
 
-async fn create_c_user_return_lti(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16, i32) {
+async fn create_c_user_return_ltic(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16, i32, String) {
     let device: i16;
     if is_desctop(&req) {
         device = 1;
@@ -721,7 +721,7 @@ async fn create_c_user_return_lti(conn: ConnectionInfo, req: &HttpRequest) -> (i
             device:     device,
             linguage:   linguage,
             template:   1,
-            currency:   currency,
+            currency:   currency.clone(),
             city_ru:    Some(location200.city.name_ru),
             city_en:    Some(location200.city.name_en),
             region_ru:  Some(location200.region.name_ru),
@@ -736,7 +736,7 @@ async fn create_c_user_return_lti(conn: ConnectionInfo, req: &HttpRequest) -> (i
             .values(&_user)
             .get_result::<CookieUser>(&_connection)
             .expect("Error.");
-    return (linguage, 1, _new_user.id);
+    return (linguage, 1, _new_user.id, currency);
 }
 
 pub async fn get_or_create_c_user_with_id_return_object(id: i32, conn: ConnectionInfo, req: &HttpRequest) -> CookieUser {
@@ -769,13 +769,13 @@ pub async fn get_or_create_c_user_return_ltc(conn: ConnectionInfo, req: &HttpReq
         return create_c_user_return_ltc(conn, req).await;
     }
 }
-pub async fn get_or_create_c_user_return_lti(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16, i32) {
-    let res = CookieUser::get_res_lti(get_cookie_user_id(req));
+pub async fn get_or_create_c_user_return_ltic(conn: ConnectionInfo, req: &HttpRequest) -> (i16, i16, i32, String) {
+    let res = CookieUser::get_res_ltic(get_cookie_user_id(req));
     if res.is_ok() {
         return res.expect("E.");
     }
     else {
-        return create_c_user_return_lti(conn, req).await;
+        return create_c_user_return_ltic(conn, req).await;
     }
 }
 

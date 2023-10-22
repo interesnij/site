@@ -498,7 +498,7 @@ pub async fn string_form(payload: &mut Multipart) -> StringForm {
             while let Some(chunk) = field.next().await {
                 let data = chunk.expect("split_payload err chunk");
                 if let Ok(s) = str::from_utf8(&data) {
-                    form.string = s;
+                    form.string = s.to_string();
                 }
             }
         }

@@ -256,4 +256,5 @@ pub async fn update_money_rate() -> impl Responder {
     println!("request {:?}", new_request);
     let request200: RateData = serde_json::from_str(&new_request).unwrap();
     println!("rub {:?}", request200.rates);
+    Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
 }

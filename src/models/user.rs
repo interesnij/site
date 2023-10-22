@@ -171,16 +171,17 @@ impl CookieUser {
             ))
             .first::<(i16, i16, String)>(&_connection)?);
     }
-    pub fn get_res_lti(user_id: i32) -> Result<(i16, i16, i32), Error> {
+    pub fn get_res_ltic(user_id: i32) -> Result<(i16, i16, i32, String), Error> {
         let _connection = establish_connection();
         return Ok(schema::cookie_users::table
             .filter(schema::cookie_users::id.eq(user_id))
             .select((
                 schema::cookie_users::linguage, 
                 schema::cookie_users::template,
-                schema::cookie_users::id
+                schema::cookie_users::id,
+                schema::cookie_users::currency,
             ))
-            .first::<(i16, i16, i32)>(&_connection)?);
+            .first::<(i16, i16, i32, String)>(&_connection)?);
     }
     pub fn get_res_l(user_id: i32) -> Result<i16, Error> {
         let _connection = establish_connection();
