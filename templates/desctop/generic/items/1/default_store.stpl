@@ -12,7 +12,7 @@
       </div>
     </a>
     <div class="intro-label">
-      <span class="label label-danger bg-red"><%= object.price * rate * ratio + adder * rate %></span> 
+      <span class="label label-danger bg-red"><%= object.price as f64 * rate * ratio + adder * rate %></span> 
     </div>
   </div>
   <div class="post-prev-title font-alt align-center">

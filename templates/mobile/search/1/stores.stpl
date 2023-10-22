@@ -28,7 +28,7 @@
     <div class="search_section">
       <% if stores_count > 0 { %>
       <section class="page-section">
-      <% let (rate, ratio, adder) = crate::utils::get_price_rate_ratio_adder(currency) ;%>
+      <% let (rate, ratio, adder) = crate::utils::get_price_rate_ratio_adder(&currency) ;%>
           <div class="container relative">
               <div class="row multi-columns-row is_paginate">
                 <% for object in stores_list.iter() { %>

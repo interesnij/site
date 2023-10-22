@@ -14,7 +14,7 @@
                 </div>
     </div>
 </section>
-<% let (rate, ratio, adder) = crate::utils::get_price_rate_ratio_adder(currency) ;%>
+<% let (rate, ratio, adder) = crate::utils::get_price_rate_ratio_adder(&currency) ;%>
 
 <section class="page-section">
     <div class="container relative">
