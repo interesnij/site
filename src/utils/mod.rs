@@ -795,4 +795,41 @@ pub fn get_c_user_ltc(req: &HttpRequest) -> (i16, i16, String) {
 } 
 pub fn get_c_user_l(req: &HttpRequest) -> i16 {
     return CookieUser::get_res_l(get_cookie_user_id(req)).expect("E.");
-} 
+}
+
+
+pub fn check_last_currencies() -> () {
+    use crate::models::PriceCorrect;
+
+    let usd_ratio = web_local_storage_api::get_item("usd_ratio").is_some();
+    let usd_adder = web_local_storage_api::get_item("usd_adder").is_some();
+    if !usd_ratio || !usd_adder {
+        let (ratio, adder) = PriceCorrect::get_info_with_currency("USD");
+        web_local_storage_api::set_item("usd_ratio", ratio.to_string());
+        web_local_storage_api::set_item("usd_adder", adder.to_string());
+    }
+    let eur_ratio = web_local_storage_api::get_item("eur_ratio").is_some();
+    let eur_adder = web_local_storage_api::get_item("eur_adder").is_some();
+    let gbr_ratio = web_local_storage_api::get_item("gbr_ratio").is_some();
+    let gbr_adder = web_local_storage_api::get_item("gbr_adder").is_some();
+    let byn_ratio = web_local_storage_api::get_item("byn_ratio").is_some();
+    let byn_adder = web_local_storage_api::get_item("byn_adder").is_some();
+    let gel_ratio = web_local_storage_api::get_item("gel_ratio").is_some();
+    let gel_adder = web_local_storage_api::get_item("gel_adder").is_some();
+    let jpy_ratio = web_local_storage_api::get_item("jpy_ratio").is_some();
+    let jpy_adder = web_local_storage_api::get_item("jpy_adder").is_some();
+    let chf_ratio = web_local_storage_api::get_item("chf_ratio").is_some();
+    let chf_adder = web_local_storage_api::get_item("chf_adder").is_some();
+    let try_ratio = web_local_storage_api::get_item("try_ratio").is_some();
+    let try_adder = web_local_storage_api::get_item("try_adder").is_some();
+    let pln_ratio = web_local_storage_api::get_item("pln_ratio").is_some();
+    let pln_adder = web_local_storage_api::get_item("pln_adder").is_some();
+    let cny_ratio = web_local_storage_api::get_item("cny_ratio").is_some();
+    let cny_adder = web_local_storage_api::get_item("cny_adder").is_some();
+    let cad_ratio = web_local_storage_api::get_item("cad_ratio").is_some();
+    let cad_adder = web_local_storage_api::get_item("cad_adder").is_some();
+    let kzt_ratio = web_local_storage_api::get_item("kzt_ratio").is_some();
+    let kzt_adder = web_local_storage_api::get_item("kzt_adder").is_some();
+    let inr_ratio = web_local_storage_api::get_item("inr_ratio").is_some();
+    let inr_adder = web_local_storage_api::get_item("inr_adder").is_some();
+}

@@ -47,6 +47,7 @@ async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(env_logger::Env::default().default_filter_or("debug"));
     //let server = websocket::Server::new().start();
     let secret_key = Key::generate();
+    crate::utils::check_last_currencies();
 
     HttpServer::new(move || {
         let _files = Files::new("/static", "static/").show_files_listing();
