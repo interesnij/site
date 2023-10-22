@@ -909,9 +909,9 @@ pub fn check_last_currencies() -> () {
 pub fn get_price_rate_ratio_adder(currency: &String) -> (f64, f64, i32) {
     return match currency.as_str() {
         "USD" => {(
-            web_local_storage_api::get_item("USD").expect("E."),
-            web_local_storage_api::get_item("usd_ratio").expect("E."),
-            web_local_storage_api::get_item("usd_adder").expect("E.")
+            web_local_storage_api::get_item("USD").expect("E.").unwrap(),
+            web_local_storage_api::get_item("usd_ratio").expect("E.").unwrap(),
+            web_local_storage_api::get_item("usd_adder").expect("E.").unwrap()
         )},
         _ => (0.0,0.0,0)
     };
