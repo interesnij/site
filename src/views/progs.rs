@@ -252,7 +252,7 @@ pub struct RateData {
 #[derive(Debug, Deserialize)] 
 //#[serde(rename_all = "camelCase")]
 pub struct Rates {
-    pub AUD: String,
+    pub AUD: f64,
 }
 
 pub async fn update_money_rate() -> impl Responder {
