@@ -275,8 +275,8 @@ pub async fn update_money_rate() -> impl Responder {
     let rates = request200.rates;
     println!("USD {:?}", round(rates.USD, 2));
     println!("EUR {:?}", round(rates.EUR, 2));
-    web_local_storage_api::set_item("USD", rates.USD)?;
-    web_local_storage_api::set_item("EUR", rates.EUR)?;
+    web_local_storage_api::set_item("USD", rates.USD as &str);
+    web_local_storage_api::set_item("EUR", rates.EUR as &str);
 
     HttpResponse::Ok()
 }
