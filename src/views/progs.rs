@@ -252,7 +252,19 @@ pub struct RateData {
 #[derive(Debug, Deserialize)] 
 //#[serde(rename_all = "camelCase")]
 pub struct Rates {
-    pub AUD: f64,
+    pub USD: f64,
+    pub EUR: f64,
+    pub GBP: f64,
+    pub BYN: f64,
+    pub GEL: f64,
+    pub JPY: f64,
+    pub CHF: f64,
+    pub TRY: f64,
+    pub PLN: f64,
+    pub CNY: f64,
+    pub CAD: f64,
+    pub KZT: f64,
+    pub INR: f64,
 }
 
 pub async fn update_money_rate() -> impl Responder {
@@ -260,6 +272,8 @@ pub async fn update_money_rate() -> impl Responder {
     let new_request = _request.text().await.unwrap();
     //println!("request {:?}", new_request);
     let request200: RateData = serde_json::from_str(&new_request).unwrap();
-    println!("AUD {:?}", request200.rates.AUD);
+    println!("USD {:?}", request200.rates.USD as u8);
+    println!("EUR {:?}", request200.rates.EUR as u8);
+
     HttpResponse::Ok()
 }
