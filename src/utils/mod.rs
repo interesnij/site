@@ -788,11 +788,11 @@ pub fn get_cookie_user_id(req: &HttpRequest) -> i32 {
         }
     } 
     user_id
-}  
+}
  
 pub fn get_c_user_ltc(req: &HttpRequest) -> (i16, i16, String) {
     return CookieUser::get_res_ltc(get_cookie_user_id(req)).expect("E.");
-} 
+}
 pub fn get_c_user_l(req: &HttpRequest) -> i16 {
     return CookieUser::get_res_l(get_cookie_user_id(req)).expect("E.");
 }
@@ -904,4 +904,15 @@ pub fn check_last_currencies() -> () {
         let _a = web_local_storage_api::set_item("inr_ratio", &ratio.to_string());
         let _a = web_local_storage_api::set_item("inr_adder", &adder.to_string());
     }
+}
+
+pub fn get_price_rate_ratio_adder(currency: &String) -> (f64, f64, i32) {
+    return match currency.as_str() {
+        "USD" => {(
+            web_local_storage_api::get_item("USD").expect("E."),
+            web_local_storage_api::get_item("usd_ratio").expect("E."),
+            web_local_storage_api::get_item("usd_adder").expect("E.")
+        )},
+        _ => (0.0,0.0,0)
+    };
 }
