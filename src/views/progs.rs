@@ -244,7 +244,6 @@ pub async fn change_c(req: HttpRequest, mut payload: Multipart) -> impl Responde
     HttpResponse::Ok()
 }
 
-#[derive(Debug)]
 #[derive(Debug, Deserialize)] 
 pub struct RateData {
     pub rates: Rates,
