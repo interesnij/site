@@ -244,12 +244,13 @@ pub async fn change_c(req: HttpRequest, mut payload: Multipart) -> impl Responde
     HttpResponse::Ok()
 }
 
-
-#[derive(Deserialize)] 
+#[derive(Debug)]
+#[derive(Debug, Deserialize)] 
 pub struct RateData {
     pub rates: Rates,
 }
-#[derive(Deserialize)] 
+
+#[derive(Debug, Deserialize)] 
 pub struct Rates {
     pub AUD: String,
 }

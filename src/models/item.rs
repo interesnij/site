@@ -1469,7 +1469,7 @@ impl Item {
     }
     pub fn create(user_id: i32, form: crate::utils::ItemForms, l: i16) -> i16 {
         use crate::models::{
-            NewWebServiceItem,
+            NewWebServicesItem,
             NewServeItems,
             NewTagItems,
         };
@@ -1546,7 +1546,7 @@ impl Item {
         // создаем связь с тех категориями, которые будут
         // расширять списки опций, предлагая доп возможности и услуги
         for cat_id in form.close_web_services_list.into_iter() {
-            let new_cat = NewWebServiceItem {
+            let new_cat = NewWebServicesItem {
                 category_id: cat_id,
                 item_id:     _item.id,
                 types:       types,
@@ -1590,7 +1590,7 @@ impl Item {
         }
 
         for id in web_service_ids.into_iter() {
-            let new_cat = NewWebServiceItem {
+            let new_cat = NewWebServicesItem {
                 category_id: id,
                 item_id:     _item.id,
                 types:       types,

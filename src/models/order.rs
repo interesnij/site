@@ -536,7 +536,7 @@ impl OrderFile {
         }
 
         for id in web_service_ids.iter() {
-            let new_cat = NewWebServiceItem {
+            let new_cat = NewWebServicesItem {
                 category_id: *id,
                 item_id:     form.object_id,
                 types:       form.types,
