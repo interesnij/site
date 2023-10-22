@@ -28,9 +28,9 @@ pub fn serve_routes(config: &mut web::ServiceConfig) {
     config.route("/serve/{id}/", web::get().to(get_serve_page));
     config.route("/serve_categories/", web::get().to(serve_categories_page));
 
-    config.service(web::resource("/create_web_services/")
-        .route(web::get().to(create_web_services_page))
-        .route(web::post().to(create_web_services))
+    config.service(web::resource("/create_web_service/")
+        .route(web::get().to(create_web_service_page))
+        .route(web::post().to(create_web_service))
     );
     config.route("/load_serve_categories_from_level/{level}/", web::get().to(load_serve_categories_from_level));
     config.route("/load_form_from_level/{level}/", web::get().to(load_form_from_level));

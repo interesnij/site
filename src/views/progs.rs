@@ -249,6 +249,10 @@ pub async fn change_c(req: HttpRequest, mut payload: Multipart) -> impl Responde
 pub struct RateData {
     pub rates: Rates,
 }
+#[derive(Deserialize)] 
+pub struct Rates {
+    pub "AUD": String,
+}
 
 pub async fn update_money_rate() -> impl Responder {
     let _request = reqwest::get("https://www.cbr-xml-daily.ru/latest.js").await.expect("E.");

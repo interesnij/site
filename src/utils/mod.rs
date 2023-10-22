@@ -326,7 +326,6 @@ pub async fn get_private_page (
             link:           &'a String,
             template_types: i16,
             linguage:       i16,
-            currency:       String,
         }
         let body = Template {
             is_ajax:        is_ajax,
@@ -337,7 +336,6 @@ pub async fn get_private_page (
             link:           link,
             template_types: t,
             linguage:       l,
-            currency:       c,
         }
         .render_once()
         .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -354,7 +352,6 @@ pub async fn get_private_page (
             link:           &'a String,
             template_types: i16,
             linguage:       i16,
-            currency:       String,
         }
         let body = Template {
             is_ajax:        is_ajax,
@@ -364,7 +361,6 @@ pub async fn get_private_page (
             link:           link,
             template_types: t,
             linguage:       l,
-            currency:       c,
         }
         .render_once()
         .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -393,7 +389,6 @@ pub async fn get_anon_private_page (
             link:           &'a String,
             template_types: i16,
             linguage:       i16,
-            currency:       String,
         }
         let body = Template {
             is_ajax:        is_ajax,
@@ -403,7 +398,6 @@ pub async fn get_anon_private_page (
             link:           link,
             template_types: t,
             linguage:       l,
-            currency:       c,
         }
         .render_once()
         .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -420,7 +414,6 @@ pub async fn get_anon_private_page (
             link:           &'a String,
             template_types: i16,
             linguage:       i16,
-            currency:       String,
         }
         let body = Template {
             is_ajax:        is_ajax,
@@ -430,7 +423,6 @@ pub async fn get_anon_private_page (
             link:           link,
             template_types: t,
             linguage:       l,
-            currency:       c,
         }
         .render_once()
         .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
