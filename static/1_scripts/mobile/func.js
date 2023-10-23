@@ -37,7 +37,20 @@ function get_custom_design() {
   if (background != "" || background == "white_kletka") {
     color = background;
   }
-  addStyleSheets("/static/1_styles/color/" + color + ".css")
+  addStyleSheets("/static/1_styles/color/" + color + ".css");
+
+  if (document.body.querySelector(".stat_meta")) {
+    container = document.body.querySelector(".stat_meta");
+    let d_list = ["white", "dark", "old_paper", "yellow", "dark_wood"];
+    for (var i = 0; i < d_list.length; i++) {
+      if (d_list[i] == color) {
+        container.append("<a class='mn-group-title design_item underline'>" + color + "</a>&nbsp;");
+      }
+      else {
+        container.append("<a class='mn-group-title design_item pointer anon_color_change'>" + color + "</a>&nbsp;");
+      }
+    }
+  }
 };
 function check_first_load() {
   span = document.body.querySelector(".span");

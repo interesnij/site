@@ -114,12 +114,25 @@ function get_active_button() {
 };
 
 function get_custom_design() {
-  color = "white";
+  color = "white"; 
   background = getCookie("background");
   if (background != "" || background == "white_kletka") {
     color = background;
   }
-  addStyleSheets("/static/1_styles/color/" + color + ".css")
+  addStyleSheets("/static/1_styles/color/" + color + ".css");
+
+  if (document.body.querySelector(".design_container")) {
+    container = document.body.querySelector(".design_container");
+    let d_list = ["white", "dark", "old_paper", "yellow", "dark_wood"];
+    for (var i = 0; i < d_list.length; i++) {
+      if (d_list[i] == color) {
+        container.append("<li><a class='mn-group-title design_item bold'>" + color + "</a></li>");
+      }
+      else {
+        container.append("<li><a class='mn-group-title design_item pointer anon_color_change'>" + color + "</a></li>");
+      }
+    }
+  }
 };
 
 function check_first_load() {
