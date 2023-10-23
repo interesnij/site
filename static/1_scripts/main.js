@@ -928,34 +928,6 @@ on('body', 'click', '.s_7', function() {
   service_tab_action(this, ".tab_7")
 });
 
-on('body', 'click', '.anon_color_change', function() {
-  color = this.innerHTML;
-  addStyleSheets("/static/1_styles/color/" + color + ".css");
-  design_items = document.body.querySelectorAll(".design_item");
-  for (var i = 0; i < design_items.length; i++) {
-    top = document.querySelector("#top");
-    if (top.classList.contains("mobile_page")) {
-      active_class = "underline";
-    }
-    else {
-      active_class = "bold";
-    }
-
-    if (design_items[i] == color) {
-      design_items[i].classList.add(active_class);
-      design_items[i].classList.remove("anon_color_change");
-    }
-    else {
-      design_items[i].classList.add("anon_color_change");
-      design_items[i].classList.remove(active_class);
-    }
-  }
-
-  if (new_color != color) {
-    setCookie("background", new_color, 90);
-  }
-});
-
 on('body', 'click', '.this_fullscreen_hide', function() {
   close_fullscreen()
 });
