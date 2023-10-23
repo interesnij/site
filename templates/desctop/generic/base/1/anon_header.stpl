@@ -30,17 +30,6 @@
                   <ul class="clearlist">
                       <li>
                           <a href="/" class="ajax mn-has-sub folder main"><%= _home %></a>
-                          <ul class="border mn-sub">
-                            <li>
-                              <a style="cursor:default;font-weight:bold;"><%= _templates %>:</a>
-                            </li>
-                              <li>
-                                  <a style="cursor:default;" class="mn-group-title">Rhythm ✓</a>
-                              </li>
-                              <li>
-                                  <a data-t="2" class="mn-group-title change_t">Eremia</a>
-                              </li>
-                          </ul>
                       </li>
 
                       <% let (service_cats, store_cats, blog_cats, wiki_cats, work_cats, help_cats) = crate::utils::get_categories_2(linguage); %>
@@ -185,7 +174,7 @@
 
                             <li class="mn-sub-multi">
                                 <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _currency %>:</a>
-                                <% let currency_list = vec!["RUB", "USD", "EUR", "GBP", "BYN", "GEL", "JPY", "CHF", "TRY", "PLN", "CNY", "CAD", "KZT", "INR"] %>;
+                                <% let currency_list = vec!("RUB", "USD", "EUR", "GBP", "BYN", "GEL", "JPY", "CHF", "TRY", "PLN", "CNY", "CAD", "KZT", "INR") %>;
                                 <ul>
                                     <% for object in currency_list.iter() { %>
                                         <% if object.to_string() == currency { %>
