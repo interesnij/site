@@ -129,12 +129,12 @@ function create_desing_menu() {
     for (var i = 0; i < d_list.length; i++) {
       if (d_list[i] == color) {
         li = document.createElement("li");
-        li.innerHTML = "<a class='mn-group-title design_item bold'>" + color + "</a>";
+        li.innerHTML = "<a class='mn-group-title design_item bold'>" + d_list[i] + "</a>";
         container.append(li);
       }
       else {
         li = document.createElement("li");
-        li.innerHTML = "<a class='mn-group-title design_item pointer anon_color_change'>" + color + "</a>";
+        li.innerHTML = "<a class='mn-group-title design_item pointer anon_color_change'>" + d_list[i] + "</a>";
         container.append(li);
       } 
     }
