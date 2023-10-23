@@ -174,7 +174,7 @@
 
                             <li class="mn-sub-multi">
                                 <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _currency %>:</a>
-                                <% let currency_list = vec!("RUB", "USD", "EUR", "GBP", "BYN", "GEL", "JPY", "CHF", "TRY", "PLN", "CNY", "CAD", "KZT", "INR") %>;
+                                <% let currency_list = vec!("RUB", "USD", "EUR", "GBP", "BYN", "GEL", "JPY", "CHF", "TRY", "PLN", "CNY", "CAD", "KZT", "INR"); %>
                                 <ul>
                                     <% for object in currency_list.iter() { %>
                                         <% if object.to_string() == currency { %>
