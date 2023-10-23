@@ -156,8 +156,10 @@
                                             <a data-l="2" class="mn-group-title pointer change_l linguage">English</a>
                                         </li>
                                     <% } %>
+                                    <li>&nbsp;</li>
+                                    <li>&nbsp;</li>
+                                    <li>&nbsp;</li>
                                 </ul>
-                                <br /><br /><br />
                                 <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _templates %>:</a>
                                 <ul>
                                     <li>
@@ -166,8 +168,10 @@
                                     <li>
                                         <a data-l="2" class="mn-group-title pointer change_t template linguage">Eremia</a>
                                     </li>
+                                    <li>&nbsp;</li>
+                                    <li>&nbsp;</li>
+                                    <li>&nbsp;</li>
                                 </ul>
-                                <br /><br /><br />
                                 <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _design %>:</a>
                                 <ul class="design_container"></ul>
                             </li>
