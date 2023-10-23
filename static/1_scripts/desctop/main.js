@@ -345,7 +345,5 @@ on('body', 'click', '.anon_color_change', function() {
     }
   }
 
-  if (new_color != color) {
-    setCookie("background", new_color, 90);
-  }
+  setCookie("background", new_color, 90);
 });
