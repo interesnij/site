@@ -315,12 +315,13 @@ on('body', 'click', '.change_l', function() {
 
 
 on('body', 'click', '.anon_color_change', function() {
-  color = this.innerHTML;
+  _this = this;
+  color = _this.innerHTML;
   addStyleSheets("/static/1_styles/color/" + color + ".css");
-  design_items = document.body.querySelectorAll(".design_item");
+  design_items = _this.parentElement.querySelectorAll(".design_item");
   active_class = "underline";
   for (var i = 0; i < design_items.length; i++) {
-    if (design_items[i] == color) {
+    if (design_items[i].innerHTML == color) {
       design_items[i].classList.add(active_class);
       design_items[i].classList.remove("anon_color_change");
     }
