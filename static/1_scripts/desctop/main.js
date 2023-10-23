@@ -332,7 +332,7 @@ on('body', 'click', '.anon_color_change', function() {
   _this = this;
   color = _this.innerHTML;
   addStyleSheets("/static/1_styles/color/" + color + ".css");
-  design_items = _this.parentElement.querySelectorAll(".design_item");
+  design_items = _this.parentElement.parentElement.querySelectorAll(".design_item");
   active_class = "bold";
   for (var i = 0; i < design_items.length; i++) {
 
