@@ -160,7 +160,7 @@
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
 
-                                    <a class="mn-group-title" style="cursor:default;font-weight:bold;text-align: left;"><%= _templates %>:</a>
+                                    <li class="mn-group-title" style="cursor:default;font-weight:bold;text-align: left;margin-left: 15px !important"><%= _templates %>:</li>
                                     <li>
                                         <a class="template">Rhythm</a>
                                     </li>
@@ -170,7 +170,7 @@
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
-                                    <a class="mn-group-title" style="cursor:default;font-weight:bold;text-align: left;"><%= _design %>:</a>
+                                    <li class="mn-group-title" style="cursor:default;font-weight:bold;text-align: left;margin-left: 15px !important"><%= _design %>:</li>
                                 </ul>
 
                             <li class="mn-sub-multi">
