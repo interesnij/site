@@ -140,7 +140,7 @@
                         <ul class="mn-sub mn-has-multi border" style="display:none;left:auto;">
                             <li class="mn-sub-multi">
                                 <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _languages %>:</a>
-                                <ul>
+                                <ul class="design_container">
                                     <% if linguage == 2 { %> 
                                     <li>
                                         <a class="mn-group-title bold linguage">English</a>
@@ -160,7 +160,7 @@
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
 
-                                    <li style="cursor:default;font-weight:bold;"><%= _templates %>:</li>
+                                    <li style="cursor:default;font-weight:bold;text-align: left; margin-left: 15px !important;"><%= _templates %>:</li>
                                     <li>
                                         <a class="mn-group-title template">Rhythm</a>
                                     </li>
@@ -170,8 +170,7 @@
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
-                                    <li style="cursor:default;font-weight:bold;"><%= _design %>:</li>
-                                    <span class="design_container"></span>
+                                    <li style="cursor:default;font-weight:bold;text-align: left; margin-left: 15px !important;"><%= _design %>:</li>
                                     
                                 </ul>
 
