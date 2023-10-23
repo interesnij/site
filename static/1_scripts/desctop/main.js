@@ -120,7 +120,9 @@ function get_custom_design() {
     color = background;
   }
   addStyleSheets("/static/1_styles/color/" + color + ".css");
+};
 
+function create_desing_menu() {
   if (document.body.querySelector(".design_container")) {
     container = document.body.querySelector(".design_container");
     let d_list = ["white", "dark", "old_paper", "yellow", "dark_wood"];
@@ -133,7 +135,7 @@ function get_custom_design() {
       }
     }
   }
-};
+}
 
 function check_first_load() {
   span = document.body.querySelector(".span");
@@ -159,6 +161,7 @@ function check_first_load() {
           get_page_view_time(120);
           scrolled(document.body.querySelector(".span"));
           window.history.pushState ({"url":loc}, document.title, loc);
+          create_desing_menu();
       }
     }
     ajax_link.send();

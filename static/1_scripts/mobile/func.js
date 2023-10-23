@@ -31,14 +31,8 @@ function addStyleSheets(href) {
     $link.href = href;
     $head.appendChild($link)
 };
-function get_custom_design() {
-  color = "white";
-  background = getCookie("background");
-  if (background != "" || background == "white_kletka") {
-    color = background;
-  }
-  addStyleSheets("/static/1_styles/color/" + color + ".css");
 
+function create_desing_menu() {
   if (document.body.querySelector(".stat_meta")) {
     container = document.body.querySelector(".stat_meta");
     let d_list = ["white", "dark", "old_paper", "yellow", "dark_wood"];
@@ -51,6 +45,15 @@ function get_custom_design() {
       }
     }
   }
+}
+
+function get_custom_design() {
+  color = "white";
+  background = getCookie("background");
+  if (background != "" || background == "white_kletka") {
+    color = background;
+  }
+  addStyleSheets("/static/1_styles/color/" + color + ".css");
 };
 function check_first_load() {
   span = document.body.querySelector(".span");
@@ -85,7 +88,7 @@ function check_first_load() {
         get_page_view_time(120);
         get_active_button();
         scrolled(document.body.querySelector(".span"));
-
+        get_custom_design();
       }
     }
     ajax_link.send();
