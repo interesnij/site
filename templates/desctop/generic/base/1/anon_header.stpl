@@ -150,7 +150,7 @@
                                     </li>
                                     <% } else if linguage == 1 { %>
                                         <li>
-                                            <a class="mn-group-title bold linguage">Русский</a>
+                                            <a class="mn-group-title linguage">Русский</a>
                                         </li>
                                         <li>
                                             <a data-l="2" class="mn-group-title pointer change_l linguage">English</a>
@@ -159,9 +159,8 @@
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
-                                </ul>
-                                <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _templates %>:</a>
-                                <ul>
+
+                                    <li class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _templates %>:</li>
                                     <li>
                                         <a class="mn-group-title template bold">Rhythm</a>
                                     </li>
@@ -171,10 +170,10 @@
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
+                                    <li class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _design %>:</li>
+                                    <span class="design_container"></span>
+                                    </li>
                                 </ul>
-                                <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _design %>:</a>
-                                <ul class="design_container"></ul>
-                            </li>
 
                             <li class="mn-sub-multi">
                                 <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _currency %>:</a>
