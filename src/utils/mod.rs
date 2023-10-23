@@ -313,7 +313,7 @@ pub async fn get_private_page (
     image:       &String,
     t:           i16,
     l:           i16,
-    c:           &String,
+    c:           String,
 ) -> actix_web::Result<HttpResponse> {
     if is_desctop {
         #[derive(TemplateOnce)]
@@ -327,7 +327,7 @@ pub async fn get_private_page (
             link:           &'a String,
             template_types: i16,
             linguage:       i16,
-            currency:       &'a String,
+            currency:       String,
         }
         let body = Template {
             is_ajax:        is_ajax,
@@ -355,7 +355,7 @@ pub async fn get_private_page (
             link:           &'a String,
             template_types: i16,
             linguage:       i16,
-            currency:       &'a String,
+            currency:       String,
         }
         let body = Template {
             is_ajax:        is_ajax,
@@ -382,7 +382,7 @@ pub async fn get_anon_private_page (
     image:       &String,
     t:           i16,
     l:           i16,
-    c:           &String,
+    c:           String,
 ) -> actix_web::Result<HttpResponse> {
     if is_desctop {
         #[derive(TemplateOnce)]
@@ -395,7 +395,7 @@ pub async fn get_anon_private_page (
             link:           &'a String,
             template_types: i16,
             linguage:       i16,
-            currency:       &'a String,
+            currency:       String,
         }
         let body = Template {
             is_ajax:        is_ajax,
@@ -422,7 +422,7 @@ pub async fn get_anon_private_page (
             link:           &'a String,
             template_types: i16,
             linguage:       i16,
-            currency:       &'a String,
+            currency:       String,
         }
         let body = Template {
             is_ajax:        is_ajax,

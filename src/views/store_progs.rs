@@ -85,7 +85,7 @@ pub async fn get_store_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     &image,
                     t, 
                     l,
-                    &c,
+                    c,
                 ).await
             }
             else if is_desctop {
@@ -182,7 +182,7 @@ pub async fn get_store_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     &image,
                     t,
                     l,
-                    &c,
+                    c,
                 ).await
             }
             else if is_desctop {
