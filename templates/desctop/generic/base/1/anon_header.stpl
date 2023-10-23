@@ -160,9 +160,9 @@
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
 
-                                    <li class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _templates %>:</li>
+                                    <li style="cursor:default;font-weight:bold;"><%= _templates %>:</li>
                                     <li>
-                                        <a class="mn-group-title template bold">Rhythm</a>
+                                        <a class="mn-group-title template">Rhythm</a>
                                     </li>
                                     <li>
                                         <a data-l="2" class="mn-group-title pointer change_t template linguage">Eremia</a>
@@ -170,9 +170,9 @@
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
-                                    <li class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _design %>:</li>
+                                    <li style="cursor:default;font-weight:bold;"><%= _design %>:</li>
                                     <span class="design_container"></span>
-                                    </li>
+                                    
                                 </ul>
 
                             <li class="mn-sub-multi">
