@@ -161,6 +161,7 @@
                                     <li>&nbsp;</li>
 
                                     <li class="mn-group-title" style="cursor:default;font-weight:bold;text-align: left;margin-left: 15px !important"><%= _templates %>:</li>
+                                    <li>&nbsp;</li>
                                     <li>
                                         <a class="template">Rhythm</a>
                                     </li>
@@ -171,10 +172,12 @@
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
                                     <li class="mn-group-title" style="cursor:default;font-weight:bold;text-align: left;margin-left: 15px !important"><%= _design %>:</li>
+                                    <li>&nbsp;</li>
                                 </ul>
 
                             <li class="mn-sub-multi">
                                 <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _currency %>:</a>
+                                
                                 <% let currency_list = vec!("RUB", "USD", "EUR", "GBP", "BYN", "GEL", "JPY", "CHF", "TRY", "PLN", "CNY", "CAD", "KZT", "INR"); %>
                                 <ul> 
                                     <% for object in currency_list.iter() { %>

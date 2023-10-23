@@ -128,11 +128,16 @@ function create_desing_menu() {
     let d_list = ["white", "dark", "old_paper", "yellow", "dark_wood"];
     for (var i = 0; i < d_list.length; i++) {
       if (d_list[i] == color) {
-        container.append("<li><a class='mn-group-title design_item bold'>" + color + "</a></li>");
+        li = document.createElement("li");
+        li.innerHTML = "<a class='mn-group-title design_item bold'>" + color + "</a>";
+        container.append(li);
       }
       else {
+        li = document.createElement("li");
+        li.innerHTML = "<a class='mn-group-title design_item pointer anon_color_change'>" + color + "</a>";
+        container.append(li);
         container.append("<li><a class='mn-group-title design_item pointer anon_color_change'>" + color + "</a></li>");
-      }
+      } 
     }
   }
 }
