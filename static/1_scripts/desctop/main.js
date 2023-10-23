@@ -136,7 +136,6 @@ function create_desing_menu() {
         li = document.createElement("li");
         li.innerHTML = "<a class='mn-group-title design_item pointer anon_color_change'>" + color + "</a>";
         container.append(li);
-        container.append("<li><a class='mn-group-title design_item pointer anon_color_change'>" + color + "</a></li>");
       } 
     }
   }
