@@ -142,19 +142,31 @@
                                 <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _languages %>:</a>
                                 <ul class="design_container">
                                     <% if linguage == 2 { %> 
-                                        <li class="mn-group-title linguage">English</li>
-                                        <li data-l="1" class="pointer change_l linguage">Русский</li>
+                                    <li>
+                                        <a class="mn-group-title bold linguage">English</a>
+                                    </li>
+                                    <li>
+                                        <a data-l="1" class="pointer change_l linguage">Русский</a>
+                                    </li>
                                     <% } else if linguage == 1 { %>
-                                        <li class="mn-group-title linguage">Русский</li>
-                                        <li data-l="2" class="pointer change_l linguage">English</li>
+                                        <li>
+                                            <a class="mn-group-title linguage">Русский</a>
+                                        </li>
+                                        <li>
+                                            <a data-l="2" class="pointer change_l linguage">English</a>
+                                        </li>
                                     <% } %>
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
 
                                     <a class="mn-group-title" style="cursor:default;font-weight:bold;text-align: left;"><%= _templates %>:</a>
-                                    <li class="mn-group-title template">Rhythm</li>
-                                    <li data-l="2" class="pointer change_t template linguage">Eremia</li>
+                                    <li>
+                                        <a class="template">Rhythm</a>
+                                    </li>
+                                    <li>
+                                        <a data-l="2" class="pointer change_t template linguage">Eremia</a>
+                                    </li>
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
