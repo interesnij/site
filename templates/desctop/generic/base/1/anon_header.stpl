@@ -137,7 +137,7 @@
 
                       <li>
                         <a class="mn-has-sub ajax pointer folder"><%= _settings %></a>
-                        <ul class="mn-sub mn-has-multi border" style="display:none;right:-200px;left:auto;">
+                        <ul class="mn-sub mn-has-multi border" style="display:none;left:auto;">
                             <li class="mn-sub-multi">
                                 <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _languages %>:</a>
                                 <ul>
@@ -157,7 +157,7 @@
                                         </li>
                                     <% } %>
                                 </ul>
-
+                                <br /><br /><br />
                                 <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _templates %>:</a>
                                 <ul>
                                     <li>
@@ -167,7 +167,7 @@
                                         <a data-l="2" class="mn-group-title pointer change_t template linguage">Eremia</a>
                                     </li>
                                 </ul>
-
+                                <br /><br /><br />
                                 <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _design %>:</a>
                                 <ul class="design_container"></ul>
                             </li>
@@ -175,11 +175,11 @@
                             <li class="mn-sub-multi">
                                 <a class="mn-group-title" style="cursor:default;font-weight:bold;"><%= _currency %>:</a>
                                 <% let currency_list = vec!("RUB", "USD", "EUR", "GBP", "BYN", "GEL", "JPY", "CHF", "TRY", "PLN", "CNY", "CAD", "KZT", "INR"); %>
-                                <ul>
+                                <ul> 
                                     <% for object in currency_list.iter() { %>
                                         <% if object.to_string() == currency { %>
-                                        <li>
-                                            <a class="bold"><%= object %></a>
+                                        <li> 
+                                            <a class="bold" style="cursor:default;"><%= object %></a>
                                         </li>
                                         <% } else { %>
                                         <li>
