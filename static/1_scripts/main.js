@@ -929,16 +929,11 @@ on('body', 'click', '.s_7', function() {
 });
 
 on('body', 'click', '.anon_color_change', function() {
-  color = "white";
-
-  background = getCookie("background");
-  if (background != "") {
-    color = background;
-  }
+  color = this.innerHTML;
   addStyleSheets("/static/1_styles/color/" + color + ".css");
   design_items = document.body.querySelectorAll(".design_item");
   for (var i = 0; i < design_items.length; i++) {
-    top = document.getElementById("top");
+    top = document.querySelector("#top");
     if (top.classList.contains("mobile_page")) {
       active_class = "underline";
     }
