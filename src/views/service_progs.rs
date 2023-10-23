@@ -87,6 +87,7 @@ pub async fn get_service_page(conn: ConnectionInfo, session: Session, req: HttpR
                     &image,
                     t, 
                     l,
+                    &c,
                 ).await
             }
             else if is_desctop {
@@ -187,6 +188,7 @@ pub async fn get_service_page(conn: ConnectionInfo, session: Session, req: HttpR
                     &image,
                     t,
                     l,
+                    &c,
                 ).await
             }
             else if is_desctop {

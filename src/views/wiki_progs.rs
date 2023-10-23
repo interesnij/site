@@ -85,6 +85,7 @@ pub async fn get_wiki_page(conn: ConnectionInfo, session: Session, req: HttpRequ
                     &image,
                     t, 
                     l,
+                    &c,
                 ).await
             }
             else if is_desctop {
@@ -181,6 +182,7 @@ pub async fn get_wiki_page(conn: ConnectionInfo, session: Session, req: HttpRequ
                     &image,
                     t,
                     l,
+                    &c,
                 ).await
             }
             else if is_desctop {
