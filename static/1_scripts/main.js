@@ -1330,7 +1330,7 @@ on('body', 'click', '.change_l', function() {
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    ajax_get_reload(document.location.href, false, 2);
+    window.reload()
   }}; 
   link.send(form_data);
 });
