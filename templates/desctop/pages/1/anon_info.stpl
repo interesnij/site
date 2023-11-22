@@ -121,7 +121,7 @@
                         <div class="col-sm-4 mb-xs-30">
                             <div class="team-item">    
                                 <div class="team-item-image">
-                                    <img src="/images/team/zubarev.png" alt="img">  
+                                    <img src="/static/images/team/zubarev.png" alt="img">  
                                     <div class="team-item-detail">
                                         <p> 
                                             Fullstack developer, team leader, architect
