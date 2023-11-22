@@ -1324,7 +1324,7 @@ on('body', 'click', '.change_t', function() {
 }); 
 on('body', 'click', '.change_l', function() {
   form_data = new FormData();
-  form_data.append("types", obj.getAttribute("data-l")*1);
+  form_data.append("types", this.getAttribute("data-l")*1);
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'POST', "/change_l/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -1336,7 +1336,7 @@ on('body', 'click', '.change_l', function() {
 });
 on('body', 'click', '.change_c', function() {
   form_data = new FormData();
-  form_data.append("string", obj.getAttribute("data-c"));
+  form_data.append("string", this.getAttribute("data-c"));
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'POST', "/change_l/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
