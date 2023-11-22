@@ -986,12 +986,12 @@ table.shopping-cart-table tr td{
 }
 .team_image {
     object-fit: cover;
-    height: 300px !important;
+    height: 350px !important;
     width:100%;
 }
 .team_image_small {
     object-fit: cover;
-    height: 200px !important;
+    height: 300px !important;
     width:100%;
 }
 .footer-social-links a{
