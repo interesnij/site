@@ -29,7 +29,7 @@
               <div class="inner-nav desktop-nav">
                   <ul class="clearlist">
                       <li>
-                          <a href="/" class="ajax mn-has-sub folder main"><%= _home %></a>
+                          <a href="/" class="ajax folder main"><%= _home %></a>
                       </li>
 
                       <% let (service_cats, store_cats, blog_cats, wiki_cats, work_cats, help_cats) = crate::utils::get_categories_2(linguage); %>

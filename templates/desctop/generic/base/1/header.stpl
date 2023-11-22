@@ -27,7 +27,7 @@
               <div class="inner-nav desktop-nav">
                   <ul class="clearlist">
                       <li>
-                          <a href="/" class="ajax mn-has-sub folder main"><%= _home %></a>
+                          <a href="/" class="ajax folder main"><%= _home %></a>
                           <ul class="border mn-sub">
                             <li>
                               <a style="cursor:default;font-weight:bold;"><%= _templates %>:</a>
