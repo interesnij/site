@@ -1321,7 +1321,7 @@ on('body', 'click', '.change_t', function() {
     ajax_get_reload(document.location.href, false, 1);
   }};
   link.send(form_data);
-}); 
+});
 on('body', 'click', '.change_l', function() {
   form_data = new FormData();
   form_data.append("types", this.getAttribute("data-l")*1);
@@ -1330,7 +1330,7 @@ on('body', 'click', '.change_l', function() {
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    ajax_get_reload(document.location.href, false, 1);
+    ajax_get_reload(document.location.href, false, 0);
   }}; 
   link.send(form_data);
 });
