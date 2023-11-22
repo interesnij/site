@@ -984,6 +984,16 @@ table.shopping-cart-table tr td{
 .footer-social-links{
     font-size: 14px;
 }
+.team_image {
+    object-fit: cover;
+    height: 450px;
+    width:100%;
+}
+.team_image_small {
+    object-fit: cover;
+    height: 250px;
+    width:100%;
+}
 .footer-social-links a{
     height: 25px;
     line-height: 25px !important;
