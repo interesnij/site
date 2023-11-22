@@ -1318,7 +1318,7 @@ on('body', 'click', '.change_t', function() {
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    ajax_get_reload(document.location.href, 1);
+    ajax_get_reload(document.location.href, false, 1);
   }};
   link.send(form_data);
 }); 
@@ -1330,8 +1330,8 @@ on('body', 'click', '.change_l', function() {
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    ajax_get_reload(document.location.href, 1);
-  }};
+    ajax_get_reload(document.location.href, false, 1);
+  }}; 
   link.send(form_data);
 });
 on('body', 'click', '.change_c', function() {
@@ -1342,7 +1342,7 @@ on('body', 'click', '.change_c', function() {
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    ajax_get_reload(document.location.href, 1);
+    ajax_get_reload(document.location.href, false, 1);
   }};
   link.send(form_data);
 });
