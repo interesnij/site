@@ -2,10 +2,10 @@
     __home, __search, __sect,  __empty, __place
   ) = match linguage {
         2 => (
-          "Home", "General search", "Search for market", "Nothing was found for the query '<%= q%>'...", "Search from 3 letters"
+          "Home", "General search", "Search for market", "Nothing found...", "Search from 3 letters"
         ), 
         1 | _ => (
-          "Главная", "Общий поиск", "Поиск товаров", "По запросу '<%= q %>' ничего не найдено...", "Поиск от 3х букв"
+          "Главная", "Общий поиск", "Поиск товаров", "Ничего не найдено...", "Поиск от 3х букв"
         ),
     };
 %>

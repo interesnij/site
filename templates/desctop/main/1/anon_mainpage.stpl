@@ -1,8 +1,9 @@
 
 <% include!("banner.stpl"); %>
 
+<!--
 <% include!("templates.stpl"); %>
-
+-->
 <% if linguage == 2 { %>
     <% include!("sections_en.stpl"); %>
 <% } else if linguage == 1 { %>

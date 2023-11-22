@@ -2,10 +2,10 @@
     __home, __search, __sect,  __empty, __place
   ) = match linguage {
         2 => (
-          "Home", "General search", "Search for help", "Nothing was found for the query '<%= q%>'...", "Search from 3 letters"
+          "Home", "General search", "Search for help", "Nothing found...", "Search from 3 letters"
         ), 
         1 | _ => (
-          "Главная", "Общий поиск", "Поиск помощи", "По запросу '<%= q %>' ничего не найдено...", "Поиск от 3х букв"
+          "Главная", "Общий поиск", "Поиск помощи", "Ничего не найдено...", "Поиск от 3х букв"
         ),
     };
 %>
@@ -30,7 +30,15 @@
           <div style='margin-left:10px; margin-right:10px'>
               <div class="multi-columns-row is_paginate">
                 <% for object in items_list.iter() { %>
-                  <% include!("../../generic/items/1/help.stpl"); %>
+                  <h4 class="font-alt"><%= object.title %></h4>
+                  <p>
+                    <% if object.content.is_some() { %>
+                      <%- object.content.as_deref().unwrap() %>
+                    <% } else { %>
+                      Без описания
+                    <% } %>
+                  </p>
+                  <hr class="mb-30"> 
                 <% } %>
                 <% if next_page_number > 0 { %>
                   <div class="load centered m-1 next_page_list" data-link="/search_help/<%=q%>/?page=<%= next_page_number %>">

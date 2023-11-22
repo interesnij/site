@@ -985,11 +985,10 @@ table.shopping-cart-table tr td{
     font-size: 14px;
 }
 .footer-social-links a{
-    width: 25px;
     height: 25px;
     line-height: 25px !important;
     position: relative;
-    margin: 0 26px;
+    margin: 0 13px;
     text-align: center;
     display: inline-block;
     -webkit-transition: all 0.27s cubic-bezier(0.300, 0.100, 0.580, 1.000);

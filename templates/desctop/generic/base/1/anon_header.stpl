@@ -3,14 +3,14 @@
     _search_pl, _wikis, _tags, _orders, _helps, _stats, _design,
     _pages, _history, _settings, _languages, _currency) = match linguage {
         2 => (  
-            "Web-services", "Home", "Templates", "Services", 
+            "Web-services", "Home", "Uniform", "Services", 
             "Works", "Blog", "Stores", "Info", "Search", 
             "Search from 3 letters", "Wiki", "Tags", "Orders",
             "Helps", "Statistics", "Background", "Pages", "You watched",
             "Settings", "Languages", "Currency"
         ),
         1 | _ => (
-            "Вебсервисы", "Главная", "Шаблоны", "Услуги", 
+            "Вебсервисы", "Главная", "Униформа", "Услуги", 
             "Работы", "Блог", "Товары", "Инфо", "Поиск", 
             "Поиск от 3х букв", "База", "Теги", "Заказы",
             "Помощь", "Статистика", "Фон", "Страницы", "Вы смотрели",
@@ -165,9 +165,11 @@
                                     <li>
                                         <a class="template">Rhythm</a>
                                     </li>
+                                    <!--
                                     <li>
                                         <a data-l="2" class="pointer change_t template linguage">Eremia</a>
                                     </li>
+                                    -->
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>
                                     <li>&nbsp;</li>

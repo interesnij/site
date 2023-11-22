@@ -8,13 +8,13 @@
           "Home", "General search", "Search from 3 letters", 
           "Articles", "Market",
           "Services", "Works",
-          "Wiki", "Help", "Nothing was found for the query '<%= q%>'..."
+          "Wiki", "Help", "Nothing found..."
         ), 
         1 | _ => (
           "Главная", "Общий поиск", "Поиск от 3х букв", 
           "Статьи блога", "Товары",
           "Услуги", "Работы",
-          "Обучение", "Помощь", ("По запросу".to_string() + &q + &"ничего не найдено...".to_string()).as_str()
+          "Обучение", "Помощь", "Ничего не найдено..."
         ),
     };
 %>
