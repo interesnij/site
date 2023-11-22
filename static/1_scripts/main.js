@@ -902,7 +902,7 @@ on('body', 'click', '.ajax', function(event) {
   //  toast_info("Вы уже на этой странице");
   //  return
   //};
-  ajax_get_reload(this.getAttribute("href"), true)
+  ajax_get_reload(this.getAttribute("href"), true, 2)
 });
 
 
@@ -975,14 +975,14 @@ on('body', 'input', '.general_search', function() {
     value = _this.value;
 
     if (value == "") {
-      ajax_get_reload("/search/", true);
+      ajax_get_reload("/search/", true, 2);
       return;
     }
     else if (value.length < 3) {
       return;
     }
     else if (_this.classList.contains("search-field") && !document.body.querySelector(".search_section")) {
-      ajax_get_reload("/search/" + _this.value + "/", true);
+      ajax_get_reload("/search/" + _this.value + "/", true, 2);
       try{
         document.body.querySelector(".search_section").innerHTML.replaceAll(new RegExp(value, 'ig'), "<span class='selected'>" + value + "</span>");
       } catch { null };
@@ -1167,7 +1167,7 @@ on('body', 'click', '#create_order_btn', function() {
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
     get_document_opacity_1();
-    ajax_get_reload("/user_orders/", true);
+    ajax_get_reload("/user_orders/", true, 2);
   }};
   link.send(form_data);
 });
@@ -1179,7 +1179,7 @@ on('body', 'click', '.remove_order', function() {
   link.open( 'POST', "/delete_order/", true );
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    ajax_get_reload("/user_orders/", true);
+    ajax_get_reload("/user_orders/", true, 2);
   }}; 
   link.send(form_data); 
 });
@@ -1309,3 +1309,40 @@ function disconnect() {
 
 //пока сокеты оставим неактивными
 //connect() 
+
+on('body', 'click', '.change_t', function() {
+  form_data = new FormData();
+  form_data.append("types", this.getAttribute("data-t")*1);
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'POST', "/change_t/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    ajax_get_reload(document.location.href, 1);
+  }};
+  link.send(form_data);
+}); 
+on('body', 'click', '.change_l', function() {
+  form_data = new FormData();
+  form_data.append("types", obj.getAttribute("data-l")*1);
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'POST', "/change_l/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    ajax_get_reload(document.location.href, 1);
+  }};
+  link.send(form_data);
+});
+on('body', 'click', '.change_c', function() {
+  form_data = new FormData();
+  form_data.append("string", obj.getAttribute("data-c"));
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'POST', "/change_l/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    ajax_get_reload(document.location.href, 1);
+  }};
+  link.send(form_data);
+});

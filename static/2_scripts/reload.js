@@ -98,9 +98,9 @@ function check_first_load() {
     ajax_link.send();
   };
 
-  function ajax_get_reload(url, history_enable) {
+  function ajax_get_reload(url, history_enable, ajax) {
     var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-      ajax_link.open( 'GET', url + "?ajax=2", true );
+      ajax_link.open( 'GET', url + "?ajax=" + ajax, true );
       ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
       ajax_link.onreadystatechange = function () {
         if ( this.readyState == 4 && this.status == 200 ) {
@@ -151,13 +151,13 @@ function check_first_load() {
   };
 
   window.addEventListener('popstate', function (e) {
-    ajax_get_reload(history.state["url"], false);
+    ajax_get_reload(history.state["url"], false, 2);
     //return false
   })
 
   on('body', 'click', '.ajax', function(event) {
     event.preventDefault();
-    ajax_get_reload(this.getAttribute("href"), true)
+    ajax_get_reload(this.getAttribute("href"), true, 2)
   });
 
   async function reloadAjax( $off ) {

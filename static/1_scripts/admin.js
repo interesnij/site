@@ -146,7 +146,7 @@ function send_category_data(form, url) {
   link.open( 'POST', url, true );
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    ajax_get_reload(url, true)
+    ajax_get_reload(url, true, 2)
   }};
   link.send(form_data);
 };
@@ -207,7 +207,7 @@ function send_post_data(form, url) {
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    ajax_get_reload(url, true)
+    ajax_get_reload(url, true, 2)
   }};
   link.send(form_data);
 };
@@ -418,7 +418,7 @@ on('body', 'change', '.add_photos_in_object', function() {
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    ajax_get_reload(document.location.href, false)
+    ajax_get_reload(document.location.href, false, 2)
   }};
   link.send(form_data);
 });
@@ -437,7 +437,7 @@ on('body', 'change', '.add_file_in_object', function() {
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    ajax_get_reload(document.location.href, false)
+    ajax_get_reload(document.location.href, false, 2)
   }};
   link.send(form_data);
 });

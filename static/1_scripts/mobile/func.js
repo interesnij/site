@@ -98,9 +98,9 @@ function check_first_load() {
   }
 }
 
-function ajax_get_reload(url, history_enable) {
+function ajax_get_reload(url, history_enable, ajax) {
   var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-    ajax_link.open( 'GET', url + "?ajax=2", true );
+    ajax_link.open( 'GET', url + "?ajax=" + ajax, true );
     ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     ajax_link.onreadystatechange = function () {
       if ( this.readyState == 4 && this.status == 200 ) {
@@ -143,7 +143,7 @@ function ajax_get_reload(url, history_enable) {
 };
 
 window.addEventListener('popstate', function (e) {
-  ajax_get_reload(history.state["url"], false);
+  ajax_get_reload(history.state["url"], false, 2);
   return false
 })
 
@@ -260,59 +260,6 @@ function get_active_button() {
     }
   //} catch { null }
 };
-
- 
-on('body', 'click', '.change_t', function() {
-  obj = this;
-  id = obj.getAttribute("data-t")*1;
-  form_data = new FormData();
-  form_data.append("id", id);
-  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'POST', "/change_t/", true );
-  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link.onreadystatechange = function () {
-  if ( link.readyState == 4 && link.status == 200 ) {
-    temp_options = obj.parentElement.querySelectorAll(".template");
-    if (temp_options[i].getAttribute == id) {
-      temp_options[i].classList.remove("change_t");
-      temp_options[i].classList.add("underline");
-    }
-    else {
-      temp_options[i].classList.add("change_t");
-      temp_options[i].classList.remove("underline");
-    }
-    ajax_get_reload(document.location.href);
-  }};
-  link.send(form_data);
-}); 
-
-on('body', 'click', '.change_l', function() {
-  obj = this;
-  id = obj.getAttribute("data-t")*1;
-  form_data = new FormData();
-
-  form_data.append("id", id);
-  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'POST', "/change_l/", true );
-  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link.onreadystatechange = function () {
-  if ( link.readyState == 4 && link.status == 200 ) {
-    temp_options = obj.parentElement.querySelectorAll(".linguage");
-    for (var i = 0; i < temp_options.length; i++) {
-      if (temp_options[i].getAttribute == id) {
-        temp_options[i].classList.remove("change_l");
-        temp_options[i].classList.add("underline");
-      }
-      else {
-        temp_options[i].classList.add("change_l");
-        temp_options[i].classList.remove("underline");
-      }
-    }
-    ajax_get_reload(document.location.href);
-  }};
-  link.send(form_data);
-});
-
 
 on('body', 'click', '.anon_color_change', function() {
   _this = this;

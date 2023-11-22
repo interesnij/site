@@ -3,23 +3,17 @@
 diesel::table! {
     categories (id) {
         id -> Int4,
-        #[max_length = 100]
-        name -> Varchar,
-        #[max_length = 100]
+        name -> Varchar,        
         name_en -> Varchar,
-        #[max_length = 500]
         description -> Nullable<Varchar>,
-        #[max_length = 500]
         description_en -> Nullable<Varchar>,
         position -> Int2,
-        #[max_length = 500]
         image -> Nullable<Varchar>,
         count -> Int2,
         view -> Int4,
         height -> Float8,
         seconds -> Int4,
         types -> Int2,
-        #[max_length = 100]
         slug -> Varchar,
     }
 }
@@ -46,14 +40,11 @@ diesel::table! {
         id -> Int4,
         user_id -> Int4,
         page -> Int2,
-        #[max_length = 200]
         link -> Varchar,
-        #[max_length = 200]
         title -> Varchar,
         height -> Float8,
         seconds -> Int4,
         created -> Timestamp,
-        #[max_length = 100]
         template -> Varchar,
     }
 }
@@ -61,24 +52,16 @@ diesel::table! {
 diesel::table! {
     cookie_users (id) {
         id -> Int4,
-        #[max_length = 100]
         ip -> Varchar,
         device -> Int2,
         linguage -> Int2,
         template -> Int2,
-        #[max_length = 10]
         currency -> Varchar,
-        #[max_length = 150]
         city_ru -> Nullable<Varchar>,
-        #[max_length = 150]
         city_en -> Nullable<Varchar>,
-        #[max_length = 150]
         region_ru -> Nullable<Varchar>,
-        #[max_length = 150]
         region_en -> Nullable<Varchar>,
-        #[max_length = 150]
         country_ru -> Nullable<Varchar>,
-        #[max_length = 150]
         country_en -> Nullable<Varchar>,
         height -> Float8,
         seconds -> Int4,
@@ -89,11 +72,8 @@ diesel::table! {
 diesel::table! {
     feedbacks (id) {
         id -> Int4,
-        #[max_length = 100]
         username -> Varchar,
-        #[max_length = 200]
         email -> Varchar,
-        #[max_length = 1000]
         message -> Varchar,
     }
 }
@@ -105,11 +85,8 @@ diesel::table! {
         item_id -> Int4,
         item_types -> Int2,
         types -> Int2,
-        #[max_length = 500]
         src -> Varchar,
-        #[max_length = 500]
         description -> Nullable<Varchar>,
-        #[max_length = 500]
         description_en -> Nullable<Varchar>,
         position -> Int2,
         view -> Int4,
@@ -120,7 +97,6 @@ diesel::table! {
 diesel::table! {
     item_comments (id) {
         id -> Int4,
-        #[max_length = 1000]
         comment -> Varchar,
         item_id -> Int4,
         user_id -> Int4,
@@ -132,21 +108,13 @@ diesel::table! {
 diesel::table! {
     items (id) {
         id -> Int4,
-        #[max_length = 100]
         title -> Varchar,
-        #[max_length = 100]
         title_en -> Varchar,
-        #[max_length = 500]
         description -> Nullable<Varchar>,
-        #[max_length = 500]
         description_en -> Nullable<Varchar>,
-        #[max_length = 30000]
         content -> Nullable<Varchar>,
-        #[max_length = 30000]
         content_en -> Nullable<Varchar>,
-        #[max_length = 500]
         link -> Nullable<Varchar>,
-        #[max_length = 500]
         image -> Nullable<Varchar>,
         is_active -> Bool,
         price -> Int4,
@@ -158,7 +126,6 @@ diesel::table! {
         seconds -> Int4,
         price_acc -> Nullable<Int4>,
         types -> Int2,
-        #[max_length = 100]
         slug -> Varchar,
     }
 }
@@ -169,7 +136,6 @@ diesel::table! {
         user_id -> Int4,
         chat_id -> Int4,
         created -> Timestamp,
-        #[max_length = 5000]
         content -> Nullable<Varchar>,
         view -> Int2,
         types -> Int2,
@@ -180,7 +146,6 @@ diesel::table! {
     order_files (id) {
         id -> Int4,
         order_id -> Int4,
-        #[max_length = 500]
         src -> Varchar,
     }
 }
@@ -188,19 +153,13 @@ diesel::table! {
 diesel::table! {
     orders (id) {
         id -> Int4,
-        #[max_length = 100]
         title -> Varchar,
-        #[max_length = 100]
         title_en -> Varchar,
         types -> Int2,
         object_id -> Int4,
-        #[max_length = 200]
         username -> Varchar,
-        #[max_length = 200]
         email -> Varchar,
-        #[max_length = 1000]
         description -> Nullable<Varchar>,
-        #[max_length = 1000]
         description_en -> Nullable<Varchar>,
         created -> Timestamp,
         user_id -> Int4,
@@ -212,7 +171,6 @@ diesel::table! {
 diesel::table! {
     price_corrects (id) {
         id -> Int4,
-        #[max_length = 10]
         currency -> Varchar,
         ratio -> Float8,
         adder -> Int4,
@@ -223,13 +181,9 @@ diesel::table! {
 diesel::table! {
     serve (id) {
         id -> Int4,
-        #[max_length = 100]
         name -> Varchar,
-        #[max_length = 100]
         name_en -> Varchar,
-        #[max_length = 10000]
         description -> Nullable<Varchar>,
-        #[max_length = 10000]
         description_en -> Nullable<Varchar>,
         position -> Int2,
         category_id -> Int4,
@@ -248,13 +202,9 @@ diesel::table! {
 diesel::table! {
     serve_categories (id) {
         id -> Int4,
-        #[max_length = 100]
         name -> Varchar,
-        #[max_length = 100]
         name_en -> Varchar,
-        #[max_length = 10000]
         description -> Nullable<Varchar>,
-        #[max_length = 10000]
         description_en -> Nullable<Varchar>,
         category_id -> Int4,
         position -> Int2,
@@ -289,9 +239,7 @@ diesel::table! {
 diesel::table! {
     tags (id) {
         id -> Int4,
-        #[max_length = 100]
         name -> Varchar,
-        #[max_length = 100]
         name_en -> Varchar,
         position -> Int2,
         count -> Int2,
@@ -315,15 +263,10 @@ diesel::table! {
 diesel::table! {
     users (id) {
         id -> Int4,
-        #[max_length = 100]
         username -> Varchar,
-        #[max_length = 100]
         email -> Varchar,
-        #[max_length = 1000]
         password -> Varchar,
-        #[max_length = 500]
         bio -> Nullable<Varchar>,
-        #[max_length = 500]
         image -> Nullable<Varchar>,
         perm -> Int2,
     }
@@ -332,13 +275,9 @@ diesel::table! {
 diesel::table! {
     web_services (id) {
         id -> Int4,
-        #[max_length = 100]
         name -> Varchar,
-        #[max_length = 100]
         name_en -> Varchar,
-        #[max_length = 10000]
         description -> Nullable<Varchar>,
-        #[max_length = 10000]
         description_en -> Nullable<Varchar>,
         position -> Int2,
         count -> Int2,

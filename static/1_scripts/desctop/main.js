@@ -146,7 +146,7 @@ function check_first_load() {
   loc = window.location.href;
   if (loc.indexOf('template') > -1) {
     url = loc + "&ajax=1"; 
-  }
+  } 
   else {
     url = loc + "?ajax=1"; 
   }
@@ -162,18 +162,18 @@ function check_first_load() {
           span.innerHTML = elem_.innerHTML;
           get_or_create_cookie_user();
           get_active_button();
-          get_page_view_time(120);
+          get_page_view_time(120); 
           scrolled(document.body.querySelector(".span"));
           window.history.pushState ({"url":loc}, document.title, loc);
-          create_desing_menu();
+          create_desing_menu(); 
       }
     }
     ajax_link.send();
 }
 
-function ajax_get_reload(url, history_enable) {
+function ajax_get_reload(url, history_enable, ajax) {
   var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  ajax_link.open( 'GET', url + "?ajax=2", true );
+  ajax_link.open( 'GET', url + "?ajax=" + ajax, true );
   ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   ajax_link.onreadystatechange = function () {
     if ( this.readyState == 4 && this.status == 200 ) {
@@ -183,7 +183,7 @@ function ajax_get_reload(url, history_enable) {
       meta_block = rtr.querySelector(".doc_title");
       if (meta_block.getAttribute("data-id")) {
          $object_id = meta_block.getAttribute("data-id");
-      }
+      } 
       else {
         $object_id = ""
       }
@@ -209,7 +209,7 @@ function ajax_get_reload(url, history_enable) {
       document.querySelector('link[rel="canonical"]').setAttribute("href", _uri);
 
       window.scrollTo(0,0);
-      if (history_enable) {
+      if (history_enable) { 
         window.history.pushState ({"url":url}, $title, url);
       }
       get_active_button();
@@ -223,7 +223,7 @@ function ajax_get_reload(url, history_enable) {
 };
 
 window.addEventListener('popstate', function (e) {
-  ajax_get_reload(history.state["url"], false);
+  ajax_get_reload(history.state["url"], false, 2);
   //return false
 })
 
@@ -281,52 +281,6 @@ if (window.location.href.indexOf('ajax') > -1) {
 else {
   check_first_load();
 }
-
-on('body', 'click', '.change_t', function() {
-  types = this.getAttribute("data-t")*1;
-  form_data = new FormData();
-  if (types == 1) {
-    new_types = 2;
-  }
-  else if (types == 2) {
-    new_types = 1;
-  }
-
-  form_data.append("types", types);
-  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'POST', "/change_t/", true );
-  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link.onreadystatechange = function () {
-  if ( link.readyState == 4 && link.status == 200 ) {
-    ajax_get_reload(document.location.href);
-  }};
-  link.send(form_data);
-}); 
-on('body', 'click', '.change_l', function() {
-  obj = this;
-  types = obj.getAttribute("data-l")*1;
-  form_data = new FormData();
-  if (types == 1) {
-    new_types = 2;
-    new_title = "En";
-  }
-  else if (types == 2) {
-    new_types = 1;
-    new_title = "Ru";
-  }
-
-  form_data.append("types", types);
-  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'POST', "/change_l/", true );
-  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link.onreadystatechange = function () {
-  if ( link.readyState == 4 && link.status == 200 ) {
-    obj.setAttribute("data-l", new_types);
-    obj.innerHTML = new_title;
-    ajax_get_reload(document.location.href);
-  }};
-  link.send(form_data);
-});
 
 on('body', 'click', '.anon_color_change', function() {
   _this = this;
