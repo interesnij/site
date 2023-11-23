@@ -320,7 +320,7 @@ pub async fn get_private_page (
         #[template(path = "desctop/generic/private_object.stpl")]
         struct Template<'a> {
             is_ajax:        i32,
-            //request_user:   User,
+            request_user:   User,
             title:          &'a String,
             description:    &'a String,
             image:          &'a String,
@@ -331,7 +331,7 @@ pub async fn get_private_page (
         }
         let body = Template {
             is_ajax:        is_ajax,
-            //request_user:   user,
+            request_user:   user,
             title:          title,
             description:    description,
             image:          image,
