@@ -91,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-                <% include!("../../../../desctop/pages/1/team_en.stpl"); %>
+                <% include!("../../../desctop/pages/1/team_en.stpl"); %>
             </div>
 
             <div class="tab_2 fade tab-pane in">
