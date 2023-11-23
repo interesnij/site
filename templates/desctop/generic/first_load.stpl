@@ -26,16 +26,20 @@
   </head>
 
   <% if template_types == 1 { %>
-  <body>
+  <body> 
     <span class="span"></span>
-    <% include!("../../block/scripts/1/anon_d.stpl"); %>
+    <script defer type="text/javascript" src="/static/1_scripts/desctop/main.js?ver15"></script>
+    <script defer type="text/javascript" src="/static/1_scripts/main.js?ver15"></script>
+    <script defer type="text/javascript" src="/static/1_scripts/progressive-image.js"></script>
 <%} else if template_types == 2 { %>
   <body class="dsn-line-style dsn-effect-scroll dsn-cursor-effect dsn-ajax">
     <% include!("../../block/scripts/2/anon_d.stpl"); %>
 <% } else { %>
-  <body>
+  <body> 
     <span class="span"></span>
-    <% include!("../../block/scripts/1/anon_d.stpl"); %>
+    <script defer type="text/javascript" src="/static/1_scripts/desctop/main.js?ver15"></script>
+    <script defer type="text/javascript" src="/static/1_scripts/main.js?ver15"></script>
+    <script defer type="text/javascript" src="/static/1_scripts/progressive-image.js"></script>
 <% } %>
   </body>
 </html>
