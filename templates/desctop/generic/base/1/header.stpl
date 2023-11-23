@@ -134,6 +134,55 @@
                               </li>
                           </ul>
                       </li>
+                      <% if request_user.is_superuser() { %>
+                      
+                      <li> 
+                          <a class="mn-has-sub folder auth" style="height: 75px; line-height: 75px;">Профиль</a>
+                          <ul class="mn-sub mn-has-multi border" style="display: none;">
+                              <li class="mn-sub-multi">
+                                  <a class="mn-group-title">Админка</a>
+                                  <ul>
+                                      <li>
+                                          <a href="/create_category/" class="ajax">+ категория</a>
+                                      </li>
+                                      <li>
+                                          <a href="/create_item/" class="ajax">+ объект</a>
+                                      </li>
+                                      <li>
+                                          <a href="/create_tag/" class="ajax">+ тег</a>
+                                      </li>
+                                      <li>
+                                          <a href="/create_web_service/" class="ajax">+ веб-сервис</a>
+                                      </li>
+                                      <li>
+                                          <a href="/create_serve_category/" class="ajax">+ технология опций</a>
+                                      </li>
+                                      <li>
+                                          <a href="/create_serve/" class="ajax">+ опция</a>
+                                      </li>
+                                  </ul>
+                              </li>
+
+                              <li class="mn-sub-multi">
+                                  <a class="mn-group-title">Страницы</a>
+                                  <ul>
+                                    <li>
+                                      <a href="/orders/" class="ajax">Заказы</a>
+                                    </li>
+                                    <li>
+                                      <a href="/feedback_list/" class="ajax">Письма</a>
+                                    </li>
+                                    <li>
+                                      <a href="/serve_list/" class="ajax">Опции</a>
+                                    </li>
+                                    <li>
+                                      <a href="/logout/">Выйти</a>
+                                    </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <% } %>
 
                       <li>
                         <a class="mn-has-sub ajax pointer folder"><%= _settings %></a>
@@ -197,54 +246,6 @@
                             </li>
                         </ul>
                       </li>
-                      <% if request_user.is_superuser() { %>
-                      <li> 
-                          <a class="mn-has-sub folder auth" style="height: 75px; line-height: 75px;">Профиль</a>
-                          <ul class="mn-sub mn-has-multi border" style="display: none;">
-                              <li class="mn-sub-multi">
-                                  <a class="mn-group-title">Админка</a>
-                                  <ul>
-                                      <li>
-                                          <a href="/create_category/" class="ajax">+ категория</a>
-                                      </li>
-                                      <li>
-                                          <a href="/create_item/" class="ajax">+ объект</a>
-                                      </li>
-                                      <li>
-                                          <a href="/create_tag/" class="ajax">+ тег</a>
-                                      </li>
-                                      <li>
-                                          <a href="/create_web_service/" class="ajax">+ веб-сервис</a>
-                                      </li>
-                                      <li>
-                                          <a href="/create_serve_category/" class="ajax">+ технология опций</a>
-                                      </li>
-                                      <li>
-                                          <a href="/create_serve/" class="ajax">+ опция</a>
-                                      </li>
-                                  </ul>
-                              </li>
-
-                              <li class="mn-sub-multi">
-                                  <a class="mn-group-title">Страницы</a>
-                                  <ul>
-                                    <li>
-                                      <a href="/orders/" class="ajax">Заказы</a>
-                                    </li>
-                                    <li>
-                                      <a href="/feedback_list/" class="ajax">Письма</a>
-                                    </li>
-                                    <li>
-                                      <a href="/serve_list/" class="ajax">Опции</a>
-                                    </li>
-                                    <li>
-                                      <a href="/logout/">Выйти</a>
-                                    </li>
-                                  </ul>
-                              </li>
-                          </ul>
-                      </li>
-                      <% } %>
                   </ul>
               </div>
           </div> 
