@@ -318,7 +318,7 @@ pub async fn store_category_page(conn: ConnectionInfo, session: Session, req: Ht
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/stores/category.stpl")]
                 struct Template {
-                    //request_user:     User,
+                    request_user:     User,
                     all_tags:         Vec<SmallTag>,
                     category:         CatDetail,
                     cats:             Vec<Cat>,
@@ -335,7 +335,7 @@ pub async fn store_category_page(conn: ConnectionInfo, session: Session, req: Ht
                     image:            String,
                 }
                 let body = Template {
-                    //request_user:     _request_user,
+                    request_user:     _request_user,
                     all_tags:         _tags,
                     category:         _category,
                     cats:             _cats,

@@ -86,7 +86,7 @@ pub async fn create_tag_page(conn: ConnectionInfo, session: Session, req: HttpRe
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/tags/create_tag.stpl")]
                 struct Template {
-                    //request_user:   User,
+                    request_user:   User,
                     all_tags:       Vec<Tag>,
                     is_ajax:        i32,
                     template_types: i16,
@@ -98,7 +98,7 @@ pub async fn create_tag_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     image:          String,
                 }
                 let body = Template {
-                    //request_user:   _request_user,
+                    request_user:   _request_user,
                     all_tags:       all_tags,
                     is_ajax:        is_ajax,
                     template_types: t,
@@ -198,7 +198,7 @@ pub async fn tag_page(conn: ConnectionInfo, req: HttpRequest, session: Session, 
                 #[template(path = "desctop/tags/tag.stpl")]
                 struct Template {
                     tag:            Tag,
-                    //request_user:   User,
+                    request_user:   User,
                     works_list:     Vec<Work>,
                     services_list:  Vec<Service>,
                     wikis_list:     Vec<Wiki>,
@@ -223,7 +223,7 @@ pub async fn tag_page(conn: ConnectionInfo, req: HttpRequest, session: Session, 
                 }
                 let body = Template {
                     tag:            _tag,
-                    //request_user:   _request_user,
+                    request_user:   _request_user,
                     works_list:     _works,
                     services_list:  _services,
                     wikis_list:     _wikis,
@@ -484,7 +484,7 @@ pub async fn tag_blogs_page(conn: ConnectionInfo, session: Session, req: HttpReq
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/tags/tag_blogs.stpl")]
                 struct Template {
-                    //request_user:     User,
+                    request_user:     User,
                     tag:              Tag,
                     blogs_list:       Vec<Blog>,
                     blogs_count:      usize,
@@ -499,7 +499,7 @@ pub async fn tag_blogs_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     image:            String,
                 }
                 let body = Template {
-                    //request_user:     _request_user,
+                    request_user:     _request_user,
                     tag:              _tag,
                     blogs_list:       _blogs,
                     blogs_count:      blog_count,
@@ -688,7 +688,7 @@ pub async fn tag_services_page(conn: ConnectionInfo, session: Session, req: Http
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/tags/tag_services.stpl")]
                 struct Template {
-                    //request_user:     User,
+                    request_user:     User,
                     tag:              Tag,
                     services_list:    Vec<Service>,
                     services_count:   usize,
@@ -703,7 +703,7 @@ pub async fn tag_services_page(conn: ConnectionInfo, session: Session, req: Http
                     image:            String,
                 }
                 let body = Template {
-                    //request_user:     _request_user,
+                    request_user:     _request_user,
                     tag:              _tag,
                     services_list:    _services,
                     services_count:   service_count,
@@ -893,7 +893,7 @@ pub async fn tag_stores_page(conn: ConnectionInfo, session: Session, req: HttpRe
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/tags/tag_stores.stpl")]
                 struct Template {
-                    //request_user:     User,
+                    request_user:     User,
                     tag:              Tag,
                     stores_list:      Vec<Store>,
                     stores_count:     usize,
@@ -908,7 +908,7 @@ pub async fn tag_stores_page(conn: ConnectionInfo, session: Session, req: HttpRe
                     image:            String,
                 }
                 let body = Template {
-                    //request_user:     _request_user,
+                    request_user:     _request_user,
                     tag:              _tag,
                     stores_list:      _stores,
                     stores_count:     stores_count,
@@ -1098,7 +1098,7 @@ pub async fn tag_wikis_page(conn: ConnectionInfo, session: Session, req: HttpReq
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/tags/tag_wikis.stpl")]
                 struct Template {
-                    //request_user:     User,
+                    request_user:     User,
                     tag:              Tag,
                     wikis_list:       Vec<Wiki>,
                     wikis_count:      usize,
@@ -1113,7 +1113,7 @@ pub async fn tag_wikis_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     image:            String,
                 }
                 let body = Template {
-                    //request_user:     _request_user,
+                    request_user:     _request_user,
                     tag:              _tag,
                     wikis_list:       _wikis,
                     wikis_count:      wikis_count,
@@ -1303,7 +1303,7 @@ pub async fn tag_works_page(conn: ConnectionInfo, session: Session, req: HttpReq
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/tags/tag_works.stpl")]
                 struct Template {
-                    //request_user:     User,
+                    request_user:     User,
                     tag:              Tag,
                     works_list:       Vec<Work>,
                     works_count:      usize,
@@ -1318,7 +1318,7 @@ pub async fn tag_works_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     image:            String,
                 }
                 let body = Template {
-                    //request_user:     _request_user,
+                    request_user:     _request_user,
                     tag:              _tag,
                     works_list:       _works,
                     works_count:      works_count,
@@ -1507,7 +1507,7 @@ pub async fn tag_helps_page(conn: ConnectionInfo, session: Session, req: HttpReq
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/tags/tag_helps.stpl")]
                 struct Template {
-                    //request_user:     User,
+                    request_user:     User,
                     tag:              Tag,
                     helps_list:       Vec<Help>,
                     helps_count:      usize,
@@ -1522,7 +1522,7 @@ pub async fn tag_helps_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     image:            String,
                 }
                 let body = Template {
-                    //request_user:     _request_user,
+                    request_user:     _request_user,
                     tag:              _tag,
                     helps_list:       _helps,
                     helps_count:      helps_count,
@@ -1698,7 +1698,7 @@ pub async fn tags_page(conn: ConnectionInfo, session: Session, req: HttpRequest)
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/tags/tags.stpl")]
                 struct Template {
-                    //request_user:     User,
+                    request_user:     User,
                     all_tags:         Vec<SmallTag>,
                     tags_count:       usize,
                     next_page_number: i32,
@@ -1713,7 +1713,7 @@ pub async fn tags_page(conn: ConnectionInfo, session: Session, req: HttpRequest)
                     image:            String,
                 }
                 let body = Template {
-                    //request_user:     _request_user,
+                    request_user:     _request_user,
                     all_tags:         all_tags,
                     tags_count:       tags_count,
                     next_page_number: next_page_number,
@@ -1887,7 +1887,7 @@ pub async fn edit_tag_page(conn: ConnectionInfo, session: Session, req: HttpRequ
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/tags/edit_tag.stpl")]
                 struct Template {
-                    //request_user:   User,
+                    request_user:   User,
                     tag:            Tag,
                     is_ajax:        i32,
                     template_types: i16,
@@ -1899,7 +1899,7 @@ pub async fn edit_tag_page(conn: ConnectionInfo, session: Session, req: HttpRequ
                     image:          String,
                 }
                 let body = Template {
-                    //request_user:   _request_user,
+                    request_user:   _request_user,
                     tag:            _tag,
                     is_ajax:        is_ajax,
                     template_types: t,

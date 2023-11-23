@@ -100,7 +100,7 @@ pub async fn not_found(conn: ConnectionInfo, req: HttpRequest, session: Session)
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/pages/404.stpl")]
                 struct Template {
-                    //request_user:   User,
+                    request_user:   User,
                     is_ajax:        i32,
                     template_types: i16,
                     linguage:       i16,
@@ -111,7 +111,7 @@ pub async fn not_found(conn: ConnectionInfo, req: HttpRequest, session: Session)
                     image:          String,
                 }
                 let body = Template {
-                    //request_user:   _request_user,
+                    request_user:   _request_user,
                     is_ajax:        is_ajax,
                     template_types: t,
                     linguage:       l,
@@ -281,7 +281,7 @@ pub async fn index_page (
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/main/mainpage.stpl")]
                 struct Template {
-                    //request_user:   User,
+                    request_user:   User,
                     last_works:     Vec<Work>,
                     last_services:  Vec<Service>,
                     last_wikis:     Vec<Wiki>,
@@ -303,7 +303,7 @@ pub async fn index_page (
                     image:          String,
                 }
                 let body = Template {
-                    //request_user:   _request_user,
+                    request_user:   _request_user,
                     last_works:     _last_works,
                     last_services:  _last_services,
                     last_wikis:     _last_wikis,
@@ -332,7 +332,7 @@ pub async fn index_page (
                 #[derive(TemplateOnce)]
                 #[template(path = "mobile/main/mainpage.stpl")]
                 struct Template {
-                    //request_user:   User,
+                    request_user:   User,
                     last_works:     Vec<Work>,
                     last_services:  Vec<Service>,
                     last_wikis:     Vec<Wiki>,
@@ -354,7 +354,7 @@ pub async fn index_page (
                     image:          String,
                 }
                 let body = Template {
-                    //request_user:   _request_user,
+                    request_user:   _request_user,
                     last_works:     _last_works,
                     last_services:  _last_services,
                     last_wikis:     _last_wikis,
@@ -526,7 +526,7 @@ pub async fn info_page(conn: ConnectionInfo, req: HttpRequest, session: Session)
             #[derive(TemplateOnce)]
             #[template(path = "desctop/pages/info.stpl")]
             struct Template {
-                //request_user:   User,
+                request_user:   User,
                 is_ajax:        i32,
                 help_cats:      Vec<Cat>,
                 stat:           StatPage,
@@ -539,7 +539,7 @@ pub async fn info_page(conn: ConnectionInfo, req: HttpRequest, session: Session)
                 image:          String,
             }
             let body = Template {
-                //request_user:   _request_user,
+                request_user:   _request_user,
                 is_ajax:        is_ajax,
                 help_cats:      _help_cats,
                 stat:           _stat,
@@ -701,7 +701,7 @@ pub async fn history_page(conn: ConnectionInfo, req: HttpRequest, session: Sessi
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/pages/history.stpl")]
                 struct Template {
-                    //request_user:     User,
+                    request_user:     User,
                     user:             CookieUser,
                     object_list:      Vec<CookieStat>,
                     is_ajax:          i32,
@@ -715,7 +715,7 @@ pub async fn history_page(conn: ConnectionInfo, req: HttpRequest, session: Sessi
                     image:            String,
                 }
                 let body = Template {
-                    //request_user:     _request_user,
+                    request_user:     _request_user,
                     user:             _cookie_user,
                     object_list:      object_list,
                     is_ajax:          is_ajax,
@@ -870,7 +870,7 @@ pub async fn feedback_list_page(conn: ConnectionInfo, req: HttpRequest, session:
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/main/feedback_list.stpl")]
                 struct Template { 
-                    //request_user:   User,
+                    request_user:   User,
                     is_ajax:        i32,
                     feedback_list:  Vec<Feedback>,
                     template_types: i16,
@@ -882,7 +882,7 @@ pub async fn feedback_list_page(conn: ConnectionInfo, req: HttpRequest, session:
                     image:          String,
                 }
                 let body = Template {
-                    //request_user:   _request_user,
+                    request_user:   _request_user,
                     is_ajax:        is_ajax,
                     feedback_list:  _feedbacks,
                     template_types: t,
@@ -1338,7 +1338,7 @@ pub async fn cookie_users_list_page(conn: ConnectionInfo, session: Session, req:
                 #[derive(TemplateOnce)]
                 #[template(path = "mobile/pages/stat.stpl")]
                 struct Template {
-                    //request_user:     User,
+                    request_user:     User,
                     object_list:      Vec<CookieUser>,
                     next_page_number: i32,
                     is_ajax:          i32,
@@ -1351,7 +1351,7 @@ pub async fn cookie_users_list_page(conn: ConnectionInfo, session: Session, req:
                     image:            String,
                 }
                 let body = Template {
-                    //request_user:     _request_user,
+                    request_user:     _request_user,
                     object_list:      object_list,
                     next_page_number: next_page_number,
                     is_ajax:          is_ajax,
@@ -1640,7 +1640,7 @@ pub async fn create_category_page(conn: ConnectionInfo, session: Session, req: H
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/pages/create_category.stpl")]
                 struct Template {
-                    //request_user:   User,
+                    request_user:   User,
                     cats:           Vec<Categories>,
                     is_ajax:        i32,
                     template_types: i16,
@@ -1652,7 +1652,7 @@ pub async fn create_category_page(conn: ConnectionInfo, session: Session, req: H
                     image:          String,
                 }
                 let body = Template {
-                    //request_user:   _request_user,
+                    request_user:   _request_user,
                     cats:           _cats,
                     is_ajax:        is_ajax,
                     template_types: t,
@@ -1744,7 +1744,7 @@ pub async fn edit_category_page(conn: ConnectionInfo, session: Session, req: Htt
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/pages/edit_category.stpl")]
                 struct Template {
-                    //request_user:   User,
+                    request_user:   User,
                     cat:            Categories,
                     cats:           Vec<Categories>,
                     is_ajax:        i32,
@@ -1757,7 +1757,7 @@ pub async fn edit_category_page(conn: ConnectionInfo, session: Session, req: Htt
                     image:          String,
                 }
                 let body = Template {
-                    //request_user:   _request_user,
+                    request_user:   _request_user,
                     cat:            _cat,
                     cats:           _cats,
                     is_ajax:        is_ajax,
@@ -1854,7 +1854,7 @@ pub async fn create_item_page(conn: ConnectionInfo, session: Session, req: HttpR
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/pages/create_item.stpl")]
                 struct Template {
-                    //request_user:   User,
+                    request_user:   User,
                     all_tags:       Vec<Tag>,
                     is_ajax:        i32,
                     template_types: i16,
@@ -1866,7 +1866,7 @@ pub async fn create_item_page(conn: ConnectionInfo, session: Session, req: HttpR
                     image:          String,
                 }
                 let body = Template {
-                    //request_user:   _request_user,
+                    request_user:   _request_user,
                     all_tags:       all_tags,
                     is_ajax:        is_ajax,
                     template_types: t,
@@ -1978,7 +1978,7 @@ pub async fn edit_item_page(conn: ConnectionInfo, session: Session, req: HttpReq
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/pages/edit_item.stpl")]
                 struct Template {
-                    //request_user:   User,
+                    request_user:   User,
                     object:         Item,
                     cats:           Vec<Categories>,
                     is_ajax:        i32,
@@ -1996,7 +1996,7 @@ pub async fn edit_item_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     image:          String,
                 }
                 let body = Template {
-                    //request_user:   _request_user,
+                    request_user:   _request_user,
                     object:         _item,
                     cats:           _cats,
                     is_ajax:        is_ajax,
@@ -2105,7 +2105,7 @@ pub async fn edit_content_item_page(conn: ConnectionInfo, session: Session, req:
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/pages/edit_content_item.stpl")]
                 struct Template {
-                    //request_user:   User,
+                    request_user:   User,
                     item:           Item,
                     is_ajax:        i32,
                     template_types: i16,
@@ -2117,7 +2117,7 @@ pub async fn edit_content_item_page(conn: ConnectionInfo, session: Session, req:
                     image:          String,
                 }
                 let body = Template {
-                    //request_user:   _request_user,
+                    request_user:   _request_user,
                     item:           _item,
                     is_ajax:        is_ajax,
                     template_types: t,
@@ -2211,7 +2211,7 @@ pub async fn edit_file_page(conn: ConnectionInfo, session: Session, req: HttpReq
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/pages/edit_file.stpl")]
                 struct Template {
-                    //request_user:   User,
+                    request_user:   User,
                     file:           File,
                     is_ajax:        i32,
                     template_types: i16,
@@ -2223,7 +2223,7 @@ pub async fn edit_file_page(conn: ConnectionInfo, session: Session, req: HttpReq
                     image:          String,
                 }
                 let body = Template {
-                    //request_user:   _request_user,
+                    request_user:   _request_user,
                     file:           _file,
                     is_ajax:        is_ajax,
                     template_types: t,

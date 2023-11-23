@@ -61,7 +61,7 @@ pub async fn empty_search_page(conn: ConnectionInfo, req: HttpRequest, session: 
             #[derive(TemplateOnce)]
             #[template(path = "desctop/search/empty_search.stpl")]
             struct Template {
-                //request_user:   User,
+                request_user:   User,
                 is_ajax:        i32,
                 template_types: i16,
                 linguage:       i16,
@@ -72,7 +72,7 @@ pub async fn empty_search_page(conn: ConnectionInfo, req: HttpRequest, session: 
                 image:          String,
             }
             let body = Template {
-                //request_user:   _request_user,
+                request_user:   _request_user,
                 is_ajax:        is_ajax,
                 template_types: t,
                 linguage:       l,
@@ -220,7 +220,7 @@ pub async fn search_page(conn: ConnectionInfo, session: Session, req: HttpReques
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/search/all.stpl")]
                 struct Template {
-                    //request_user:   User,
+                    request_user:   User,
                     works_list:     Vec<Work>,
                     services_list:  Vec<Service>,
                     wikis_list:     Vec<Wiki>,
@@ -243,7 +243,7 @@ pub async fn search_page(conn: ConnectionInfo, session: Session, req: HttpReques
                     image:          String,
                 }
                 let body = Template {
-                    //request_user:   _request_user,
+                    request_user:   _request_user,
                     works_list:     work_list,
                     services_list:  service_list,
                     wikis_list:     wiki_list,
@@ -494,7 +494,7 @@ pub async fn search_blogs_page(conn: ConnectionInfo, session: Session, req: Http
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/search/blogs.stpl")]
                 struct Template {
-                    //request_user:     User,
+                    request_user:     User,
                     blogs_list:       Vec<Blog>,
                     blogs_count:      usize,
                     is_ajax:          i32,
@@ -509,7 +509,7 @@ pub async fn search_blogs_page(conn: ConnectionInfo, session: Session, req: Http
                     image:            String,
                 }
                 let body = Template {
-                    //request_user:     _request_user,
+                    request_user:     _request_user,
                     blogs_list:       blog_list,
                     blogs_count:      blogs_count,
                     is_ajax:          is_ajax,
@@ -704,7 +704,7 @@ pub async fn search_services_page(conn: ConnectionInfo, session: Session, req: H
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/search/services.stpl")]
                 struct Template {
-                    //request_user:     User,
+                    request_user:     User,
                     services_list:    Vec<Service>,
                     services_count:   usize,
                     is_ajax:          i32,
@@ -719,7 +719,7 @@ pub async fn search_services_page(conn: ConnectionInfo, session: Session, req: H
                     image:            String,
                 }
                 let body = Template {
-                    //request_user:     _request_user,
+                    request_user:     _request_user,
                     services_list:    services_list,
                     services_count:   services_count,
                     is_ajax:          is_ajax,
@@ -918,7 +918,7 @@ pub async fn search_stores_page(conn: ConnectionInfo, session: Session, req: Htt
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/search/stores.stpl")]
                 struct Template {
-                    //request_user:     User,
+                    request_user:     User,
                     stores_list:      Vec<Store>,
                     stores_count:     usize,
                     is_ajax:          i32,
@@ -933,7 +933,7 @@ pub async fn search_stores_page(conn: ConnectionInfo, session: Session, req: Htt
                     image:            String,
                 }
                 let body = Template {
-                    //request_user:     _request_user,
+                    request_user:     _request_user,
                     stores_list:       stores_list,
                     stores_count:      stores_count,
                     is_ajax:          is_ajax,
@@ -1131,7 +1131,7 @@ pub async fn search_wikis_page(conn: ConnectionInfo, session: Session, req: Http
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/search/wikis.stpl")]
                 struct Template {
-                    //request_user:     User,
+                    request_user:     User,
                     wikis_list:       Vec<Wiki>,
                     wikis_count:      usize,
                     is_ajax:          i32,
@@ -1146,7 +1146,7 @@ pub async fn search_wikis_page(conn: ConnectionInfo, session: Session, req: Http
                     image:            String,
                 }
                 let body = Template {
-                    //request_user:     _request_user,
+                    request_user:     _request_user,
                     wikis_list:       wiki_list,
                     wikis_count:      wikis_count,
                     is_ajax:          is_ajax,
@@ -1344,7 +1344,7 @@ pub async fn search_works_page(conn: ConnectionInfo, session: Session, req: Http
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/search/works.stpl")]
                 struct Template {
-                    //request_user:     User,
+                    request_user:     User,
                     works_list:       Vec<Work>,
                     works_count:      usize,
                     is_ajax:          i32,
@@ -1359,7 +1359,7 @@ pub async fn search_works_page(conn: ConnectionInfo, session: Session, req: Http
                     image:            String,
                 }
                 let body = Template {
-                    //request_user:     _request_user,
+                    request_user:     _request_user,
                     works_list:       work_list,
                     works_count:      works_count,
                     is_ajax:          is_ajax,
@@ -1555,7 +1555,7 @@ pub async fn search_help_page(conn: ConnectionInfo, session: Session, req: HttpR
                 #[derive(TemplateOnce)]
                 #[template(path = "desctop/search/help.stpl")]
                 struct Template {
-                    //request_user:     User,
+                    request_user:     User,
                     items_list:       Vec<Help>,
                     items_count:      usize,
                     is_ajax:          i32,
@@ -1570,7 +1570,7 @@ pub async fn search_help_page(conn: ConnectionInfo, session: Session, req: HttpR
                     image:            String,
                 }
                 let body = Template {
-                    //request_user:     _request_user,
+                    request_user:     _request_user,
                     items_list:       _items,
                     items_count:      items_count,
                     is_ajax:          is_ajax,
