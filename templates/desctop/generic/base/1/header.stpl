@@ -138,7 +138,7 @@
                       
                       <li> 
                           <a class="mn-has-sub folder auth" style="height: 75px; line-height: 75px;">Профиль</a>
-                          <ul class="mn-sub mn-has-multi border" style="display: none;">
+                          <ul class="mn-sub mn-has-multi border" style="display: none;left:-300px">
                               <li class="mn-sub-multi">
                                   <a class="mn-group-title">Админка</a>
                                   <ul>
