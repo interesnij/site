@@ -40,6 +40,9 @@
     <script defer type="text/javascript" src="/static/1_scripts/desctop/main.js?ver15"></script>
     <script defer type="text/javascript" src="/static/1_scripts/main.js?ver15"></script>
     <script defer type="text/javascript" src="/static/1_scripts/progressive-image.js"></script>
+    <% if request_user.is_superuser() { %>
+      <script defer type="text/javascript" src="/static/1_scripts/admin.js"></script>
+    <% } %>
 <% } %>
   </body>
 </html>
