@@ -2,8 +2,8 @@
 
 <% if is_ajax == 1 { %>
     <% match template_types { 
-        1 => include!("generic/base/1/anon_footer.stpl"),
-        2 => include!("generic/base/2/anon_footer.stpl"),
-        _ => include!("generic/base/1/anon_footer.stpl"),
+        1 => include!("generic/base/1/footer.stpl"),
+        2 => include!("generic/base/2/footer.stpl"),
+        _ => include!("generic/base/1/footer.stpl"),
     }; %> 
 <% } %> 
