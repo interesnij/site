@@ -49,6 +49,7 @@ impl Tag {
         if l == 1 {
             return schema::tags::table
                 .filter(schema::tags::id.eq_any(_tag_items))
+                .filter(schema::tags::name.ne(""))
                 .select((
                     schema::tags::name,
                     schema::tags::count,
@@ -59,6 +60,7 @@ impl Tag {
         else if l == 2 {
             return schema::tags::table
                 .filter(schema::tags::id.eq_any(_tag_items))
+                .filter(schema::tags::name_en.ne(""))
                 .select((
                     schema::tags::name_en,
                     schema::tags::count,
