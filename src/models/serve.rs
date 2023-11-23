@@ -339,6 +339,7 @@ impl ServeCategories {
         if l == 1 {
             return schema::serve::table
                 .filter(schema::serve::category_id.eq(self.id))
+                .filter(schema::serve::name.ne(""))
                 .filter(schema::serve::serve_id.is_null())
                 .order(schema::serve::position)
                 .select((
@@ -355,6 +356,7 @@ impl ServeCategories {
         else if l == 2 {
             let mut list = schema::serve::table
                 .filter(schema::serve::category_id.eq(self.id))
+                .filter(schema::serve::name_en.ne(""))
                 .filter(schema::serve::serve_id.is_null())
                 .order(schema::serve::position)
                 .select((
@@ -517,6 +519,7 @@ impl ServeVar {
         if l == 1 {
             return serve 
                 .filter(schema::serve::serve_id.eq(self.id))
+                .filter(schema::serve::name.ne(""))
                 .order(schema::serve::position)
                 .select((
                     schema::serve::id,
@@ -532,6 +535,7 @@ impl ServeVar {
         else if l == 2 {
             let mut list = serve 
                 .filter(schema::serve::serve_id.eq(self.id))
+                .filter(schema::serve::name_en.ne(""))
                 .order(schema::serve::position)
                 .select((
                     schema::serve::id,
@@ -557,6 +561,7 @@ impl ServeVar {
         if l == 1 {
             return serve
                 .filter(schema::serve::serve_id.eq(self.id))
+                .filter(schema::serve::name.ne(""))
                 .filter(schema::serve::id.ne(id))
                 .order(schema::serve::position)
                 .select((
@@ -573,6 +578,7 @@ impl ServeVar {
         else if l == 2 {
             let mut list = serve
                 .filter(schema::serve::serve_id.eq(self.id))
+                .filter(schema::serve::name_en.ne(""))
                 .filter(schema::serve::id.ne(id))
                 .order(schema::serve::position)
                 .select((

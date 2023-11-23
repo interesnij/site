@@ -1687,8 +1687,8 @@ pub async fn tags_page(conn: ConnectionInfo, session: Session, req: HttpRequest)
     }
     else {
         let page = crate::utils::get_page(&req);
-        let (all_tags, next_page_number) = Tag::get_tags_list(page, 20);
-        let tags_count = all_tags.len();
+        let (all_tags, next_page_number) = Tag::get_tags_list(page, 20, l);
+        let tags_count = all_tags.len(); 
 
         let _stat = crate::models::StatPage::get_or_create(31);
 

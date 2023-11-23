@@ -480,6 +480,7 @@ impl Categories {
                     if l == 1 {
                         next = Some(items
                             .filter(schema::items::id.eq(_next.unwrap()))
+                            .filter(schema::items::title.ne(""))
                             .filter(schema::items::types.eq(item_types))
                             .filter(schema::items::is_active.eq(true))
                             .select((
@@ -492,6 +493,7 @@ impl Categories {
                     else if l == 2 {
                         next = Some(items
                             .filter(schema::items::id.eq(_next.unwrap()))
+                            .filter(schema::items::title_en.ne(""))
                             .filter(schema::items::types.eq(item_types))
                             .filter(schema::items::is_active.eq(true))
                             .select((
@@ -507,6 +509,7 @@ impl Categories {
                     if l == 1 {
                         prev = Some(items
                             .filter(schema::items::id.eq(_prev.unwrap()))
+                            .filter(schema::items::title.ne(""))
                             .filter(schema::items::types.eq(item_types))
                             .filter(schema::items::is_active.eq(true))
                             .select((
@@ -519,6 +522,7 @@ impl Categories {
                     else if l == 2 {
                         prev = Some(items
                             .filter(schema::items::id.eq(_prev.unwrap()))
+                            .filter(schema::items::title_en.ne(""))
                             .filter(schema::items::types.eq(item_types))
                             .filter(schema::items::is_active.eq(true))
                             .select((
@@ -590,6 +594,7 @@ impl Categories {
             if l == 1 {
                 return Ok(schema::items::table
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -608,6 +613,7 @@ impl Categories {
             else if l == 2 {
                 return Ok(schema::items::table
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -627,6 +633,7 @@ impl Categories {
             if l == 2 {
                 return Ok(schema::items::table
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -646,6 +653,7 @@ impl Categories {
             else if l == 2 {
                 return Ok(schema::items::table
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -714,6 +722,7 @@ impl Categories {
             if l == 1 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -731,6 +740,7 @@ impl Categories {
             else if l == 2 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -749,6 +759,7 @@ impl Categories {
             if l == 1 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -767,6 +778,7 @@ impl Categories {
             else if l == 2 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -835,6 +847,7 @@ impl Categories {
             if l == 1 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -854,6 +867,7 @@ impl Categories {
             else if l == 2 {
                 let mut list = items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -878,6 +892,7 @@ impl Categories {
             if l == 1 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -898,6 +913,7 @@ impl Categories {
             else if l == 2 {
                 let mut list = items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -973,6 +989,7 @@ impl Categories {
             if l == 1 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -991,6 +1008,7 @@ impl Categories {
             else if l == 2 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -1010,6 +1028,7 @@ impl Categories {
             if l == 1 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -1029,6 +1048,7 @@ impl Categories {
             else if l == 2 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -1098,6 +1118,7 @@ impl Categories {
             if l == 1 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -1115,6 +1136,7 @@ impl Categories {
             else if l == 2 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -1133,6 +1155,7 @@ impl Categories {
             if l == 1 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -1151,6 +1174,7 @@ impl Categories {
             else if l == 2 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -1220,6 +1244,7 @@ impl Categories {
             if l == 1 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::position.asc())
                     .limit(limit)
                     .offset(offset)
@@ -1235,6 +1260,7 @@ impl Categories {
             else if l == 2 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::position.asc())
                     .limit(limit)
                     .offset(offset)
@@ -1251,6 +1277,7 @@ impl Categories {
             if l == 1 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::position.asc())
                     .limit(limit)
@@ -1267,6 +1294,7 @@ impl Categories {
             else if l == 2 {
                 return Ok(items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::position.asc())
                     .limit(limit)
@@ -1344,6 +1372,7 @@ impl Categories {
         if l == 1 {
             return schema::categories::table
                 .filter(schema::categories::types.eq(types))
+                .filter(schema::categories::name.ne(""))
                 .select((
                     schema::categories::name,
                     schema::categories::slug,
@@ -1357,6 +1386,7 @@ impl Categories {
         else if l == 2 {
             return schema::categories::table
                 .filter(schema::categories::types.eq(types))
+                .filter(schema::categories::name_en.ne(""))
                 .select((
                     schema::categories::name_en,
                     schema::categories::slug,
@@ -2001,6 +2031,7 @@ impl Item {
         if l == 1 {
             return categories
                 .filter(schema::categories::id.eq_any(ids))
+                .filter(schema::categories::name.ne(""))
                 .select((
                     schema::categories::name,
                     schema::categories::slug,
@@ -2012,6 +2043,7 @@ impl Item {
         else if l == 2 {
             return categories
                 .filter(schema::categories::id.eq_any(ids))
+                .filter(schema::categories::name_en.ne(""))
                 .select((
                     schema::categories::name_en,
                     schema::categories::slug,
@@ -2160,6 +2192,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::types.eq(1))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -2178,6 +2211,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::types.eq(1))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -2197,6 +2231,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::types.eq(1))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -2216,6 +2251,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::types.eq(1))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -2352,6 +2388,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::types.eq(2))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -2369,6 +2406,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::types.eq(2))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -2387,6 +2425,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::types.eq(2))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -2405,6 +2444,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::types.eq(2))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -2536,6 +2576,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::types.eq(3))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -2555,6 +2596,7 @@ impl Item {
             else if l == 2 {
                 let mut list = items
                     .filter(schema::items::types.eq(3))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -2579,6 +2621,7 @@ impl Item {
                 if l == 1 {
                     return (items
                         .filter(schema::items::types.eq(3))
+                        .filter(schema::items::title.ne(""))
                         .filter(schema::items::is_active.eq(true))
                         .order(schema::items::created.desc())
                         .limit(limit)
@@ -2599,6 +2642,7 @@ impl Item {
                 else if l == 2 {
                     let mut list = items
                         .filter(schema::items::types.eq(3))
+                        .filter(schema::items::title_en.ne(""))
                         .filter(schema::items::is_active.eq(true))
                         .order(schema::items::created.desc())
                         .limit(limit)
@@ -2752,6 +2796,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::types.eq(5))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -2769,6 +2814,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::types.eq(5))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -2787,6 +2833,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::types.eq(5))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -2805,6 +2852,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::types.eq(5))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -2936,6 +2984,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::types.eq(4))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -2954,6 +3003,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::types.eq(4))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -2973,6 +3023,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::types.eq(4))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -2992,6 +3043,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::types.eq(4))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3130,6 +3182,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::types.eq(6))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -3145,6 +3198,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::types.eq(6))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -3161,6 +3215,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::types.eq(6))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3177,6 +3232,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::types.eq(6))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3324,6 +3380,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -3342,6 +3399,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -3362,6 +3420,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3381,6 +3440,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3442,6 +3502,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -3459,6 +3520,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -3478,6 +3540,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3496,6 +3559,7 @@ impl Item {
             else if l == 1 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3556,6 +3620,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -3575,6 +3640,7 @@ impl Item {
             else if l == 2 {
                 let mut list = items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -3600,6 +3666,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3620,6 +3687,7 @@ impl Item {
             else if l == 2 {
                 let mut list = items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3686,6 +3754,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -3704,6 +3773,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -3724,6 +3794,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3743,6 +3814,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3804,6 +3876,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -3821,6 +3894,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -3840,6 +3914,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3858,6 +3933,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3937,6 +4013,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -3952,6 +4029,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .order(schema::items::created.desc())
                     .limit(limit)
                     .offset(offset)
@@ -3969,6 +4047,7 @@ impl Item {
             if l == 1 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -3985,6 +4064,7 @@ impl Item {
             else if l == 2 {
                 return (items
                     .filter(schema::items::id.eq_any(ids))
+                    .filter(schema::items::title_en.ne(""))
                     .filter(schema::items::is_active.eq(true))
                     .order(schema::items::created.desc())
                     .limit(limit)
@@ -4029,6 +4109,7 @@ impl Item {
         if l == 1 {
             return serve 
                 .filter(schema::serve::id.eq_any(_items))
+                .filter(schema::serve::name.ne(""))
                 .order(schema::serve::position)
                 .select((
                     schema::serve::id,
@@ -4044,6 +4125,7 @@ impl Item {
         else if l == 2 {
             let mut list = serve 
                 .filter(schema::serve::id.eq_any(_items))
+                .filter(schema::serve::name_en.ne(""))
                 .order(schema::serve::position)
                 .select((
                     schema::serve::id,

@@ -177,7 +177,7 @@ impl Tag {
             .load::<Tag>(&_connection)
             .expect("E.");
     }
-    pub fn get_tags_list(page: i32, limit: i32) -> (Vec<SmallTag>, i32) {
+    pub fn get_tags_list(page: i32, limit: i32, l: i16) -> (Vec<SmallTag>, i32) {
         let mut next_page_number = 0;
         let have_next: i32;
         let object_list: Vec<SmallTag>;
@@ -185,32 +185,49 @@ impl Tag {
         if page > 1 {
             let step = (page - 1) * 20;
             have_next = page * limit + 1;
-            object_list = Tag::get_tags(limit.into(), step.into());
+            object_list = Tag::get_tags(limit.into(), step.into(), l);
         }
         else {
             have_next = limit + 1;
-            object_list = Tag::get_tags(limit.into(), 0);
+            object_list = Tag::get_tags(limit.into(), 0, l);
         }
-        if Tag::get_tags(1, have_next.into()).len() > 0 {
+        if Tag::get_tags(1, have_next.into(), l).len() > 0 {
             next_page_number = page + 1;
         }
 
         return (object_list, next_page_number);
     }
-    pub fn get_tags(limit: i64, offset: i64) -> Vec<SmallTag> {
+    pub fn get_tags(limit: i64, offset: i64, l: i16) -> Vec<SmallTag> {
         use crate::schema::tags::dsl::tags;
 
         let _connection = establish_connection();
-        return tags
-            .order(schema::tags::count.desc())
-            .limit(limit)
-            .offset(offset)
-            .select((
-                schema::tags::name,
-                schema::tags::count
-            ))
-            .load::<SmallTag>(&_connection)
-            .expect("E.");
+        if l == 1 {
+            return tags
+                .filter(schema::tags::name.ne(""))
+                .order(schema::tags::count.desc())
+                .limit(limit)
+                .offset(offset) 
+                .select((
+                    schema::tags::name,
+                    schema::tags::count
+                ))
+                .load::<SmallTag>(&_connection)
+                .expect("E.");
+        }
+        else if l == 2 {
+            return tags
+                .filter(schema::tags::name_en.ne(""))
+                .order(schema::tags::count.desc())
+                .limit(limit)
+                .offset(offset) 
+                .select((
+                    schema::tags::name_en,
+                    schema::tags::count
+                ))
+                .load::<SmallTag>(&_connection)
+                .expect("E.");
+        }
+        return Vec::new();
     }
 }
 

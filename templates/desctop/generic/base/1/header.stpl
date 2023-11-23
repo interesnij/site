@@ -198,7 +198,7 @@
                         </ul>
                       </li>
                       <% if request_user.is_superuser() { %>
-                      <li>
+                      <li> 
                           <a class="mn-has-sub folder auth" style="height: 75px; line-height: 75px;">Профиль</a>
                           <ul class="mn-sub mn-has-multi border" style="display: none;">
                               <li class="mn-sub-multi">
