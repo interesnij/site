@@ -1,5 +1,76 @@
+<div class="border work-detail mt-20 mb-20" style="padding-left: 10px;">
+    <h5 class="font-alt mb-20">Информация</h5>
+    <div class="row" style="margin-left: 0;margin-right: 0;">
+        <div class="col-md-6 mb-20">
+            <div class="">
+                <p style="display: flex;">
+                    <strong>Название:</strong>
+                    <span style="margin-left: auto;margin-right: 10px">
+                        ООО "Веб-сервисы"
+                    </span>
+                  </p>
+                <p style="display: flex;">
+                    <strong>ИНН:</strong>
+                    <span style="margin-left: auto;margin-right: 10px">
+                        1101177581
+                    </span>
+                </p>
+                <p style="display: flex;">
+                    <strong>ОГРН:</strong>
+                    <span style="margin-left: auto;margin-right: 10px">
+                        1231100003969
+                    </span>
+                </p>
+                <p style="display: flex;">
+                    <strong>Сбербанк Р/счёт:</strong>
+                    <span style="margin-left: auto;margin-right: 10px">
+                        40702810928000008953
+                    </span>
+                </p>
+                <p style="display: flex;">
+                    <strong>Сбербанк БИК:</strong>
+                    <span style="margin-left: auto;margin-right: 10px">
+                        048702640
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6 solid_left">
+            <p style="display: flex;">
+                <strong>ЕГРИП:</strong>
+                <span style="margin-left: auto;margin-right: 10px">
+                    62.01, 62.02, 62.03, 62.09, 63.11, 63.99 
+                </span>
+            </p>
+            <p style="display: flex;">
+                <strong>Страна:</strong>
+                <span style="margin-left: auto;margin-right: 10px">
+                    Россия
+                </span>
+            </p>
+            <p style="display: flex;">
+                <strong>Регион:</strong>
+                <span style="margin-left: auto;margin-right: 10px">
+                    Р. Коми
+                </span>
+            </p>
+            <p style="display: flex">
+                <strong>Город:</strong>
+                <span style="margin-left: auto;margin-right: 10px">
+                    Сыктывкар
+                </span>
+            </p>
+            <p style="display: flex">
+                <strong>Адрес:</strong>
+                <span style="margin-left: auto;margin-right: 10px">
+                    Ул. Гаражная, 9, офис 219
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
 
-<div class="row">
+<div class="row" style="margin-top:40px">
     <div class="col-md-4" style="padding:5px">
         <img class="team_image" src="/static/images/firm/1.jpg" alt="img"> 
     </div>

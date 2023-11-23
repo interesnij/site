@@ -91,6 +91,7 @@
                         </div>
                     </div>
                 </div>
+                <% include!("../../../../desctop/pages/team_en.stpl"); %>
             </div>
 
             <div class="tab_2 fade tab-pane in">
@@ -128,6 +129,7 @@
                       </div>
                     </div>
                 </div>
+                <% include!("../../../../desctop/pages/souz_en.stpl"); %>
             </div>
 
             <div class="tab_3 fade tab-pane in">
@@ -316,6 +318,7 @@
                         </div>
                     </div>
                 </div>
+                <% include!("../../../../desctop/pages/team_ru.stpl"); %>
             </div>
 
             <div class="tab_2 fade tab-pane in">
@@ -353,6 +356,7 @@
                       </div>
                     </div>
                 </div>
+                <% include!("../../../../desctop/pages/souz_ru.stpl"); %>
             </div>
 
             <div class="tab_3 fade tab-pane in">

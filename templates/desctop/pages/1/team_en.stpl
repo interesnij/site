@@ -1,9 +1,12 @@
-<div class="container relative">   
+<div class="container relative" style="margin-top:40px">
+                    <blockquote style="margin-bottom: 10px">
+                            <p>Our team</p>
+                    </blockquote> 
                     <!--
                     <div class="section-text mb-50 mb-sm-20">
                         <div class="row">
                             <div class="col-md-4">
-                                <blockquote>
+                                <blockquote> 
                                     <p>
                                         Design is&nbsp;not making beauty, beauty emerges from selection, affinities, integration, love.
                                     </p>

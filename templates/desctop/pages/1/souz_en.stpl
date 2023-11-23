@@ -1,5 +1,76 @@
+<div class="border work-detail mt-20 mb-20" style="padding-left: 10px;">
+    <h5 class="font-alt mb-20">Info</h5>
+    <div class="row" style="margin-left: 0;margin-right: 0;">
+        <div class="col-md-6 mb-20">
+            <div class="">
+                <p style="display: flex;">
+                    <strong>Name:</strong>
+                    <span style="margin-left: auto;margin-right: 10px">
+                        Web-Services LLC
+                    </span>
+                  </p>
+                <p style="display: flex;">
+                    <strong>INN:</strong>
+                    <span style="margin-left: auto;margin-right: 10px">
+                        1101177581
+                    </span>
+                </p>
+                <p style="display: flex;">
+                    <strong>PSRN:</strong>
+                    <span style="margin-left: auto;margin-right: 10px">
+                        1231100003969
+                    </span>
+                </p>
+                <p style="display: flex;">
+                    <strong>Sberbank BIC:</strong>
+                    <span style="margin-left: auto;margin-right: 10px">
+                        048702640
+                    </span>
+                </p>
+                <p style="display: flex;">
+                    <strong>Bank account:</strong>
+                    <span style="margin-left: auto;margin-right: 10px">
+                        40702810928000008953
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6 solid_left">
+            <p style="display: flex;">Unified State Register of Legal Entities
+                <strong>USRoLE:</strong>
+                <span style="margin-left: auto;margin-right: 10px">
+                    62.01, 62.02, 62.03, 62.09, 63.11, 63.99 
+                </span>
+            </p>
+            <p style="display: flex;">
+                <strong>Country:</strong>
+                <span style="margin-left: auto;margin-right: 10px">
+                    Russia
+                </span>
+            </p>
+            <p style="display: flex;">
+                <strong>Region:</strong>
+                <span style="margin-left: auto;margin-right: 10px">
+                    R. Komi
+                </span>
+            </p>
+            <p style="display: flex">
+                <strong>City:</strong>
+                <span style="margin-left: auto;margin-right: 10px">
+                    Syktyvkar
+                </span>
+            </p>
+            <p style="display: flex">
+                <strong>Address:</strong>
+                <span style="margin-left: auto;margin-right: 10px">
+                    9 Garazhnaya Street, office 219
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
 
-<div class="row">
+<div class="row" style="margin-top:40px">
     <div class="col-md-4" style="padding:5px">
         <img class="team_image" src="/static/images/firm/1.jpg" alt="img"> 
     </div>
