@@ -1,5 +1,5 @@
 <script defer type="text/javascript" src="/static/1_scripts/desctop/main.js?ver15"></script>
-<script defer type="text/javascript" src="/static/1_scripts/main.js?ver15"></script>
+<script defer type="text/javascript" src="/static/1_scripts/main.js?ver16"></script>
 
 <% if request_user.is_superuser() { %>
     <script id="is_superuser" defer type="text/javascript" src="/static/1_scripts/admin.js?ver15"></script>

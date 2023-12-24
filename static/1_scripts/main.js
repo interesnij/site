@@ -1336,7 +1336,7 @@ on('body', 'click', '.change_l', function() {
 });
 on('body', 'click', '.change_c', function() {
   form_data = new FormData();
-  form_data.append("string", this.getAttribute("data-c"));
+  form_data.append("string", this.getAttribute("data-c")*1);
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'POST', "/change_c/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
