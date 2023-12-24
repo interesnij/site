@@ -197,7 +197,7 @@
                                     <li>
                                         <a data-l="1" class="pointer change_l linguage">Русский</a>
                                     </li>
-                                    <% } else if linguage == 1 { %>
+                                    <% } else { %>
                                         <li>
                                             <a class="mn-group-title linguage">Русский</a>
                                         </li>
