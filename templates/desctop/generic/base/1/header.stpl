@@ -238,7 +238,7 @@
                                         </li>
                                         <% } else { %>
                                         <li>
-                                            <a class="pointer change_c" data-c="object"><%= object %></a>
+                                            <a class="pointer change_c" data-c="<%= object %>"><%= object %></a>
                                         </li>
                                         <% } %>
                                     <% } %>
