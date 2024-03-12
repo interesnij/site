@@ -147,9 +147,6 @@
             </div>
         </div>
 
-
-        <div class="col-md-3 mb-xs-30"></div>
-
         <div class="col-md-3 mb-xs-30">
             <div class="team-item">
                 <div class="team-item-image">
@@ -211,8 +208,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-md-3 mb-xs-30"></div>
 
     </div>
 </div>
