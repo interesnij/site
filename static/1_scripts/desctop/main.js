@@ -124,6 +124,12 @@ function get_custom_design() {
 
 function create_desing_menu() {
   if (document.body.querySelector(".design_container")) {
+    color = "white"; 
+    background = getCookie("background");
+    if (background != "" || background == "white_kletka") {
+      color = background;
+    }
+    
     container = document.body.querySelector(".design_container");
     let d_list = ["white", "dark", "old_paper", "yellow", "dark_wood"];
     for (var i = 0; i < d_list.length; i++) {

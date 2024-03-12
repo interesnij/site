@@ -34,6 +34,11 @@ function addStyleSheets(href) {
 
 function create_desing_menu() {
   if (document.body.querySelector(".stat_meta")) {
+    color = "white"; 
+    background = getCookie("background");
+    if (background != "" || background == "white_kletka") {
+        color = background;
+    }
     container = document.body.querySelector(".stat_meta");
     let d_list = ["white", "dark", "old_paper", "yellow", "dark_wood"];
     for (var i = 0; i < d_list.length; i++) {

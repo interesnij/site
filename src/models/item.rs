@@ -304,7 +304,7 @@ pub struct FeaturedItem {
 }
 
 #[derive(Debug, Serialize, Queryable, Identifiable)]
-#[table_name="categories"]
+#[table_name="categories"] 
 pub struct Categories {
     pub id:             i32,
     pub name:           String,

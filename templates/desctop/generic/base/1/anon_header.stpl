@@ -185,7 +185,7 @@
                                     <% for object in currency_list.iter() { %>
                                         <% if object.to_string() == currency { %>
                                         <li> 
-                                            <a class="bold" style="cursor:default;"><%= object %></a>
+                                            <a class="bold" data-c="<%= object %>"><%= object %></a>
                                         </li>
                                         <% } else { %>
                                         <li>

@@ -325,7 +325,7 @@ function scrolled(_block) {
         $height = parseFloat(offset * 0.000264).toFixed(2);
       };
 
-      //try {
+      try {
           box = _block.querySelector('.next_page_list');
           if (box && box.classList.contains("next_page_list")) {
               inViewport = elementInViewport(box);
@@ -334,7 +334,7 @@ function scrolled(_block) {
                   paginate(box);
               }
           };
-      //} catch {return}
+      } catch {return}
     }
 };
 function paginate(block) {
@@ -1336,14 +1336,23 @@ on('body', 'click', '.change_l', function() {
 });
 
 on('body', 'click', '.change_c', function() {
+  _this = this;
   form_data = new FormData(); 
-  form_data.append("string", this.getAttribute("data-c")); 
+  form_data.append("string", _this.getAttribute("data-c")); 
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'POST', "/change_c/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    ajax_get_reload(document.location.href, false, 1);
+    ajax_get_reload(document.location.href, false, 1); 
+    li_items = this.parentElement.parentElement.querySelectorAll("a");
+    for (var i = 0; i < li_items.length; i++){
+      li_items[i].classList.remove("bold");
+      li_items[i].classList.add("pointer", "change_c");
+    };
+    this.classList.remove("pointer", "change_c");
+    this.classList.add("bold");
+
   }};
   link.send(form_data);
 });
