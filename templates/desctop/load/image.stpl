@@ -1,8 +1,8 @@
 <% match template_types {
     1 => include!("1/image.stpl"),
     2 => include!("2/image.stpl"),
-    3 => include!("3/image.stpl"),
-    4 => include!("4/image.stpl"),
-    5 => include!("5/image.stpl"),
+    3 => include!("2/image.stpl"),
+    4 => include!("2/image.stpl"),
+    5 => include!("2/image.stpl"),
     _ => include!("1/image.stpl"),
 }; %>
