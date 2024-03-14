@@ -4,6 +4,9 @@
     <% match template_types { 
         1 => include!("generic/base/1/footer.stpl"),
         2 => include!("generic/base/2/footer.stpl"),
+        3 => include!("generic/base/3/footer.stpl"),
+        4 => include!("generic/base/4/footer.stpl"),
+        5 => include!("generic/base/5/footer.stpl"),
         _ => include!("generic/base/1/footer.stpl"),
     }; %> 
 <% } %> 

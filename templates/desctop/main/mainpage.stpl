@@ -3,6 +3,9 @@
 <% match template_types { 
     1 => include!("1/mainpage.stpl"),
     2 => include!("2/mainpage.stpl"),
+    3 => include!("3/mainpage.stpl"),
+    4 => include!("4/mainpage.stpl"),
+    5 => include!("5/mainpage.stpl"),
     _ => include!("1/mainpage.stpl"),
 }; %>
 

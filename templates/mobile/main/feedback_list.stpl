@@ -3,6 +3,9 @@
 <% match template_types { 
     1 => include!("1/feedback_list.stpl"),
     2 => include!("2/feedback_list.stpl"),
+    3 => include!("3/feedback_list.stpl"),
+    4 => include!("4/feedback_list.stpl"),
+    5 => include!("5/feedback_list.stpl"),
     _ => include!("1/feedback_list.stpl"),
 }; %>
 

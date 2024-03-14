@@ -3,6 +3,9 @@
 <% match template_types {
     1 => include!("1/edit_serve_category.stpl"),
     2 => include!("2/edit_serve_category.stpl"),
+    3 => include!("3/edit_serve_category.stpl"),
+    4 => include!("4/edit_serve_category.stpl"),
+    5 => include!("5/edit_serve_category.stpl"),
     _ => include!("1/edit_serve_category.stpl"),
 }; %>
 

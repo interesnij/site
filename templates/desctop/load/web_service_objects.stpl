@@ -1,5 +1,8 @@
 <% match template_types {
     1 => include!("1/web_service_objects.stpl"),
     2 => include!("2/web_service_objects.stpl"),
+    3 => include!("3/web_service_objects.stpl"),
+    4 => include!("4/web_service_objects.stpl"),
+    5 => include!("5/web_service_objects.stpl"),
     _ => include!("1/web_service_objects.stpl"),
 }; %>

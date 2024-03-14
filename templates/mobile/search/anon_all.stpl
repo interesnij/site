@@ -3,6 +3,9 @@
 <% match template_types {
     1 => include!("1/anon_all.stpl"),
     2 => include!("2/anon_all.stpl"),
+    3 => include!("3/anon_all.stpl"),
+    4 => include!("4/anon_all.stpl"),
+    5 => include!("5/anon_all.stpl"),
     _ => include!("1/anon_all.stpl"),
 }; %>
 

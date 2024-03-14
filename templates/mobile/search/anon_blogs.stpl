@@ -3,6 +3,9 @@
 <% match template_types {
     1 => include!("1/anon_blogs.stpl"),
     2 => include!("2/anon_blogs.stpl"),
+    3 => include!("3/anon_blogs.stpl"),
+    4 => include!("4/anon_blogs.stpl"),
+    5 => include!("5/anon_blogs.stpl"),
     _ => include!("1/anon_blogs.stpl"),
 }; %>
 

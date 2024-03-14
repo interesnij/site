@@ -2,6 +2,9 @@
     <% match template_types { 
         1 => include!("generic/base/1/header.stpl"),
         2 => include!("generic/base/2/header.stpl"),
+        3 => include!("generic/base/3/header.stpl"),
+        4 => include!("generic/base/4/header.stpl"),
+        5 => include!("generic/base/5/header.stpl"),
         _ => include!("generic/base/1/header.stpl"),
     }; %> 
 <% } %>

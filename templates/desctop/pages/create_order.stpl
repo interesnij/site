@@ -1,5 +1,8 @@
 <% match template_types {
     1 => include!("1/create_order.stpl"),
     2 => include!("2/create_order.stpl"),
+    3 => include!("3/create_order.stpl"),
+    4 => include!("4/create_order.stpl"),
+    5 => include!("5/create_order.stpl"),
     _ => include!("1/create_order.stpl"),
 }; %>

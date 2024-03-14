@@ -1,5 +1,8 @@
 <% match template_types {
     1 => include!("1/unical_object_form.stpl"),
     2 => include!("2/unical_object_form.stpl"),
+    3 => include!("3/unical_object_form.stpl"),
+    4 => include!("4/unical_object_form.stpl"),
+    5 => include!("5/unical_object_form.stpl"),
     _ => include!("1/unical_object_form.stpl"),
 }; %>

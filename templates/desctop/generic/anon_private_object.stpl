@@ -3,6 +3,9 @@
 <% match template_types { 
     1 => include!("items/1/anon_private_object.stpl"),
     2 => include!("items/2/anon_private_object.stpl"),
+    3 => include!("items/3/anon_private_object.stpl"),
+    4 => include!("items/4/anon_private_object.stpl"),
+    5 => include!("items/5/anon_private_object.stpl"),
     _ => include!("items/1/anon_private_object.stpl"),
 }; %>
 

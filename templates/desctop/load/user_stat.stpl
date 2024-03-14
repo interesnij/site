@@ -1,5 +1,8 @@
 <% match template_types {
     1 => include!("1/user_stat.stpl"),
     2 => include!("2/user_stat.stpl"),
+    3 => include!("3/user_stat.stpl"),
+    4 => include!("4/user_stat.stpl"),
+    5 => include!("5/user_stat.stpl"),
     _ => include!("1/user_stat.stpl"),
 }; %>

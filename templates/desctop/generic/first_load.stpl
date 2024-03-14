@@ -21,6 +21,9 @@
     <% match template_types { 
       1 => include!("../../block/styles/1/d.stpl"),
       2 => include!("../../block/styles/2/d.stpl"),
+      3 => include!("../../block/styles/3/d.stpl"),
+      4 => include!("../../block/styles/4/d.stpl"),
+      5 => include!("../../block/styles/5/d.stpl"),
       _ => include!("../../block/styles/1/d.stpl"),
     }; %>
   </head>

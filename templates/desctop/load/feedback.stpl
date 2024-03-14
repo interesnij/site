@@ -1,5 +1,8 @@
 <% match template_types {
     1 => include!("1/feedback.stpl"),
     2 => include!("2/feedback.stpl"),
+    3 => include!("3/feedback.stpl"),
+    4 => include!("4/feedback.stpl"),
+    5 => include!("5/feedback.stpl"),
     _ => include!("1/feedback.stpl"),
 }; %>
