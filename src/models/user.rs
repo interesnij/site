@@ -325,7 +325,6 @@ pub struct HistoryResponse {
     pub title:    String,
     pub height:   f64,
     pub seconds:  i32,
-    pub template: String,
 }
 
 impl CookieStat {
@@ -362,110 +361,6 @@ impl CookieStat {
             .expect("E");
         Ok(list)
     }
-    pub fn create (
-        data: Json<crate::utils::HistoryData>,
-        user: CookieUser,
-    ) -> Result<CookieStat, Error> {
-        use chrono::Duration;
-
-        let p_object_id = data.object_id;
-        let p_page_id = data.page_id;
-        let p_height = data.height;
-
-        let p_seconds = data.seconds;
-        if p_seconds < 3 {
-            return Err(Error::BadRequest("Permission Denied".to_string()));
-        }
-        let p_link = data.link.clone();
-        let p_title = data.title.clone();
-
-        let _connection = establish_connection();
-        let is_cookie_stats_exists = schema::cookie_stats::table
-            .filter(schema::cookie_stats::user_id.eq(user.id))
-            .filter(schema::cookie_stats::link.eq(p_link.clone()))
-            .select(schema::cookie_stats::id)
-            .first::<i32>(&_connection)
-            .is_ok();
-
-        if is_cookie_stats_exists {
-            diesel::update(&user)
-                .set ((
-                    schema::cookie_users::height.eq(user.height + p_height),
-                    schema::cookie_users::seconds.eq(user.seconds + p_seconds),
-                ))
-                .execute(&_connection)
-                .expect("Error.");
-        }
-        if p_object_id > 0 {
-            match p_page_id {
-                42 => {
-                    crate::utils::plus_category_stat(p_object_id, p_height, p_seconds, is_cookie_stats_exists)
-                },
-                43 => {
-                    crate::utils::plus_item_stat(p_object_id, p_height, p_seconds, is_cookie_stats_exists)
-                },
-                62 => {
-                    crate::utils::plus_category_stat(p_object_id, p_height, p_seconds, is_cookie_stats_exists)
-                },
-                63 => {
-                    crate::utils::plus_item_stat(p_object_id, p_height, p_seconds, is_cookie_stats_exists)
-                },
-                72 => {
-                    crate::utils::plus_category_stat(p_object_id, p_height, p_seconds, is_cookie_stats_exists)
-                },
-                73 => {
-                    crate::utils::plus_item_stat(p_object_id, p_height, p_seconds, is_cookie_stats_exists)
-                },
-                82 => {
-                    crate::utils::plus_category_stat(p_object_id, p_height, p_seconds, is_cookie_stats_exists)
-                },
-                83 => {
-                    crate::utils::plus_item_stat(p_object_id, p_height, p_seconds, is_cookie_stats_exists)
-                },
-                92 => {
-                    crate::utils::plus_category_stat(p_object_id, p_height, p_seconds, is_cookie_stats_exists)
-                },
-                93 => {
-                    crate::utils::plus_item_stat(p_object_id, p_height, p_seconds, is_cookie_stats_exists)
-                },
-                32 => {
-                    crate::utils::plus_tag_stat(p_object_id, p_height, p_seconds, is_cookie_stats_exists)
-                },
-                9 => {
-                    crate::utils::plus_category_stat(p_object_id, p_height, p_seconds, is_cookie_stats_exists)
-                },
-                _ => (),
-            };
-        }
-        else {
-            crate::utils::plus_page_stat(p_page_id, p_height, p_seconds, is_cookie_stats_exists)
-        }
-
-        let _connection = establish_connection();
-        let _t: String;
-        if user.template == 1 {
-            _t = "Rhythm".to_string();
-        }
-        else {
-            _t = "Eremia".to_string();
-        }
-        let _h = NewCookieStat {
-            user_id:  user.id,
-            page:     p_page_id,
-            link:     p_link,
-            title:    p_title,
-            height:   p_height,
-            seconds:  p_seconds,
-            created:  chrono::Local::now().naive_utc() + chrono::Duration::hours(3),
-            template: _t,
-        };
-        let new = diesel::insert_into(schema::cookie_stats::table)
-            .values(&_h)
-            .get_result::<CookieStat>(&_connection)?;
-            return Ok(new);
-        
-        return Err(Error::BadRequest("Permission Denied".to_string()));
-    }
 }
 
 #[derive(Debug, Deserialize, Insertable)]
@@ -478,7 +373,6 @@ pub struct NewCookieStat {
     pub height:   f64,
     pub seconds:  i32,
     pub created:  chrono::NaiveDateTime,
-    pub template: String,
 }
 
 

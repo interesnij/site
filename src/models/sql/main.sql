@@ -382,7 +382,7 @@ CREATE TABLE web_services_items (
 
 CREATE TABLE stat_pages (
     id      SERIAL PRIMARY KEY,
-    types   SMALLINT NOT NULL,  -- главная страница, инфо ......
+    types   SMALLINT NOT NULL,
     view    INT NOT NULL,
     height  FLOAT NOT NULL,
     seconds INT NOT NULL
