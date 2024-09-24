@@ -12,7 +12,7 @@ pub mod schema;
 pub mod models;
 pub mod routes;
 pub mod websocket;
-mod errors;
+mod errors; 
 mod vars;
  
 use actix_web::{
@@ -74,8 +74,7 @@ async fn main() -> std::io::Result<()> {
             .configure(routes)
     })
 
-    //.bind("89.108.82.212:9001")?   // порт для разработки
-    .bind("89.111.170.120:9009")?     // порт для автоматической доставки
+    .bind("79.174.82.18:9009")?
     .run()
     .await
 }

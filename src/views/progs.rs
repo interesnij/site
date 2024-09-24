@@ -31,7 +31,7 @@ use crate::websocket::{
 };
 
 
-pub fn progs_routes(config: &mut web::ServiceConfig) { 
+pub fn progs_routes(config: &mut web::ServiceConfig) {  
     config.route("/ws", web::get().to(ws_index));
     config.route("/create_history/", web::post().to(create_history));
     config.route("/object_history/{id}/", web::get().to(object_history));

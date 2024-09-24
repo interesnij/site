@@ -1562,6 +1562,7 @@ pub async fn get_web_objects_page(req: HttpRequest, conn: ConnectionInfo, sessio
     Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
 }
 
+
 pub async fn unical_object_form_page(req: HttpRequest, conn: ConnectionInfo, session: Session, _id: web::Path<i16>) -> actix_web::Result<HttpResponse> {
     let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
     if is_signed_in(&session) {
@@ -1962,7 +1963,7 @@ pub async fn edit_item_page(conn: ConnectionInfo, session: Session, req: HttpReq
 
             let mut level: i16 = 0;
             let mut _web_services: Vec<WebService> = Vec::new();
-            let _serve = _item.get_serves(l);
+            let _serve = _item.get_serves();
             if _serve.len() > 0 {
                 let _web_service_id = _serve[0].web_service_id;
                 let _web_services = WebService::get(_web_service_id);
