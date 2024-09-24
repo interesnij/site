@@ -1963,7 +1963,7 @@ pub async fn edit_item_page(conn: ConnectionInfo, session: Session, req: HttpReq
 
             let mut level: i16 = 0;
             let mut _web_services: Vec<WebService> = Vec::new();
-            let _serve = _item.get_serves();
+            let _serve = _item.get_serves(1); 
             if _serve.len() > 0 {
                 let _web_service_id = _serve[0].web_service_id;
                 let _web_services = WebService::get(_web_service_id);
