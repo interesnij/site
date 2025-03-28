@@ -36,7 +36,7 @@ pub fn auth_routes(config: &mut web::ServiceConfig) {
 
 
 pub async fn signup_page(req: HttpRequest, session: Session) -> actix_web::Result<HttpResponse> {
-    if is_signed_in(&session) {
+    if is_signed_in(&session) { 
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
     }
     else {

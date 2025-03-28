@@ -14,7 +14,7 @@ pub fn hash_password(password: &str) -> String {
       .with_secret_key(vars::secret_key().as_str())
       .hash()
       .expect("E.")
-      //.map_err(|_| AuthError::AuthenticationError(String::from("Не удалось хэшировать пароль")))
+      //.map_err(|_| AuthError::AuthenticationError(String::from("")))
 }
 
 pub fn verify(hash: &str, password: &str) -> Result<bool, AuthError> {
@@ -23,7 +23,7 @@ pub fn verify(hash: &str, password: &str) -> Result<bool, AuthError> {
       .with_password(password)
       .with_secret_key(vars::secret_key().as_str())
       .verify()
-      .map_err(|_| AuthError::AuthenticationError(String::from("Не удалось подтвердить пароль")))
+      .map_err(|_| AuthError::AuthenticationError(String::from("Error")))
 }
 
 pub fn is_json_request(req: &HttpRequest) -> bool {
@@ -44,8 +44,6 @@ pub fn is_signed_in(session: &Session) -> bool {
 }
 
 pub fn set_current_user(session: &Session, user: &SessionUser) -> () {
-    // сериализация в строку подходит для этого случая,
-    // но двоичный код был бы предпочтительнее в производственных вариантах использования.
     session.insert("user", serde_json::to_string(user).unwrap()).unwrap();
 }
  

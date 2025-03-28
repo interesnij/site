@@ -228,7 +228,7 @@ dl dd {
     text-align: center;
     letter-spacing: 0.5em;
     line-height: 1.4;
-}
+} 
 @media only screen and (max-width: 767px) {
   .hs-line-14{
       font-size: 24px;

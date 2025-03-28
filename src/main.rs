@@ -22,7 +22,7 @@ use actix_web::{
     web,
     //http,
     cookie::Key,
-};
+}; 
 use actix_session::{storage::CookieSessionStore, SessionMiddleware};
 
 use actix_files::Files;
@@ -74,7 +74,7 @@ async fn main() -> std::io::Result<()> {
             .configure(routes)
     })
 
-    .bind("192.168.0.49:8000")?
+    .bind("192.168.0.127:8000")?
     .run()
     .await
 } 
