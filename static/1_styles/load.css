@@ -986,7 +986,7 @@ table.shopping-cart-table tr td{
 }
 .team_image {
     object-fit: cover;
-    height: 350px !important;
+    height: 450px !important;
     width:100%;
 }
 .team_image_small {
