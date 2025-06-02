@@ -68,7 +68,7 @@ pub struct HistoryData {
     pub height:    f64,
     pub seconds:   i32,
     pub template:  String,
-}
+} 
 
 pub fn get_price_acc_values(price: &i32) -> Option<i32> {
     if price > &3_000_000 {

@@ -87,65 +87,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-md-3 mb-xs-30">
-            <div class="team-item">
-                <div class="team-item-image">
-                <img class="team_image" src="/static/images/team/raevski.jpg" alt="img">
-                <div class="team-item-detail">
-                    <p>
-                        A well-known public figure, creator of technical and folk projects.
-                    </p>
-                    <p>
-                        Admin of popular startups and communities, irreplaceable in all respects.
-                    </p>
-                    <div class="team-social-links">
-                        <a href="https://vk.com/raevskydmitry" target="_blank">
-                            <span class="sr-only">Vk</span>
-                        </a>
-                    </div>
-                </div>
-                </div>
-                <div class="team-item-descr" style="line-height: 15px;">
-                <div class="team-item-name font-alt" style="margin-top: 10px;">
-                    Dmitry Rayevsky
-                </div>
-                <div class="team-item-role">
-                    Ideologist, product manager, public data
-                </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 mb-xs-30">
-            <div class="team-item">
-                <div class="team-item-image">
-                <img class="team_image" src="/static/images/team/belikov.jpg" alt="img">
-                <div class="team-item-detail">
-                    <p>
-                        Energetic, charged, productive author of the design of popular projects. Creative approach, ability to
-                        solve the most difficult problems and dilemmas, work only on the result.
-                    </p>
-                    <p>
-                        An excellent specialist in his field.
-                    </p>
-                    <div class="team-social-links">
-                        <a href="https://vk.com/snakejas" target="_blank">
-                            <span class="sr-only">Vk</span>
-                        </a>
-                    </div>
-                </div>
-                </div>
-                <div class="team-item-descr" style="line-height: 15px;">
-                <div class="team-item-name font-alt" style="margin-top: 10px;">
-                    Valentin Belikov
-                </div>
-                <div class="team-item-role">
-                    Designer
-                </div>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="row" style="margin-top:30px">
         <div class="col-md-3 mb-xs-30"></div>

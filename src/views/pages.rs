@@ -69,7 +69,7 @@ pub async fn not_found(conn: ConnectionInfo, req: HttpRequest, session: Session)
 
     let (l, t, c) = crate::utils::get_or_create_c_user_return_ltc(conn, &req).await;
 
-    let title: String;
+    let title: String; 
     let description: String;
     let link = "/not_found/".to_string();
     let image = "/static/images/dark/store.jpg".to_string();
