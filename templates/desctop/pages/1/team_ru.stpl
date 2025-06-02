@@ -27,7 +27,7 @@
 
     <div class="row">
 
-        <div class="col-md-3 mb-xs-30">
+        <div class="col-md-6 mb-xs-30">
             <div class="team-item">
                 <div class="team-item-image">
                 <img class="team_image" src="/static/images/team/zubarev.png" alt="img">
@@ -58,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 mb-xs-30">
+        <div class="col-md-6 mb-xs-30">
             <div class="team-item">
                 <div class="team-item-image">
                 <img class="team_image" src="/static/images/team/goldobin.jpg" alt="img">
@@ -88,8 +88,7 @@
         </div>
     </div>
     <div class="row" style="margin-top:30px">
-        <div class="col-md-3 mb-xs-30"></div>
-        <div class="col-md-3 mb-xs-30">
+        <div class="col-md-6 mb-xs-30">
             <div class="team-item">
                 <div class="team-item-image">
                 <img class="team_image" src="/static/images/team/perminov.jpg" alt="img">
@@ -125,7 +124,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 mb-xs-30">
+        <div class="col-md-6 mb-xs-30">
             <div class="team-item">
                 <div class="team-item-image">
                 <img class="team_image" src="/static/images/team/chrustaleva.jpg" alt="img">
@@ -150,6 +149,5 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 mb-xs-30"></div>
     </div>
 </div>
