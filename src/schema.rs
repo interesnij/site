@@ -313,27 +313,3 @@ diesel::joinable!(serve -> users (user_id));
 diesel::joinable!(serve_categories -> web_services (category_id));
 diesel::joinable!(tags -> users (user_id));
 
-diesel::allow_tables_to_appear_in_same_query!(
-    categories,
-    category,
-    chats,
-    cookie_stats,
-    cookie_users,
-    feedbacks,
-    files,
-    item_comments,
-    items,
-    messages,
-    order_files,
-    orders,
-    price_corrects,
-    serve,
-    serve_categories,
-    serve_items,
-    stat_pages,
-    tags,
-    tags_items,
-    users,
-    web_services,
-    web_services_items,
-);
